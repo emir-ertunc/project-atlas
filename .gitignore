@@ -1,0 +1,89 @@
+# Dart and Flutter
+*.class
+*.pyc
+.atom/
+.build/
+.buildlog/
+.history/
+.svn/
+.swiftpm/
+migrate_working_dir/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+doc/api/
+
+# Android and Gradle
+.gradle/
+android/.gradle/
+android/local.properties
+android/**/GeneratedPluginRegistrant.java
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+# Apple platforms
+ios/Flutter/ephemeral/
+ios/Flutter/.last_build_id
+ios/Pods/
+macos/Flutter/ephemeral/
+macos/Pods/
+
+# Editors
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.code-workspace
+
+# Operating systems
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+key.properties
+android/key.properties
+secrets/
+
+# Build and distribution artifacts
+*.apk
+*.aab
+*.ipa
+*.symbols
+*.mapping
+app.*.symbols
+app.*.map.json
+
+# Private application data and exports
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+backups/
+exports/
+data/private/
+asset_staging/

@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appTitle": "Project Atlas",
+  "@appTitle": {
+    "description": "Temporary product name shown in the application shell"
+  },
+  "foundationSetupComplete": "Foundation setup complete",
+  "@foundationSetupComplete": {
+    "description": "Status shown on the initial foundation screen"
+  }
+}
