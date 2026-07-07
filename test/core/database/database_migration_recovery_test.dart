@@ -1,0 +1,349 @@
+import 'dart:io';
+
+import 'package:drift/drift.dart' hide isNull;
+import 'package:drift/native.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:project_atlas/core/database/app_database.dart';
+import 'package:project_atlas/core/database/tables/profiles.dart';
+import 'package:project_atlas/core/database/tables/program_versions.dart';
+import 'package:project_atlas/core/database/tables/session_sets.dart';
+import 'package:project_atlas/core/database/tables/workout_sessions.dart';
+import 'package:sqlite3/sqlite3.dart' as sqlite;
+
+void main() {
+  late Directory temporaryDirectory;
+  late File databaseFile;
+
+  setUpAll(() {
+    driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+  });
+
+  tearDownAll(() {
+    driftRuntimeOptions.dontWarnAboutMultipleDatabases = false;
+  });
+
+  setUp(() async {
+    temporaryDirectory = await Directory.systemTemp.createTemp(
+      'project_atlas_database_test_',
+    );
+    databaseFile = File('${temporaryDirectory.path}/project_atlas.sqlite');
+  });
+
+  tearDown(() async {
+    if (temporaryDirectory.existsSync()) {
+      await temporaryDirectory.delete(recursive: true);
+    }
+  });
+
+  test('migrates the empty version 1 database to the current schema', () async {
+    final legacy = sqlite.sqlite3.open(databaseFile.path);
+    legacy.userVersion = 1;
+    legacy.close();
+
+    final database = _openDatabase(databaseFile);
+    addTearDown(database.close);
+    await database.customSelect('SELECT 1').getSingle();
+
+    await _expectCurrentSchema(database, temporaryDirectory);
+    expect(await _userVersion(database), database.schemaVersion);
+    expect(
+      await _schemaNames(database),
+      containsAll(<String>{
+        'profiles',
+        'programs',
+        'program_versions',
+        'prescribed_sets',
+        'workout_sessions',
+        'session_sets',
+        'actual_set_logs',
+        'measurement_records',
+      }),
+    );
+  });
+
+  test('migrates version 2 data without losing core records', () async {
+    await _createVersion2Database(databaseFile);
+
+    final database = _openDatabase(databaseFile);
+    addTearDown(database.close);
+    await database.customSelect('SELECT 1').getSingle();
+
+    await _expectCurrentSchema(database, temporaryDirectory);
+    expect(await _userVersion(database), database.schemaVersion);
+    expect(
+      (await database.select(database.profiles).getSingle()).displayName,
+      'Legacy Profile',
+    );
+    expect(
+      (await database.select(database.programs).getSingle()).name,
+      'Legacy Program',
+    );
+    final session = await database.select(database.workoutSessions).getSingle();
+    expect(session.programVersionId, isNull);
+    expect(
+      (await database.select(database.sessionSets).getSingle()).prescribedSetId,
+      isNull,
+    );
+    expect(
+      await database.select(database.measurementRecords).get(),
+      hasLength(1),
+    );
+
+    await database
+        .into(database.programVersions)
+        .insert(
+          ProgramVersionsCompanion.insert(
+            id: 'version-after-migration',
+            programId: 'program-legacy',
+            versionNumber: 1,
+            status: ProgramVersionStatus.active,
+          ),
+        );
+    expect(await database.select(database.programVersions).get(), hasLength(1));
+  });
+
+  test(
+    'restores committed workout state and rolls back interrupted work',
+    () async {
+      var database = _openDatabase(databaseFile);
+      await _insertRecoverableWorkout(database);
+      await database.close();
+
+      database = _openDatabase(databaseFile);
+      var session = await database.select(database.workoutSessions).getSingle();
+      var sessionSet = await database.select(database.sessionSets).getSingle();
+      var logs = await database.select(database.actualSetLogs).get();
+      expect(session.status, WorkoutSessionStatus.inProgress);
+      expect(sessionSet.status, SessionSetStatus.completed);
+      expect(logs.single.repetitions, 6);
+      await database.close();
+
+      final interrupted = sqlite.sqlite3.open(databaseFile.path);
+      interrupted.execute('BEGIN IMMEDIATE');
+      interrupted.execute(
+        "UPDATE session_sets SET status = 'skipped' WHERE id = 'set-1'",
+      );
+      interrupted.execute(
+        'INSERT INTO actual_set_logs '
+        '(id, session_set_id, revision, repetitions) '
+        "VALUES ('log-uncommitted', 'set-1', 2, 5)",
+      );
+      interrupted.close();
+
+      database = _openDatabase(databaseFile);
+      addTearDown(database.close);
+      session = await database.select(database.workoutSessions).getSingle();
+      sessionSet = await database.select(database.sessionSets).getSingle();
+      logs = await database.select(database.actualSetLogs).get();
+
+      expect(session.status, WorkoutSessionStatus.inProgress);
+      expect(sessionSet.status, SessionSetStatus.completed);
+      expect(logs.map((log) => log.id), ['log-1']);
+      expect(await _foreignKeysEnabled(database), isTrue);
+    },
+  );
+}
+
+AppDatabase _openDatabase(File file) =>
+    AppDatabase.forTesting(NativeDatabase(file));
+
+Future<int> _userVersion(AppDatabase database) async {
+  final row = await database.customSelect('PRAGMA user_version').getSingle();
+  return row.read<int>('user_version');
+}
+
+Future<bool> _foreignKeysEnabled(AppDatabase database) async {
+  final row = await database.customSelect('PRAGMA foreign_keys').getSingle();
+  return row.read<int>('foreign_keys') == 1;
+}
+
+Future<Set<String>> _schemaNames(AppDatabase database) async {
+  final rows = await database
+      .customSelect(
+        "SELECT name FROM sqlite_schema WHERE type IN ('table', 'index')",
+      )
+      .get();
+  return rows.map((row) => row.read<String>('name')).toSet();
+}
+
+Future<void> _expectCurrentSchema(
+  AppDatabase migrated,
+  Directory directory,
+) async {
+  final referenceFile = File('${directory.path}/reference.sqlite');
+  final reference = _openDatabase(referenceFile);
+  await reference.customSelect('SELECT 1').getSingle();
+
+  try {
+    expect(await _schemaSnapshot(migrated), await _schemaSnapshot(reference));
+    expect(
+      await migrated.customSelect('PRAGMA foreign_key_check').get(),
+      isEmpty,
+    );
+    final integrity = await migrated
+        .customSelect('PRAGMA integrity_check')
+        .getSingle();
+    expect(integrity.read<String>('integrity_check'), 'ok');
+  } finally {
+    await reference.close();
+  }
+}
+
+Future<Map<String, List<String>>> _schemaSnapshot(AppDatabase database) async {
+  final tableRows = await database
+      .customSelect(
+        "SELECT name FROM sqlite_schema WHERE type = 'table' "
+        "AND name NOT LIKE 'sqlite_%' ORDER BY name",
+      )
+      .get();
+  final tables = tableRows.map((row) => row.read<String>('name')).toList();
+  final snapshot = <String, List<String>>{};
+
+  for (final table in tables) {
+    final escapedTable = table.replaceAll('"', '""');
+    final columnRows = await database
+        .customSelect('PRAGMA table_info("$escapedTable")')
+        .get();
+    snapshot['$table:columns'] =
+        columnRows
+            .map(
+              (row) => <Object?>[
+                row.read<String>('name'),
+                row.read<String>('type'),
+                row.read<int>('notnull'),
+                row.read<String?>('dflt_value'),
+                row.read<int>('pk'),
+              ].join('|'),
+            )
+            .toList()
+          ..sort();
+
+    final foreignKeyRows = await database
+        .customSelect('PRAGMA foreign_key_list("$escapedTable")')
+        .get();
+    snapshot['$table:foreignKeys'] =
+        foreignKeyRows
+            .map(
+              (row) => <Object?>[
+                row.read<String>('from'),
+                row.read<String>('table'),
+                row.read<String>('to'),
+                row.read<String>('on_update'),
+                row.read<String>('on_delete'),
+              ].join('|'),
+            )
+            .toList()
+          ..sort();
+
+    final indexRows = await database
+        .customSelect('PRAGMA index_list("$escapedTable")')
+        .get();
+    final indexes = <String>[];
+    for (final row in indexRows) {
+      final indexName = row.read<String>('name');
+      final escapedIndex = indexName.replaceAll('"', '""');
+      final indexColumns = await database
+          .customSelect('PRAGMA index_info("$escapedIndex")')
+          .get();
+      indexes.add(
+        <Object?>[
+          indexName,
+          row.read<int>('unique'),
+          row.read<String>('origin'),
+          row.read<int>('partial'),
+          indexColumns.map((column) => column.read<String>('name')).join(','),
+        ].join('|'),
+      );
+    }
+    snapshot['$table:indexes'] = indexes..sort();
+  }
+
+  return snapshot;
+}
+
+Future<void> _createVersion2Database(File file) async {
+  final current = _openDatabase(file);
+  await current.customSelect('SELECT 1').getSingle();
+  await current.close();
+
+  final legacy = sqlite.sqlite3.open(file.path);
+  legacy.execute('DROP INDEX workout_sessions_program_version_idx');
+  legacy.execute('DROP INDEX session_sets_prescribed_set_idx');
+  legacy.execute('ALTER TABLE workout_sessions DROP COLUMN program_version_id');
+  legacy.execute('ALTER TABLE session_sets DROP COLUMN prescribed_set_id');
+  legacy.execute('DROP TABLE actual_set_logs');
+  legacy.execute('DROP TABLE prescribed_sets');
+  legacy.execute('DROP TABLE program_versions');
+  legacy.userVersion = 2;
+
+  legacy.execute(
+    'INSERT INTO profiles '
+    '(id, display_name, preferred_locale, unit_system) '
+    "VALUES ('profile-legacy', 'Legacy Profile', 'tr', 'metric')",
+  );
+  legacy.execute(
+    'INSERT INTO programs (id, profile_id, name, status) '
+    "VALUES ('program-legacy', 'profile-legacy', 'Legacy Program', 'active')",
+  );
+  legacy.execute(
+    'INSERT INTO workout_sessions (id, profile_id, program_id, status) '
+    "VALUES ('session-legacy', 'profile-legacy', 'program-legacy', 'planned')",
+  );
+  legacy.execute(
+    'INSERT INTO session_sets '
+    '(id, session_id, exercise_id, exercise_order, set_order, status) '
+    "VALUES ('set-legacy', 'session-legacy', 'bench-press', 0, 0, 'planned')",
+  );
+  legacy.execute(
+    'INSERT INTO measurement_records '
+    '(id, profile_id, measured_at, source) '
+    "VALUES ('measurement-legacy', 'profile-legacy', "
+    "strftime('%s', '2026-07-01 09:00:00'), 'manual')",
+  );
+  legacy.close();
+}
+
+Future<void> _insertRecoverableWorkout(AppDatabase database) async {
+  await database
+      .into(database.profiles)
+      .insert(
+        ProfilesCompanion.insert(
+          id: 'profile-1',
+          unitSystem: UnitSystemPreference.metric,
+        ),
+      );
+  await database
+      .into(database.workoutSessions)
+      .insert(
+        WorkoutSessionsCompanion.insert(
+          id: 'session-1',
+          profileId: 'profile-1',
+          status: WorkoutSessionStatus.inProgress,
+          startedAt: Value(DateTime.utc(2026, 7, 7, 12)),
+        ),
+      );
+  await database
+      .into(database.sessionSets)
+      .insert(
+        SessionSetsCompanion.insert(
+          id: 'set-1',
+          sessionId: 'session-1',
+          exerciseId: 'bench-press',
+          exerciseOrder: 0,
+          setOrder: 0,
+          status: SessionSetStatus.completed,
+        ),
+      );
+  await database
+      .into(database.actualSetLogs)
+      .insert(
+        ActualSetLogsCompanion.insert(
+          id: 'log-1',
+          sessionSetId: 'set-1',
+          revision: 1,
+          repetitions: const Value(6),
+          loadKilograms: const Value(50),
+          rir: const Value(2),
+        ),
+      );
+}

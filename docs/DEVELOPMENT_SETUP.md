@@ -10,6 +10,7 @@
 - Android SDK Platform 36
 - Android SDK Build Tools 36.0.0
 - Android SDK Platform Tools 37.0.0
+- Git for Windows 2.55.0
 
 ## Installed Locations
 
@@ -159,6 +160,8 @@ the device, reconnect it, and accept the new authorization prompt.
 - ADB installation and server startup: Passed on 2026-07-06
 - Android emulator and API 35 x86_64 image: Passed on 2026-07-06
 - Physical-device authorization: Pending a connected Android device
+- Phase 1 local validation: Passed on 2026-07-07; see
+  [the validation record](PHASE_1_VALIDATION.md)
 
 ## Build C0 Validation
 

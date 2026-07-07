@@ -1,5 +1,9 @@
 {
   "@@locale": "tr",
   "appTitle": "Project Atlas",
-  "foundationSetupComplete": "Temel kurulum tamamlandı"
+  "todayNavigationLabel": "Bugün",
+  "programNavigationLabel": "Program",
+  "anatomyNavigationLabel": "Anatomi",
+  "progressNavigationLabel": "İlerleme",
+  "settingsNavigationLabel": "Ayarlar"
 }

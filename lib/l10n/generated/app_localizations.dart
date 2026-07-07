@@ -104,11 +104,35 @@ abstract class AppLocalizations {
   /// **'Project Atlas'**
   String get appTitle;
 
-  /// Status shown on the initial foundation screen
+  /// Label for the Today primary navigation destination
   ///
   /// In en, this message translates to:
-  /// **'Foundation setup complete'**
-  String get foundationSetupComplete;
+  /// **'Today'**
+  String get todayNavigationLabel;
+
+  /// Label for the Program primary navigation destination
+  ///
+  /// In en, this message translates to:
+  /// **'Program'**
+  String get programNavigationLabel;
+
+  /// Label for the Anatomy primary navigation destination
+  ///
+  /// In en, this message translates to:
+  /// **'Anatomy'**
+  String get anatomyNavigationLabel;
+
+  /// Label for the Progress primary navigation destination
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressNavigationLabel;
+
+  /// Label for the Settings primary navigation destination
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsNavigationLabel;
 }
 
 class _AppLocalizationsDelegate
