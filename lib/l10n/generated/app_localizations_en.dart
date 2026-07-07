@@ -12,5 +12,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Project Atlas';
 
   @override
-  String get foundationSetupComplete => 'Foundation setup complete';
+  String get todayNavigationLabel => 'Today';
+
+  @override
+  String get programNavigationLabel => 'Program';
+
+  @override
+  String get anatomyNavigationLabel => 'Anatomy';
+
+  @override
+  String get progressNavigationLabel => 'Progress';
+
+  @override
+  String get settingsNavigationLabel => 'Settings';
 }

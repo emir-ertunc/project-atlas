@@ -4,8 +4,24 @@
   "@appTitle": {
     "description": "Temporary product name shown in the application shell"
   },
-  "foundationSetupComplete": "Foundation setup complete",
-  "@foundationSetupComplete": {
-    "description": "Status shown on the initial foundation screen"
+  "todayNavigationLabel": "Today",
+  "@todayNavigationLabel": {
+    "description": "Label for the Today primary navigation destination"
+  },
+  "programNavigationLabel": "Program",
+  "@programNavigationLabel": {
+    "description": "Label for the Program primary navigation destination"
+  },
+  "anatomyNavigationLabel": "Anatomy",
+  "@anatomyNavigationLabel": {
+    "description": "Label for the Anatomy primary navigation destination"
+  },
+  "progressNavigationLabel": "Progress",
+  "@progressNavigationLabel": {
+    "description": "Label for the Progress primary navigation destination"
+  },
+  "settingsNavigationLabel": "Settings",
+  "@settingsNavigationLabel": {
+    "description": "Label for the Settings primary navigation destination"
   }
 }

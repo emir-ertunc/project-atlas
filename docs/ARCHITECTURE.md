@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: Foundation dependencies configured
+- Status: Current Phase 1 implementation validated; accessibility and dedicated prescription acceptance remain open
 - Architecture style: Offline-first, layered, and feature-oriented
 
 ## Technology Baseline
@@ -72,7 +72,9 @@ Drift tables, data access objects, repository implementations, migrations, expor
 ## Foundation Layout
 
 - `lib/app`: Application shell and declarative router
+- `lib/core/design_system`: Semantic colors, typography, spacing, component tokens, and application themes
 - `lib/core/database`: Drift database connection and providers
+- `lib/core/repositories`: Platform-independent records and contracts with Drift-backed local implementations
 - `lib/features`: Feature-oriented presentation and domain code
 - `test/app`: Application and routing widget tests
 - `test/core`: Platform-independent infrastructure tests
@@ -86,6 +88,21 @@ Drift tables, data access objects, repository implementations, migrations, expor
 - Domain identifiers remain stable and synchronization-ready.
 - Sensitive user data never enters source control or bundled sample data.
 
+## Core Relational Schema
+
+- Schema version 3 contains profiles, programs, immutable program versions,
+  prescribed sets, workout sessions, session sets, append-only actual set logs,
+  and measurement records.
+- Foreign keys are enabled on every database open.
+- Profile-owned records use cascade deletion. Deleting a program preserves
+  workout history by setting the optional session reference to null.
+- Stable text identifiers keep records portable across a future synchronization
+  boundary.
+- Prescriptions and actual performance are separate records. Detailed body
+  measurement fields remain a Phase 6 extension.
+- Table definitions, constraints, indexes, and extension boundaries are recorded
+  in [the core data model](DATA_MODEL.md).
+
 ## Localization and Units
 
 - English is the template locale and Turkish is the second required locale.
@@ -94,6 +111,25 @@ Drift tables, data access objects, repository implementations, migrations, expor
 - Mass is stored internally in kilograms and length in centimeters.
 - Pounds and inches are converted only at input and presentation boundaries.
 - Conversion factors are exact constants; display rounding never changes stored values.
+
+## Design System
+
+- Light and dark themes share explicit semantic `ColorScheme` roles.
+- Success, warning, and information roles use a typed theme extension.
+- Feature code consumes semantic theme roles instead of raw colors.
+- Typography uses the platform system font and a documented role scale.
+- Layout uses a four-logical-pixel spacing scale and 48-pixel minimum controls.
+- Normal-size text color pairs are protected by automated 4.5:1 contrast tests.
+
+## Main Navigation
+
+- GoRouter uses a `StatefulShellRoute.indexedStack` with an independent navigator for each primary destination.
+- Canonical roots are `/today`, `/program`, `/anatomy`, `/progress`, and `/settings`.
+- The legacy `/` location redirects to `/today`.
+- Switching destinations preserves each visited branch in memory.
+- Selecting the active destination again returns that branch to its initial location.
+- Router, shell, and branch restoration scopes are stable and explicit.
+- Destination labels are compiled from the Turkish and English localization catalogs.
 
 ## Main Interfaces
 
@@ -107,7 +143,35 @@ Drift tables, data access objects, repository implementations, migrations, expor
 - `AnatomyRenderer`
 - `ExportService`
 
-Exact Dart signatures will be defined with the first consuming feature.
+Profile, program, workout, measurement, and exercise repository signatures are
+defined in the foundation. The exercise catalog implementation begins in Phase
+2; service interfaces are defined by their first consuming features.
+
+## Local-First Repository Flow
+
+- Presentation and application layers depend on repository interfaces rather
+  than Drift types.
+- Repository writes commit to SQLite first; Drift watch streams then publish the
+  resulting local state.
+- Aggregate writes use transactions so a program version or session plan cannot
+  become partially visible.
+- Actual set corrections append revisions instead of replacing earlier results.
+- Riverpod provides interface-typed repositories from one lifecycle-managed
+  database instance.
+- Detailed contracts and ownership rules are recorded in
+  [the local-first data flow](LOCAL_DATA_FLOW.md).
+
+## Database Migration and Recovery
+
+- Every schema change increments the database version and defines an explicit
+  upgrade path.
+- Migration tests compare upgraded table, column, foreign key, and index
+  metadata with a clean current database and run SQLite integrity checks.
+- Synthetic legacy records verify data retention from supported schema origins.
+- File-backed recovery tests prove committed in-progress workouts survive a
+  restart and uncommitted transaction changes are rolled back.
+- Detailed requirements are recorded in
+  [database reliability](DATABASE_RELIABILITY.md).
 
 ## Cross-Platform Boundary
 
@@ -129,5 +193,13 @@ Shared code owns domain decisions and screen behavior. Platform adapters own 3D 
 
 - No secrets or signing material in the repository.
 - No real personal data in fixtures or screenshots.
-- Raw application data is excluded from uncontrolled backup paths.
-- Export files require an explicit user action and an encryption design before release.
+- Android disables backup and explicitly excludes every private storage domain
+  from legacy cloud backup and modern cloud/device transfer.
+- iOS marks the application Documents directory as excluded from device backup
+  when the application launches.
+- Export is explicit and produces only a versioned Argon2id/AES-256-GCM
+  authenticated container; plaintext export is forbidden.
+- Restore authenticates before parsing, validates a separate database, and uses
+  confirmed atomic replacement with rollback.
+- Detailed controls and the P7-10 implementation contract are recorded in
+  [backup and encrypted export security](SECURITY_AND_EXPORT.md).

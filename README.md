@@ -20,15 +20,22 @@ identifier are temporary until the release-branding checkpoint.
 
 The base Flutter application scaffold now targets Android and iOS. Riverpod,
 GoRouter, Drift, code generation, Turkish/English localization, metric/imperial
-units, and initial automated tests are configured. Feature modules and
-executable build checkpoints remain tracked as separate tasks in the master
-plan.
+units, design tokens, five state-preserving primary navigation branches, schema
+migrations, local-first repositories, backup controls, and automated tests are
+configured. Phase 1 validation is recorded, while its remaining accessibility
+and prescription acceptance items stay open in the master plan.
 
 ## Documentation
 
 - [Master plan](docs/MASTER_PLAN.md)
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [Core data model](docs/DATA_MODEL.md)
+- [Local-first data flow](docs/LOCAL_DATA_FLOW.md)
+- [Database reliability](docs/DATABASE_RELIABILITY.md)
+- [Backup and encrypted export security](docs/SECURITY_AND_EXPORT.md)
+- [Phase 1 validation](docs/PHASE_1_VALIDATION.md)
+- [Design system](docs/DESIGN_SYSTEM.md)
 - [Development setup](docs/DEVELOPMENT_SETUP.md)
 - [Training rulebook](docs/TRAINING_RULEBOOK.md)
 - [Exercise catalog plan](docs/EXERCISE_CATALOG.md)

@@ -102,3 +102,45 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Run generated-source verification, formatting, static analysis, tests with coverage, and an Android debug build on every push and pull request using a read-only GitHub Actions workflow.
 - Consequence: Stale generated files and quality regressions block integration; successful runs retain only coverage and a non-release debug APK for 14 days.
+
+## D-015 — Design Token Baseline
+
+- Date: 2026-07-07
+- Status: Accepted
+- Decision: Use explicit light/dark semantic colors, the platform system font, a four-pixel spacing scale, and shared component tokens through Material 3 themes.
+- Consequence: Feature code avoids raw visual values, normal text roles remain testable at 4.5:1 contrast, controls start at 48 logical pixels, and no font asset or font license is added.
+
+## D-016 — Primary Navigation Structure
+
+- Date: 2026-07-07
+- Status: Accepted
+- Decision: Use five localized GoRouter branches inside a state-preserving indexed shell for Today, Program, Anatomy, Progress, and Settings.
+- Consequence: Each feature receives a stable deep-link root and independent navigation history; selecting the active destination returns it to its root.
+
+## D-017 — Core Relational Schema
+
+- Date: 2026-07-07
+- Status: Accepted
+- Decision: Establish schema version 2 with profile-owned programs, workout sessions, ordered session sets, and measurement-history records; preserve workout history when a program is deleted.
+- Consequence: Core relationships and lifecycle rules are enforced by SQLite, while program prescriptions, actual set logs, and detailed body measurements remain independently extensible.
+
+## D-018 — Local-First Repository Boundary
+
+- Date: 2026-07-07
+- Status: Accepted
+- Decision: Expose platform-independent repository contracts through Riverpod and keep Drift types inside local implementations; commit aggregate writes transactionally before emitting watch-stream state.
+- Consequence: Features remain testable without a network or platform database API, partial aggregates are not observable, and a future synchronization layer can be added without replacing domain-facing contracts.
+
+## D-019 — Migration and Recovery Verification
+
+- Date: 2026-07-07
+- Status: Accepted
+- Decision: Validate every supported schema origin against clean current SQLite metadata and verify process recovery with file-backed committed and interrupted transactions.
+- Consequence: Missing upgrade indexes, structural drift, data loss, and partial workout writes are detected before integration.
+
+## D-020 — Backup and Portable Export Security
+
+- Date: 2026-07-07
+- Status: Accepted
+- Decision: Exclude all local application data from uncontrolled platform backup and require explicit exports to use a versioned Argon2id and AES-256-GCM authenticated container.
+- Consequence: Automatic backup and device transfer do not copy raw health records; portable recovery remains possible only through a user-controlled, passphrase-protected export with authenticated restore.

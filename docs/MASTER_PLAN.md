@@ -26,15 +26,15 @@
 
 ## Phase 1 — Design System and Local Data Core
 
-- [ ] P1-01 Define accessible colors, typography, spacing, and component tokens.
-- [ ] P1-02 Create the main navigation: Today, Program, Anatomy, Progress, and Settings.
+- [x] P1-01 Define accessible colors, typography, spacing, and component tokens.
+- [x] P1-02 Create the main navigation: Today, Program, Anatomy, Progress, and Settings.
 - [ ] P1-03 Implement accessibility foundations for contrast, type scaling, and touch targets.
-- [ ] P1-04 Create the Drift schema for profiles, programs, sessions, sets, and measurements.
+- [x] P1-04 Create the Drift schema for profiles, programs, sessions, sets, and measurements.
 - [ ] P1-05 Separate program versions, prescribed sets, and actual set logs.
-- [ ] P1-06 Create repository interfaces and the local-first data flow.
-- [ ] P1-07 Add database migration and process-recovery tests.
-- [ ] P1-08 Exclude sensitive files from device backups and design encrypted export.
-- [ ] P1-09 Run phase validation and update the technical documentation.
+- [x] P1-06 Create repository interfaces and the local-first data flow.
+- [x] P1-07 Add database migration and process-recovery tests.
+- [x] P1-08 Exclude sensitive files from device backups and design encrypted export.
+- [x] P1-09 Run phase validation and update the technical documentation.
 - [ ] P1-10 Commit, push, open the pull request, and verify CI.
 
 ## Phase 2 — Anatomy and Asset Technical Spike
