@@ -22,7 +22,7 @@
 - [x] P0-09 Configure the project owner's Git identity and connect the public remote.
 - [x] P0-10 Produce and install the first debug APK. **Build C0**
 - [x] P0-11 Commit Phase 0 with the project owner's identity.
-- [ ] P0-12 Push the phase branch, open a pull request, and verify green CI.
+- [x] P0-12 Push the phase branch, open a pull request, and verify green CI.
 
 ## Phase 1 — Design System and Local Data Core
 
