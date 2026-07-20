@@ -24,5 +24,6 @@
 ## Completion Standard
 
 - Validate the changed files with the checks required by the active checklist item.
+- After a completed checklist item, update `docs/MASTER_PLAN.md` and include the current phase progress plus the next open checklist item in the completion response.
 - Report which validation commands were run and whether they passed.
 - Stop after completing and reporting the requested checklist item.

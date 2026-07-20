@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "animation_set_id": "project_atlas_core_exercise_animation_prototypes_v1",
+  "rig_id": "project_atlas_shared_humanoid_rig_v1",
+  "status": "prototype_source_contract",
+  "fps": 30,
+  "cycle_seconds": 2.0,
+  "minimum_keyframes_per_exercise": 4,
+  "exercises": [
+    {
+      "exercise_id": "barbell_back_squat",
+      "names": {"en": "Barbell back squat", "tr": "Barbell back squat"},
+      "movement_pattern": "squat",
+      "equipment": ["barbell", "floor"],
+      "primary_region_ids": ["quadriceps_right", "quadriceps_left", "gluteus_maximus_right", "gluteus_maximus_left"],
+      "secondary_region_ids": ["hamstrings_right", "hamstrings_left", "erector_spinae_right", "erector_spinae_left", "gastrocnemius_right", "gastrocnemius_left"],
+      "contact_anchors": ["floor", "barbell"],
+      "phase_tags": ["setup", "eccentric", "bottom", "concentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 10.0, "pelvis_pitch_deg": 4.0, "hip_flexion_right_deg": 20.0, "hip_flexion_left_deg": 20.0, "knee_flexion_right_deg": 8.0, "knee_flexion_left_deg": 8.0, "ankle_dorsiflexion_right_deg": 2.0, "ankle_dorsiflexion_left_deg": 2.0, "bar_height_m": 1.42, "grip_width_m": 1.15}},
+        {"time_seconds": 0.7, "phase": "eccentric", "controls": {"root_y_m": -0.38, "torso_pitch_deg": 24.0, "pelvis_pitch_deg": 18.0, "hip_flexion_right_deg": 92.0, "hip_flexion_left_deg": 92.0, "knee_flexion_right_deg": 112.0, "knee_flexion_left_deg": 112.0, "ankle_dorsiflexion_right_deg": 18.0, "ankle_dorsiflexion_left_deg": 18.0, "bar_height_m": 1.05, "grip_width_m": 1.15}},
+        {"time_seconds": 1.1, "phase": "bottom", "controls": {"root_y_m": -0.45, "torso_pitch_deg": 28.0, "pelvis_pitch_deg": 22.0, "hip_flexion_right_deg": 105.0, "hip_flexion_left_deg": 105.0, "knee_flexion_right_deg": 125.0, "knee_flexion_left_deg": 125.0, "ankle_dorsiflexion_right_deg": 22.0, "ankle_dorsiflexion_left_deg": 22.0, "bar_height_m": 0.98, "grip_width_m": 1.15}},
+        {"time_seconds": 1.6, "phase": "concentric", "controls": {"root_y_m": -0.16, "torso_pitch_deg": 16.0, "pelvis_pitch_deg": 10.0, "hip_flexion_right_deg": 48.0, "hip_flexion_left_deg": 48.0, "knee_flexion_right_deg": 48.0, "knee_flexion_left_deg": 48.0, "ankle_dorsiflexion_right_deg": 10.0, "ankle_dorsiflexion_left_deg": 10.0, "bar_height_m": 1.26, "grip_width_m": 1.15}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 10.0, "pelvis_pitch_deg": 4.0, "hip_flexion_right_deg": 20.0, "hip_flexion_left_deg": 20.0, "knee_flexion_right_deg": 8.0, "knee_flexion_left_deg": 8.0, "ankle_dorsiflexion_right_deg": 2.0, "ankle_dorsiflexion_left_deg": 2.0, "bar_height_m": 1.42, "grip_width_m": 1.15}}
+      ]
+    },
+    {
+      "exercise_id": "barbell_deadlift",
+      "names": {"en": "Barbell deadlift", "tr": "Barbell deadlift"},
+      "movement_pattern": "hinge",
+      "equipment": ["barbell", "floor"],
+      "primary_region_ids": ["gluteus_maximus_right", "gluteus_maximus_left", "hamstrings_right", "hamstrings_left", "erector_spinae_right", "erector_spinae_left"],
+      "secondary_region_ids": ["quadriceps_right", "quadriceps_left", "trapezius_right", "trapezius_left", "forearm_flexors_pronators_right", "forearm_flexors_pronators_left"],
+      "contact_anchors": ["floor", "barbell"],
+      "phase_tags": ["setup", "concentric", "lockout", "eccentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": -0.20, "torso_pitch_deg": 58.0, "pelvis_pitch_deg": 26.0, "hip_flexion_right_deg": 82.0, "hip_flexion_left_deg": 82.0, "knee_flexion_right_deg": 58.0, "knee_flexion_left_deg": 58.0, "ankle_dorsiflexion_right_deg": 8.0, "ankle_dorsiflexion_left_deg": 8.0, "shoulder_flexion_right_deg": 20.0, "shoulder_flexion_left_deg": 20.0, "elbow_flexion_right_deg": 4.0, "elbow_flexion_left_deg": 4.0, "bar_height_m": 0.23, "grip_width_m": 0.62}},
+        {"time_seconds": 0.8, "phase": "concentric", "controls": {"root_y_m": -0.04, "torso_pitch_deg": 24.0, "pelvis_pitch_deg": 10.0, "hip_flexion_right_deg": 35.0, "hip_flexion_left_deg": 35.0, "knee_flexion_right_deg": 25.0, "knee_flexion_left_deg": 25.0, "ankle_dorsiflexion_right_deg": 3.0, "ankle_dorsiflexion_left_deg": 3.0, "shoulder_flexion_right_deg": 8.0, "shoulder_flexion_left_deg": 8.0, "elbow_flexion_right_deg": 2.0, "elbow_flexion_left_deg": 2.0, "bar_height_m": 0.66, "grip_width_m": 0.62}},
+        {"time_seconds": 1.1, "phase": "lockout", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 2.0, "pelvis_pitch_deg": 0.0, "hip_flexion_right_deg": 5.0, "hip_flexion_left_deg": 5.0, "knee_flexion_right_deg": 3.0, "knee_flexion_left_deg": 3.0, "ankle_dorsiflexion_right_deg": 0.0, "ankle_dorsiflexion_left_deg": 0.0, "shoulder_flexion_right_deg": -4.0, "shoulder_flexion_left_deg": -4.0, "elbow_flexion_right_deg": 2.0, "elbow_flexion_left_deg": 2.0, "bar_height_m": 0.86, "grip_width_m": 0.62}},
+        {"time_seconds": 1.6, "phase": "eccentric", "controls": {"root_y_m": -0.12, "torso_pitch_deg": 38.0, "pelvis_pitch_deg": 18.0, "hip_flexion_right_deg": 55.0, "hip_flexion_left_deg": 55.0, "knee_flexion_right_deg": 35.0, "knee_flexion_left_deg": 35.0, "ankle_dorsiflexion_right_deg": 5.0, "ankle_dorsiflexion_left_deg": 5.0, "shoulder_flexion_right_deg": 12.0, "shoulder_flexion_left_deg": 12.0, "elbow_flexion_right_deg": 2.0, "elbow_flexion_left_deg": 2.0, "bar_height_m": 0.48, "grip_width_m": 0.62}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": -0.20, "torso_pitch_deg": 58.0, "pelvis_pitch_deg": 26.0, "hip_flexion_right_deg": 82.0, "hip_flexion_left_deg": 82.0, "knee_flexion_right_deg": 58.0, "knee_flexion_left_deg": 58.0, "ankle_dorsiflexion_right_deg": 8.0, "ankle_dorsiflexion_left_deg": 8.0, "shoulder_flexion_right_deg": 20.0, "shoulder_flexion_left_deg": 20.0, "elbow_flexion_right_deg": 4.0, "elbow_flexion_left_deg": 4.0, "bar_height_m": 0.23, "grip_width_m": 0.62}}
+      ]
+    },
+    {
+      "exercise_id": "barbell_bench_press",
+      "names": {"en": "Barbell bench press", "tr": "Barbell bench press"},
+      "movement_pattern": "horizontal_push",
+      "equipment": ["barbell", "bench"],
+      "primary_region_ids": ["pectoralis_major_right", "pectoralis_major_left", "triceps_brachii_right", "triceps_brachii_left", "deltoid_anterior_right", "deltoid_anterior_left"],
+      "secondary_region_ids": ["serratus_anterior_right", "serratus_anterior_left", "trapezius_right", "trapezius_left"],
+      "contact_anchors": ["bench", "barbell", "floor"],
+      "phase_tags": ["setup", "eccentric", "touch", "concentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": -0.50, "torso_pitch_deg": -8.0, "spine_extension_deg": 12.0, "shoulder_flexion_right_deg": 82.0, "shoulder_flexion_left_deg": 82.0, "shoulder_horizontal_adduction_right_deg": 15.0, "shoulder_horizontal_adduction_left_deg": 15.0, "elbow_flexion_right_deg": 18.0, "elbow_flexion_left_deg": 18.0, "scapula_retraction_right_deg": 14.0, "scapula_retraction_left_deg": 14.0, "bar_height_m": 1.18, "grip_width_m": 0.95}},
+        {"time_seconds": 0.7, "phase": "eccentric", "controls": {"root_y_m": -0.50, "torso_pitch_deg": -8.0, "spine_extension_deg": 12.0, "shoulder_flexion_right_deg": 68.0, "shoulder_flexion_left_deg": 68.0, "shoulder_horizontal_adduction_right_deg": 35.0, "shoulder_horizontal_adduction_left_deg": 35.0, "elbow_flexion_right_deg": 92.0, "elbow_flexion_left_deg": 92.0, "scapula_retraction_right_deg": 16.0, "scapula_retraction_left_deg": 16.0, "bar_height_m": 0.92, "grip_width_m": 0.95}},
+        {"time_seconds": 1.0, "phase": "touch", "controls": {"root_y_m": -0.50, "torso_pitch_deg": -8.0, "spine_extension_deg": 13.0, "shoulder_flexion_right_deg": 62.0, "shoulder_flexion_left_deg": 62.0, "shoulder_horizontal_adduction_right_deg": 42.0, "shoulder_horizontal_adduction_left_deg": 42.0, "elbow_flexion_right_deg": 105.0, "elbow_flexion_left_deg": 105.0, "scapula_retraction_right_deg": 16.0, "scapula_retraction_left_deg": 16.0, "bar_height_m": 0.86, "grip_width_m": 0.95}},
+        {"time_seconds": 1.55, "phase": "concentric", "controls": {"root_y_m": -0.50, "torso_pitch_deg": -8.0, "spine_extension_deg": 12.0, "shoulder_flexion_right_deg": 78.0, "shoulder_flexion_left_deg": 78.0, "shoulder_horizontal_adduction_right_deg": 20.0, "shoulder_horizontal_adduction_left_deg": 20.0, "elbow_flexion_right_deg": 35.0, "elbow_flexion_left_deg": 35.0, "scapula_retraction_right_deg": 14.0, "scapula_retraction_left_deg": 14.0, "bar_height_m": 1.10, "grip_width_m": 0.95}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": -0.50, "torso_pitch_deg": -8.0, "spine_extension_deg": 12.0, "shoulder_flexion_right_deg": 82.0, "shoulder_flexion_left_deg": 82.0, "shoulder_horizontal_adduction_right_deg": 15.0, "shoulder_horizontal_adduction_left_deg": 15.0, "elbow_flexion_right_deg": 18.0, "elbow_flexion_left_deg": 18.0, "scapula_retraction_right_deg": 14.0, "scapula_retraction_left_deg": 14.0, "bar_height_m": 1.18, "grip_width_m": 0.95}}
+      ]
+    },
+    {
+      "exercise_id": "standing_overhead_press",
+      "names": {"en": "Standing overhead press", "tr": "Ayakta overhead press"},
+      "movement_pattern": "vertical_push",
+      "equipment": ["barbell", "floor"],
+      "primary_region_ids": ["deltoid_anterior_right", "deltoid_anterior_left", "deltoid_lateral_right", "deltoid_lateral_left", "triceps_brachii_right", "triceps_brachii_left"],
+      "secondary_region_ids": ["trapezius_right", "trapezius_left", "serratus_anterior_right", "serratus_anterior_left"],
+      "contact_anchors": ["floor", "barbell"],
+      "phase_tags": ["setup", "concentric", "overhead", "eccentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "spine_extension_deg": 2.0, "shoulder_flexion_right_deg": 88.0, "shoulder_flexion_left_deg": 88.0, "shoulder_abduction_right_deg": 35.0, "shoulder_abduction_left_deg": 35.0, "elbow_flexion_right_deg": 105.0, "elbow_flexion_left_deg": 105.0, "bar_height_m": 1.36, "grip_width_m": 0.62}},
+        {"time_seconds": 0.7, "phase": "concentric", "controls": {"root_y_m": 0.0, "torso_pitch_deg": -4.0, "spine_extension_deg": 5.0, "shoulder_flexion_right_deg": 135.0, "shoulder_flexion_left_deg": 135.0, "shoulder_abduction_right_deg": 45.0, "shoulder_abduction_left_deg": 45.0, "elbow_flexion_right_deg": 45.0, "elbow_flexion_left_deg": 45.0, "bar_height_m": 1.70, "grip_width_m": 0.62}},
+        {"time_seconds": 1.05, "phase": "overhead", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "spine_extension_deg": 0.0, "shoulder_flexion_right_deg": 170.0, "shoulder_flexion_left_deg": 170.0, "shoulder_abduction_right_deg": 55.0, "shoulder_abduction_left_deg": 55.0, "elbow_flexion_right_deg": 8.0, "elbow_flexion_left_deg": 8.0, "bar_height_m": 2.02, "grip_width_m": 0.62}},
+        {"time_seconds": 1.55, "phase": "eccentric", "controls": {"root_y_m": 0.0, "torso_pitch_deg": -3.0, "spine_extension_deg": 4.0, "shoulder_flexion_right_deg": 125.0, "shoulder_flexion_left_deg": 125.0, "shoulder_abduction_right_deg": 42.0, "shoulder_abduction_left_deg": 42.0, "elbow_flexion_right_deg": 62.0, "elbow_flexion_left_deg": 62.0, "bar_height_m": 1.62, "grip_width_m": 0.62}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "spine_extension_deg": 2.0, "shoulder_flexion_right_deg": 88.0, "shoulder_flexion_left_deg": 88.0, "shoulder_abduction_right_deg": 35.0, "shoulder_abduction_left_deg": 35.0, "elbow_flexion_right_deg": 105.0, "elbow_flexion_left_deg": 105.0, "bar_height_m": 1.36, "grip_width_m": 0.62}}
+      ]
+    },
+    {
+      "exercise_id": "bent_over_barbell_row",
+      "names": {"en": "Bent-over barbell row", "tr": "Bent-over barbell row"},
+      "movement_pattern": "horizontal_pull",
+      "equipment": ["barbell", "floor"],
+      "primary_region_ids": ["rhomboids_right", "rhomboids_left", "trapezius_right", "trapezius_left", "biceps_brachii_right", "biceps_brachii_left"],
+      "secondary_region_ids": ["deltoid_posterior_right", "deltoid_posterior_left", "erector_spinae_right", "erector_spinae_left", "forearm_flexors_pronators_right", "forearm_flexors_pronators_left"],
+      "contact_anchors": ["floor", "barbell"],
+      "phase_tags": ["setup", "concentric", "top", "eccentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": -0.10, "torso_pitch_deg": 55.0, "pelvis_pitch_deg": 20.0, "hip_flexion_right_deg": 62.0, "hip_flexion_left_deg": 62.0, "knee_flexion_right_deg": 24.0, "knee_flexion_left_deg": 24.0, "shoulder_flexion_right_deg": 34.0, "shoulder_flexion_left_deg": 34.0, "elbow_flexion_right_deg": 12.0, "elbow_flexion_left_deg": 12.0, "scapula_retraction_right_deg": 0.0, "scapula_retraction_left_deg": 0.0, "bar_height_m": 0.55, "grip_width_m": 0.72}},
+        {"time_seconds": 0.7, "phase": "concentric", "controls": {"root_y_m": -0.10, "torso_pitch_deg": 55.0, "pelvis_pitch_deg": 20.0, "hip_flexion_right_deg": 62.0, "hip_flexion_left_deg": 62.0, "knee_flexion_right_deg": 24.0, "knee_flexion_left_deg": 24.0, "shoulder_flexion_right_deg": 20.0, "shoulder_flexion_left_deg": 20.0, "elbow_flexion_right_deg": 82.0, "elbow_flexion_left_deg": 82.0, "scapula_retraction_right_deg": 16.0, "scapula_retraction_left_deg": 16.0, "bar_height_m": 0.78, "grip_width_m": 0.72}},
+        {"time_seconds": 1.0, "phase": "top", "controls": {"root_y_m": -0.10, "torso_pitch_deg": 55.0, "pelvis_pitch_deg": 20.0, "hip_flexion_right_deg": 62.0, "hip_flexion_left_deg": 62.0, "knee_flexion_right_deg": 24.0, "knee_flexion_left_deg": 24.0, "shoulder_flexion_right_deg": 15.0, "shoulder_flexion_left_deg": 15.0, "elbow_flexion_right_deg": 102.0, "elbow_flexion_left_deg": 102.0, "scapula_retraction_right_deg": 21.0, "scapula_retraction_left_deg": 21.0, "bar_height_m": 0.86, "grip_width_m": 0.72}},
+        {"time_seconds": 1.55, "phase": "eccentric", "controls": {"root_y_m": -0.10, "torso_pitch_deg": 55.0, "pelvis_pitch_deg": 20.0, "hip_flexion_right_deg": 62.0, "hip_flexion_left_deg": 62.0, "knee_flexion_right_deg": 24.0, "knee_flexion_left_deg": 24.0, "shoulder_flexion_right_deg": 28.0, "shoulder_flexion_left_deg": 28.0, "elbow_flexion_right_deg": 42.0, "elbow_flexion_left_deg": 42.0, "scapula_retraction_right_deg": 8.0, "scapula_retraction_left_deg": 8.0, "bar_height_m": 0.66, "grip_width_m": 0.72}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": -0.10, "torso_pitch_deg": 55.0, "pelvis_pitch_deg": 20.0, "hip_flexion_right_deg": 62.0, "hip_flexion_left_deg": 62.0, "knee_flexion_right_deg": 24.0, "knee_flexion_left_deg": 24.0, "shoulder_flexion_right_deg": 34.0, "shoulder_flexion_left_deg": 34.0, "elbow_flexion_right_deg": 12.0, "elbow_flexion_left_deg": 12.0, "scapula_retraction_right_deg": 0.0, "scapula_retraction_left_deg": 0.0, "bar_height_m": 0.55, "grip_width_m": 0.72}}
+      ]
+    },
+    {
+      "exercise_id": "pull_up",
+      "names": {"en": "Pull-up", "tr": "Pull-up"},
+      "movement_pattern": "vertical_pull",
+      "equipment": ["pull_up_bar"],
+      "primary_region_ids": ["rhomboids_right", "rhomboids_left", "trapezius_right", "trapezius_left", "biceps_brachii_right", "biceps_brachii_left"],
+      "secondary_region_ids": ["deltoid_posterior_right", "deltoid_posterior_left", "forearm_flexors_pronators_right", "forearm_flexors_pronators_left"],
+      "contact_anchors": ["pull_up_bar"],
+      "phase_tags": ["setup", "concentric", "top", "eccentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": -0.25, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 170.0, "shoulder_flexion_left_deg": 170.0, "shoulder_abduction_right_deg": 55.0, "shoulder_abduction_left_deg": 55.0, "elbow_flexion_right_deg": 8.0, "elbow_flexion_left_deg": 8.0, "scapula_retraction_right_deg": -4.0, "scapula_retraction_left_deg": -4.0, "bar_height_m": 2.20, "grip_width_m": 0.95}},
+        {"time_seconds": 0.75, "phase": "concentric", "controls": {"root_y_m": 0.03, "torso_pitch_deg": -4.0, "shoulder_flexion_right_deg": 135.0, "shoulder_flexion_left_deg": 135.0, "shoulder_abduction_right_deg": 45.0, "shoulder_abduction_left_deg": 45.0, "elbow_flexion_right_deg": 72.0, "elbow_flexion_left_deg": 72.0, "scapula_retraction_right_deg": 12.0, "scapula_retraction_left_deg": 12.0, "bar_height_m": 2.20, "grip_width_m": 0.95}},
+        {"time_seconds": 1.05, "phase": "top", "controls": {"root_y_m": 0.20, "torso_pitch_deg": -6.0, "shoulder_flexion_right_deg": 112.0, "shoulder_flexion_left_deg": 112.0, "shoulder_abduction_right_deg": 40.0, "shoulder_abduction_left_deg": 40.0, "elbow_flexion_right_deg": 104.0, "elbow_flexion_left_deg": 104.0, "scapula_retraction_right_deg": 18.0, "scapula_retraction_left_deg": 18.0, "bar_height_m": 2.20, "grip_width_m": 0.95}},
+        {"time_seconds": 1.55, "phase": "eccentric", "controls": {"root_y_m": -0.04, "torso_pitch_deg": -2.0, "shoulder_flexion_right_deg": 145.0, "shoulder_flexion_left_deg": 145.0, "shoulder_abduction_right_deg": 48.0, "shoulder_abduction_left_deg": 48.0, "elbow_flexion_right_deg": 48.0, "elbow_flexion_left_deg": 48.0, "scapula_retraction_right_deg": 6.0, "scapula_retraction_left_deg": 6.0, "bar_height_m": 2.20, "grip_width_m": 0.95}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": -0.25, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 170.0, "shoulder_flexion_left_deg": 170.0, "shoulder_abduction_right_deg": 55.0, "shoulder_abduction_left_deg": 55.0, "elbow_flexion_right_deg": 8.0, "elbow_flexion_left_deg": 8.0, "scapula_retraction_right_deg": -4.0, "scapula_retraction_left_deg": -4.0, "bar_height_m": 2.20, "grip_width_m": 0.95}}
+      ]
+    },
+    {
+      "exercise_id": "push_up",
+      "names": {"en": "Push-up", "tr": "Şınav"},
+      "movement_pattern": "horizontal_push",
+      "equipment": ["floor"],
+      "primary_region_ids": ["pectoralis_major_right", "pectoralis_major_left", "triceps_brachii_right", "triceps_brachii_left", "deltoid_anterior_right", "deltoid_anterior_left"],
+      "secondary_region_ids": ["serratus_anterior_right", "serratus_anterior_left"],
+      "contact_anchors": ["floor"],
+      "phase_tags": ["setup", "eccentric", "bottom", "concentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": -0.42, "torso_pitch_deg": 0.0, "spine_extension_deg": 0.0, "shoulder_flexion_right_deg": 75.0, "shoulder_flexion_left_deg": 75.0, "shoulder_horizontal_adduction_right_deg": 12.0, "shoulder_horizontal_adduction_left_deg": 12.0, "elbow_flexion_right_deg": 18.0, "elbow_flexion_left_deg": 18.0, "scapula_retraction_right_deg": -4.0, "scapula_retraction_left_deg": -4.0, "grip_width_m": 0.62}},
+        {"time_seconds": 0.75, "phase": "eccentric", "controls": {"root_y_m": -0.55, "torso_pitch_deg": 0.0, "spine_extension_deg": 0.0, "shoulder_flexion_right_deg": 68.0, "shoulder_flexion_left_deg": 68.0, "shoulder_horizontal_adduction_right_deg": 32.0, "shoulder_horizontal_adduction_left_deg": 32.0, "elbow_flexion_right_deg": 92.0, "elbow_flexion_left_deg": 92.0, "scapula_retraction_right_deg": 8.0, "scapula_retraction_left_deg": 8.0, "grip_width_m": 0.62}},
+        {"time_seconds": 1.05, "phase": "bottom", "controls": {"root_y_m": -0.60, "torso_pitch_deg": 0.0, "spine_extension_deg": 0.0, "shoulder_flexion_right_deg": 64.0, "shoulder_flexion_left_deg": 64.0, "shoulder_horizontal_adduction_right_deg": 40.0, "shoulder_horizontal_adduction_left_deg": 40.0, "elbow_flexion_right_deg": 108.0, "elbow_flexion_left_deg": 108.0, "scapula_retraction_right_deg": 10.0, "scapula_retraction_left_deg": 10.0, "grip_width_m": 0.62}},
+        {"time_seconds": 1.55, "phase": "concentric", "controls": {"root_y_m": -0.48, "torso_pitch_deg": 0.0, "spine_extension_deg": 0.0, "shoulder_flexion_right_deg": 72.0, "shoulder_flexion_left_deg": 72.0, "shoulder_horizontal_adduction_right_deg": 20.0, "shoulder_horizontal_adduction_left_deg": 20.0, "elbow_flexion_right_deg": 42.0, "elbow_flexion_left_deg": 42.0, "scapula_retraction_right_deg": 0.0, "scapula_retraction_left_deg": 0.0, "grip_width_m": 0.62}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": -0.42, "torso_pitch_deg": 0.0, "spine_extension_deg": 0.0, "shoulder_flexion_right_deg": 75.0, "shoulder_flexion_left_deg": 75.0, "shoulder_horizontal_adduction_right_deg": 12.0, "shoulder_horizontal_adduction_left_deg": 12.0, "elbow_flexion_right_deg": 18.0, "elbow_flexion_left_deg": 18.0, "scapula_retraction_right_deg": -4.0, "scapula_retraction_left_deg": -4.0, "grip_width_m": 0.62}}
+      ]
+    },
+    {
+      "exercise_id": "reverse_lunge",
+      "names": {"en": "Reverse lunge", "tr": "Geri lunge"},
+      "movement_pattern": "single_leg_squat",
+      "equipment": ["floor"],
+      "primary_region_ids": ["quadriceps_left", "gluteus_maximus_left", "hamstrings_left"],
+      "secondary_region_ids": ["quadriceps_right", "gluteus_maximus_right", "hamstrings_right", "gastrocnemius_right", "gastrocnemius_left"],
+      "contact_anchors": ["floor"],
+      "phase_tags": ["setup", "eccentric", "bottom", "concentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": 0.0, "root_z_m": 0.0, "torso_pitch_deg": 4.0, "hip_flexion_right_deg": 5.0, "hip_flexion_left_deg": 5.0, "knee_flexion_right_deg": 4.0, "knee_flexion_left_deg": 4.0, "ankle_dorsiflexion_right_deg": 0.0, "ankle_dorsiflexion_left_deg": 0.0}},
+        {"time_seconds": 0.7, "phase": "eccentric", "controls": {"root_y_m": -0.24, "root_z_m": 0.22, "torso_pitch_deg": 8.0, "hip_flexion_right_deg": -8.0, "hip_flexion_left_deg": 62.0, "knee_flexion_right_deg": 72.0, "knee_flexion_left_deg": 78.0, "ankle_dorsiflexion_right_deg": -8.0, "ankle_dorsiflexion_left_deg": 14.0}},
+        {"time_seconds": 1.05, "phase": "bottom", "controls": {"root_y_m": -0.34, "root_z_m": 0.32, "torso_pitch_deg": 10.0, "hip_flexion_right_deg": -12.0, "hip_flexion_left_deg": 82.0, "knee_flexion_right_deg": 92.0, "knee_flexion_left_deg": 98.0, "ankle_dorsiflexion_right_deg": -10.0, "ankle_dorsiflexion_left_deg": 18.0}},
+        {"time_seconds": 1.55, "phase": "concentric", "controls": {"root_y_m": -0.12, "root_z_m": 0.12, "torso_pitch_deg": 6.0, "hip_flexion_right_deg": 0.0, "hip_flexion_left_deg": 35.0, "knee_flexion_right_deg": 38.0, "knee_flexion_left_deg": 42.0, "ankle_dorsiflexion_right_deg": -4.0, "ankle_dorsiflexion_left_deg": 8.0}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": 0.0, "root_z_m": 0.0, "torso_pitch_deg": 4.0, "hip_flexion_right_deg": 5.0, "hip_flexion_left_deg": 5.0, "knee_flexion_right_deg": 4.0, "knee_flexion_left_deg": 4.0, "ankle_dorsiflexion_right_deg": 0.0, "ankle_dorsiflexion_left_deg": 0.0}}
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_biceps_curl",
+      "names": {"en": "Dumbbell biceps curl", "tr": "Dumbbell biceps curl"},
+      "movement_pattern": "elbow_flexion",
+      "equipment": ["dumbbells", "floor"],
+      "primary_region_ids": ["biceps_brachii_right", "biceps_brachii_left", "brachialis_right", "brachialis_left"],
+      "secondary_region_ids": ["forearm_flexors_pronators_right", "forearm_flexors_pronators_left"],
+      "contact_anchors": ["floor", "dumbbells"],
+      "phase_tags": ["setup", "concentric", "top", "eccentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 4.0, "shoulder_flexion_left_deg": 4.0, "elbow_flexion_right_deg": 10.0, "elbow_flexion_left_deg": 10.0, "forearm_supination_right_deg": 20.0, "forearm_supination_left_deg": 20.0, "grip_width_m": 0.45, "bar_height_m": 0.82}},
+        {"time_seconds": 0.7, "phase": "concentric", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 8.0, "shoulder_flexion_left_deg": 8.0, "elbow_flexion_right_deg": 82.0, "elbow_flexion_left_deg": 82.0, "forearm_supination_right_deg": 55.0, "forearm_supination_left_deg": 55.0, "grip_width_m": 0.45, "bar_height_m": 1.08}},
+        {"time_seconds": 1.0, "phase": "top", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 10.0, "shoulder_flexion_left_deg": 10.0, "elbow_flexion_right_deg": 126.0, "elbow_flexion_left_deg": 126.0, "forearm_supination_right_deg": 70.0, "forearm_supination_left_deg": 70.0, "grip_width_m": 0.45, "bar_height_m": 1.24}},
+        {"time_seconds": 1.55, "phase": "eccentric", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 6.0, "shoulder_flexion_left_deg": 6.0, "elbow_flexion_right_deg": 55.0, "elbow_flexion_left_deg": 55.0, "forearm_supination_right_deg": 45.0, "forearm_supination_left_deg": 45.0, "grip_width_m": 0.45, "bar_height_m": 0.98}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 0.0, "shoulder_flexion_right_deg": 4.0, "shoulder_flexion_left_deg": 4.0, "elbow_flexion_right_deg": 10.0, "elbow_flexion_left_deg": 10.0, "forearm_supination_right_deg": 20.0, "forearm_supination_left_deg": 20.0, "grip_width_m": 0.45, "bar_height_m": 0.82}}
+      ]
+    },
+    {
+      "exercise_id": "cable_triceps_pushdown",
+      "names": {"en": "Cable triceps pushdown", "tr": "Cable triceps pushdown"},
+      "movement_pattern": "elbow_extension",
+      "equipment": ["cable_handle", "floor"],
+      "primary_region_ids": ["triceps_brachii_right", "triceps_brachii_left"],
+      "secondary_region_ids": ["forearm_extensors_supinators_right", "forearm_extensors_supinators_left", "deltoid_anterior_right", "deltoid_anterior_left"],
+      "contact_anchors": ["floor", "cable_handle"],
+      "phase_tags": ["setup", "concentric", "bottom", "eccentric", "finish"],
+      "keyframes": [
+        {"time_seconds": 0.0, "phase": "setup", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 8.0, "shoulder_flexion_right_deg": 26.0, "shoulder_flexion_left_deg": 26.0, "elbow_flexion_right_deg": 112.0, "elbow_flexion_left_deg": 112.0, "forearm_supination_right_deg": -20.0, "forearm_supination_left_deg": -20.0, "bar_height_m": 1.25, "grip_width_m": 0.42}},
+        {"time_seconds": 0.7, "phase": "concentric", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 8.0, "shoulder_flexion_right_deg": 24.0, "shoulder_flexion_left_deg": 24.0, "elbow_flexion_right_deg": 48.0, "elbow_flexion_left_deg": 48.0, "forearm_supination_right_deg": -25.0, "forearm_supination_left_deg": -25.0, "bar_height_m": 0.98, "grip_width_m": 0.42}},
+        {"time_seconds": 1.0, "phase": "bottom", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 8.0, "shoulder_flexion_right_deg": 22.0, "shoulder_flexion_left_deg": 22.0, "elbow_flexion_right_deg": 12.0, "elbow_flexion_left_deg": 12.0, "forearm_supination_right_deg": -30.0, "forearm_supination_left_deg": -30.0, "bar_height_m": 0.82, "grip_width_m": 0.42}},
+        {"time_seconds": 1.55, "phase": "eccentric", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 8.0, "shoulder_flexion_right_deg": 24.0, "shoulder_flexion_left_deg": 24.0, "elbow_flexion_right_deg": 72.0, "elbow_flexion_left_deg": 72.0, "forearm_supination_right_deg": -24.0, "forearm_supination_left_deg": -24.0, "bar_height_m": 1.08, "grip_width_m": 0.42}},
+        {"time_seconds": 2.0, "phase": "finish", "controls": {"root_y_m": 0.0, "torso_pitch_deg": 8.0, "shoulder_flexion_right_deg": 26.0, "shoulder_flexion_left_deg": 26.0, "elbow_flexion_right_deg": 112.0, "elbow_flexion_left_deg": 112.0, "forearm_supination_right_deg": -20.0, "forearm_supination_left_deg": -20.0, "bar_height_m": 1.25, "grip_width_m": 0.42}}
+      ]
+    }
+  ]
+}

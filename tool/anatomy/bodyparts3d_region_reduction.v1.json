@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "contract_status": "working_source_selection_not_product_ontology",
+  "source_asset_id": "anatomy-source-bodyparts3d-v4-isa-obj99",
+  "source_archive_sha256": "40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e",
+  "source_metadata_sha256": {
+    "isa_parts_list_e.txt": "ab7796deedd49205e77f3609a1cb8c53e2bbee14ecb5c9a6ca05227469780513",
+    "isa_element_parts.txt": "a3de74423f943b0d724ae8f59b3a817f87c423a544f8db98113b1980817cbeaf"
+  },
+  "bilateral_pair_count": 28,
+  "render_region_count": 56,
+  "pairs": [
+    {
+      "slot": 1,
+      "working_label": "Pectoralis major",
+      "right": {"source_concept_ids": ["FMA34690", "FMA45874", "FMA79979"], "element_file_ids": ["FJ1446", "FJ1447", "FJ1464"]},
+      "left": {"source_concept_ids": ["FMA34691", "FMA45875", "FMA79980"], "element_file_ids": ["FJ1446M", "FJ1447M", "FJ1464M"]}
+    },
+    {
+      "slot": 2,
+      "working_label": "Pectoralis minor",
+      "right": {"source_concept_ids": ["FMA13375"], "element_file_ids": ["FJ1456"]},
+      "left": {"source_concept_ids": ["FMA13376"], "element_file_ids": ["FJ1456M"]}
+    },
+    {
+      "slot": 3,
+      "working_label": "Serratus anterior",
+      "right": {"source_concept_ids": ["FMA13398"], "element_file_ids": ["FJ1459"]},
+      "left": {"source_concept_ids": ["FMA13399"], "element_file_ids": ["FJ1459M"]}
+    },
+    {
+      "slot": 4,
+      "working_label": "Anterior deltoid",
+      "right": {"source_concept_ids": ["FMA34680"], "element_file_ids": ["FJ1468"]},
+      "left": {"source_concept_ids": ["FMA34681"], "element_file_ids": ["FJ1468M"]}
+    },
+    {
+      "slot": 5,
+      "working_label": "Middle deltoid",
+      "right": {"source_concept_ids": ["FMA34682"], "element_file_ids": ["FJ1467"]},
+      "left": {"source_concept_ids": ["FMA34683"], "element_file_ids": ["FJ1467M"]}
+    },
+    {
+      "slot": 6,
+      "working_label": "Posterior deltoid",
+      "right": {"source_concept_ids": ["FMA34684"], "element_file_ids": ["FJ1513"]},
+      "left": {"source_concept_ids": ["FMA34685"], "element_file_ids": ["FJ1513M"]}
+    },
+    {
+      "slot": 7,
+      "working_label": "Biceps brachii",
+      "right": {"source_concept_ids": ["FMA37684", "FMA37686"], "element_file_ids": ["FJ1478", "FJ1512"]},
+      "left": {"source_concept_ids": ["FMA37685", "FMA37687"], "element_file_ids": ["FJ1478M", "FJ1512M"]}
+    },
+    {
+      "slot": 8,
+      "working_label": "Brachialis",
+      "right": {"source_concept_ids": ["FMA37668"], "element_file_ids": ["FJ1486"]},
+      "left": {"source_concept_ids": ["FMA37669"], "element_file_ids": ["FJ1486M"]}
+    },
+    {
+      "slot": 9,
+      "working_label": "Triceps brachii",
+      "right": {"source_concept_ids": ["FMA37695", "FMA37697", "FMA37699"], "element_file_ids": ["FJ1477", "FJ1479", "FJ1480"]},
+      "left": {"source_concept_ids": ["FMA37696", "FMA37698", "FMA37700"], "element_file_ids": ["FJ1477M", "FJ1479M", "FJ1480M"]}
+    },
+    {
+      "slot": 10,
+      "working_label": "Forearm flexor-pronator group",
+      "right": {"source_concept_ids": ["FMA38460", "FMA38617", "FMA38619", "FMA38470", "FMA38479", "FMA38482", "FMA38463", "FMA38560", "FMA38562", "FMA38454"], "element_file_ids": ["FJ1473", "FJ1474", "FJ1475", "FJ1496", "FJ1497", "FJ1498", "FJ1499", "FJ1502", "FJ1503", "FJ1516", "FJ1518"]},
+      "left": {"source_concept_ids": ["FMA38461", "FMA38618", "FMA38620", "FMA38471", "FMA38480", "FMA38484", "FMA38464", "FMA38561", "FMA38563", "FMA38455"], "element_file_ids": ["FJ1473M", "FJ1474M", "FJ1475M", "FJ1496M", "FJ1497M", "FJ1498M", "FJ1499M", "FJ1502M", "FJ1503M", "FJ1516M", "FJ1518M"]}
+    },
+    {
+      "slot": 11,
+      "working_label": "Forearm extensor-supinator group",
+      "right": {"source_concept_ids": ["FMA38486", "FMA38495", "FMA38498", "FMA38507", "FMA38501", "FMA38504", "FMA38525", "FMA38522", "FMA38519", "FMA38516", "FMA38513"], "element_file_ids": ["FJ1472", "FJ1484", "FJ1487", "FJ1489", "FJ1490", "FJ1491", "FJ1492", "FJ1493", "FJ1494", "FJ1495", "FJ1505", "FJ1517"]},
+      "left": {"source_concept_ids": ["FMA38487", "FMA38496", "FMA38499", "FMA38508", "FMA38502", "FMA38505", "FMA38526", "FMA38523", "FMA38520", "FMA38517", "FMA38514"], "element_file_ids": ["FJ1472M", "FJ1484M", "FJ1487M", "FJ1489M", "FJ1490M", "FJ1491M", "FJ1492M", "FJ1493M", "FJ1494M", "FJ1495M", "FJ1505M", "FJ1517M"]}
+    },
+    {
+      "slot": 12,
+      "working_label": "Trapezius",
+      "right": {"source_concept_ids": ["FMA33581", "FMA33584", "FMA33586"], "element_file_ids": ["FJ1520", "FJ1521", "FJ1554"]},
+      "left": {"source_concept_ids": ["FMA33583", "FMA33585", "FMA33587"], "element_file_ids": ["FJ1520M", "FJ1521M", "FJ1554M"]}
+    },
+    {
+      "slot": 13,
+      "working_label": "Rhomboids",
+      "right": {"source_concept_ids": ["FMA13381", "FMA13383"], "element_file_ids": ["FJ1536", "FJ1537"]},
+      "left": {"source_concept_ids": ["FMA13382", "FMA13384"], "element_file_ids": ["FJ1536M", "FJ1537M"]}
+    },
+    {
+      "slot": 14,
+      "working_label": "Rotator cuff",
+      "right": {"source_concept_ids": ["FMA32544", "FMA32547", "FMA32553", "FMA13414"], "element_file_ids": ["FJ1500", "FJ1504", "FJ1506", "FJ1508"]},
+      "left": {"source_concept_ids": ["FMA32545", "FMA32548", "FMA32554", "FMA13415"], "element_file_ids": ["FJ1500M", "FJ1504M", "FJ1506M", "FJ1508M"]}
+    },
+    {
+      "slot": 15,
+      "working_label": "Teres major",
+      "right": {"source_concept_ids": ["FMA32551"], "element_file_ids": ["FJ1507"]},
+      "left": {"source_concept_ids": ["FMA32552"], "element_file_ids": ["FJ1507M"]}
+    },
+    {
+      "slot": 16,
+      "working_label": "Erector spinae",
+      "right": {"source_concept_ids": ["FMA22740", "FMA22742", "FMA22751", "FMA22779"], "element_file_ids": ["FJ1527", "FJ1528", "FJ1535", "FJ1544"]},
+      "left": {"source_concept_ids": ["FMA22741", "FMA22743", "FMA22753", "FMA22780"], "element_file_ids": ["FJ1527M", "FJ1528M", "FJ1535M", "FJ1544M"]}
+    },
+    {
+      "slot": 17,
+      "working_label": "External oblique",
+      "right": {"source_concept_ids": ["FMA13336"], "element_file_ids": ["FJ1452"]},
+      "left": {"source_concept_ids": ["FMA13337"], "element_file_ids": ["FJ1452M"]}
+    },
+    {
+      "slot": 18,
+      "working_label": "Gluteus maximus",
+      "right": {"source_concept_ids": ["FMA22328"], "element_file_ids": ["FJ1418"]},
+      "left": {"source_concept_ids": ["FMA22329"], "element_file_ids": ["FJ1418M"]}
+    },
+    {
+      "slot": 19,
+      "working_label": "Gluteus medius-minimus",
+      "right": {"source_concept_ids": ["FMA22330", "FMA22332"], "element_file_ids": ["FJ1419", "FJ1420"]},
+      "left": {"source_concept_ids": ["FMA22331", "FMA22333"], "element_file_ids": ["FJ1419M", "FJ1420M"]}
+    },
+    {
+      "slot": 20,
+      "working_label": "Hip adductors",
+      "right": {"source_concept_ids": ["FMA22452", "FMA22456", "FMA22459", "FMA43883", "FMA22450"], "element_file_ids": ["FJ1401", "FJ1402", "FJ1403", "FJ1421", "FJ1427"]},
+      "left": {"source_concept_ids": ["FMA22454", "FMA22457", "FMA22460", "FMA43884", "FMA22451"], "element_file_ids": ["FJ1401M", "FJ1402M", "FJ1403M", "FJ1421M", "FJ1427M"]}
+    },
+    {
+      "slot": 21,
+      "working_label": "Iliopsoas",
+      "right": {"source_concept_ids": ["FMA22322", "FMA22342"], "element_file_ids": ["FJ1422", "FJ1431"]},
+      "left": {"source_concept_ids": ["FMA22323", "FMA22343"], "element_file_ids": ["FJ1422M", "FJ1431M"]}
+    },
+    {
+      "slot": 22,
+      "working_label": "Quadriceps",
+      "right": {"source_concept_ids": ["FMA38928", "FMA38934", "FMA38930", "FMA38932"], "element_file_ids": ["FJ1433", "FJ1441", "FJ1442", "FJ1443"]},
+      "left": {"source_concept_ids": ["FMA38929", "FMA38935", "FMA38931", "FMA38933"], "element_file_ids": ["FJ1433M", "FJ1441M", "FJ1442M", "FJ1443M"]}
+    },
+    {
+      "slot": 23,
+      "working_label": "Hamstrings",
+      "right": {"source_concept_ids": ["FMA45888", "FMA45891", "FMA22448", "FMA22358"], "element_file_ids": ["FJ1395", "FJ1435", "FJ1436", "FJ1444"]},
+      "left": {"source_concept_ids": ["FMA45889", "FMA45892", "FMA22449", "FMA22359"], "element_file_ids": ["FJ1395M", "FJ1435M", "FJ1436M", "FJ1444M"]}
+    },
+    {
+      "slot": 24,
+      "working_label": "Tibialis anterior",
+      "right": {"source_concept_ids": ["FMA22544"], "element_file_ids": ["FJ1439"]},
+      "left": {"source_concept_ids": ["FMA22545"], "element_file_ids": ["FJ1439M"]}
+    },
+    {
+      "slot": 25,
+      "working_label": "Gastrocnemius",
+      "right": {"source_concept_ids": ["FMA45957", "FMA45960"], "element_file_ids": ["FJ1394", "FJ1397"]},
+      "left": {"source_concept_ids": ["FMA45958", "FMA45961"], "element_file_ids": ["FJ1394M", "FJ1397M"]}
+    },
+    {
+      "slot": 26,
+      "working_label": "Soleus",
+      "right": {"source_concept_ids": ["FMA22558"], "element_file_ids": ["FJ1437"]},
+      "left": {"source_concept_ids": ["FMA22559"], "element_file_ids": ["FJ1437M"]}
+    },
+    {
+      "slot": 27,
+      "working_label": "Fibularis group",
+      "right": {"source_concept_ids": ["FMA22552", "FMA22554", "FMA22550"], "element_file_ids": ["FJ1409", "FJ1410", "FJ1411"]},
+      "left": {"source_concept_ids": ["FMA22553", "FMA22555", "FMA22551"], "element_file_ids": ["FJ1409M", "FJ1410M", "FJ1411M"]}
+    },
+    {
+      "slot": 28,
+      "working_label": "Deep hip external rotators",
+      "right": {"source_concept_ids": ["FMA22340", "FMA22324", "FMA22326", "FMA22334", "FMA22336", "FMA22338"], "element_file_ids": ["FJ1416", "FJ1417", "FJ1425", "FJ1426", "FJ1428", "FJ1432"]},
+      "left": {"source_concept_ids": ["FMA22341", "FMA22325", "FMA22327", "FMA22335", "FMA22337", "FMA22339"], "element_file_ids": ["FJ1416M", "FJ1417M", "FJ1425M", "FJ1426M", "FJ1428M", "FJ1432M"]}
+    }
+  ],
+  "known_source_coverage_gaps": [
+    "latissimus dorsi",
+    "rectus abdominis",
+    "internal oblique",
+    "transversus abdominis"
+  ]
+}

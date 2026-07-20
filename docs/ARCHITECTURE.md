@@ -147,6 +147,74 @@ Profile, program, workout, measurement, and exercise repository signatures are
 defined in the foundation. The exercise catalog implementation begins in Phase
 2; service interfaces are defined by their first consuming features.
 
+## Anatomy Muscle Ontology
+
+- Fifty-six unilateral muscle regions use stable lowercase ASCII identifiers.
+- Semantic identifiers are independent of BodyParts3D FMA/FJ references,
+  renderer nodes, display names, and exercise categories.
+- English and Turkish names are explicit ontology data rather than identity.
+- The source reduction and semantic naming contracts are versioned and linked
+  by a pinned hash.
+- The complete contract is recorded in
+  [the anatomy muscle ontology](ANATOMY_MUSCLE_ONTOLOGY.md).
+
+## Anatomy Asset Pipeline
+
+- Blender 5.1.2 is the validated source-processing toolchain for the P2
+  anatomy spike.
+- The pipeline reads the external BodyParts3D source archive directly, validates
+  source and manifest hashes, and writes cleaned GLB LODs plus a manifest.
+- GLB node names and `muscle_region_id` extras are the renderer identity
+  contract consumed by P2-05.
+- Raw source archives, source OBJ files, and processed GLB files stay outside
+  the repository until a later checklist item explicitly bundles reviewed
+  assets.
+- The complete processing, validation, and license contract is recorded in
+  [the anatomy Blender pipeline](ANATOMY_PIPELINE.md).
+
+## Anatomy Rig and Animation Prototype
+
+- The P2 shared rig is a source-level humanoid contract rather than a committed
+  runtime binary asset.
+- Exercise animation prototypes use bounded high-level controls, stable muscle
+  region IDs, equipment anchors, and loopable keyframes.
+- Ten core exercise prototypes cover squat, hinge, horizontal push, vertical
+  push, horizontal pull, vertical pull, single-leg squat, elbow flexion, and
+  elbow extension patterns.
+- CI validates the rig and animation set against the P2-03 ontology.
+- No motion-capture file, Blender file, FBX, or animation GLB is bundled in
+  P2-09.
+- The complete contract is recorded in
+  [the anatomy rig and animation prototype](ANATOMY_ANIMATION_PROTOTYPE.md).
+
+## Anatomy Renderer Bridge
+
+- Android hosts the anatomy view through a registered Flutter platform view
+  named `project_atlas/anatomy_renderer`.
+- Flutter queries renderer capability metadata through the
+  `project_atlas/anatomy_renderer_bridge` method channel.
+- Flutter owns drag, pinch, tap, fallback picking, and heatmap preview state
+  through a feature controller; Android receives normalized method-channel
+  commands for the registered platform-view ID.
+- The Android implementation initializes Filament, owns the native
+  `SurfaceView`, creates a swapchain from the surface lifecycle, and renders
+  through a native Choreographer frame loop.
+- The bridge supports bounded orbit camera updates, zoom, semantic region
+  selection, normalized picking coordinates, and heatmap scores keyed by stable
+  P2-03 muscle IDs.
+- The bridge exposes GLB support but does not bundle anatomy GLBs yet; processed
+  assets remain external until a later packaging and budget gate. Until then,
+  picking and highlighting operate as deterministic semantic previews rather
+  than mesh/material operations.
+- CI enforces anatomy asset budgets for GLB size, vertex count, triangle count,
+  primitive draw-call upper bounds, material count, and required license
+  metadata before any runtime GLB can be bundled.
+- Non-Android Flutter targets use a safe fallback widget.
+- The complete bridge contract is recorded in
+  [the Android anatomy renderer bridge](ANATOMY_RENDERER_BRIDGE.md).
+- The static asset budget contract is recorded in
+  [the anatomy asset budgets](ANATOMY_ASSET_BUDGETS.md).
+
 ## Local-First Repository Flow
 
 - Presentation and application layers depend on repository interfaces rather

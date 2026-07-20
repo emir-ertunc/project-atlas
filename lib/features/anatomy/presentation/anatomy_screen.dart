@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_atlas/core/design_system/components/feature_root_scaffold.dart';
+import 'package:project_atlas/features/anatomy/presentation/anatomy_renderer_panel.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
 class AnatomyScreen extends StatelessWidget {
@@ -15,6 +16,7 @@ class AnatomyScreen extends StatelessWidget {
       key: screenKey,
       title: AppLocalizations.of(context).anatomyNavigationLabel,
       icon: Icons.accessibility_new_outlined,
+      child: const AnatomyRendererPanel(),
     );
   }
 }

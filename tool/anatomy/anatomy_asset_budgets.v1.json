@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "asset_family": "project_atlas_anatomy_muscles",
+  "pipeline_manifest_schema_version": 1,
+  "expected_region_count": 56,
+  "required_lods": ["lod0", "lod1", "lod2"],
+  "required_node_extras": [
+    "muscle_region_id",
+    "semantic_group_id",
+    "side",
+    "reduction_slot",
+    "source_element_ids"
+  ],
+  "required_license_metadata": {
+    "current_catalog_license": "CC-BY-4.0",
+    "conservative_geometry_license": "CC-BY-SA-2.1-JP",
+    "source_license_url": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/",
+    "required_attribution_contains": [
+      "The Database Center for Life Science",
+      "CC Attribution 4.0 International",
+      "CC Attribution-Share Alike 2.1 Japan"
+    ],
+    "minimum_modification_count": 6
+  },
+  "budgets_by_lod": {
+    "lod0": {
+      "max_size_bytes": 75000000,
+      "max_vertex_count": 2700000,
+      "max_triangle_count": 900000,
+      "max_primitive_draw_calls": 56,
+      "max_material_count": 1
+    },
+    "lod1": {
+      "max_size_bytes": 37000000,
+      "max_vertex_count": 1350000,
+      "max_triangle_count": 450000,
+      "max_primitive_draw_calls": 56,
+      "max_material_count": 1
+    },
+    "lod2": {
+      "max_size_bytes": 15000000,
+      "max_vertex_count": 540000,
+      "max_triangle_count": 180000,
+      "max_primitive_draw_calls": 56,
+      "max_material_count": 1
+    }
+  },
+  "reference_outputs": [
+    {
+      "lod": "lod0",
+      "file": "project_atlas_muscles_lod0.glb",
+      "size_bytes": 70850448,
+      "vertex_count": 2590701,
+      "triangle_count": 863688,
+      "primitive_draw_call_count": 56,
+      "material_count": 1,
+      "sha256": "f04e11b43f292d5c624e689b31cf79df17e9f08abc569fd4704aa48f06c3c40b"
+    },
+    {
+      "lod": "lod1",
+      "file": "project_atlas_muscles_lod1.glb",
+      "size_bytes": 34956104,
+      "vertex_count": 1294618,
+      "triangle_count": 431582,
+      "primitive_draw_call_count": 56,
+      "material_count": 1,
+      "sha256": "b5e7d2ce57785d31b3f7695b277601523e7cddea1ba0c05d5483ae6bebc891ae"
+    },
+    {
+      "lod": "lod2",
+      "file": "project_atlas_muscles_lod2.glb",
+      "size_bytes": 13766432,
+      "vertex_count": 517252,
+      "triangle_count": 172434,
+      "primitive_draw_call_count": 56,
+      "material_count": 1,
+      "sha256": "87fcbc078f9d1c8f069fd4ff1c7c96b4a2a0f533d3dfe1fe621d94ae750016f2"
+    }
+  ]
+}
