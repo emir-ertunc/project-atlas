@@ -67,6 +67,8 @@
 - [x] P3-10 Complete animations for 30 compound exercises and thumbnails for the catalog.
 - [x] P3-11 Verify catalog and program creation in airplane mode.
 - [x] P3-12 Commit, push, open the pull request, and verify CI.
+- Phase 3 validation record:
+  [`docs/PHASE_3_VALIDATION.md`](PHASE_3_VALIDATION.md)
 
 ## Phase 4 — Active Workout and History
 

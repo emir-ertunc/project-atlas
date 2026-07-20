@@ -179,11 +179,15 @@ defined in the foundation. The exercise catalog implementation begins in Phase
 - P3-10 adds a separate versioned media contract with one procedural thumbnail
   binding for every foundational exercise and 30 animation bindings for
   compound or bodyweight-compound exercises.
+- The catalog loader validates the media contract against the P3-10 compound
+  animation contract before exposing animation badges to the UI.
 - Catalog list cards and detail screens render thumbnails through a local
   Flutter painter. Exercises with available source-level animations display an
   animation badge.
 - P3-11 verifies catalog loading, search, thumbnail display, and animation-badge
   display while Dart network client creation is blocked.
+- P3-12 records the Phase 3 branch publication, pull request, local validation,
+  Android debug build, and CI verification.
 - No third-party image files, motion-capture data, Blender files, FBX files,
   GLB files, or runtime animation binaries are bundled in P3-10.
 - Final 120-exercise runtime animation exports, artist review, and

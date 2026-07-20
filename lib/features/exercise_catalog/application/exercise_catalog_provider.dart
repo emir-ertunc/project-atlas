@@ -36,6 +36,7 @@ class ExerciseCatalogAssetLoader {
       bundle.loadString(contentAsset),
       bundle.loadString(muscleMappingsAsset),
       bundle.loadString(mediaAsset),
+      bundle.loadString(compoundAnimationsAsset),
       bundle.loadString(muscleOntologyAsset),
     ]);
 
@@ -46,7 +47,8 @@ class ExerciseCatalogAssetLoader {
       contentJson: documents[3],
       muscleMappingsJson: documents[4],
       mediaJson: documents[5],
-      muscleOntologyJson: documents[6],
+      compoundAnimationsJson: documents[6],
+      muscleOntologyJson: documents[7],
     );
   }
 }

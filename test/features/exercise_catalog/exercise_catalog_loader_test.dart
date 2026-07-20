@@ -32,6 +32,14 @@ void main() {
       catalog.exercises.where((exercise) => exercise.media.hasAnimation),
       hasLength(30),
     );
+    expect(catalog.availableAnimationIds, hasLength(30));
+    expect(
+      catalog.exercises
+          .map((exercise) => exercise.media.animationId)
+          .whereType<String>()
+          .toSet(),
+      catalog.availableAnimationIds,
+    );
   });
 
   test('searches across exercise names and resolved metadata', () {
@@ -151,12 +159,14 @@ void main() {
         contentJson: contentJson,
         muscleMappingsJson: muscleMappingsJson,
         mediaJson: mediaJson,
+        compoundAnimationsJson: compoundAnimationsJson,
         muscleOntologyJson: muscleOntologyJson,
       );
     });
 
     expect(bundledCatalog, isNotNull);
     expect(bundledCatalog!.exercises, hasLength(120));
+    expect(bundledCatalog.availableAnimationIds, hasLength(30));
     expect(bundledCatalog.exerciseById('barbell_bench_press'), isNotNull);
   });
 }

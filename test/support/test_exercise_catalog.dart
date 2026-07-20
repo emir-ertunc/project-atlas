@@ -22,6 +22,9 @@ ExerciseCatalog loadTestExerciseCatalog() {
     mediaJson: _read(
       'tool/exercise_catalog/foundational_exercise_media.v1.json',
     ),
+    compoundAnimationsJson: _read(
+      'tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json',
+    ),
     muscleOntologyJson: _read('tool/anatomy/muscle_region_ontology.v1.json'),
   );
 }

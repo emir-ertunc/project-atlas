@@ -2,7 +2,8 @@
 
 ## Document Status
 
-- Status: P3-11 airplane-mode catalog and manual program creation verification complete
+- Status: Phase 3 complete; catalog, manual program builder, media bindings,
+  offline verification, branch publication, and CI verification recorded
 - Initial catalog target: 120 foundational exercises
 - Canonical inventory:
   [`foundational_exercises.v1.json`](../tool/exercise_catalog/foundational_exercises.v1.json)
@@ -16,6 +17,8 @@
   [`foundational_exercise_muscle_mappings.v1.json`](../tool/exercise_catalog/foundational_exercise_muscle_mappings.v1.json)
 - Canonical media:
   [`foundational_exercise_media.v1.json`](../tool/exercise_catalog/foundational_exercise_media.v1.json)
+- Canonical compound animation contract:
+  [`compound_exercise_animation_prototypes.v1.json`](../tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json)
 
 ## P3-01 Inventory Scope
 
@@ -340,10 +343,11 @@ The selected animation set covers:
 - single-leg squat.
 
 The Flutter catalog model now loads media metadata with the rest of the local
-catalog. Catalog list cards and exercise detail screens render thumbnails
-through a procedural Flutter painter, so the app has visible catalog thumbnails
-without committing external image assets. Exercises with available P3-10
-animations show a play badge on the thumbnail.
+catalog and verifies that every available animation binding references the
+P3-10 compound animation contract. Catalog list cards and exercise detail
+screens render thumbnails through a procedural Flutter painter, so the app has
+visible catalog thumbnails without committing external image assets. Exercises
+with available P3-10 animations show a play badge on the thumbnail.
 
 P3-10 does not claim final artist-reviewed animation quality. P7-01 and P7-02
 still own complete 120-exercise runtime animation coverage, start/end pose
@@ -370,8 +374,17 @@ The test coverage verifies that:
 
 P3-11 intentionally does not add a backend, account layer, synchronization
 service, connectivity permission, or external asset fetch. P3-09 already owns
-the save, publish, copy, and archive lifecycle tests. P3-12 owns the phase
-commit, push, pull request, and CI verification.
+the save, publish, copy, and archive lifecycle tests.
+
+## P3-12 Phase Publication and Validation Scope
+
+P3-12 closes Phase 3 with a pushed branch, draft pull request, local validation
+run, Android debug build, and green CI checks. The validation record is stored
+in [`PHASE_3_VALIDATION.md`](PHASE_3_VALIDATION.md).
+
+Phase 3 is complete at the checklist level. Full 120-exercise runtime animation
+exports, external movement review, notification work, adaptive programming, and
+active workout logging remain explicitly deferred to later phases.
 
 ## Exercise Record Requirements
 

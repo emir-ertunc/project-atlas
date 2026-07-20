@@ -144,6 +144,9 @@ ExerciseCatalog _loadLocalCatalogFiles() {
       ExerciseCatalogAssetLoader.muscleMappingsAsset,
     ).readAsStringSync(),
     mediaJson: File(ExerciseCatalogAssetLoader.mediaAsset).readAsStringSync(),
+    compoundAnimationsJson: File(
+      ExerciseCatalogAssetLoader.compoundAnimationsAsset,
+    ).readAsStringSync(),
     muscleOntologyJson: File(
       ExerciseCatalogAssetLoader.muscleOntologyAsset,
     ).readAsStringSync(),

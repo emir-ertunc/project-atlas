@@ -2,7 +2,9 @@
 
 ## Document Status
 
-- Status: BodyParts3D source, 56-region reduction, Blender GLB pipeline, and P3-10 procedural exercise media contracts selected; no binary anatomy or exercise media asset is bundled yet
+- Status: BodyParts3D source, 56-region reduction, Blender GLB pipeline, and
+  Phase 3 procedural exercise media contracts selected; no binary anatomy or
+  exercise media asset is bundled yet
 - Code license target: Apache-2.0
 
 ## Asset Policy
@@ -33,7 +35,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | `anatomy-source-bodyparts3d-v4-isa-obj99` | Not bundled; external source archive | [BodyParts3D IS-A OBJ archive](https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/isa_BP3D_4.0_obj_99.zip) | Current catalog: `CC-BY-4.0`; embedded OBJ notice retained conservatively: `CC-BY-SA-2.1-JP` | BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International; BodyParts3D, (c) The Database Center for Life Science licensed under CC Attribution-Share Alike 2.1 Japan | `sha256:40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e` | Source selected; 56-region reduction mapped; GLB pipeline validated; processed outputs remain external |
 
-| `exercise-media-procedural-p3-10` | `tool/exercise_catalog/foundational_exercise_media.v1.json`; `tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json` | Original procedural thumbnail metadata and source-level keyframe contract | Project source distribution | No third-party attribution required | `sha256:c904e0e6dfd3b40f3c3e71fb895bc7d626367f5a01029082b98a15c9b991d72b`; `sha256:214343fbce9a9a6302c2b932de468b6401ced98fdc5cdcf1a6968419991edd44` | P3-10 complete; no binary image, motion-capture, Blender, FBX, GLB, or runtime animation asset bundled |
+| `exercise-media-procedural-p3-10` | `tool/exercise_catalog/foundational_exercise_media.v1.json`; `tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json` | Original procedural thumbnail metadata and source-level keyframe contract | Project source distribution | No third-party attribution required | `sha256:c904e0e6dfd3b40f3c3e71fb895bc7d626367f5a01029082b98a15c9b991d72b`; `sha256:214343fbce9a9a6302c2b932de468b6401ced98fdc5cdcf1a6968419991edd44` | Phase 3 complete; no binary image, motion-capture, Blender, FBX, GLB, or runtime animation asset bundled |
 
 The selected archive and its required metadata are documented in
 [the anatomy source selection record](ANATOMY_ASSET_SELECTION.md). Raw source

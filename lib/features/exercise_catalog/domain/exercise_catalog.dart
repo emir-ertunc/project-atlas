@@ -308,7 +308,9 @@ class ExerciseCatalog {
     required this.lateralities,
     required this.exerciseTypes,
     required this.muscleRegionNames,
+    required Set<String> availableAnimationIds,
   }) : exercises = List.unmodifiable(exercises),
+       availableAnimationIds = Set.unmodifiable(availableAnimationIds),
        exercisesById = Map.unmodifiable({
          for (final exercise in exercises) exercise.id: exercise,
        });
@@ -320,6 +322,7 @@ class ExerciseCatalog {
     required String contentJson,
     required String muscleMappingsJson,
     required String mediaJson,
+    required String compoundAnimationsJson,
     required String muscleOntologyJson,
   }) {
     final inventory = _decodeDocument(inventoryJson, 'inventory');
@@ -331,6 +334,10 @@ class ExerciseCatalog {
       'muscleMappings',
     );
     final media = _decodeDocument(mediaJson, 'media');
+    final compoundAnimations = _decodeDocument(
+      compoundAnimationsJson,
+      'compoundAnimations',
+    );
     final muscleOntology = _decodeDocument(
       muscleOntologyJson,
       'muscleOntology',
@@ -358,6 +365,14 @@ class ExerciseCatalog {
     final exerciseContent = _exerciseContentAssignments(content);
     final exerciseMuscleMappings = _exerciseMuscleMappings(muscleMappings);
     final exerciseMedia = _exerciseMedia(media);
+    final availableAnimationIds = _compoundAnimationIds(
+      compoundAnimations,
+      expectedAnimationSetId: _asString(
+        media['animation_set_id'],
+        'media.animation_set_id',
+      ),
+    );
+    _validateMediaAnimationBindings(exerciseMedia, availableAnimationIds);
     final muscleRegionNames = _muscleRegionNames(muscleOntology);
 
     final inventoryRows = _asObjectList(inventory, 'exercises')
@@ -465,6 +480,7 @@ class ExerciseCatalog {
       lateralities: _sortedOptions(lateralityOptions),
       exerciseTypes: _sortedOptions(exerciseTypeOptions),
       muscleRegionNames: Map.unmodifiable(muscleRegionNames),
+      availableAnimationIds: availableAnimationIds,
     );
   }
 
@@ -477,6 +493,7 @@ class ExerciseCatalog {
   final List<CatalogOption> lateralities;
   final List<CatalogOption> exerciseTypes;
   final Map<String, CatalogLocalizedText> muscleRegionNames;
+  final Set<String> availableAnimationIds;
 
   List<CatalogOption> optionsFor(ExerciseCatalogFacet facet) {
     return switch (facet) {
@@ -739,6 +756,87 @@ Map<String, ExerciseMedia> _exerciseMedia(Map<String, Object?> media) {
     for (final row in _asObjectList(media, 'exercise_media'))
       _asString(row['exercise_id'], 'exercise_id'): ExerciseMedia.fromJson(row),
   };
+}
+
+Set<String> _compoundAnimationIds(
+  Map<String, Object?> animations, {
+  required String expectedAnimationSetId,
+}) {
+  final animationSetId = _asString(
+    animations['animation_set_id'],
+    'animation_set_id',
+  );
+  if (animationSetId != expectedAnimationSetId) {
+    throw FormatException(
+      'Media animation set "$expectedAnimationSetId" does not match '
+      'compound animation contract "$animationSetId".',
+    );
+  }
+
+  final expectedCount = _asInt(
+    animations['exercise_animation_count'],
+    'exercise_animation_count',
+  );
+  final ids = <String>{};
+  for (final row in _asObjectList(animations, 'exercises')) {
+    final animationId = _asString(row['animation_id'], 'animation_id');
+    if (!ids.add(animationId)) {
+      throw FormatException('Duplicate compound animation id "$animationId".');
+    }
+  }
+
+  if (ids.length != expectedCount) {
+    throw FormatException(
+      'Expected $expectedCount compound animations, found ${ids.length}.',
+    );
+  }
+
+  return Set.unmodifiable(ids);
+}
+
+void _validateMediaAnimationBindings(
+  Map<String, ExerciseMedia> exerciseMedia,
+  Set<String> availableAnimationIds,
+) {
+  final mediaAnimationIds = <String>{};
+
+  for (final entry in exerciseMedia.entries) {
+    final exerciseId = entry.key;
+    final media = entry.value;
+    final animationId = media.animationId;
+
+    if (media.animationStatus == 'available' && animationId == null) {
+      throw FormatException(
+        'Exercise "$exerciseId" marks animation available without an '
+        'animation_id.',
+      );
+    }
+
+    if (animationId != null) {
+      if (media.animationStatus != 'available') {
+        throw FormatException(
+          'Exercise "$exerciseId" references animation "$animationId" while '
+          'status is "${media.animationStatus}".',
+        );
+      }
+      if (!availableAnimationIds.contains(animationId)) {
+        throw FormatException(
+          'Exercise "$exerciseId" references unknown animation "$animationId".',
+        );
+      }
+      mediaAnimationIds.add(animationId);
+    }
+  }
+
+  final unreferencedAnimationIds = availableAnimationIds.difference(
+    mediaAnimationIds,
+  );
+  if (unreferencedAnimationIds.isNotEmpty) {
+    throw FormatException(
+      'Compound animations not referenced by media: '
+      '${unreferencedAnimationIds.join(', ')}.',
+    );
+  }
 }
 
 Map<String, CatalogLocalizedText> _muscleRegionNames(

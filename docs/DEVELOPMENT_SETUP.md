@@ -166,6 +166,8 @@ the device, reconnect it, and accept the new authorization prompt.
 - Physical-device authorization: Pending a connected Android device
 - Phase 1 local validation: Passed on 2026-07-07; see
   [the validation record](PHASE_1_VALIDATION.md)
+- Phase 3 local and CI validation: Passed on 2026-07-20; see
+  [the validation record](PHASE_3_VALIDATION.md)
 
 ## Build C0 Validation
 
