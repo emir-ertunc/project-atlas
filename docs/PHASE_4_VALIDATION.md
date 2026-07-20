@@ -7,6 +7,8 @@
   outcome capture, rest timers, process recovery, execution statuses, workout
   history, personal records, append-only corrections, resilience tests, and
   Build C2 APK production
+- Pull request:
+  [#5 Complete Phase 4 active workout and history](https://github.com/emir-ertunc/project-atlas/pull/5)
 - Result: Passed
 - Remaining Phase 4 checklist items: None
 
