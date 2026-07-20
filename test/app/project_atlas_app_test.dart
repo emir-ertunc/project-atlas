@@ -7,16 +7,29 @@ import 'package:project_atlas/app/project_atlas_app.dart';
 import 'package:project_atlas/core/design_system/tokens/app_color_tokens.dart';
 import 'package:project_atlas/core/localization/locale_provider.dart';
 import 'package:project_atlas/features/anatomy/presentation/anatomy_screen.dart';
+import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
+import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
 import 'package:project_atlas/features/program/presentation/program_screen.dart';
 import 'package:project_atlas/features/progress/presentation/progress_screen.dart';
 import 'package:project_atlas/features/settings/presentation/settings_screen.dart';
 import 'package:project_atlas/features/today/presentation/today_screen.dart';
 
+import '../support/test_exercise_catalog.dart';
+
 void main() {
+  late ExerciseCatalog testCatalog;
+
+  setUpAll(() {
+    testCatalog = loadTestExerciseCatalog();
+  });
+
   Future<void> pumpApp(WidgetTester tester, Locale locale) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [appLocaleProvider.overrideWithValue(locale)],
+        overrides: [
+          appLocaleProvider.overrideWithValue(locale),
+          exerciseCatalogProvider.overrideWith((ref) => testCatalog),
+        ],
         child: const ProjectAtlasApp(),
       ),
     );

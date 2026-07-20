@@ -52,6 +52,7 @@ void main() {
         'profiles',
         'programs',
         'program_versions',
+        'program_version_training_days',
         'prescribed_sets',
         'workout_sessions',
         'session_sets',
@@ -100,7 +101,49 @@ void main() {
           ),
         );
     expect(await database.select(database.programVersions).get(), hasLength(1));
+    await database
+        .into(database.programVersionTrainingDays)
+        .insert(
+          ProgramVersionTrainingDaysCompanion.insert(
+            id: 'day-after-migration',
+            programVersionId: 'version-after-migration',
+            trainingDayOrder: 0,
+            name: 'Day 1',
+          ),
+        );
+    expect(
+      await database.select(database.programVersionTrainingDays).get(),
+      hasLength(1),
+    );
   });
+
+  test(
+    'migrates version 3 databases by adding training-day snapshots',
+    () async {
+      await _createVersion3Database(databaseFile);
+
+      final database = _openDatabase(databaseFile);
+      addTearDown(database.close);
+      await database.customSelect('SELECT 1').getSingle();
+
+      await _expectCurrentSchema(database, temporaryDirectory);
+      expect(await _userVersion(database), database.schemaVersion);
+      await database
+          .into(database.programVersionTrainingDays)
+          .insert(
+            ProgramVersionTrainingDaysCompanion.insert(
+              id: 'day-after-v3-migration',
+              programVersionId: 'version-v3',
+              trainingDayOrder: 0,
+              name: 'Upper A',
+            ),
+          );
+      final days = await database
+          .select(database.programVersionTrainingDays)
+          .get();
+      expect(days.single.name, 'Upper A');
+    },
+  );
 
   test(
     'restores committed workout state and rolls back interrupted work',
@@ -269,10 +312,12 @@ Future<void> _createVersion2Database(File file) async {
   final legacy = sqlite.sqlite3.open(file.path);
   legacy.execute('DROP INDEX workout_sessions_program_version_idx');
   legacy.execute('DROP INDEX session_sets_prescribed_set_idx');
+  legacy.execute('DROP INDEX program_version_training_days_version_idx');
   legacy.execute('ALTER TABLE workout_sessions DROP COLUMN program_version_id');
   legacy.execute('ALTER TABLE session_sets DROP COLUMN prescribed_set_id');
   legacy.execute('DROP TABLE actual_set_logs');
   legacy.execute('DROP TABLE prescribed_sets');
+  legacy.execute('DROP TABLE program_version_training_days');
   legacy.execute('DROP TABLE program_versions');
   legacy.userVersion = 2;
 
@@ -300,6 +345,40 @@ Future<void> _createVersion2Database(File file) async {
     "VALUES ('measurement-legacy', 'profile-legacy', "
     "strftime('%s', '2026-07-01 09:00:00'), 'manual')",
   );
+  legacy.close();
+}
+
+Future<void> _createVersion3Database(File file) async {
+  final current = _openDatabase(file);
+  await current.customSelect('SELECT 1').getSingle();
+  await current
+      .into(current.profiles)
+      .insert(
+        ProfilesCompanion.insert(
+          id: 'profile-v3',
+          unitSystem: UnitSystemPreference.metric,
+        ),
+      );
+  await current.customStatement(
+    "INSERT INTO programs (id, profile_id, name, status) "
+    "VALUES ('program-v3', 'profile-v3', 'Version 3 Program', 'active')",
+  );
+  await current
+      .into(current.programVersions)
+      .insert(
+        ProgramVersionsCompanion.insert(
+          id: 'version-v3',
+          programId: 'program-v3',
+          versionNumber: 1,
+          status: ProgramVersionStatus.active,
+        ),
+      );
+  await current.close();
+
+  final legacy = sqlite.sqlite3.open(file.path);
+  legacy.execute('DROP INDEX program_version_training_days_version_idx');
+  legacy.execute('DROP TABLE program_version_training_days');
+  legacy.userVersion = 3;
   legacy.close();
 }
 

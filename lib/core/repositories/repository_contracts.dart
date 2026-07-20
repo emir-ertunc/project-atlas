@@ -15,12 +15,23 @@ abstract interface class ProgramRepository {
 
   Stream<List<ProgramVersionRecord>> watchVersions(String programId);
 
+  Stream<List<ProgramTrainingDayRecord>> watchTrainingDays(String versionId);
+
   Stream<List<PrescribedSetRecord>> watchPrescription(String versionId);
 
   Future<void> saveProgram(ProgramRecord program);
 
+  Future<void> saveProgramSnapshot(
+    ProgramRecord program,
+    ProgramVersionRecord version,
+    List<ProgramTrainingDayRecord> trainingDays,
+    List<PrescribedSetRecord> prescription, {
+    bool retireActiveVersions = false,
+  });
+
   Future<void> addVersion(
     ProgramVersionRecord version,
+    List<ProgramTrainingDayRecord> trainingDays,
     List<PrescribedSetRecord> prescription,
   );
 }

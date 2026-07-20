@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: Current Phase 1 implementation validated; accessibility and dedicated prescription acceptance remain open
+- Status: Current Phase 1 and Phase 2 implementation validated; P3-11 airplane-mode catalog and manual program creation verification is complete
 - Architecture style: Offline-first, layered, and feature-oriented
 
 ## Technology Baseline
@@ -90,9 +90,9 @@ Drift tables, data access objects, repository implementations, migrations, expor
 
 ## Core Relational Schema
 
-- Schema version 3 contains profiles, programs, immutable program versions,
-  prescribed sets, workout sessions, session sets, append-only actual set logs,
-  and measurement records.
+- Schema version 4 contains profiles, programs, immutable program versions,
+  version-scoped training-day snapshots, prescribed sets, workout sessions,
+  session sets, append-only actual set logs, and measurement records.
 - Foreign keys are enabled on every database open.
 - Profile-owned records use cascade deletion. Deleting a program preserves
   workout history by setting the optional session reference to null.
@@ -145,7 +145,84 @@ Drift tables, data access objects, repository implementations, migrations, expor
 
 Profile, program, workout, measurement, and exercise repository signatures are
 defined in the foundation. The exercise catalog implementation begins in Phase
-2; service interfaces are defined by their first consuming features.
+3; service interfaces are defined by their first consuming features.
+
+## Exercise Catalog Identity and Categories
+
+- P3-01 defines the first 120 foundational exercise identities in
+  [the exercise catalog plan](EXERCISE_CATALOG.md).
+- The canonical inventory file stores immutable `snake_case` IDs and Turkish
+  and English display names.
+- P3-01 planning groups remain internal coverage buckets and are not used as
+  product-facing filters.
+- P3-02 adds a separate versioned category contract with movement-pattern
+  categories, broad muscle-region categories, and one assignment per exercise.
+- Muscle-region categories reference P2 semantic muscle group IDs and stay
+  broader than the later primary, secondary, and stabilizer activation maps.
+- P3-03 adds a separate versioned filter contract with equipment, level,
+  laterality, and exercise-type filter vocabularies plus one assignment per
+  exercise.
+- P3-04 adds a separate versioned content contract with localized setup,
+  execution, form-cue, common-error, substitution, and regression data for every
+  foundational exercise.
+- P3-05 adds a separate versioned muscle mapping contract with side-qualified
+  P2 semantic `primary_region_ids`, `secondary_region_ids`, and
+  `stabilizer_region_ids` for every foundational exercise.
+- P3-06 bundles the P3 JSON contracts and P2 muscle ontology as local metadata,
+  composes them through `lib/features/exercise_catalog`, and exposes a
+  Riverpod-backed read-only catalog model to the Program branch.
+- The Program branch root displays catalog search, filter chips, and exercise
+  cards. Exercise detail is a nested GoRouter route at
+  `/program/exercise/:exerciseId`.
+- Catalog search and filters run fully on-device against immutable local
+  metadata; no network or account state is required.
+- P3-10 adds a separate versioned media contract with one procedural thumbnail
+  binding for every foundational exercise and 30 animation bindings for
+  compound or bodyweight-compound exercises.
+- The catalog loader validates the media contract against the P3-10 compound
+  animation contract before exposing animation badges to the UI.
+- Catalog list cards and detail screens render thumbnails through a local
+  Flutter painter. Exercises with available source-level animations display an
+  animation badge.
+- P3-11 verifies catalog loading, search, thumbnail display, and animation-badge
+  display while Dart network client creation is blocked.
+- P3-12 records the Phase 3 branch publication, pull request, local validation,
+  Android debug build, and CI verification.
+- No third-party image files, motion-capture data, Blender files, FBX files,
+  GLB files, or runtime animation binaries are bundled in P3-10.
+- Final 120-exercise runtime animation exports, artist review, and
+  equipment-contact review remain deferred to Phase 7.
+
+## Manual Program Builder
+
+- P3-07 introduces an in-memory local program draft controller in
+  `lib/features/program`.
+- The Program branch root is a two-tab workspace: Builder for manual program
+  composition and Catalog for the read-only P3-06 exercise browser.
+- The builder state tracks a draft name, ordered training days, the selected
+  training day, and ordered exercise prescriptions per day.
+- Training days can be added, selected, renamed, and deleted while keeping a
+  valid selected day.
+- Exercises are selected from the same local catalog model used by the catalog
+  browser, then ordered inside the selected day.
+- P3-08 adds local prescription fields to each exercise: set count, fixed or
+  ranged repetitions, optional target RIR, optional load, and rest duration.
+- Fixed repetitions use equal minimum and maximum values. Ranged repetitions
+  keep separate minimum and maximum values. RIR remains independently optional.
+- Load is held internally in kilograms and displayed through the existing unit
+  system. Rest is held in seconds.
+- P3-09 persists the current builder state through a local snapshot service.
+  Saving a draft creates a new draft version; publishing creates a new active
+  immutable version and retires earlier active versions for the same program.
+- Training-day names are stored as version-scoped snapshots, so later day
+  renames do not rewrite historical prescriptions.
+- Copying clears persisted identity and returns the program to a local draft.
+  Archiving updates only the stable program lifecycle and leaves version
+  content immutable.
+- Snapshot writes go through the repository layer and insert the program,
+  version, training days, and prescribed sets transactionally.
+- P3-11 verifies manual draft creation and catalog exercise selection while
+  Dart network client creation is blocked.
 
 ## Anatomy Muscle Ontology
 
@@ -186,6 +263,8 @@ defined in the foundation. The exercise catalog implementation begins in Phase
   P2-09.
 - The complete contract is recorded in
   [the anatomy rig and animation prototype](ANATOMY_ANIMATION_PROTOTYPE.md).
+- P3-10 extends the same rig contract with 30 compound exercise source-level
+  animation records and binds them to catalog media metadata.
 
 ## Anatomy Renderer Bridge
 

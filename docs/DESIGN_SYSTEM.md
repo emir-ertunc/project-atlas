@@ -83,5 +83,19 @@ Buttons, icon buttons, cards, fields, chips, dividers, app bars, and navigation
 bars consume these tokens through `AppTheme`. Feature code should read colors
 and text styles from `Theme.of(context)` and use spacing/component constants.
 
-P1-03 will add the behavioral accessibility layer for text scaling, focus,
-semantics, and touch-target verification across complete screens.
+## Accessibility Foundation
+
+P1-03 closes the behavioral accessibility baseline for the current complete
+screens:
+
+- Normal-size text foreground/background pairs are covered by automated
+  4.5:1 WCAG AA contrast tests.
+- The application shell is verified at 2.0 text scale across Today, Program,
+  Anatomy, Progress, and Settings without render overflow.
+- Feature roots provide a focus traversal boundary and expose placeholder
+  titles as semantic headers.
+- The primary navigation bar and anatomy action controls are covered by
+  minimum 48 logical pixel touch-target tests.
+
+Future feature screens must keep these tests green or add equivalent
+screen-level accessibility coverage before being marked complete.

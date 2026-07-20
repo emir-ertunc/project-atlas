@@ -29,9 +29,9 @@
 
 - [x] P1-01 Define accessible colors, typography, spacing, and component tokens.
 - [x] P1-02 Create the main navigation: Today, Program, Anatomy, Progress, and Settings.
-- [ ] P1-03 Implement accessibility foundations for contrast, type scaling, and touch targets.
+- [x] P1-03 Implement accessibility foundations for contrast, type scaling, and touch targets.
 - [x] P1-04 Create the Drift schema for profiles, programs, sessions, sets, and measurements.
-- [ ] P1-05 Separate program versions, prescribed sets, and actual set logs.
+- [x] P1-05 Separate program versions, prescribed sets, and actual set logs.
 - [x] P1-06 Create repository interfaces and the local-first data flow.
 - [x] P1-07 Add database migration and process-recovery tests.
 - [x] P1-08 Exclude sensitive files from device backups and design encrypted export.
@@ -55,18 +55,20 @@
 
 ## Phase 3 — Exercise Catalog and Manual Program Builder
 
-- [ ] P3-01 Define the inventory for 120 foundational exercises.
-- [ ] P3-02 Add muscle-region and movement-pattern categories.
-- [ ] P3-03 Add equipment, level, laterality, and exercise-type filters.
-- [ ] P3-04 Write original instructions, form cues, common errors, and substitutions.
-- [ ] P3-05 Verify primary, secondary, and stabilizer muscle mappings.
-- [ ] P3-06 Build catalog search, filters, list, and exercise detail screens.
-- [ ] P3-07 Build program creation, training-day editing, and exercise ordering.
-- [ ] P3-08 Add fixed/range repetitions, independent RIR, sets, load, and rest inputs.
-- [ ] P3-09 Add program drafts, immutable versions, copying, and archiving.
-- [ ] P3-10 Complete animations for 30 compound exercises and thumbnails for the catalog.
-- [ ] P3-11 Verify catalog and program creation in airplane mode.
-- [ ] P3-12 Commit, push, open the pull request, and verify CI.
+- [x] P3-01 Define the inventory for 120 foundational exercises.
+- [x] P3-02 Add muscle-region and movement-pattern categories.
+- [x] P3-03 Add equipment, level, laterality, and exercise-type filters.
+- [x] P3-04 Write original instructions, form cues, common errors, and substitutions.
+- [x] P3-05 Verify primary, secondary, and stabilizer muscle mappings.
+- [x] P3-06 Build catalog search, filters, list, and exercise detail screens.
+- [x] P3-07 Build program creation, training-day editing, and exercise ordering.
+- [x] P3-08 Add fixed/range repetitions, independent RIR, sets, load, and rest inputs.
+- [x] P3-09 Add program drafts, immutable versions, copying, and archiving.
+- [x] P3-10 Complete animations for 30 compound exercises and thumbnails for the catalog.
+- [x] P3-11 Verify catalog and program creation in airplane mode.
+- [x] P3-12 Commit, push, open the pull request, and verify CI.
+- Phase 3 validation record:
+  [`docs/PHASE_3_VALIDATION.md`](PHASE_3_VALIDATION.md)
 
 ## Phase 4 — Active Workout and History
 

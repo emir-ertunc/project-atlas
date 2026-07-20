@@ -2,23 +2,27 @@
 
 ## Result
 
-- Date: 2026-07-08
-- Scope: Phase 1 branch publication through P1-10
+- Date: 2026-07-08; follow-up closure on 2026-07-20
+- Scope: Phase 1 branch publication through P1-10, then P1-03 and P1-05
+  acceptance closure
 - Result: Local quality, database, security-policy, Android build, emulator
-  smoke, pull-request, and CI gates passed
-- Remaining Phase 1 checklist items: P1-03 and P1-05
-- Publication: Draft pull request #2 opened with successful required checks
+  smoke, pull-request, CI, accessibility, and prescription-separation gates
+  passed
+- Remaining Phase 1 checklist items: None
+- Publication: Draft pull request #2 opened with successful required checks;
+  the follow-up closure is carried on the current stacked phase branch
 
-P1-09 validated the implementation before publication. P1-10 publishes that
-scope as a draft pull request without marking the two remaining feature
-checklist items complete.
+P1-09 validated the initial implementation before publication. P1-10 published
+that scope as a draft pull request. The 2026-07-20 follow-up closes the two
+remaining feature checklist items with additional acceptance tests and
+documentation updates.
 
 ## Publication
 
 - Pull request: [#2 Add design and local data foundations](https://github.com/emir-ertunc/project-atlas/pull/2)
 - Implementation commit: `d1620ed402b46edcf7a1bf530051319f357ff2db`
 - Initial push and pull-request CI runs: Passed
-- Pull request state: Draft while P1-03 and P1-05 remain open
+- Pull request state: Draft while stacked phase branches remain under review
 
 ## Toolchain
 
@@ -83,6 +87,26 @@ recorded as measurements rather than an integration gate.
 An iOS build and a physical iOS backup/restore test remain deferred until iOS
 development begins.
 
+## Follow-up Closure — 2026-07-20
+
+P1-03 is closed by the screen-level accessibility foundation:
+
+- Feature roots use a focus traversal boundary.
+- Placeholder screen titles expose semantic header information.
+- The app shell is tested at 2.0 text scale across all Phase 1 destinations
+  without render overflow.
+- Primary navigation and anatomy action controls are tested against the 48
+  logical pixel minimum touch target.
+
+P1-05 is closed by the program/prescription/history separation review:
+
+- Program versions and prescribed sets are inserted atomically.
+- Failed prescription writes roll back the entire version insert.
+- Actual set revisions are append-only and remain separate from prescription
+  records.
+- Deleting a program template clears optional historical links but preserves
+  workout sessions, session sets, and actual set logs.
+
 ## Android Artifact
 
 - Package: `app.projectatlas.personal`
@@ -100,9 +124,6 @@ measurement.
 
 ## Open Gates
 
-- P1-03: Complete behavioral accessibility foundations and their acceptance
-  tests.
-- P1-05: Complete the dedicated acceptance review for program versions,
-  prescribed sets, and actual set logs.
-- Physical Android hardware is not currently connected; the API 35 emulator is
-  the local runtime target for this record.
+- No Phase 1 checklist gates remain open.
+- Physical Android hardware validation is recorded in Phase 2. The API 35
+  emulator remains the original Phase 1 runtime target for this record.

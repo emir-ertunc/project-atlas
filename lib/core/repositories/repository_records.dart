@@ -79,6 +79,22 @@ final class ProgramVersionRecord {
   final DateTime? activatedAt;
 }
 
+final class ProgramTrainingDayRecord {
+  const ProgramTrainingDayRecord({
+    required this.id,
+    required this.programVersionId,
+    required this.trainingDayOrder,
+    required this.name,
+    required this.createdAt,
+  });
+
+  final String id;
+  final String programVersionId;
+  final int trainingDayOrder;
+  final String name;
+  final DateTime createdAt;
+}
+
 final class PrescribedSetRecord {
   const PrescribedSetRecord({
     required this.id,

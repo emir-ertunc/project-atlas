@@ -29,3 +29,12 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+  assets:
+    - tool/anatomy/muscle_region_ontology.v1.json
+    - tool/exercise_catalog/foundational_exercises.v1.json
+    - tool/exercise_catalog/foundational_exercise_categories.v1.json
+    - tool/exercise_catalog/foundational_exercise_filters.v1.json
+    - tool/exercise_catalog/foundational_exercise_content.v1.json
+    - tool/exercise_catalog/foundational_exercise_muscle_mappings.v1.json
+    - tool/exercise_catalog/foundational_exercise_media.v1.json
+    - tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json

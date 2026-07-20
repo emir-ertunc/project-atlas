@@ -172,9 +172,9 @@ the explicit `interactive_lite` override.
 - Checked on: 2026-07-20
 - APK path:
   `build/app/outputs/flutter-apk/app-profile.apk`
-- APK size: 104,467,562 bytes
+- APK size: 104,647,786 bytes
 - APK SHA-256:
-  `92e883be31f5f2abb006fa251260355f54151c78c7e71b921b309e92c8527a3d`
+  `7cf3d7832e6e739dcc7a6d8a4d22242be70bde3f6752ee3e03d54db500bc37e5`
 - Package: `app.projectatlas.personal`
 - Version: `0.1.0`, version code `1`
 - SDK range: min SDK `24`, target SDK `36`
@@ -197,16 +197,17 @@ The profile manifest overlay declares:
 ```
 
 `aapt dump xmltree` confirmed the final APK contains the `profileable` element
-with `android:shell=true`. The installed APK launched successfully with
-`adb shell am start -W`, reached `Status: ok`, and emitted these performance
-markers during the smoke window:
+with `android:shell=true`. With the physical device awake and unlocked, the
+installed APK launched successfully with `adb shell am start -W`, reached
+`Status: ok`, reported `TotalTime=1,551 ms` and `WaitTime=1,563 ms`, and
+emitted these performance markers during the smoke window:
 
 | Marker | Elapsed |
 | --- | ---: |
 | `app_main` | 0 ms |
-| `anatomy_panel_init` | 1,994 ms |
-| `anatomy_panel_first_frame` | 2,641 ms |
-| `anatomy_platform_view_created` | 4,156 ms |
+| `anatomy_panel_init` | 265 ms |
+| `anatomy_panel_first_frame` | 303 ms |
+| `anatomy_platform_view_created` | 518 ms |
 
 Build C1 is a local profiling artifact and is not committed. It intentionally
 uses the `interactive_lite` override to mount the native renderer despite the

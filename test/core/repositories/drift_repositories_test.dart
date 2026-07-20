@@ -44,16 +44,24 @@ void main() {
     final repository = container.read(programRepositoryProvider);
     await repository.saveProgram(_program(now));
 
-    await repository.addVersion(_version(now), [_prescribedSet(now)]);
+    await repository.addVersion(
+      _version(now),
+      [_trainingDay(now)],
+      [_prescribedSet(now)],
+    );
 
     final versions = await repository
         .watchVersions('program-1')
+        .firstWhere((items) => items.isNotEmpty);
+    final trainingDays = await repository
+        .watchTrainingDays('version-1')
         .firstWhere((items) => items.isNotEmpty);
     final prescription = await repository
         .watchPrescription('version-1')
         .firstWhere((items) => items.isNotEmpty);
 
     expect(versions.single.versionNumber, 1);
+    expect(trainingDays.single.name, 'Upper A');
     expect(prescription.single.minimumRepetitions, 6);
     expect(prescription.single.maximumRepetitions, 8);
     expect(prescription.single.targetRir, 2);
@@ -71,13 +79,18 @@ void main() {
       await repository.saveProgram(_program(now));
 
       await expectLater(
-        repository.addVersion(_version(now), [
-          _prescribedSet(now),
-          _prescribedSet(now, id: 'prescribed-set-2'),
-        ]),
+        repository.addVersion(
+          _version(now),
+          [_trainingDay(now)],
+          [_prescribedSet(now), _prescribedSet(now, id: 'prescribed-set-2')],
+        ),
         throwsA(isA<Exception>()),
       );
       expect(await database.select(database.programVersions).get(), isEmpty);
+      expect(
+        await database.select(database.programVersionTrainingDays).get(),
+        isEmpty,
+      );
       expect(await database.select(database.prescribedSets).get(), isEmpty);
     },
   );
@@ -145,6 +158,68 @@ void main() {
     expect(prescription.single.maximumRepetitions, 8);
     expect(await database.select(database.actualSetLogs).get(), hasLength(2));
   });
+
+  test(
+    'removing a program template preserves session history and actual logs',
+    () async {
+      await _saveProgramGraph(container, now);
+      final repository = container.read(workoutRepositoryProvider);
+      final session = WorkoutSessionRecord(
+        id: 'session-1',
+        profileId: 'profile-1',
+        programId: 'program-1',
+        programVersionId: 'version-1',
+        lifecycle: WorkoutLifecycle.completed,
+        scheduledAt: now,
+        startedAt: now,
+        endedAt: now.add(const Duration(hours: 1)),
+        createdAt: now,
+        updatedAt: now.add(const Duration(hours: 1)),
+      );
+      final sessionSet = SessionSetRecord(
+        id: 'session-set-1',
+        sessionId: session.id,
+        prescribedSetId: 'prescribed-set-1',
+        exerciseId: 'barbell-bench-press',
+        exerciseOrder: 0,
+        setOrder: 0,
+        lifecycle: SetLifecycle.completed,
+        createdAt: now,
+        updatedAt: now,
+      );
+
+      await repository.saveSessionPlan(session, [sessionSet]);
+      await repository.appendActualSetLog(
+        ActualSetLogRecord(
+          id: 'log-1',
+          sessionSetId: sessionSet.id,
+          revision: 1,
+          repetitions: 6,
+          loadKilograms: 50,
+          rir: 2,
+          recordedAt: now.add(const Duration(minutes: 5)),
+        ),
+      );
+
+      await (database.delete(
+        database.programs,
+      )..where((row) => row.id.equals('program-1'))).go();
+
+      final historicalSession = await database
+          .select(database.workoutSessions)
+          .getSingle();
+      final historicalSet = await database
+          .select(database.sessionSets)
+          .getSingle();
+      final logs = await database.select(database.actualSetLogs).get();
+
+      expect(historicalSession.programId, isNull);
+      expect(historicalSession.programVersionId, isNull);
+      expect(historicalSet.prescribedSetId, isNull);
+      expect(historicalSet.exerciseId, 'barbell-bench-press');
+      expect(logs.single.repetitions, 6);
+    },
+  );
 
   test(
     'measurement history is emitted newest first from local storage',
@@ -239,5 +314,17 @@ Future<void> _saveProgramGraph(
   await _saveProfile(container, now);
   final repository = container.read(programRepositoryProvider);
   await repository.saveProgram(_program(now));
-  await repository.addVersion(_version(now), [_prescribedSet(now)]);
+  await repository.addVersion(
+    _version(now),
+    [_trainingDay(now)],
+    [_prescribedSet(now)],
+  );
 }
+
+ProgramTrainingDayRecord _trainingDay(DateTime now) => ProgramTrainingDayRecord(
+  id: 'training-day-1',
+  programVersionId: 'version-1',
+  trainingDayOrder: 0,
+  name: 'Upper A',
+  createdAt: now,
+);

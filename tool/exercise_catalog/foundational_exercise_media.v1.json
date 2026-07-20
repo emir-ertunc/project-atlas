@@ -1,0 +1,1467 @@
+{
+  "schema_version": 1,
+  "media_contract_id": "project_atlas_foundational_exercise_media_v1",
+  "scope": "P3-10",
+  "status": "procedural_thumbnail_and_animation_binding_contract",
+  "source_inventory_id": "project_atlas_foundational_exercises_v1",
+  "source_category_contract_id": "project_atlas_foundational_exercise_categories_v1",
+  "source_filter_contract_id": "project_atlas_foundational_exercise_filters_v1",
+  "source_muscle_mapping_contract_id": "project_atlas_foundational_exercise_muscle_mappings_v1",
+  "animation_set_id": "project_atlas_compound_exercise_animation_prototypes_v1",
+  "thumbnail_count": 120,
+  "animated_exercise_count": 30,
+  "licenses": [
+    {
+      "id": "project_atlas_original_procedural_media",
+      "kind": "original_project_asset",
+      "applies_to": [
+        "procedural exercise thumbnails",
+        "source animation keyframes"
+      ],
+      "third_party_source": null,
+      "distribution": "project_source_distribution"
+    }
+  ],
+  "exercise_media": [
+    {
+      "exercise_id": "barbell_back_squat",
+      "thumbnail_id": "thumb_barbell_back_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_barbell_back_squat_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "front_squat",
+      "thumbnail_id": "thumb_front_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_front_squat_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "goblet_squat",
+      "thumbnail_id": "thumb_goblet_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_goblet_squat_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "hack_squat",
+      "thumbnail_id": "thumb_hack_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_hack_squat_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "leg_press",
+      "thumbnail_id": "thumb_leg_press_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_leg_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "smith_machine_squat",
+      "thumbnail_id": "thumb_smith_machine_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "box_squat",
+      "thumbnail_id": "thumb_box_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "pause_squat",
+      "thumbnail_id": "thumb_pause_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "bodyweight_squat",
+      "thumbnail_id": "thumb_bodyweight_squat_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_bodyweight_squat_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "wall_sit",
+      "thumbnail_id": "thumb_wall_sit_v1",
+      "thumbnail_variant": "squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "sissy_squat",
+      "thumbnail_id": "thumb_sissy_squat_v1",
+      "thumbnail_variant": "knee_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "leg_extension",
+      "thumbnail_id": "thumb_leg_extension_v1",
+      "thumbnail_variant": "knee_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "barbell_deadlift",
+      "thumbnail_id": "thumb_barbell_deadlift_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_barbell_deadlift_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "romanian_deadlift",
+      "thumbnail_id": "thumb_romanian_deadlift_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_romanian_deadlift_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "sumo_deadlift",
+      "thumbnail_id": "thumb_sumo_deadlift_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_sumo_deadlift_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "trap_bar_deadlift",
+      "thumbnail_id": "thumb_trap_bar_deadlift_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_trap_bar_deadlift_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "stiff_leg_deadlift",
+      "thumbnail_id": "thumb_stiff_leg_deadlift_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "good_morning",
+      "thumbnail_id": "thumb_good_morning_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "hip_thrust",
+      "thumbnail_id": "thumb_hip_thrust_v1",
+      "thumbnail_variant": "hip_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_hip_thrust_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "barbell_glute_bridge",
+      "thumbnail_id": "thumb_barbell_glute_bridge_v1",
+      "thumbnail_variant": "hip_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "kettlebell_swing",
+      "thumbnail_id": "thumb_kettlebell_swing_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_kettlebell_swing_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "back_extension",
+      "thumbnail_id": "thumb_back_extension_v1",
+      "thumbnail_variant": "hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "reverse_hyperextension",
+      "thumbnail_id": "thumb_reverse_hyperextension_v1",
+      "thumbnail_variant": "hip_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "lying_leg_curl",
+      "thumbnail_id": "thumb_lying_leg_curl_v1",
+      "thumbnail_variant": "knee_flexion",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "barbell_bench_press",
+      "thumbnail_id": "thumb_barbell_bench_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_barbell_bench_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_bench_press",
+      "thumbnail_id": "thumb_dumbbell_bench_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_dumbbell_bench_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "incline_barbell_bench_press",
+      "thumbnail_id": "thumb_incline_barbell_bench_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_incline_barbell_bench_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "incline_dumbbell_bench_press",
+      "thumbnail_id": "thumb_incline_dumbbell_bench_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_incline_dumbbell_bench_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "decline_barbell_bench_press",
+      "thumbnail_id": "thumb_decline_barbell_bench_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "close_grip_bench_press",
+      "thumbnail_id": "thumb_close_grip_bench_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "push_up",
+      "thumbnail_id": "thumb_push_up_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_push_up_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "weighted_push_up",
+      "thumbnail_id": "thumb_weighted_push_up_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_weighted_push_up_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_floor_press",
+      "thumbnail_id": "thumb_dumbbell_floor_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "machine_chest_press",
+      "thumbnail_id": "thumb_machine_chest_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_chest_press",
+      "thumbnail_id": "thumb_cable_chest_press_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_chest_fly",
+      "thumbnail_id": "thumb_dumbbell_chest_fly_v1",
+      "thumbnail_variant": "chest_fly",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "standing_overhead_press",
+      "thumbnail_id": "thumb_standing_overhead_press_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_standing_overhead_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "seated_barbell_overhead_press",
+      "thumbnail_id": "thumb_seated_barbell_overhead_press_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_shoulder_press",
+      "thumbnail_id": "thumb_dumbbell_shoulder_press_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_dumbbell_shoulder_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "arnold_press",
+      "thumbnail_id": "thumb_arnold_press_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "push_press",
+      "thumbnail_id": "thumb_push_press_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_push_press_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "landmine_press",
+      "thumbnail_id": "thumb_landmine_press_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "handstand_push_up",
+      "thumbnail_id": "thumb_handstand_push_up_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_handstand_push_up_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_lateral_raise",
+      "thumbnail_id": "thumb_dumbbell_lateral_raise_v1",
+      "thumbnail_variant": "shoulder_abduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "bent_over_barbell_row",
+      "thumbnail_id": "thumb_bent_over_barbell_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_bent_over_barbell_row_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "pendlay_row",
+      "thumbnail_id": "thumb_pendlay_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_row",
+      "thumbnail_id": "thumb_dumbbell_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_dumbbell_row_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "chest_supported_row",
+      "thumbnail_id": "thumb_chest_supported_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "seated_cable_row",
+      "thumbnail_id": "thumb_seated_cable_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_seated_cable_row_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "machine_row",
+      "thumbnail_id": "thumb_machine_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "inverted_row",
+      "thumbnail_id": "thumb_inverted_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_inverted_row_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "t_bar_row",
+      "thumbnail_id": "thumb_t_bar_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "single_arm_cable_row",
+      "thumbnail_id": "thumb_single_arm_cable_row_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "face_pull",
+      "thumbnail_id": "thumb_face_pull_v1",
+      "thumbnail_variant": "horizontal_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "rear_delt_fly",
+      "thumbnail_id": "thumb_rear_delt_fly_v1",
+      "thumbnail_variant": "shoulder_horizontal_abduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "band_pull_apart",
+      "thumbnail_id": "thumb_band_pull_apart_v1",
+      "thumbnail_variant": "shoulder_horizontal_abduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "pull_up",
+      "thumbnail_id": "thumb_pull_up_v1",
+      "thumbnail_variant": "vertical_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_pull_up_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "chin_up",
+      "thumbnail_id": "thumb_chin_up_v1",
+      "thumbnail_variant": "vertical_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_chin_up_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "neutral_grip_pull_up",
+      "thumbnail_id": "thumb_neutral_grip_pull_up_v1",
+      "thumbnail_variant": "vertical_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "lat_pulldown",
+      "thumbnail_id": "thumb_lat_pulldown_v1",
+      "thumbnail_variant": "vertical_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_lat_pulldown_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "neutral_grip_lat_pulldown",
+      "thumbnail_id": "thumb_neutral_grip_lat_pulldown_v1",
+      "thumbnail_variant": "vertical_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "straight_arm_pulldown",
+      "thumbnail_id": "thumb_straight_arm_pulldown_v1",
+      "thumbnail_variant": "shoulder_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "assisted_pull_up",
+      "thumbnail_id": "thumb_assisted_pull_up_v1",
+      "thumbnail_variant": "vertical_pull",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "pullover_machine",
+      "thumbnail_id": "thumb_pullover_machine_v1",
+      "thumbnail_variant": "shoulder_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "reverse_lunge",
+      "thumbnail_id": "thumb_reverse_lunge_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": "anim_reverse_lunge_v1",
+      "animation_status": "available",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "forward_lunge",
+      "thumbnail_id": "thumb_forward_lunge_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "walking_lunge",
+      "thumbnail_id": "thumb_walking_lunge_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "split_squat",
+      "thumbnail_id": "thumb_split_squat_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "bulgarian_split_squat",
+      "thumbnail_id": "thumb_bulgarian_split_squat_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "step_up",
+      "thumbnail_id": "thumb_step_up_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "lateral_lunge",
+      "thumbnail_id": "thumb_lateral_lunge_v1",
+      "thumbnail_variant": "lateral_lunge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "curtsy_lunge",
+      "thumbnail_id": "thumb_curtsy_lunge_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "single_leg_press",
+      "thumbnail_id": "thumb_single_leg_press_v1",
+      "thumbnail_variant": "single_leg_squat",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "single_leg_romanian_deadlift",
+      "thumbnail_id": "thumb_single_leg_romanian_deadlift_v1",
+      "thumbnail_variant": "single_leg_hinge",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_hip_abduction",
+      "thumbnail_id": "thumb_cable_hip_abduction_v1",
+      "thumbnail_variant": "hip_abduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "seated_hip_abduction",
+      "thumbnail_id": "thumb_seated_hip_abduction_v1",
+      "thumbnail_variant": "hip_abduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_hip_adduction",
+      "thumbnail_id": "thumb_cable_hip_adduction_v1",
+      "thumbnail_variant": "hip_adduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "seated_hip_adduction",
+      "thumbnail_id": "thumb_seated_hip_adduction_v1",
+      "thumbnail_variant": "hip_adduction",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_kickback",
+      "thumbnail_id": "thumb_cable_kickback_v1",
+      "thumbnail_variant": "hip_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "frog_pump",
+      "thumbnail_id": "thumb_frog_pump_v1",
+      "thumbnail_variant": "hip_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "clamshell",
+      "thumbnail_id": "thumb_clamshell_v1",
+      "thumbnail_variant": "hip_external_rotation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "bodyweight_donkey_kick",
+      "thumbnail_id": "thumb_bodyweight_donkey_kick_v1",
+      "thumbnail_variant": "hip_extension",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dumbbell_biceps_curl",
+      "thumbnail_id": "thumb_dumbbell_biceps_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "barbell_biceps_curl",
+      "thumbnail_id": "thumb_barbell_biceps_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "ez_bar_curl",
+      "thumbnail_id": "thumb_ez_bar_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "hammer_curl",
+      "thumbnail_id": "thumb_hammer_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "incline_dumbbell_curl",
+      "thumbnail_id": "thumb_incline_dumbbell_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "preacher_curl",
+      "thumbnail_id": "thumb_preacher_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_curl",
+      "thumbnail_id": "thumb_cable_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "concentration_curl",
+      "thumbnail_id": "thumb_concentration_curl_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_triceps_pushdown",
+      "thumbnail_id": "thumb_cable_triceps_pushdown_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "overhead_triceps_extension",
+      "thumbnail_id": "thumb_overhead_triceps_extension_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "skull_crusher",
+      "thumbnail_id": "thumb_skull_crusher_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "close_grip_push_up",
+      "thumbnail_id": "thumb_close_grip_push_up_v1",
+      "thumbnail_variant": "horizontal_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dip",
+      "thumbnail_id": "thumb_dip_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "bench_dip",
+      "thumbnail_id": "thumb_bench_dip_v1",
+      "thumbnail_variant": "vertical_push",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "standing_calf_raise",
+      "thumbnail_id": "thumb_standing_calf_raise_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "seated_calf_raise",
+      "thumbnail_id": "thumb_seated_calf_raise_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "leg_press_calf_raise",
+      "thumbnail_id": "thumb_leg_press_calf_raise_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "donkey_calf_raise",
+      "thumbnail_id": "thumb_donkey_calf_raise_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "tibialis_raise",
+      "thumbnail_id": "thumb_tibialis_raise_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "single_leg_calf_raise",
+      "thumbnail_id": "thumb_single_leg_calf_raise_v1",
+      "thumbnail_variant": "isolation",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "plank",
+      "thumbnail_id": "thumb_plank_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "side_plank",
+      "thumbnail_id": "thumb_side_plank_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "dead_bug",
+      "thumbnail_id": "thumb_dead_bug_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "bird_dog",
+      "thumbnail_id": "thumb_bird_dog_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "hollow_body_hold",
+      "thumbnail_id": "thumb_hollow_body_hold_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "crunch",
+      "thumbnail_id": "thumb_crunch_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "reverse_crunch",
+      "thumbnail_id": "thumb_reverse_crunch_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "hanging_knee_raise",
+      "thumbnail_id": "thumb_hanging_knee_raise_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "hanging_leg_raise",
+      "thumbnail_id": "thumb_hanging_leg_raise_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "cable_crunch",
+      "thumbnail_id": "thumb_cable_crunch_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "pallof_press",
+      "thumbnail_id": "thumb_pallof_press_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "russian_twist",
+      "thumbnail_id": "thumb_russian_twist_v1",
+      "thumbnail_variant": "core",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "farmers_carry",
+      "thumbnail_id": "thumb_farmers_carry_v1",
+      "thumbnail_variant": "loaded_carry",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "suitcase_carry",
+      "thumbnail_id": "thumb_suitcase_carry_v1",
+      "thumbnail_variant": "loaded_carry",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "overhead_carry",
+      "thumbnail_id": "thumb_overhead_carry_v1",
+      "thumbnail_variant": "loaded_carry",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "sled_push",
+      "thumbnail_id": "thumb_sled_push_v1",
+      "thumbnail_variant": "conditioning",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "sled_pull",
+      "thumbnail_id": "thumb_sled_pull_v1",
+      "thumbnail_variant": "conditioning",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    },
+    {
+      "exercise_id": "burpee",
+      "thumbnail_id": "thumb_burpee_v1",
+      "thumbnail_variant": "conditioning",
+      "thumbnail_asset_kind": "procedural_vector_thumbnail",
+      "animation_id": null,
+      "animation_status": "not_started",
+      "license_ids": [
+        "project_atlas_original_procedural_media"
+      ],
+      "review_status": "internal_structural_check"
+    }
+  ]
+}

@@ -13,6 +13,8 @@ contract that later asset work can convert into runtime clips.
   [`shared_humanoid_rig.v1.json`](../tool/anatomy/animation/shared_humanoid_rig.v1.json)
 - Ten-exercise animation set:
   [`core_exercise_animation_prototypes.v1.json`](../tool/anatomy/animation/core_exercise_animation_prototypes.v1.json)
+- Thirty-exercise compound animation set:
+  [`compound_exercise_animation_prototypes.v1.json`](../tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json)
 - Validator:
   [`validate_animation_contract.py`](../tool/anatomy/animation/validate_animation_contract.py)
 
@@ -55,6 +57,21 @@ match exactly so a renderer can loop clips without a visible snap. Each
 exercise declares setup, finish, movement pattern, equipment, contact anchors,
 and primary/secondary semantic muscle regions.
 
+## P3-10 Compound Exercise Extension
+
+P3-10 adds 30 compound or bodyweight-compound source-level exercise animations
+using the same shared rig. The extension covers squat, hinge, hip extension,
+horizontal push, vertical push, horizontal pull, vertical pull, and single-leg
+squat patterns.
+
+The 30-exercise set is a contract-level animation source. It contains bounded
+keyframes, phase tags, contact anchors, thumbnail pose phases, equipment
+references, and muscle-region references. It does not bundle motion-capture
+files, Blender files, FBX files, GLB files, or runtime animation binaries.
+
+The catalog media contract binds these 30 animation IDs to exercise records and
+assigns procedural thumbnails to all 120 foundational exercises.
+
 ## Validation
 
 The local and CI validator checks:
@@ -85,6 +102,22 @@ Expected success output:
 
 ```text
 ANIMATION_CONTRACT_OK rig_controls=25 exercises=10
+```
+
+Run the P3-10 compound extension locally:
+
+```bash
+python tool/anatomy/animation/validate_animation_contract.py \
+  --rig tool/anatomy/animation/shared_humanoid_rig.v1.json \
+  --animations tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json \
+  --ontology tool/anatomy/muscle_region_ontology.v1.json \
+  --expected-exercise-count 30
+```
+
+Expected success output:
+
+```text
+ANIMATION_CONTRACT_OK rig_controls=25 exercises=30
 ```
 
 ## Downstream Contract

@@ -146,5 +146,465 @@
   "anatomyRendererHeatmapEmpty": "No heatmap applied",
   "@anatomyRendererHeatmapEmpty": {
     "description": "Label shown when no anatomy heatmap is active"
+  },
+  "exerciseCatalogTitle": "Exercise catalog",
+  "@exerciseCatalogTitle": {
+    "description": "Title for the exercise catalog screen"
+  },
+  "exerciseCatalogSearchLabel": "Search exercises",
+  "@exerciseCatalogSearchLabel": {
+    "description": "Label for the exercise catalog search field"
+  },
+  "exerciseCatalogSearchHint": "Search by exercise, muscle, equipment, or cue",
+  "@exerciseCatalogSearchHint": {
+    "description": "Hint for the exercise catalog search field"
+  },
+  "exerciseCatalogFiltersTitle": "Filters",
+  "@exerciseCatalogFiltersTitle": {
+    "description": "Heading shown above exercise catalog filters"
+  },
+  "exerciseCatalogClearFilters": "Clear",
+  "@exerciseCatalogClearFilters": {
+    "description": "Button label for clearing exercise catalog search and filters"
+  },
+  "exerciseCatalogResultsSummary": "Showing {visibleCount} of {totalCount} exercises",
+  "@exerciseCatalogResultsSummary": {
+    "description": "Summary of visible exercise catalog results",
+    "placeholders": {
+      "visibleCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseCatalogLoading": "Loading exercise catalog...",
+  "@exerciseCatalogLoading": {
+    "description": "Status shown while the exercise catalog is loading"
+  },
+  "exerciseCatalogLoadError": "Exercise catalog could not be loaded.",
+  "@exerciseCatalogLoadError": {
+    "description": "Error shown when the exercise catalog cannot load"
+  },
+  "exerciseCatalogEmptyTitle": "No exercises match",
+  "@exerciseCatalogEmptyTitle": {
+    "description": "Title shown when catalog filters produce no results"
+  },
+  "exerciseCatalogEmptyMessage": "Adjust search or filters to see exercises.",
+  "@exerciseCatalogEmptyMessage": {
+    "description": "Helper text shown when catalog filters produce no results"
+  },
+  "exerciseCatalogMovementFilter": "Movement",
+  "@exerciseCatalogMovementFilter": {
+    "description": "Filter group label for movement patterns"
+  },
+  "exerciseCatalogMuscleFilter": "Muscle",
+  "@exerciseCatalogMuscleFilter": {
+    "description": "Filter group label for broad muscle regions"
+  },
+  "exerciseCatalogEquipmentFilter": "Equipment",
+  "@exerciseCatalogEquipmentFilter": {
+    "description": "Filter group label for exercise equipment"
+  },
+  "exerciseCatalogLevelFilter": "Level",
+  "@exerciseCatalogLevelFilter": {
+    "description": "Filter group label for difficulty level"
+  },
+  "exerciseCatalogLateralityFilter": "Laterality",
+  "@exerciseCatalogLateralityFilter": {
+    "description": "Filter group label for unilateral or bilateral designation"
+  },
+  "exerciseCatalogTypeFilter": "Type",
+  "@exerciseCatalogTypeFilter": {
+    "description": "Filter group label for exercise type"
+  },
+  "exerciseDetailTitle": "Exercise detail",
+  "@exerciseDetailTitle": {
+    "description": "Fallback title for the exercise detail screen"
+  },
+  "exerciseDetailSetup": "Setup",
+  "@exerciseDetailSetup": {
+    "description": "Exercise detail section label for setup instructions"
+  },
+  "exerciseDetailExecution": "Execution",
+  "@exerciseDetailExecution": {
+    "description": "Exercise detail section label for execution instructions"
+  },
+  "exerciseDetailFormCues": "Form cues",
+  "@exerciseDetailFormCues": {
+    "description": "Exercise detail section label for form cues"
+  },
+  "exerciseDetailCommonErrors": "Common errors",
+  "@exerciseDetailCommonErrors": {
+    "description": "Exercise detail section label for common errors"
+  },
+  "exerciseDetailSubstitutions": "Substitutions",
+  "@exerciseDetailSubstitutions": {
+    "description": "Exercise detail section label for substitution exercises"
+  },
+  "exerciseDetailRegressions": "Regressions",
+  "@exerciseDetailRegressions": {
+    "description": "Exercise detail section label for regression exercises"
+  },
+  "exerciseDetailPrimaryMuscles": "Primary muscles",
+  "@exerciseDetailPrimaryMuscles": {
+    "description": "Exercise detail section label for primary muscle regions"
+  },
+  "exerciseDetailSecondaryMuscles": "Secondary muscles",
+  "@exerciseDetailSecondaryMuscles": {
+    "description": "Exercise detail section label for secondary muscle regions"
+  },
+  "exerciseDetailStabilizerMuscles": "Stabilizers",
+  "@exerciseDetailStabilizerMuscles": {
+    "description": "Exercise detail section label for stabilizer muscle regions"
+  },
+  "exerciseDetailEquipment": "Equipment",
+  "@exerciseDetailEquipment": {
+    "description": "Exercise detail metadata label for equipment"
+  },
+  "exerciseDetailLevel": "Level",
+  "@exerciseDetailLevel": {
+    "description": "Exercise detail metadata label for level"
+  },
+  "exerciseDetailLaterality": "Laterality",
+  "@exerciseDetailLaterality": {
+    "description": "Exercise detail metadata label for laterality"
+  },
+  "exerciseDetailType": "Type",
+  "@exerciseDetailType": {
+    "description": "Exercise detail metadata label for exercise type"
+  },
+  "exerciseDetailNotFoundTitle": "Exercise not found",
+  "@exerciseDetailNotFoundTitle": {
+    "description": "Title shown when an exercise detail route references an unknown exercise"
+  },
+  "exerciseDetailNotFoundMessage": "This exercise is not available in the local catalog.",
+  "@exerciseDetailNotFoundMessage": {
+    "description": "Body shown when an exercise detail route references an unknown exercise"
+  },
+  "programWorkspaceBuilderTab": "Builder",
+  "@programWorkspaceBuilderTab": {
+    "description": "Tab label for the manual program builder"
+  },
+  "programWorkspaceCatalogTab": "Catalog",
+  "@programWorkspaceCatalogTab": {
+    "description": "Tab label for the exercise catalog inside the Program branch"
+  },
+  "programBuilderTitle": "Program builder",
+  "@programBuilderTitle": {
+    "description": "Title shown inside the manual program builder"
+  },
+  "programBuilderEmptyTitle": "Create a program draft",
+  "@programBuilderEmptyTitle": {
+    "description": "Empty state title before a local program draft exists"
+  },
+  "programBuilderEmptyMessage": "Start with a name and one training day, then add exercises and prescription targets.",
+  "@programBuilderEmptyMessage": {
+    "description": "Empty state body before a local program draft exists"
+  },
+  "programBuilderCreateProgram": "Create program",
+  "@programBuilderCreateProgram": {
+    "description": "Button label for creating a local program draft"
+  },
+  "programBuilderDefaultProgramName": "New program",
+  "@programBuilderDefaultProgramName": {
+    "description": "Default local name for a newly created program draft"
+  },
+  "programBuilderDefaultDayName": "Day {dayNumber}",
+  "@programBuilderDefaultDayName": {
+    "description": "Default name for a newly created training day",
+    "placeholders": {
+      "dayNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderProgramNameLabel": "Program name",
+  "@programBuilderProgramNameLabel": {
+    "description": "Text field label for the program draft name"
+  },
+  "programBuilderLocalDraftLabel": "Local draft",
+  "@programBuilderLocalDraftLabel": {
+    "description": "Label for the local-only program draft status"
+  },
+  "programBuilderScopeNote": "This draft keeps days, exercise order, and local prescription targets. Persistence and versioning are later checklist items.",
+  "@programBuilderScopeNote": {
+    "description": "Scope note shown in the P3-07 builder"
+  },
+  "programBuilderSummary": "{dayCount} days · {exerciseCount} exercises",
+  "@programBuilderSummary": {
+    "description": "Program builder summary for days and exercises",
+    "placeholders": {
+      "dayCount": {
+        "type": "int"
+      },
+      "exerciseCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderTrainingDays": "Training days",
+  "@programBuilderTrainingDays": {
+    "description": "Section title for training-day editing"
+  },
+  "programBuilderAddTrainingDay": "Add day",
+  "@programBuilderAddTrainingDay": {
+    "description": "Button label for adding a training day"
+  },
+  "programBuilderSelectedDay": "Selected day",
+  "@programBuilderSelectedDay": {
+    "description": "Label for the currently selected training day"
+  },
+  "programBuilderRenameDay": "Rename day",
+  "@programBuilderRenameDay": {
+    "description": "Tooltip and button label for renaming the selected training day"
+  },
+  "programBuilderDeleteDay": "Delete day",
+  "@programBuilderDeleteDay": {
+    "description": "Tooltip and button label for deleting the selected training day"
+  },
+  "programBuilderRenameDayTitle": "Rename training day",
+  "@programBuilderRenameDayTitle": {
+    "description": "Dialog title for renaming a training day"
+  },
+  "programBuilderDayNameLabel": "Day name",
+  "@programBuilderDayNameLabel": {
+    "description": "Text field label for a training-day name"
+  },
+  "programBuilderSave": "Save",
+  "@programBuilderSave": {
+    "description": "Generic save action in the program builder"
+  },
+  "programBuilderCancel": "Cancel",
+  "@programBuilderCancel": {
+    "description": "Generic cancel action in the program builder"
+  },
+  "programBuilderAddExercise": "Add exercise",
+  "@programBuilderAddExercise": {
+    "description": "Button label for adding an exercise to the selected training day"
+  },
+  "programBuilderExercisePickerTitle": "Add exercise",
+  "@programBuilderExercisePickerTitle": {
+    "description": "Bottom sheet title for picking an exercise"
+  },
+  "programBuilderExercisePickerSearchLabel": "Search catalog",
+  "@programBuilderExercisePickerSearchLabel": {
+    "description": "Search field label inside the program-builder exercise picker"
+  },
+  "programBuilderExercisePickerSearchHint": "Search by exercise, muscle, equipment, or cue",
+  "@programBuilderExercisePickerSearchHint": {
+    "description": "Search hint inside the program-builder exercise picker"
+  },
+  "programBuilderExercisePickerEmpty": "No exercises match this search.",
+  "@programBuilderExercisePickerEmpty": {
+    "description": "Empty state inside the exercise picker"
+  },
+  "programBuilderExerciseAlreadyAdded": "Added",
+  "@programBuilderExerciseAlreadyAdded": {
+    "description": "Status text for an exercise already added to the selected day"
+  },
+  "programBuilderEmptyDayTitle": "No exercises yet",
+  "@programBuilderEmptyDayTitle": {
+    "description": "Title shown when the selected training day has no exercises"
+  },
+  "programBuilderEmptyDayMessage": "Add catalog exercises, then order them for this training day.",
+  "@programBuilderEmptyDayMessage": {
+    "description": "Body shown when the selected training day has no exercises"
+  },
+  "programBuilderMoveExerciseUp": "Move up",
+  "@programBuilderMoveExerciseUp": {
+    "description": "Tooltip for moving an exercise earlier in the selected day"
+  },
+  "programBuilderMoveExerciseDown": "Move down",
+  "@programBuilderMoveExerciseDown": {
+    "description": "Tooltip for moving an exercise later in the selected day"
+  },
+  "programBuilderRemoveExercise": "Remove",
+  "@programBuilderRemoveExercise": {
+    "description": "Tooltip for removing an exercise from the selected day"
+  },
+  "programBuilderSetCountLabel": "Sets",
+  "@programBuilderSetCountLabel": {
+    "description": "Text field label for the prescribed set count"
+  },
+  "programBuilderFixedRepetitionMode": "Fixed",
+  "@programBuilderFixedRepetitionMode": {
+    "description": "Segment label for fixed-repetition prescriptions"
+  },
+  "programBuilderRangeRepetitionMode": "Range",
+  "@programBuilderRangeRepetitionMode": {
+    "description": "Segment label for ranged-repetition prescriptions"
+  },
+  "programBuilderFixedRepsLabel": "Reps",
+  "@programBuilderFixedRepsLabel": {
+    "description": "Text field label for fixed repetitions"
+  },
+  "programBuilderMinimumRepsLabel": "Min reps",
+  "@programBuilderMinimumRepsLabel": {
+    "description": "Text field label for minimum repetitions in a range"
+  },
+  "programBuilderMaximumRepsLabel": "Max reps",
+  "@programBuilderMaximumRepsLabel": {
+    "description": "Text field label for maximum repetitions in a range"
+  },
+  "programBuilderTargetRirEnabled": "Track RIR",
+  "@programBuilderTargetRirEnabled": {
+    "description": "Switch label for enabling target repetitions in reserve"
+  },
+  "programBuilderTargetRirDescription": "RIR is optional and independent from fixed or ranged repetitions.",
+  "@programBuilderTargetRirDescription": {
+    "description": "Helper text explaining that RIR can be toggled separately from repetition mode"
+  },
+  "programBuilderTargetRirLabel": "Target RIR",
+  "@programBuilderTargetRirLabel": {
+    "description": "Text field label for target repetitions in reserve"
+  },
+  "programBuilderLoadLabel": "Load",
+  "@programBuilderLoadLabel": {
+    "description": "Text field label for prescribed load"
+  },
+  "programBuilderRestSecondsLabel": "Rest",
+  "@programBuilderRestSecondsLabel": {
+    "description": "Text field label for prescribed rest duration"
+  },
+  "programBuilderSecondsSuffix": "sec",
+  "@programBuilderSecondsSuffix": {
+    "description": "Short suffix for seconds"
+  },
+  "programBuilderFixedRepsSummary": "{repetitions} reps",
+  "@programBuilderFixedRepsSummary": {
+    "description": "Summary text for fixed repetitions",
+    "placeholders": {
+      "repetitions": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderRangeRepsSummary": "{minimumRepetitions}-{maximumRepetitions} reps",
+  "@programBuilderRangeRepsSummary": {
+    "description": "Summary text for ranged repetitions",
+    "placeholders": {
+      "minimumRepetitions": {
+        "type": "int"
+      },
+      "maximumRepetitions": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderRirSummary": "RIR {targetRir}",
+  "@programBuilderRirSummary": {
+    "description": "Summary text for target repetitions in reserve",
+    "placeholders": {
+      "targetRir": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderRirOff": "RIR off",
+  "@programBuilderRirOff": {
+    "description": "Summary text when target repetitions in reserve is disabled"
+  },
+  "programBuilderLoadUnset": "no load",
+  "@programBuilderLoadUnset": {
+    "description": "Summary text when prescribed load is not set"
+  },
+  "programBuilderPrescriptionSummary": "{setCount} sets · {repetitionTarget} · {rirTarget} · {loadTarget} · {restSeconds} sec",
+  "@programBuilderPrescriptionSummary": {
+    "description": "Compact summary of an exercise prescription",
+    "placeholders": {
+      "setCount": {
+        "type": "int"
+      },
+      "repetitionTarget": {
+        "type": "String"
+      },
+      "rirTarget": {
+        "type": "String"
+      },
+      "loadTarget": {
+        "type": "String"
+      },
+      "restSeconds": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderSaveDraft": "Save draft",
+  "@programBuilderSaveDraft": {
+    "description": "Button label for saving a program draft snapshot"
+  },
+  "programBuilderPublishVersion": "Publish version",
+  "@programBuilderPublishVersion": {
+    "description": "Button label for publishing an immutable active program version"
+  },
+  "programBuilderCopyProgram": "Copy program",
+  "@programBuilderCopyProgram": {
+    "description": "Button label for copying the current program into a new local draft"
+  },
+  "programBuilderArchiveProgram": "Archive program",
+  "@programBuilderArchiveProgram": {
+    "description": "Button label for archiving the current persisted program"
+  },
+  "programBuilderLifecycleStatusLocal": "Local draft · not saved yet",
+  "@programBuilderLifecycleStatusLocal": {
+    "description": "Status text for an unsaved local program draft"
+  },
+  "programBuilderLifecycleStatusSaved": "Saved draft · version {versionNumber}",
+  "@programBuilderLifecycleStatusSaved": {
+    "description": "Status text for a saved draft snapshot",
+    "placeholders": {
+      "versionNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderLifecycleStatusPublished": "Published · active version {versionNumber}",
+  "@programBuilderLifecycleStatusPublished": {
+    "description": "Status text for a published active program version",
+    "placeholders": {
+      "versionNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderLifecycleStatusArchived": "Archived · last version {versionNumber}",
+  "@programBuilderLifecycleStatusArchived": {
+    "description": "Status text for an archived program",
+    "placeholders": {
+      "versionNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderDraftSaved": "Program draft saved.",
+  "@programBuilderDraftSaved": {
+    "description": "Snack bar message after saving a draft snapshot"
+  },
+  "programBuilderVersionPublished": "Immutable program version published.",
+  "@programBuilderVersionPublished": {
+    "description": "Snack bar message after publishing a program version"
+  },
+  "programBuilderProgramCopied": "Program copied as a new local draft.",
+  "@programBuilderProgramCopied": {
+    "description": "Snack bar message after copying the current program"
+  },
+  "programBuilderProgramArchived": "Program archived.",
+  "@programBuilderProgramArchived": {
+    "description": "Snack bar message after archiving a program"
+  },
+  "programBuilderPersistenceFailed": "Program could not be saved. Check the local draft and try again.",
+  "@programBuilderPersistenceFailed": {
+    "description": "Generic persistence failure message in the program builder"
+  },
+  "programBuilderCopiedProgramName": "{programName} copy",
+  "@programBuilderCopiedProgramName": {
+    "description": "Default name for a copied program draft",
+    "placeholders": {
+      "programName": {
+        "type": "String"
+      }
+    }
   }
 }

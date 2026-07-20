@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_atlas/app/navigation/main_navigation_shell.dart';
 import 'package:project_atlas/features/anatomy/presentation/anatomy_screen.dart';
+import 'package:project_atlas/features/exercise_catalog/presentation/exercise_detail_screen.dart';
 import 'package:project_atlas/features/program/presentation/program_screen.dart';
 import 'package:project_atlas/features/progress/presentation/progress_screen.dart';
 import 'package:project_atlas/features/settings/presentation/settings_screen.dart';
@@ -35,6 +36,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: ProgramScreen.path,
                 name: ProgramScreen.routeName,
                 builder: (context, state) => const ProgramScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'exercise/:${ExerciseDetailScreen.exerciseIdParam}',
+                    name: ExerciseDetailScreen.routeName,
+                    builder: (context, state) => ExerciseDetailScreen(
+                      exerciseId:
+                          state.pathParameters[ExerciseDetailScreen
+                              .exerciseIdParam]!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

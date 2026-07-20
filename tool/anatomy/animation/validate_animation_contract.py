@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 
-EXPECTED_EXERCISE_COUNT = 10
+DEFAULT_EXPECTED_EXERCISE_COUNT = 10
 REQUIRED_PHASES = {"setup", "finish"}
 
 
@@ -17,6 +17,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--rig", required=True, type=Path)
     parser.add_argument("--animations", required=True, type=Path)
     parser.add_argument("--ontology", required=True, type=Path)
+    parser.add_argument(
+        "--expected-exercise-count",
+        type=int,
+        default=DEFAULT_EXPECTED_EXERCISE_COUNT,
+    )
     return parser.parse_args()
 
 
@@ -93,6 +98,7 @@ def _validate_animations(
     region_ids: set[str],
     anchor_ids: set[str],
     rig_id: str,
+    expected_exercise_count: int,
 ) -> None:
     if animations.get("schema_version") != 1:
         raise ValueError("Animation schema_version must be 1")
@@ -104,8 +110,8 @@ def _validate_animations(
     expected_duration = float(animations["cycle_seconds"])
     minimum_keyframes = int(animations["minimum_keyframes_per_exercise"])
     exercises = [dict(exercise) for exercise in list(animations["exercises"])]
-    if len(exercises) != EXPECTED_EXERCISE_COUNT:
-        raise ValueError(f"Expected {EXPECTED_EXERCISE_COUNT} exercise prototypes")
+    if len(exercises) != expected_exercise_count:
+        raise ValueError(f"Expected {expected_exercise_count} exercise prototypes")
 
     exercise_ids = {str(exercise["exercise_id"]) for exercise in exercises}
     if len(exercise_ids) != len(exercises):
@@ -214,6 +220,7 @@ def main() -> None:
         region_ids=region_ids,
         anchor_ids=anchor_ids,
         rig_id=str(rig["rig_id"]),
+        expected_exercise_count=args.expected_exercise_count,
     )
     print(
         "ANIMATION_CONTRACT_OK "
