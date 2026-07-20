@@ -20,6 +20,221 @@
   "@progressNavigationLabel": {
     "description": "Label for the Progress primary navigation destination"
   },
+  "progressScreenSubtitle": "Review workout history, inspect set results, and track personal records.",
+  "@progressScreenSubtitle": {
+    "description": "Subtitle for the Progress screen"
+  },
+  "progressHistoryTitle": "Workout history",
+  "@progressHistoryTitle": {
+    "description": "Title for workout history section"
+  },
+  "progressHistoryEmptyTitle": "No workout history yet",
+  "@progressHistoryEmptyTitle": {
+    "description": "Title shown when there are no workout sessions"
+  },
+  "progressHistoryEmptyMessage": "Complete sets from the Today tab to build your local history.",
+  "@progressHistoryEmptyMessage": {
+    "description": "Message shown when there are no workout sessions"
+  },
+  "progressHistoryLoadError": "Workout history could not load.",
+  "@progressHistoryLoadError": {
+    "description": "Error message shown when Progress cannot load workout history"
+  },
+  "progressUnnamedSession": "Workout session",
+  "@progressUnnamedSession": {
+    "description": "Fallback title for a workout session without notes"
+  },
+  "progressSessionSummary": "{status} · {completedSetCount} of {setCount} sets logged",
+  "@progressSessionSummary": {
+    "description": "Summary for one historical workout session",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      },
+      "completedSetCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressSetButtonLabel": "{exerciseName} set {setNumber}",
+  "@progressSetButtonLabel": {
+    "description": "Button label for selecting a set detail from workout history",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "setNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "progressSetDetailsTitle": "Set details",
+  "@progressSetDetailsTitle": {
+    "description": "Title for selected set details"
+  },
+  "progressSetDetailsEmpty": "Select a set from workout history to inspect its result.",
+  "@progressSetDetailsEmpty": {
+    "description": "Empty state for selected set details"
+  },
+  "progressSetDetailSession": "{sessionName} · {dateTime}",
+  "@progressSetDetailSession": {
+    "description": "Session context for selected set details",
+    "placeholders": {
+      "sessionName": {
+        "type": "String"
+      },
+      "dateTime": {
+        "type": "String"
+      }
+    }
+  },
+  "progressSetDetailStatus": "Status: {status}",
+  "@progressSetDetailStatus": {
+    "description": "Calculated status row in set details",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "progressSetDetailTarget": "{target}",
+  "@progressSetDetailTarget": {
+    "description": "Target prescription row in set details",
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "progressSetDetailLatest": "{latest}",
+  "@progressSetDetailLatest": {
+    "description": "Latest actual log row in set details",
+    "placeholders": {
+      "latest": {
+        "type": "String"
+      }
+    }
+  },
+  "progressSetDetailRevisionCount": "{revisionCount} revisions",
+  "@progressSetDetailRevisionCount": {
+    "description": "Revision count for selected set details",
+    "placeholders": {
+      "revisionCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressNoActualLog": "No actual result logged",
+  "@progressNoActualLog": {
+    "description": "Fallback text for set details without an actual log"
+  },
+  "progressRevisionHistoryTitle": "Revision history",
+  "@progressRevisionHistoryTitle": {
+    "description": "Title for the selected set actual-log revision history"
+  },
+  "progressRevisionRow": "Revision {revision}: {result}",
+  "@progressRevisionRow": {
+    "description": "One actual-log revision row in the selected set detail",
+    "placeholders": {
+      "revision": {
+        "type": "int"
+      },
+      "result": {
+        "type": "String"
+      }
+    }
+  },
+  "progressRevisionSupersedes": "Supersedes {logId}",
+  "@progressRevisionSupersedes": {
+    "description": "Reference to the previous actual log revision superseded by a correction",
+    "placeholders": {
+      "logId": {
+        "type": "String"
+      }
+    }
+  },
+  "progressCorrectionTitle": "Correct logged result",
+  "@progressCorrectionTitle": {
+    "description": "Title for the historical set correction form"
+  },
+  "progressCorrectionDescription": "Saving a correction adds a new revision. Earlier logs stay preserved.",
+  "@progressCorrectionDescription": {
+    "description": "Explanation that historical corrections are append-only"
+  },
+  "progressCorrectionUnavailable": "Only completed sets with a logged result can be corrected.",
+  "@progressCorrectionUnavailable": {
+    "description": "Message shown when a selected set cannot receive a correction"
+  },
+  "progressCorrectionRepetitionsLabel": "Corrected reps",
+  "@progressCorrectionRepetitionsLabel": {
+    "description": "Input label for corrected actual repetitions"
+  },
+  "progressCorrectionLoadLabel": "Corrected load",
+  "@progressCorrectionLoadLabel": {
+    "description": "Input label for corrected actual load"
+  },
+  "progressCorrectionRirLabel": "Corrected RIR",
+  "@progressCorrectionRirLabel": {
+    "description": "Input label for corrected actual RIR"
+  },
+  "progressCorrectionOutcomeLabel": "Corrected outcome",
+  "@progressCorrectionOutcomeLabel": {
+    "description": "Dropdown label for corrected actual outcome"
+  },
+  "progressCorrectionSave": "Save correction",
+  "@progressCorrectionSave": {
+    "description": "Button label for saving a historical set correction"
+  },
+  "progressCorrectionSaved": "Correction saved as a new revision.",
+  "@progressCorrectionSaved": {
+    "description": "Snack bar shown after a historical correction is appended"
+  },
+  "progressCorrectionFailed": "Correction could not be saved.",
+  "@progressCorrectionFailed": {
+    "description": "Snack bar shown when a historical correction fails"
+  },
+  "progressCorrectionInvalid": "Enter valid reps, load, and RIR values.",
+  "@progressCorrectionInvalid": {
+    "description": "Snack bar shown when correction inputs are invalid"
+  },
+  "progressPersonalRecordsTitle": "Personal records",
+  "@progressPersonalRecordsTitle": {
+    "description": "Title for personal records section"
+  },
+  "progressPersonalRecordsEmpty": "No personal records yet. Complete clean sets with reps or load to start tracking records.",
+  "@progressPersonalRecordsEmpty": {
+    "description": "Empty state for personal records"
+  },
+  "progressBestLoad": "Best load: {load}",
+  "@progressBestLoad": {
+    "description": "Personal record row for best load",
+    "placeholders": {
+      "load": {
+        "type": "String"
+      }
+    }
+  },
+  "progressBestRepetitions": "Best reps: {repetitions}",
+  "@progressBestRepetitions": {
+    "description": "Personal record row for best repetitions",
+    "placeholders": {
+      "repetitions": {
+        "type": "int"
+      }
+    }
+  },
+  "progressBestVolume": "Best volume: {volume}",
+  "@progressBestVolume": {
+    "description": "Personal record row for best volume",
+    "placeholders": {
+      "volume": {
+        "type": "String"
+      }
+    }
+  },
   "settingsNavigationLabel": "Settings",
   "@settingsNavigationLabel": {
     "description": "Label for the Settings primary navigation destination"
@@ -606,5 +821,426 @@
         "type": "String"
       }
     }
+  },
+  "todayScreenSubtitle": "Start the next local workout from your active program.",
+  "@todayScreenSubtitle": {
+    "description": "Subtitle for the Today screen active workout entry point"
+  },
+  "todayNoActiveProgramTitle": "No active program yet",
+  "@todayNoActiveProgramTitle": {
+    "description": "Title shown when Today has no active published program"
+  },
+  "todayNoActiveProgramMessage": "Publish a program version in the Program tab before starting a workout.",
+  "@todayNoActiveProgramMessage": {
+    "description": "Message shown when Today has no active published program"
+  },
+  "todayOpenProgramBuilder": "Open Program",
+  "@todayOpenProgramBuilder": {
+    "description": "Button that opens the Program branch from Today"
+  },
+  "todayActiveProgramSummary": "Active version {versionNumber} · {dayCount} training days",
+  "@todayActiveProgramSummary": {
+    "description": "Summary for the active program shown on Today",
+    "placeholders": {
+      "versionNumber": {
+        "type": "int"
+      },
+      "dayCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todayChooseTrainingDay": "Choose training day",
+  "@todayChooseTrainingDay": {
+    "description": "Section title for selecting a training day on Today"
+  },
+  "todayTrainingDaySummary": "{exerciseCount} exercises · {setCount} planned sets",
+  "@todayTrainingDaySummary": {
+    "description": "Summary for a selected training day plan",
+    "placeholders": {
+      "exerciseCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todayStartWorkout": "Start workout",
+  "@todayStartWorkout": {
+    "description": "Button label for starting the selected workout session"
+  },
+  "todaySessionStarted": "Workout session started.",
+  "@todaySessionStarted": {
+    "description": "Snack bar shown after creating a workout session plan"
+  },
+  "todaySessionStartFailed": "Workout could not be started.",
+  "@todaySessionStartFailed": {
+    "description": "Snack bar shown when workout session creation fails"
+  },
+  "todayLoadError": "Today could not load.",
+  "@todayLoadError": {
+    "description": "Error message shown when the Today screen cannot load"
+  },
+  "todayRetry": "Retry",
+  "@todayRetry": {
+    "description": "Button label for retrying Today screen loading"
+  },
+  "todayFixedRepetitions": "{repetitions} reps",
+  "@todayFixedRepetitions": {
+    "description": "Fixed repetition target on Today",
+    "placeholders": {
+      "repetitions": {
+        "type": "int"
+      }
+    }
+  },
+  "todayRangeRepetitions": "{minimumRepetitions}-{maximumRepetitions} reps",
+  "@todayRangeRepetitions": {
+    "description": "Ranged repetition target on Today",
+    "placeholders": {
+      "minimumRepetitions": {
+        "type": "int"
+      },
+      "maximumRepetitions": {
+        "type": "int"
+      }
+    }
+  },
+  "todayExercisePrescriptionSummary": "{setCount} sets · {repetitionTarget} · {rirTarget} · {loadTarget} · {restSeconds} sec rest",
+  "@todayExercisePrescriptionSummary": {
+    "description": "Exercise prescription summary shown on Today",
+    "placeholders": {
+      "setCount": {
+        "type": "int"
+      },
+      "repetitionTarget": {
+        "type": "String"
+      },
+      "rirTarget": {
+        "type": "String"
+      },
+      "loadTarget": {
+        "type": "String"
+      },
+      "restSeconds": {
+        "type": "int"
+      }
+    }
+  },
+  "todayNoExercisesTitle": "No exercises on this day",
+  "@todayNoExercisesTitle": {
+    "description": "Title shown when the selected active training day has no exercises"
+  },
+  "todayNoExercisesMessage": "Add exercises to this training day before starting a session.",
+  "@todayNoExercisesMessage": {
+    "description": "Message shown when the selected active training day has no exercises"
+  },
+  "todaySessionInProgressTitle": "Session in progress",
+  "@todaySessionInProgressTitle": {
+    "description": "Title for an already active workout session on Today"
+  },
+  "todaySessionInProgressSummary": "{exerciseCount} exercises · {setCount} planned sets",
+  "@todaySessionInProgressSummary": {
+    "description": "Summary for the active workout session on Today",
+    "placeholders": {
+      "exerciseCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todaySessionInProgressMessage": "Record each set as you finish it. Completed sets are saved locally with their actual result.",
+  "@todaySessionInProgressMessage": {
+    "description": "Instructional message for logging sets during an active workout"
+  },
+  "todaySessionRestoredMessage": "This in-progress workout was restored from local storage.",
+  "@todaySessionRestoredMessage": {
+    "description": "Message shown when an active workout is restored after the app process restarts"
+  },
+  "todaySessionStatusLabel": "Session status: {status}",
+  "@todaySessionStatusLabel": {
+    "description": "Session-level calculated status on Today",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "todayExerciseStatusLabel": "Exercise status: {status}",
+  "@todayExerciseStatusLabel": {
+    "description": "Exercise-level calculated status on Today",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "todaySetStatusLabel": "Set status: {status}",
+  "@todaySetStatusLabel": {
+    "description": "Set-level calculated status on Today",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "todayStatusPending": "Pending",
+  "@todayStatusPending": {
+    "description": "Calculated status for a set that has not been logged"
+  },
+  "todayStatusNotStarted": "Not started",
+  "@todayStatusNotStarted": {
+    "description": "Calculated status for an exercise or session with no logged sets"
+  },
+  "todayStatusInProgress": "In progress",
+  "@todayStatusInProgress": {
+    "description": "Calculated status for partially logged workout work"
+  },
+  "todayStatusSuccessful": "Successful",
+  "@todayStatusSuccessful": {
+    "description": "Calculated status when all comparable targets are met"
+  },
+  "todayStatusTargetMet": "Target met",
+  "@todayStatusTargetMet": {
+    "description": "Calculated status for a logged set that met its prescription"
+  },
+  "todayStatusNeedsReview": "Needs review",
+  "@todayStatusNeedsReview": {
+    "description": "Calculated status when one or more performance misses exist"
+  },
+  "todayStatusPerformanceMiss": "Performance miss",
+  "@todayStatusPerformanceMiss": {
+    "description": "Calculated status for a set that missed reps, load, strength, or technique target"
+  },
+  "todayStatusInterrupted": "Interrupted",
+  "@todayStatusInterrupted": {
+    "description": "Calculated status for time, equipment, external, or skipped interruptions"
+  },
+  "todayStatusPainReported": "Pain reported",
+  "@todayStatusPainReported": {
+    "description": "Calculated status when pain was reported"
+  },
+  "todayStatusNotComparable": "Logged, not comparable",
+  "@todayStatusNotComparable": {
+    "description": "Calculated status when a log cannot be compared to a prescription"
+  },
+  "todaySetProgressSummary": "{completedSetCount} of {setCount} sets completed",
+  "@todaySetProgressSummary": {
+    "description": "Progress summary for completed sets during an active workout",
+    "placeholders": {
+      "completedSetCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todayExerciseActiveSetSummary": "{setCount} sets to log",
+  "@todayExerciseActiveSetSummary": {
+    "description": "Exercise-level set count in the active workout logger",
+    "placeholders": {
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todaySessionSetLabel": "Set {setNumber}",
+  "@todaySessionSetLabel": {
+    "description": "Label for a set row in the active workout logger",
+    "placeholders": {
+      "setNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "todayActualRepetitionsLabel": "Actual reps",
+  "@todayActualRepetitionsLabel": {
+    "description": "Input label for the completed repetition count"
+  },
+  "todayActualLoadLabel": "Actual load",
+  "@todayActualLoadLabel": {
+    "description": "Input label for the completed load value"
+  },
+  "todayActualRirLabel": "Actual RIR",
+  "@todayActualRirLabel": {
+    "description": "Input label for the completed reps-in-reserve value"
+  },
+  "todayOutcomeLabel": "Outcome",
+  "@todayOutcomeLabel": {
+    "description": "Input label for the set outcome selector"
+  },
+  "todayOutcomeNone": "No limitation",
+  "@todayOutcomeNone": {
+    "description": "Outcome selector option when no limitation or interruption occurred"
+  },
+  "todayOutcomeStrengthLimitation": "Strength limitation",
+  "@todayOutcomeStrengthLimitation": {
+    "description": "Outcome selector option for strength-limited sets"
+  },
+  "todayOutcomeTechniqueLimitation": "Technique limitation",
+  "@todayOutcomeTechniqueLimitation": {
+    "description": "Outcome selector option for technique-limited sets"
+  },
+  "todayOutcomePain": "Pain",
+  "@todayOutcomePain": {
+    "description": "Outcome selector option for pain reports"
+  },
+  "todayOutcomeTimeLimitation": "Time limitation",
+  "@todayOutcomeTimeLimitation": {
+    "description": "Outcome selector option for time-limited sets"
+  },
+  "todayOutcomeEquipmentLimitation": "Equipment limitation",
+  "@todayOutcomeEquipmentLimitation": {
+    "description": "Outcome selector option for equipment-limited sets"
+  },
+  "todayOutcomeExternalInterruption": "External interruption",
+  "@todayOutcomeExternalInterruption": {
+    "description": "Outcome selector option for externally interrupted sets"
+  },
+  "todayCompleteSet": "Complete set",
+  "@todayCompleteSet": {
+    "description": "Button label for logging and completing one set"
+  },
+  "todaySetPrescriptionSummary": "Target: {repetitionTarget} · {rirTarget} · {loadTarget}",
+  "@todaySetPrescriptionSummary": {
+    "description": "Target summary shown above an active set logger",
+    "placeholders": {
+      "repetitionTarget": {
+        "type": "String"
+      },
+      "rirTarget": {
+        "type": "String"
+      },
+      "loadTarget": {
+        "type": "String"
+      }
+    }
+  },
+  "todaySetPrescriptionUnavailable": "Target unavailable",
+  "@todaySetPrescriptionUnavailable": {
+    "description": "Fallback text when a session set no longer has its original prescription"
+  },
+  "todayPreviousPerformanceSummary": "Previous: {repetitionTarget} · {loadTarget} · {rirTarget} · {outcomeTarget}",
+  "@todayPreviousPerformanceSummary": {
+    "description": "Previous set result shown beside the current prescription",
+    "placeholders": {
+      "repetitionTarget": {
+        "type": "String"
+      },
+      "loadTarget": {
+        "type": "String"
+      },
+      "rirTarget": {
+        "type": "String"
+      },
+      "outcomeTarget": {
+        "type": "String"
+      }
+    }
+  },
+  "todayPreviousPerformanceUnavailable": "Previous: no logged set yet",
+  "@todayPreviousPerformanceUnavailable": {
+    "description": "Fallback text when there is no previous set result for the current set slot"
+  },
+  "todayRepetitionsNotRecorded": "reps not recorded",
+  "@todayRepetitionsNotRecorded": {
+    "description": "Fallback text when an actual set log has no repetition value"
+  },
+  "todaySetActualSummary": "Logged: {repetitionTarget} · {loadTarget} · {rirTarget} · {outcomeTarget}",
+  "@todaySetActualSummary": {
+    "description": "Actual set result shown after a set is completed",
+    "placeholders": {
+      "repetitionTarget": {
+        "type": "String"
+      },
+      "loadTarget": {
+        "type": "String"
+      },
+      "rirTarget": {
+        "type": "String"
+      },
+      "outcomeTarget": {
+        "type": "String"
+      }
+    }
+  },
+  "todaySetLogSaved": "Set logged.",
+  "@todaySetLogSaved": {
+    "description": "Snack bar shown after a set is completed and logged"
+  },
+  "todaySetLogFailed": "Set could not be logged.",
+  "@todaySetLogFailed": {
+    "description": "Snack bar shown when set logging fails"
+  },
+  "todaySetLogInvalid": "Enter valid reps, load, and RIR values.",
+  "@todaySetLogInvalid": {
+    "description": "Snack bar shown when set logging inputs are invalid"
+  },
+  "todayQuickLoadDecrease": "Decrease load",
+  "@todayQuickLoadDecrease": {
+    "description": "Tooltip for decreasing the active set load by one quick step"
+  },
+  "todayQuickLoadIncrease": "Increase load",
+  "@todayQuickLoadIncrease": {
+    "description": "Tooltip for increasing the active set load by one quick step"
+  },
+  "todayRestTimerTitle": "Rest timer",
+  "@todayRestTimerTitle": {
+    "description": "Title for the active workout rest timer panel"
+  },
+  "todayRestTimerRunning": "Rest after {exerciseName} set {setNumber}: {remainingTime}",
+  "@todayRestTimerRunning": {
+    "description": "Running rest timer message after a completed set",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "setNumber": {
+        "type": "int"
+      },
+      "remainingTime": {
+        "type": "String"
+      }
+    }
+  },
+  "todayRestTimerComplete": "Rest complete. Start the next set when ready.",
+  "@todayRestTimerComplete": {
+    "description": "Message shown when the active rest timer reaches zero"
+  },
+  "todayRestTimerDismiss": "Dismiss",
+  "@todayRestTimerDismiss": {
+    "description": "Button label for dismissing or cancelling the active rest timer"
+  },
+  "todayRestTimerNotificationTitle": "Rest complete",
+  "@todayRestTimerNotificationTitle": {
+    "description": "Android notification title for completed rest timers"
+  },
+  "todayRestTimerNotificationBody": "Time for your next set.",
+  "@todayRestTimerNotificationBody": {
+    "description": "Android notification body for completed rest timers"
+  },
+  "todayRestTimerNotificationScheduled": "Background alert scheduled.",
+  "@todayRestTimerNotificationScheduled": {
+    "description": "Status shown when the rest timer background notification is scheduled"
+  },
+  "todayRestTimerNotificationPermissionDenied": "Enable notifications to receive rest alerts in the background.",
+  "@todayRestTimerNotificationPermissionDenied": {
+    "description": "Status shown when notification permission was denied"
+  },
+  "todayRestTimerNotificationUnsupported": "Background alert unavailable on this device.",
+  "@todayRestTimerNotificationUnsupported": {
+    "description": "Status shown when the platform has no notification bridge"
+  },
+  "todayRestTimerNotificationFailed": "Background alert could not be scheduled.",
+  "@todayRestTimerNotificationFailed": {
+    "description": "Status shown when the platform notification scheduler fails"
+  },
+  "todayRestTimerNotificationSkipped": "No rest alert needed.",
+  "@todayRestTimerNotificationSkipped": {
+    "description": "Status shown when a zero-duration rest timer skips notification scheduling"
   }
 }

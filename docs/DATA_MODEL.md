@@ -85,6 +85,60 @@ reference the log it supersedes. Revision numbers are unique within a session
 set. The repository exposes insertion only, so corrections append evidence
 instead of overwriting an earlier result or its prescription.
 
+P4-02 uses the existing schema for active workout logging. Completing a set
+updates the related `session_sets.status` to `completed` and inserts revision
+`1` into `actual_set_logs` in the same repository transaction. Later correction
+flows add higher revisions instead of mutating this first record.
+
+P4-03 does not add schema. Previous-performance context is a read model over
+`workout_sessions`, `session_sets`, and `actual_set_logs`, using the latest log
+revision per historical set while excluding the currently active session.
+
+P4-04 also does not add schema. The existing `actual_set_logs.outcome` column
+stores the selected strength, technique, pain, time, equipment, or external
+interruption outcome. An outcome-only log is valid because the table already
+requires at least one actual value or outcome.
+
+P4-05 does not add schema. Rest timers are volatile active-workout UI state
+derived from `prescribed_sets.rest_seconds`; quick load controls only edit the
+pending actual-load input before the existing completion transaction writes an
+`actual_set_logs.load_kilograms` value.
+
+P4-06 does not add schema. Active-session recovery reuses `workout_sessions`
+rows with `inProgress` status, their `session_sets`, and latest
+`actual_set_logs` revisions after the database is reopened. The controller
+derives the restored training day from the linked `prescribed_sets` rows when
+those links still exist. New actual-log identifiers include the set identity,
+revision, and recorded time so a restarted controller cannot collide with a
+process-local serial from a previous app run.
+
+P4-07 does not add schema. Set, exercise, and session execution statuses are
+calculated read-model values over the existing lifecycle fields, linked
+prescription, and latest actual log. Persisted `workout_sessions.status` and
+`session_sets.status` continue to describe storage lifecycle only; target-met,
+needs-review, interruption, pain, and not-comparable states are derived at the
+application boundary.
+
+P4-08 does not add schema. Workout history, selected set details, and personal
+records are read models over `workout_sessions`, `session_sets`,
+`prescribed_sets`, and the latest `actual_set_logs` revision for each set.
+Personal records are not stored separately in this phase; they are derived from
+completed clean logs that include repetitions or load and do not include a
+limiting outcome.
+
+P4-09 does not add schema. Historical corrections append a new
+`actual_set_logs` row for the same `session_set_id` with revision number
+`latest + 1` and `supersedes_log_id` pointing at the previous latest log.
+Earlier rows remain unchanged and remain visible in the selected set revision
+history. Read models continue to use the highest revision as the current
+historical value.
+
+P4-10 does not add schema. It verifies the Phase 4 storage contract by reopening
+a file-backed database after active workout logging and after a historical
+correction. The recovered data must include the in-progress session, completed
+set lifecycle, all actual-log revisions, the supersedes relationship, and the
+latest-revision values used by history and personal-record read models.
+
 ### `measurement_records`
 
 Stores the timestamped header and provenance for one measurement event. Each

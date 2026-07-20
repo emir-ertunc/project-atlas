@@ -1,8 +1,11 @@
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/app/navigation/main_navigation_shell.dart';
 import 'package:project_atlas/app/project_atlas_app.dart';
+import 'package:project_atlas/core/database/app_database.dart';
+import 'package:project_atlas/core/database/database_providers.dart';
 import 'package:project_atlas/core/localization/locale_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
@@ -20,6 +23,9 @@ void main() {
   });
 
   Future<void> pumpApp(WidgetTester tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
@@ -28,13 +34,14 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          appDatabaseProvider.overrideWithValue(database),
           appLocaleProvider.overrideWithValue(const Locale('en')),
           exerciseCatalogProvider.overrideWith((ref) => testCatalog),
         ],
         child: const ProjectAtlasApp(),
       ),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
   }
 
   Future<void> openCatalogTab(WidgetTester tester) async {

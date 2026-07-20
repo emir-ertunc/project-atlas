@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: Initial skeleton
+- Status: P4-10 resilience acceptance complete
 - Purpose: Define deterministic, testable, and versioned training decisions
 
 ## Supported Goals
@@ -52,6 +52,49 @@ Every set stores prescribed and actual values plus one optional outcome:
 - Time limitation
 - Equipment limitation
 - External interruption
+
+P4-04 records these outcomes on active-workout set logs. Outcome interpretation
+for progression, pain handling, and interruption filtering remains owned by
+Phase 5 decision rules.
+
+P4-05 uses prescribed rest duration to drive the active workout countdown and
+background rest alert. Timer completion is execution guidance only; it does not
+change progression, fatigue, or session success rules in this phase.
+
+P4-06 restores an `inProgress` session after app process restart so completed
+set logs remain available for continued execution. Recovery does not classify
+the session, replay rest timers, or interpret outcomes for progression.
+
+P4-07 adds execution-status calculation without applying progression changes:
+
+- Planned sets are pending.
+- A completed set is target-met when no limiting outcome is reported,
+  repetitions meet at least the prescribed minimum, and any prescribed load is
+  met or exceeded.
+- Strength and technique outcomes, below-minimum repetitions, or below-target
+  load create a performance miss.
+- Time, equipment, external, and skipped outcomes are interruptions rather than
+  performance misses.
+- Pain is its own highest-priority status and remains a safety signal.
+- Exercise status aggregates its own set statuses.
+- Session status aggregates exercise statuses and can require review without
+  automatically treating the whole workout as failed.
+
+P4-08 displays history and personal records without changing progression. A
+personal-record candidate must be the latest revision for a completed set, must
+contain repetitions or load, and must not contain a limiting outcome. The record
+view is evidence display only; Phase 5 remains responsible for deciding whether
+any observed performance should increase, hold, or reduce future prescriptions.
+
+P4-09 corrections are evidence revisions, not retroactive rule decisions. When
+a set is corrected, later read models and future progression logic use the
+latest revision as the current fact, while earlier revisions remain available
+for audit and troubleshooting. Corrections do not directly trigger a program
+change in Phase 4.
+
+P4-10 adds acceptance coverage without changing training rules. Offline and
+reopened-database tests verify that the same latest-revision evidence is used
+after app recovery before any Phase 5 progression decisions are allowed.
 
 ## Initial Decision Policies
 

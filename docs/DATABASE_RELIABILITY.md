@@ -33,6 +33,13 @@ The recovery test exercises both outcomes on a file-backed database:
 4. End the connection without committing.
 5. Reopen and verify the committed state is restored with no partial result.
 
+Phase 4 adds application-level recovery coverage on top of the database
+transaction tests. The workout recovery test starts an in-progress session,
+logs a completed set, closes and reopens the database, verifies Today restores
+the active session and latest log, appends a Progress correction, closes and
+reopens again, and verifies both the superseded and latest actual-log revisions
+remain available.
+
 ## Change Requirements
 
 - Never reuse an existing schema version for a changed table definition.

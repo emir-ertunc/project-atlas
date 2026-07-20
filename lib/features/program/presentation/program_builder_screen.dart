@@ -7,6 +7,7 @@ import 'package:project_atlas/features/exercise_catalog/application/exercise_cat
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
 import 'package:project_atlas/features/program/application/program_builder_controller.dart';
 import 'package:project_atlas/features/program/domain/program_builder.dart';
+import 'package:project_atlas/features/today/application/today_workout_controller.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
 class ProgramBuilderScreen extends ConsumerWidget {
@@ -137,11 +138,13 @@ class ProgramBuilderScreen extends ConsumerWidget {
             draft: draft,
             onSaveDraft: () => _runLifecycleAction(
               context: context,
+              ref: ref,
               action: controller.saveDraftSnapshot,
               successMessage: l10n.programBuilderDraftSaved,
             ),
             onPublishVersion: () => _runLifecycleAction(
               context: context,
+              ref: ref,
               action: controller.publishImmutableVersion,
               successMessage: l10n.programBuilderVersionPublished,
             ),
@@ -156,6 +159,7 @@ class ProgramBuilderScreen extends ConsumerWidget {
             onArchiveProgram: draft.isPersisted && !draft.isArchived
                 ? () => _runLifecycleAction(
                     context: context,
+                    ref: ref,
                     action: controller.archiveProgram,
                     successMessage: l10n.programBuilderProgramArchived,
                   )
@@ -284,6 +288,7 @@ class ProgramBuilderScreen extends ConsumerWidget {
 
   Future<void> _runLifecycleAction({
     required BuildContext context,
+    required WidgetRef ref,
     required Future<void> Function() action,
     required String successMessage,
   }) async {
@@ -291,6 +296,7 @@ class ProgramBuilderScreen extends ConsumerWidget {
 
     try {
       await action();
+      ref.invalidate(todayWorkoutControllerProvider);
       if (!context.mounted) {
         return;
       }

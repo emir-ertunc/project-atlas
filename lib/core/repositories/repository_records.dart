@@ -205,6 +205,32 @@ final class ActualSetLogRecord {
   final DateTime recordedAt;
 }
 
+final class ExerciseSetPerformanceRecord {
+  const ExerciseSetPerformanceRecord({
+    required this.sessionId,
+    required this.sessionSetId,
+    required this.exerciseId,
+    required this.setOrder,
+    required this.sessionLifecycle,
+    required this.sessionCreatedAt,
+    required this.log,
+    this.sessionScheduledAt,
+    this.sessionStartedAt,
+  });
+
+  final String sessionId;
+  final String sessionSetId;
+  final String exerciseId;
+  final int setOrder;
+  final WorkoutLifecycle sessionLifecycle;
+  final DateTime sessionCreatedAt;
+  final DateTime? sessionScheduledAt;
+  final DateTime? sessionStartedAt;
+  final ActualSetLogRecord log;
+
+  DateTime get performedAt => log.recordedAt;
+}
+
 final class MeasurementRecord {
   const MeasurementRecord({
     required this.id,

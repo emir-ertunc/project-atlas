@@ -128,6 +128,220 @@ abstract class AppLocalizations {
   /// **'Progress'**
   String get progressNavigationLabel;
 
+  /// Subtitle for the Progress screen
+  ///
+  /// In en, this message translates to:
+  /// **'Review workout history, inspect set results, and track personal records.'**
+  String get progressScreenSubtitle;
+
+  /// Title for workout history section
+  ///
+  /// In en, this message translates to:
+  /// **'Workout history'**
+  String get progressHistoryTitle;
+
+  /// Title shown when there are no workout sessions
+  ///
+  /// In en, this message translates to:
+  /// **'No workout history yet'**
+  String get progressHistoryEmptyTitle;
+
+  /// Message shown when there are no workout sessions
+  ///
+  /// In en, this message translates to:
+  /// **'Complete sets from the Today tab to build your local history.'**
+  String get progressHistoryEmptyMessage;
+
+  /// Error message shown when Progress cannot load workout history
+  ///
+  /// In en, this message translates to:
+  /// **'Workout history could not load.'**
+  String get progressHistoryLoadError;
+
+  /// Fallback title for a workout session without notes
+  ///
+  /// In en, this message translates to:
+  /// **'Workout session'**
+  String get progressUnnamedSession;
+
+  /// Summary for one historical workout session
+  ///
+  /// In en, this message translates to:
+  /// **'{status} · {completedSetCount} of {setCount} sets logged'**
+  String progressSessionSummary(
+    String status,
+    int completedSetCount,
+    int setCount,
+  );
+
+  /// Button label for selecting a set detail from workout history
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseName} set {setNumber}'**
+  String progressSetButtonLabel(String exerciseName, int setNumber);
+
+  /// Title for selected set details
+  ///
+  /// In en, this message translates to:
+  /// **'Set details'**
+  String get progressSetDetailsTitle;
+
+  /// Empty state for selected set details
+  ///
+  /// In en, this message translates to:
+  /// **'Select a set from workout history to inspect its result.'**
+  String get progressSetDetailsEmpty;
+
+  /// Session context for selected set details
+  ///
+  /// In en, this message translates to:
+  /// **'{sessionName} · {dateTime}'**
+  String progressSetDetailSession(String sessionName, String dateTime);
+
+  /// Calculated status row in set details
+  ///
+  /// In en, this message translates to:
+  /// **'Status: {status}'**
+  String progressSetDetailStatus(String status);
+
+  /// Target prescription row in set details
+  ///
+  /// In en, this message translates to:
+  /// **'{target}'**
+  String progressSetDetailTarget(String target);
+
+  /// Latest actual log row in set details
+  ///
+  /// In en, this message translates to:
+  /// **'{latest}'**
+  String progressSetDetailLatest(String latest);
+
+  /// Revision count for selected set details
+  ///
+  /// In en, this message translates to:
+  /// **'{revisionCount} revisions'**
+  String progressSetDetailRevisionCount(int revisionCount);
+
+  /// Fallback text for set details without an actual log
+  ///
+  /// In en, this message translates to:
+  /// **'No actual result logged'**
+  String get progressNoActualLog;
+
+  /// Title for the selected set actual-log revision history
+  ///
+  /// In en, this message translates to:
+  /// **'Revision history'**
+  String get progressRevisionHistoryTitle;
+
+  /// One actual-log revision row in the selected set detail
+  ///
+  /// In en, this message translates to:
+  /// **'Revision {revision}: {result}'**
+  String progressRevisionRow(int revision, String result);
+
+  /// Reference to the previous actual log revision superseded by a correction
+  ///
+  /// In en, this message translates to:
+  /// **'Supersedes {logId}'**
+  String progressRevisionSupersedes(String logId);
+
+  /// Title for the historical set correction form
+  ///
+  /// In en, this message translates to:
+  /// **'Correct logged result'**
+  String get progressCorrectionTitle;
+
+  /// Explanation that historical corrections are append-only
+  ///
+  /// In en, this message translates to:
+  /// **'Saving a correction adds a new revision. Earlier logs stay preserved.'**
+  String get progressCorrectionDescription;
+
+  /// Message shown when a selected set cannot receive a correction
+  ///
+  /// In en, this message translates to:
+  /// **'Only completed sets with a logged result can be corrected.'**
+  String get progressCorrectionUnavailable;
+
+  /// Input label for corrected actual repetitions
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected reps'**
+  String get progressCorrectionRepetitionsLabel;
+
+  /// Input label for corrected actual load
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected load'**
+  String get progressCorrectionLoadLabel;
+
+  /// Input label for corrected actual RIR
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected RIR'**
+  String get progressCorrectionRirLabel;
+
+  /// Dropdown label for corrected actual outcome
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected outcome'**
+  String get progressCorrectionOutcomeLabel;
+
+  /// Button label for saving a historical set correction
+  ///
+  /// In en, this message translates to:
+  /// **'Save correction'**
+  String get progressCorrectionSave;
+
+  /// Snack bar shown after a historical correction is appended
+  ///
+  /// In en, this message translates to:
+  /// **'Correction saved as a new revision.'**
+  String get progressCorrectionSaved;
+
+  /// Snack bar shown when a historical correction fails
+  ///
+  /// In en, this message translates to:
+  /// **'Correction could not be saved.'**
+  String get progressCorrectionFailed;
+
+  /// Snack bar shown when correction inputs are invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Enter valid reps, load, and RIR values.'**
+  String get progressCorrectionInvalid;
+
+  /// Title for personal records section
+  ///
+  /// In en, this message translates to:
+  /// **'Personal records'**
+  String get progressPersonalRecordsTitle;
+
+  /// Empty state for personal records
+  ///
+  /// In en, this message translates to:
+  /// **'No personal records yet. Complete clean sets with reps or load to start tracking records.'**
+  String get progressPersonalRecordsEmpty;
+
+  /// Personal record row for best load
+  ///
+  /// In en, this message translates to:
+  /// **'Best load: {load}'**
+  String progressBestLoad(String load);
+
+  /// Personal record row for best repetitions
+  ///
+  /// In en, this message translates to:
+  /// **'Best reps: {repetitions}'**
+  String progressBestRepetitions(int repetitions);
+
+  /// Personal record row for best volume
+  ///
+  /// In en, this message translates to:
+  /// **'Best volume: {volume}'**
+  String progressBestVolume(String volume);
+
   /// Label for the Settings primary navigation destination
   ///
   /// In en, this message translates to:
@@ -854,6 +1068,456 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{programName} copy'**
   String programBuilderCopiedProgramName(String programName);
+
+  /// Subtitle for the Today screen active workout entry point
+  ///
+  /// In en, this message translates to:
+  /// **'Start the next local workout from your active program.'**
+  String get todayScreenSubtitle;
+
+  /// Title shown when Today has no active published program
+  ///
+  /// In en, this message translates to:
+  /// **'No active program yet'**
+  String get todayNoActiveProgramTitle;
+
+  /// Message shown when Today has no active published program
+  ///
+  /// In en, this message translates to:
+  /// **'Publish a program version in the Program tab before starting a workout.'**
+  String get todayNoActiveProgramMessage;
+
+  /// Button that opens the Program branch from Today
+  ///
+  /// In en, this message translates to:
+  /// **'Open Program'**
+  String get todayOpenProgramBuilder;
+
+  /// Summary for the active program shown on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Active version {versionNumber} · {dayCount} training days'**
+  String todayActiveProgramSummary(int versionNumber, int dayCount);
+
+  /// Section title for selecting a training day on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Choose training day'**
+  String get todayChooseTrainingDay;
+
+  /// Summary for a selected training day plan
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseCount} exercises · {setCount} planned sets'**
+  String todayTrainingDaySummary(int exerciseCount, int setCount);
+
+  /// Button label for starting the selected workout session
+  ///
+  /// In en, this message translates to:
+  /// **'Start workout'**
+  String get todayStartWorkout;
+
+  /// Snack bar shown after creating a workout session plan
+  ///
+  /// In en, this message translates to:
+  /// **'Workout session started.'**
+  String get todaySessionStarted;
+
+  /// Snack bar shown when workout session creation fails
+  ///
+  /// In en, this message translates to:
+  /// **'Workout could not be started.'**
+  String get todaySessionStartFailed;
+
+  /// Error message shown when the Today screen cannot load
+  ///
+  /// In en, this message translates to:
+  /// **'Today could not load.'**
+  String get todayLoadError;
+
+  /// Button label for retrying Today screen loading
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get todayRetry;
+
+  /// Fixed repetition target on Today
+  ///
+  /// In en, this message translates to:
+  /// **'{repetitions} reps'**
+  String todayFixedRepetitions(int repetitions);
+
+  /// Ranged repetition target on Today
+  ///
+  /// In en, this message translates to:
+  /// **'{minimumRepetitions}-{maximumRepetitions} reps'**
+  String todayRangeRepetitions(int minimumRepetitions, int maximumRepetitions);
+
+  /// Exercise prescription summary shown on Today
+  ///
+  /// In en, this message translates to:
+  /// **'{setCount} sets · {repetitionTarget} · {rirTarget} · {loadTarget} · {restSeconds} sec rest'**
+  String todayExercisePrescriptionSummary(
+    int setCount,
+    String repetitionTarget,
+    String rirTarget,
+    String loadTarget,
+    int restSeconds,
+  );
+
+  /// Title shown when the selected active training day has no exercises
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises on this day'**
+  String get todayNoExercisesTitle;
+
+  /// Message shown when the selected active training day has no exercises
+  ///
+  /// In en, this message translates to:
+  /// **'Add exercises to this training day before starting a session.'**
+  String get todayNoExercisesMessage;
+
+  /// Title for an already active workout session on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Session in progress'**
+  String get todaySessionInProgressTitle;
+
+  /// Summary for the active workout session on Today
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseCount} exercises · {setCount} planned sets'**
+  String todaySessionInProgressSummary(int exerciseCount, int setCount);
+
+  /// Instructional message for logging sets during an active workout
+  ///
+  /// In en, this message translates to:
+  /// **'Record each set as you finish it. Completed sets are saved locally with their actual result.'**
+  String get todaySessionInProgressMessage;
+
+  /// Message shown when an active workout is restored after the app process restarts
+  ///
+  /// In en, this message translates to:
+  /// **'This in-progress workout was restored from local storage.'**
+  String get todaySessionRestoredMessage;
+
+  /// Session-level calculated status on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Session status: {status}'**
+  String todaySessionStatusLabel(String status);
+
+  /// Exercise-level calculated status on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise status: {status}'**
+  String todayExerciseStatusLabel(String status);
+
+  /// Set-level calculated status on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Set status: {status}'**
+  String todaySetStatusLabel(String status);
+
+  /// Calculated status for a set that has not been logged
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get todayStatusPending;
+
+  /// Calculated status for an exercise or session with no logged sets
+  ///
+  /// In en, this message translates to:
+  /// **'Not started'**
+  String get todayStatusNotStarted;
+
+  /// Calculated status for partially logged workout work
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get todayStatusInProgress;
+
+  /// Calculated status when all comparable targets are met
+  ///
+  /// In en, this message translates to:
+  /// **'Successful'**
+  String get todayStatusSuccessful;
+
+  /// Calculated status for a logged set that met its prescription
+  ///
+  /// In en, this message translates to:
+  /// **'Target met'**
+  String get todayStatusTargetMet;
+
+  /// Calculated status when one or more performance misses exist
+  ///
+  /// In en, this message translates to:
+  /// **'Needs review'**
+  String get todayStatusNeedsReview;
+
+  /// Calculated status for a set that missed reps, load, strength, or technique target
+  ///
+  /// In en, this message translates to:
+  /// **'Performance miss'**
+  String get todayStatusPerformanceMiss;
+
+  /// Calculated status for time, equipment, external, or skipped interruptions
+  ///
+  /// In en, this message translates to:
+  /// **'Interrupted'**
+  String get todayStatusInterrupted;
+
+  /// Calculated status when pain was reported
+  ///
+  /// In en, this message translates to:
+  /// **'Pain reported'**
+  String get todayStatusPainReported;
+
+  /// Calculated status when a log cannot be compared to a prescription
+  ///
+  /// In en, this message translates to:
+  /// **'Logged, not comparable'**
+  String get todayStatusNotComparable;
+
+  /// Progress summary for completed sets during an active workout
+  ///
+  /// In en, this message translates to:
+  /// **'{completedSetCount} of {setCount} sets completed'**
+  String todaySetProgressSummary(int completedSetCount, int setCount);
+
+  /// Exercise-level set count in the active workout logger
+  ///
+  /// In en, this message translates to:
+  /// **'{setCount} sets to log'**
+  String todayExerciseActiveSetSummary(int setCount);
+
+  /// Label for a set row in the active workout logger
+  ///
+  /// In en, this message translates to:
+  /// **'Set {setNumber}'**
+  String todaySessionSetLabel(int setNumber);
+
+  /// Input label for the completed repetition count
+  ///
+  /// In en, this message translates to:
+  /// **'Actual reps'**
+  String get todayActualRepetitionsLabel;
+
+  /// Input label for the completed load value
+  ///
+  /// In en, this message translates to:
+  /// **'Actual load'**
+  String get todayActualLoadLabel;
+
+  /// Input label for the completed reps-in-reserve value
+  ///
+  /// In en, this message translates to:
+  /// **'Actual RIR'**
+  String get todayActualRirLabel;
+
+  /// Input label for the set outcome selector
+  ///
+  /// In en, this message translates to:
+  /// **'Outcome'**
+  String get todayOutcomeLabel;
+
+  /// Outcome selector option when no limitation or interruption occurred
+  ///
+  /// In en, this message translates to:
+  /// **'No limitation'**
+  String get todayOutcomeNone;
+
+  /// Outcome selector option for strength-limited sets
+  ///
+  /// In en, this message translates to:
+  /// **'Strength limitation'**
+  String get todayOutcomeStrengthLimitation;
+
+  /// Outcome selector option for technique-limited sets
+  ///
+  /// In en, this message translates to:
+  /// **'Technique limitation'**
+  String get todayOutcomeTechniqueLimitation;
+
+  /// Outcome selector option for pain reports
+  ///
+  /// In en, this message translates to:
+  /// **'Pain'**
+  String get todayOutcomePain;
+
+  /// Outcome selector option for time-limited sets
+  ///
+  /// In en, this message translates to:
+  /// **'Time limitation'**
+  String get todayOutcomeTimeLimitation;
+
+  /// Outcome selector option for equipment-limited sets
+  ///
+  /// In en, this message translates to:
+  /// **'Equipment limitation'**
+  String get todayOutcomeEquipmentLimitation;
+
+  /// Outcome selector option for externally interrupted sets
+  ///
+  /// In en, this message translates to:
+  /// **'External interruption'**
+  String get todayOutcomeExternalInterruption;
+
+  /// Button label for logging and completing one set
+  ///
+  /// In en, this message translates to:
+  /// **'Complete set'**
+  String get todayCompleteSet;
+
+  /// Target summary shown above an active set logger
+  ///
+  /// In en, this message translates to:
+  /// **'Target: {repetitionTarget} · {rirTarget} · {loadTarget}'**
+  String todaySetPrescriptionSummary(
+    String repetitionTarget,
+    String rirTarget,
+    String loadTarget,
+  );
+
+  /// Fallback text when a session set no longer has its original prescription
+  ///
+  /// In en, this message translates to:
+  /// **'Target unavailable'**
+  String get todaySetPrescriptionUnavailable;
+
+  /// Previous set result shown beside the current prescription
+  ///
+  /// In en, this message translates to:
+  /// **'Previous: {repetitionTarget} · {loadTarget} · {rirTarget} · {outcomeTarget}'**
+  String todayPreviousPerformanceSummary(
+    String repetitionTarget,
+    String loadTarget,
+    String rirTarget,
+    String outcomeTarget,
+  );
+
+  /// Fallback text when there is no previous set result for the current set slot
+  ///
+  /// In en, this message translates to:
+  /// **'Previous: no logged set yet'**
+  String get todayPreviousPerformanceUnavailable;
+
+  /// Fallback text when an actual set log has no repetition value
+  ///
+  /// In en, this message translates to:
+  /// **'reps not recorded'**
+  String get todayRepetitionsNotRecorded;
+
+  /// Actual set result shown after a set is completed
+  ///
+  /// In en, this message translates to:
+  /// **'Logged: {repetitionTarget} · {loadTarget} · {rirTarget} · {outcomeTarget}'**
+  String todaySetActualSummary(
+    String repetitionTarget,
+    String loadTarget,
+    String rirTarget,
+    String outcomeTarget,
+  );
+
+  /// Snack bar shown after a set is completed and logged
+  ///
+  /// In en, this message translates to:
+  /// **'Set logged.'**
+  String get todaySetLogSaved;
+
+  /// Snack bar shown when set logging fails
+  ///
+  /// In en, this message translates to:
+  /// **'Set could not be logged.'**
+  String get todaySetLogFailed;
+
+  /// Snack bar shown when set logging inputs are invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Enter valid reps, load, and RIR values.'**
+  String get todaySetLogInvalid;
+
+  /// Tooltip for decreasing the active set load by one quick step
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease load'**
+  String get todayQuickLoadDecrease;
+
+  /// Tooltip for increasing the active set load by one quick step
+  ///
+  /// In en, this message translates to:
+  /// **'Increase load'**
+  String get todayQuickLoadIncrease;
+
+  /// Title for the active workout rest timer panel
+  ///
+  /// In en, this message translates to:
+  /// **'Rest timer'**
+  String get todayRestTimerTitle;
+
+  /// Running rest timer message after a completed set
+  ///
+  /// In en, this message translates to:
+  /// **'Rest after {exerciseName} set {setNumber}: {remainingTime}'**
+  String todayRestTimerRunning(
+    String exerciseName,
+    int setNumber,
+    String remainingTime,
+  );
+
+  /// Message shown when the active rest timer reaches zero
+  ///
+  /// In en, this message translates to:
+  /// **'Rest complete. Start the next set when ready.'**
+  String get todayRestTimerComplete;
+
+  /// Button label for dismissing or cancelling the active rest timer
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get todayRestTimerDismiss;
+
+  /// Android notification title for completed rest timers
+  ///
+  /// In en, this message translates to:
+  /// **'Rest complete'**
+  String get todayRestTimerNotificationTitle;
+
+  /// Android notification body for completed rest timers
+  ///
+  /// In en, this message translates to:
+  /// **'Time for your next set.'**
+  String get todayRestTimerNotificationBody;
+
+  /// Status shown when the rest timer background notification is scheduled
+  ///
+  /// In en, this message translates to:
+  /// **'Background alert scheduled.'**
+  String get todayRestTimerNotificationScheduled;
+
+  /// Status shown when notification permission was denied
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notifications to receive rest alerts in the background.'**
+  String get todayRestTimerNotificationPermissionDenied;
+
+  /// Status shown when the platform has no notification bridge
+  ///
+  /// In en, this message translates to:
+  /// **'Background alert unavailable on this device.'**
+  String get todayRestTimerNotificationUnsupported;
+
+  /// Status shown when the platform notification scheduler fails
+  ///
+  /// In en, this message translates to:
+  /// **'Background alert could not be scheduled.'**
+  String get todayRestTimerNotificationFailed;
+
+  /// Status shown when a zero-duration rest timer skips notification scheduling
+  ///
+  /// In en, this message translates to:
+  /// **'No rest alert needed.'**
+  String get todayRestTimerNotificationSkipped;
 }
 
 class _AppLocalizationsDelegate

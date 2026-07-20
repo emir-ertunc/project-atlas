@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: Current Phase 1 and Phase 2 implementation validated; P3-11 airplane-mode catalog and manual program creation verification is complete
+- Status: P4-11 workout MVP APK complete
 - Architecture style: Offline-first, layered, and feature-oriented
 
 ## Technology Baseline
@@ -223,6 +223,78 @@ defined in the foundation. The exercise catalog implementation begins in Phase
   version, training days, and prescribed sets transactionally.
 - P3-11 verifies manual draft creation and catalog exercise selection while
   Dart network client creation is blocked.
+
+## Active Workout Entry
+
+- P4-01 replaces the Today placeholder with a local active-workout entry point.
+- The Today screen reads the local profile's active program and active immutable
+  version through repository providers.
+- Until the later scheduling engine exists, the user explicitly selects one
+  training day from the active version.
+- Starting a workout creates one `inProgress` workout session and one planned
+  `session_sets` row for each prescribed set in the selected training day.
+- The session keeps optional links to the source program and program version;
+  every session set keeps its optional prescribed-set link while retaining the
+  exercise ID and set ordering needed for history.
+- P4-02 records set-level actual repetitions, load, optional RIR, and set
+  completion through the repository layer. The write updates the session-set
+  status and appends the first actual-set log in one local transaction.
+- P4-03 reads previous set performance for the same exercise from local workout
+  history, excludes the active session, chooses the latest revision per
+  historical set, orders previous exposure by session time, and displays the
+  matching set-order result beside the current prescription.
+- P4-04 adds a set outcome selector for strength limitation, technique
+  limitation, pain, time limitation, equipment limitation, and external
+  interruption. The selected outcome is stored on the appended actual-set log
+  and is shown in logged and previous-performance summaries.
+- P4-05 starts an in-memory rest timer from the completed set's prescribed rest
+  duration, displays the countdown in the active workout card, and schedules a
+  native Android background notification through the
+  `project_atlas/rest_notifications` method channel while the app process is
+  alive. Android 13+ notification permission is requested only from an active
+  workout path after a program exists.
+- P4-05 adds quick load step controls beside the active set load input. The
+  controls adjust the current actual-load entry only; prescriptions and
+  historical records remain unchanged until the set is explicitly completed.
+- P4-06 restores any existing `inProgress` workout session when the Today
+  controller starts. It rebuilds set summaries, latest actual logs, previous
+  performance context, and the source training-day selection from local tables.
+- Restored sessions are marked in presentation state so the Today screen can
+  show a local-restore message. Actual-set log identifiers no longer depend on
+  a process-local serial alone, avoiding duplicate IDs when a restarted
+  controller logs another set with the same clock value.
+- P4-07 adds a presentation/application read model for set, exercise, and
+  session execution status. Persisted workout lifecycle remains separate from
+  calculated execution status: set status compares the latest actual log to
+  the prescription and outcome, exercise status aggregates its set statuses,
+  and session status aggregates exercise statuses without automatically failing
+  the whole workout for one exercise issue.
+- P4-08 adds the Progress branch workout-history read model. It composes local
+  workout sessions, session sets, linked prescriptions, and append-only actual
+  log revisions into chronological session cards, selected set details, and
+  exercise-level personal-record cards. Personal records are display-only and
+  are derived from the latest clean actual log for each set; logs with limiting
+  outcomes are excluded from record calculation.
+- P4-09 adds a Progress-branch correction flow for historical set results. A
+  correction validates the replacement repetitions, load, RIR, and outcome,
+  appends the next `actual_set_logs` revision, links it to the previous latest
+  log with `supersedes_log_id`, and refreshes history without updating or
+  deleting older logs.
+- P4-10 adds Phase 4 resilience acceptance coverage. Widget tests block Dart
+  network client creation while starting a workout, logging a set, reviewing
+  history, and appending a correction. File-backed recovery tests close and
+  reopen the database around an active session and a corrected historical log
+  to prove latest-revision read models recover without data loss.
+- P4-11 produces Build C2, a development-only Android debug APK for the
+  offline workout MVP slice. The build packages manual program publication,
+  Today session start, set logging, outcomes, active rest timers, active
+  session recovery, calculated statuses, Progress history, personal records,
+  append-only corrections, and the P4-10 offline/recovery test coverage.
+- Explicit session-finish or cancel actions and durable rest-timer replay after
+  process death remain outside Build C2. The current recovery boundary is the
+  local durability of active sessions, completed sets, actual-log revisions,
+  and latest-revision history read models. P4-12 owns branch publication and CI
+  verification.
 
 ## Anatomy Muscle Ontology
 

@@ -18,12 +18,14 @@ identifier are temporary until the release-branding checkpoint.
 
 ## Current Status
 
-The base Flutter application scaffold now targets Android and iOS. Riverpod,
-GoRouter, Drift, code generation, Turkish/English localization, metric/imperial
-units, design tokens, five state-preserving primary navigation branches, schema
-migrations, local-first repositories, backup controls, and automated tests are
-configured. Phase 1 validation is recorded, while its remaining accessibility
-and prescription acceptance items stay open in the master plan.
+The Android-first Flutter application has completed the Build C2 offline
+workout MVP checkpoint. The app has local program publication, Today workout
+start, set-level logging, outcome capture, rest timers, active-session
+recovery, calculated workout statuses, workout history, personal records,
+append-only historical corrections, Turkish/English localization,
+metric/imperial units, local-first repositories, backup controls, and automated
+tests. Phase 4 branch publication and CI verification remain the next open
+checklist item.
 
 ## Documentation
 
@@ -35,6 +37,8 @@ and prescription acceptance items stay open in the master plan.
 - [Database reliability](docs/DATABASE_RELIABILITY.md)
 - [Backup and encrypted export security](docs/SECURITY_AND_EXPORT.md)
 - [Phase 1 validation](docs/PHASE_1_VALIDATION.md)
+- [Phase 3 validation](docs/PHASE_3_VALIDATION.md)
+- [Phase 4 validation](docs/PHASE_4_VALIDATION.md)
 - [Design system](docs/DESIGN_SYSTEM.md)
 - [Development setup](docs/DEVELOPMENT_SETUP.md)
 - [Training rulebook](docs/TRAINING_RULEBOOK.md)

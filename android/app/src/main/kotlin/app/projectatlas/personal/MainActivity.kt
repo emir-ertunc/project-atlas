@@ -3,11 +3,13 @@ package app.projectatlas.personal
 import app.projectatlas.personal.anatomy.AnatomyPlatformContract
 import app.projectatlas.personal.anatomy.AnatomyRendererBridge
 import app.projectatlas.personal.anatomy.AnatomyRendererViewFactory
+import app.projectatlas.personal.workout.RestTimerNotificationBridge
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
 class MainActivity : FlutterActivity() {
     private var anatomyRendererBridge: AnatomyRendererBridge? = null
+    private var restTimerNotificationBridge: RestTimerNotificationBridge? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -19,5 +21,33 @@ class MainActivity : FlutterActivity() {
                 AnatomyRendererViewFactory(),
             )
         anatomyRendererBridge = AnatomyRendererBridge(flutterEngine.dartExecutor.binaryMessenger)
+        restTimerNotificationBridge = RestTimerNotificationBridge(
+            this,
+            flutterEngine.dartExecutor.binaryMessenger,
+        )
+    }
+
+    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
+        restTimerNotificationBridge?.detach()
+        restTimerNotificationBridge = null
+        anatomyRendererBridge = null
+        super.cleanUpFlutterEngine(flutterEngine)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        if (
+            restTimerNotificationBridge?.onRequestPermissionsResult(
+                requestCode,
+                grantResults,
+            ) == true
+        ) {
+            return
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

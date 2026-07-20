@@ -168,6 +168,8 @@ the device, reconnect it, and accept the new authorization prompt.
   [the validation record](PHASE_1_VALIDATION.md)
 - Phase 3 local and CI validation: Passed on 2026-07-20; see
   [the validation record](PHASE_3_VALIDATION.md)
+- Phase 4 Build C2 local validation: Passed on 2026-07-20; see
+  [the validation record](PHASE_4_VALIDATION.md)
 
 ## Build C0 Validation
 
@@ -180,6 +182,22 @@ the device, reconnect it, and accept the new authorization prompt.
 - Install target: `ProjectAtlas_API_35`, Android 15, API 35, x86_64
 - Result: ADB installation, cold launch, foreground Activity, process health,
   and rendered foundation screen passed.
+
+This is a development-only debug build. It is excluded from source control and
+must not be distributed as a release artifact.
+
+## Build C2 Validation
+
+- Date: 2026-07-20
+- Package: `app.projectatlas.personal`
+- Version: `0.1.0` (`versionCode` 1)
+- Artifact: `build/app/outputs/flutter-apk/app-debug.apk`
+- Size: 177,137,788 bytes
+- SHA-256:
+  `E690A875EC69A2AAAAF8A16A4E000ED8F19F40156B00C04098A9FEC4F840D185`
+- Build source: ASCII temporary workspace copy, copied back to the repository
+  build output directory
+- Result: Local quality gates, APK build, and APK metadata inspection passed.
 
 This is a development-only debug build. It is excluded from source control and
 must not be distributed as a release artifact.
