@@ -23,5 +23,128 @@
   "settingsNavigationLabel": "Settings",
   "@settingsNavigationLabel": {
     "description": "Label for the Settings primary navigation destination"
+  },
+  "anatomyRendererTitle": "3D anatomy renderer",
+  "@anatomyRendererTitle": {
+    "description": "Title for the anatomy renderer panel"
+  },
+  "anatomyRendererDescription": "Android builds use a native Filament surface. GLB anatomy assets remain external until the bundling checkpoint.",
+  "@anatomyRendererDescription": {
+    "description": "Short explanation of the current anatomy renderer state"
+  },
+  "anatomyInteractionInstructions": "Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.",
+  "@anatomyInteractionInstructions": {
+    "description": "Interaction help text shown above the anatomy renderer"
+  },
+  "anatomyRendererContentDescription": "Interactive anatomy renderer",
+  "@anatomyRendererContentDescription": {
+    "description": "Accessibility label passed to the native Android renderer view"
+  },
+  "anatomyRendererAndroidOnly": "The native Filament renderer is available on Android builds. This environment shows a safe fallback.",
+  "@anatomyRendererAndroidOnly": {
+    "description": "Fallback message shown outside Android"
+  },
+  "anatomyRendererPerformanceFallback": "Performance-safe semantic preview is active. The native renderer stays off until bundled assets and mid-range device metrics meet the threshold.",
+  "@anatomyRendererPerformanceFallback": {
+    "description": "Fallback message shown when the native anatomy renderer is disabled by the performance policy"
+  },
+  "anatomyRendererStatusLoading": "Checking renderer bridge...",
+  "@anatomyRendererStatusLoading": {
+    "description": "Status shown while renderer capabilities are loading"
+  },
+  "anatomyRendererStatus": "Renderer: {backend}; GLB: {glbStatus}; Asset: {assetStatus}",
+  "@anatomyRendererStatus": {
+    "description": "Renderer capability summary",
+    "placeholders": {
+      "backend": {
+        "type": "String"
+      },
+      "glbStatus": {
+        "type": "String"
+      },
+      "assetStatus": {
+        "type": "String"
+      }
+    }
+  },
+  "anatomyRendererGlbSupported": "supported",
+  "@anatomyRendererGlbSupported": {
+    "description": "Renderer status text for supported GLB loading"
+  },
+  "anatomyRendererGlbUnavailable": "unavailable",
+  "@anatomyRendererGlbUnavailable": {
+    "description": "Renderer status text for unavailable GLB loading"
+  },
+  "anatomyRendererAssetBundled": "bundled",
+  "@anatomyRendererAssetBundled": {
+    "description": "Renderer status text when the anatomy GLB is bundled"
+  },
+  "anatomyRendererAssetExternal": "external",
+  "@anatomyRendererAssetExternal": {
+    "description": "Renderer status text when the anatomy GLB remains outside the application bundle"
+  },
+  "anatomyRendererPolicyStatus": "Performance policy: {mode}; LOD: {lodTier}",
+  "@anatomyRendererPolicyStatus": {
+    "description": "Status text describing the active renderer performance policy",
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      },
+      "lodTier": {
+        "type": "String"
+      }
+    }
+  },
+  "anatomyRendererModeStaticFallback": "semantic fallback",
+  "@anatomyRendererModeStaticFallback": {
+    "description": "Renderer mode label for the static semantic fallback"
+  },
+  "anatomyRendererModeInteractiveLite": "interactive lite",
+  "@anatomyRendererModeInteractiveLite": {
+    "description": "Renderer mode label for the low-detail native renderer"
+  },
+  "anatomyRendererResetCamera": "Reset camera",
+  "@anatomyRendererResetCamera": {
+    "description": "Button label for resetting the anatomy renderer camera"
+  },
+  "anatomyRendererPreviewHeatmap": "Preview heatmap",
+  "@anatomyRendererPreviewHeatmap": {
+    "description": "Button label for applying a sample anatomy heatmap"
+  },
+  "anatomyRendererNoRegionSelected": "No muscle region selected",
+  "@anatomyRendererNoRegionSelected": {
+    "description": "Status text when no anatomy muscle region is selected"
+  },
+  "anatomyRendererSelectedRegion": "Selected region: {regionId}",
+  "@anatomyRendererSelectedRegion": {
+    "description": "Status text for the selected anatomy muscle region",
+    "placeholders": {
+      "regionId": {
+        "type": "String"
+      }
+    }
+  },
+  "anatomyRendererCameraState": "Camera: yaw {yaw}, pitch {pitch}, zoom {zoom}",
+  "@anatomyRendererCameraState": {
+    "description": "Current anatomy renderer camera state",
+    "placeholders": {
+      "yaw": {
+        "type": "String"
+      },
+      "pitch": {
+        "type": "String"
+      },
+      "zoom": {
+        "type": "String"
+      }
+    }
+  },
+  "anatomyRendererHeatmapLegend": "Active heatmap regions",
+  "@anatomyRendererHeatmapLegend": {
+    "description": "Label shown before active anatomy heatmap chips"
+  },
+  "anatomyRendererHeatmapEmpty": "No heatmap applied",
+  "@anatomyRendererHeatmapEmpty": {
+    "description": "Label shown when no anatomy heatmap is active"
   }
 }

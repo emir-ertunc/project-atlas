@@ -9,7 +9,7 @@ import 'package:project_atlas/features/today/presentation/today_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final router = GoRouter(
-    initialLocation: TodayScreen.path,
+    initialLocation: _resolvedInitialLocation(),
     restorationScopeId: 'app-router',
     routes: [
       GoRoute(path: '/', redirect: (context, state) => TodayScreen.path),
@@ -76,3 +76,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   ref.onDispose(router.dispose);
   return router;
 });
+
+const _configuredInitialLocation = String.fromEnvironment(
+  'PROJECT_ATLAS_INITIAL_LOCATION',
+  defaultValue: TodayScreen.path,
+);
+
+String _resolvedInitialLocation() {
+  return switch (_configuredInitialLocation) {
+    TodayScreen.path => TodayScreen.path,
+    ProgramScreen.path => ProgramScreen.path,
+    AnatomyScreen.path => AnatomyScreen.path,
+    ProgressScreen.path => ProgressScreen.path,
+    SettingsScreen.path => SettingsScreen.path,
+    _ => TodayScreen.path,
+  };
+}

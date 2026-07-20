@@ -133,6 +133,142 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settingsNavigationLabel;
+
+  /// Title for the anatomy renderer panel
+  ///
+  /// In en, this message translates to:
+  /// **'3D anatomy renderer'**
+  String get anatomyRendererTitle;
+
+  /// Short explanation of the current anatomy renderer state
+  ///
+  /// In en, this message translates to:
+  /// **'Android builds use a native Filament surface. GLB anatomy assets remain external until the bundling checkpoint.'**
+  String get anatomyRendererDescription;
+
+  /// Interaction help text shown above the anatomy renderer
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.'**
+  String get anatomyInteractionInstructions;
+
+  /// Accessibility label passed to the native Android renderer view
+  ///
+  /// In en, this message translates to:
+  /// **'Interactive anatomy renderer'**
+  String get anatomyRendererContentDescription;
+
+  /// Fallback message shown outside Android
+  ///
+  /// In en, this message translates to:
+  /// **'The native Filament renderer is available on Android builds. This environment shows a safe fallback.'**
+  String get anatomyRendererAndroidOnly;
+
+  /// Fallback message shown when the native anatomy renderer is disabled by the performance policy
+  ///
+  /// In en, this message translates to:
+  /// **'Performance-safe semantic preview is active. The native renderer stays off until bundled assets and mid-range device metrics meet the threshold.'**
+  String get anatomyRendererPerformanceFallback;
+
+  /// Status shown while renderer capabilities are loading
+  ///
+  /// In en, this message translates to:
+  /// **'Checking renderer bridge...'**
+  String get anatomyRendererStatusLoading;
+
+  /// Renderer capability summary
+  ///
+  /// In en, this message translates to:
+  /// **'Renderer: {backend}; GLB: {glbStatus}; Asset: {assetStatus}'**
+  String anatomyRendererStatus(
+    String backend,
+    String glbStatus,
+    String assetStatus,
+  );
+
+  /// Renderer status text for supported GLB loading
+  ///
+  /// In en, this message translates to:
+  /// **'supported'**
+  String get anatomyRendererGlbSupported;
+
+  /// Renderer status text for unavailable GLB loading
+  ///
+  /// In en, this message translates to:
+  /// **'unavailable'**
+  String get anatomyRendererGlbUnavailable;
+
+  /// Renderer status text when the anatomy GLB is bundled
+  ///
+  /// In en, this message translates to:
+  /// **'bundled'**
+  String get anatomyRendererAssetBundled;
+
+  /// Renderer status text when the anatomy GLB remains outside the application bundle
+  ///
+  /// In en, this message translates to:
+  /// **'external'**
+  String get anatomyRendererAssetExternal;
+
+  /// Status text describing the active renderer performance policy
+  ///
+  /// In en, this message translates to:
+  /// **'Performance policy: {mode}; LOD: {lodTier}'**
+  String anatomyRendererPolicyStatus(String mode, String lodTier);
+
+  /// Renderer mode label for the static semantic fallback
+  ///
+  /// In en, this message translates to:
+  /// **'semantic fallback'**
+  String get anatomyRendererModeStaticFallback;
+
+  /// Renderer mode label for the low-detail native renderer
+  ///
+  /// In en, this message translates to:
+  /// **'interactive lite'**
+  String get anatomyRendererModeInteractiveLite;
+
+  /// Button label for resetting the anatomy renderer camera
+  ///
+  /// In en, this message translates to:
+  /// **'Reset camera'**
+  String get anatomyRendererResetCamera;
+
+  /// Button label for applying a sample anatomy heatmap
+  ///
+  /// In en, this message translates to:
+  /// **'Preview heatmap'**
+  String get anatomyRendererPreviewHeatmap;
+
+  /// Status text when no anatomy muscle region is selected
+  ///
+  /// In en, this message translates to:
+  /// **'No muscle region selected'**
+  String get anatomyRendererNoRegionSelected;
+
+  /// Status text for the selected anatomy muscle region
+  ///
+  /// In en, this message translates to:
+  /// **'Selected region: {regionId}'**
+  String anatomyRendererSelectedRegion(String regionId);
+
+  /// Current anatomy renderer camera state
+  ///
+  /// In en, this message translates to:
+  /// **'Camera: yaw {yaw}, pitch {pitch}, zoom {zoom}'**
+  String anatomyRendererCameraState(String yaw, String pitch, String zoom);
+
+  /// Label shown before active anatomy heatmap chips
+  ///
+  /// In en, this message translates to:
+  /// **'Active heatmap regions'**
+  String get anatomyRendererHeatmapLegend;
+
+  /// Label shown when no anatomy heatmap is active
+  ///
+  /// In en, this message translates to:
+  /// **'No heatmap applied'**
+  String get anatomyRendererHeatmapEmpty;
 }
 
 class _AppLocalizationsDelegate

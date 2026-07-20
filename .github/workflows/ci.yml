@@ -59,6 +59,19 @@ jobs:
           lib/core/database/app_database.g.dart
           pubspec.lock
 
+      - name: Validate anatomy asset budgets
+        run: >-
+          python3 tool/anatomy/validate_asset_budgets.py
+          --budget tool/anatomy/anatomy_asset_budgets.v1.json
+          --scan-repository .
+
+      - name: Validate anatomy animation contract
+        run: >-
+          python3 tool/anatomy/animation/validate_animation_contract.py
+          --rig tool/anatomy/animation/shared_humanoid_rig.v1.json
+          --animations tool/anatomy/animation/core_exercise_animation_prototypes.v1.json
+          --ontology tool/anatomy/muscle_region_ontology.v1.json
+
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed lib test
 

@@ -144,3 +144,66 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Exclude all local application data from uncontrolled platform backup and require explicit exports to use a versioned Argon2id and AES-256-GCM authenticated container.
 - Consequence: Automatic backup and device transfer do not copy raw health records; portable recovery remains possible only through a user-controlled, passphrase-protected export with authenticated restore.
+
+## D-021 — Anatomy Source Asset
+
+- Date: 2026-07-08
+- Status: Accepted
+- Decision: Use the BodyParts3D 4.0 IS-A Tree OBJ dataset as the coordinated source for skeleton and muscle geometry.
+- Consequence: Skeleton and muscle regions share one coordinate system and stable FMA/BodyParts3D mappings; processed distributions must preserve attribution, license links, modification notice, and source-to-output hashes. The current catalog license is recorded as CC-BY-4.0, while reviewed OBJ headers also contain an older CC-BY-SA-2.1-JP notice; processed geometry is handled conservatively with both notices until the publisher's intended precedence is clarified.
+
+## D-022 — Anatomy Render Region Reduction
+
+- Date: 2026-07-08
+- Status: Accepted
+- Decision: Reduce 166 BodyParts3D elements into 28 bilateral working groups, producing 56 independent render regions without reusing source geometry.
+- Consequence: The spike stays within the 40-80 region budget and preserves unilateral picking and provenance; missing source coverage is recorded instead of being represented by anatomically incorrect substitute geometry.
+
+## D-023 — Stable Muscle Region Identity
+
+- Date: 2026-07-08
+- Status: Accepted
+- Decision: Identify every unilateral muscle region with an immutable lowercase ASCII semantic ID ending in `_right` or `_left`, while storing English and Turkish names as editable display data.
+- Consequence: Renderer picking, exercise mappings, history, heatmaps, analytics, and exports can share stable identity without depending on source mesh names, numeric slots, or localized text.
+
+## D-024 — Blender Anatomy Asset Pipeline
+
+- Date: 2026-07-15
+- Status: Accepted
+- Decision: Use a Blender 5.1.2 command-line pipeline to read the external BodyParts3D source ZIP, extract the selected P2-02 elements, merge them into P2-03 semantic regions, clean and triangulate geometry, generate three GLB LODs, and validate output metadata before downstream renderer work.
+- Consequence: P2 anatomy assets are reproducible from source without committing raw or processed binary geometry. GLB nodes expose stable semantic region IDs, the manifest records source and output hashes, and P2-05 can depend on GLB node names and extras rather than source OBJ filenames.
+
+## D-025 — Android Anatomy Renderer Bridge
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Register a Flutter Android platform view backed by a native Filament `SurfaceView`, expose renderer capabilities through a typed method channel, and keep actual anatomy GLB assets external until a later bundling gate.
+- Consequence: Flutter can mount the anatomy renderer behind a stable view type while Android owns Engine, Renderer, Scene, Camera, swapchain, and frame-loop lifecycle. Interaction, GLB loading, picking, and heatmap highlighting can evolve behind the same Flutter navigation contract.
+
+## D-026 — Anatomy Interaction Contract
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Keep gesture interpretation, fallback interaction, and product state in Flutter while Android applies bounded camera pose, semantic selection, normalized picking, and heatmap state for the registered Filament platform view.
+- Consequence: Rotation, zoom, tap selection, and heatmap preview are testable without a native renderer, while Android remains the owner of platform rendering state. Because the runtime GLB is not bundled yet, native picking and heatmap highlighting use deterministic semantic IDs until later asset packaging binds the same contract to GLB mesh hits and materials.
+
+## D-027 — Anatomy Asset Budget Gate
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Enforce anatomy GLB file size, geometry, primitive draw-call upper bound, material count, and license metadata budgets in CI before any processed runtime anatomy asset can be bundled.
+- Consequence: Processed GLB files cannot enter the repository without an anatomy pipeline manifest and matching legal metadata. The current P2-04 reference outputs remain below the P2-08 limits, and future pipeline or asset changes must either stay within the budgets or document an explicit re-budgeting decision.
+
+## D-028 — Shared Rig and Prototype Exercise Clips
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Define P2 exercise animation work as a source-level shared humanoid rig and ten loopable keyframe prototypes using semantic muscle IDs and bounded high-level controls, without committing motion-capture files or binary runtime animation assets.
+- Consequence: Exercise animation behavior can be validated in CI before final mesh skinning and artist cleanup. Later animation work can bind the same controls to runtime clips while preserving stable muscle-region references and avoiding unlicensed motion assets.
+
+## D-029 — Anatomy Renderer Performance Fallback
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Default the anatomy screen to a Flutter semantic fallback after the P2-07 mid-range Android measurement missed launch and frame-pacing thresholds; keep native Filament profiling available only through an explicit `interactive_lite` runtime override using `lod2`.
+- Consequence: Normal builds avoid mounting the native platform view until bundled assets and device measurements meet the threshold. The fallback preserves camera, heatmap, and semantic selection behavior, while the Android renderer uses a dirty-frame loop when native profiling is requested.

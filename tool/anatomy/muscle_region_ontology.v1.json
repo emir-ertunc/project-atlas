@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "source_reduction_file": "bodyparts3d_region_reduction.v1.json",
+  "source_reduction_sha256": "b4e6cf5dae12b674511981bf2a8b60d258d933db6bf38c3054e3b33a3322a3cf",
+  "supported_locales": ["en", "tr"],
+  "id_format": "{semantic_group_id}_{side}",
+  "semantic_group_count": 28,
+  "muscle_region_count": 56,
+  "groups": [
+    {
+      "reduction_slot": 1,
+      "semantic_group_id": "pectoralis_major",
+      "names": {"en": "Pectoralis major", "tr": "Pektoralis majör"},
+      "regions": {
+        "right": {"id": "pectoralis_major_right", "names": {"en": "Right pectoralis major", "tr": "Sağ pektoralis majör"}},
+        "left": {"id": "pectoralis_major_left", "names": {"en": "Left pectoralis major", "tr": "Sol pektoralis majör"}}
+      }
+    },
+    {
+      "reduction_slot": 2,
+      "semantic_group_id": "pectoralis_minor",
+      "names": {"en": "Pectoralis minor", "tr": "Pektoralis minör"},
+      "regions": {
+        "right": {"id": "pectoralis_minor_right", "names": {"en": "Right pectoralis minor", "tr": "Sağ pektoralis minör"}},
+        "left": {"id": "pectoralis_minor_left", "names": {"en": "Left pectoralis minor", "tr": "Sol pektoralis minör"}}
+      }
+    },
+    {
+      "reduction_slot": 3,
+      "semantic_group_id": "serratus_anterior",
+      "names": {"en": "Serratus anterior", "tr": "Serratus anterior"},
+      "regions": {
+        "right": {"id": "serratus_anterior_right", "names": {"en": "Right serratus anterior", "tr": "Sağ serratus anterior"}},
+        "left": {"id": "serratus_anterior_left", "names": {"en": "Left serratus anterior", "tr": "Sol serratus anterior"}}
+      }
+    },
+    {
+      "reduction_slot": 4,
+      "semantic_group_id": "deltoid_anterior",
+      "names": {"en": "Anterior deltoid", "tr": "Ön deltoid"},
+      "regions": {
+        "right": {"id": "deltoid_anterior_right", "names": {"en": "Right anterior deltoid", "tr": "Sağ ön deltoid"}},
+        "left": {"id": "deltoid_anterior_left", "names": {"en": "Left anterior deltoid", "tr": "Sol ön deltoid"}}
+      }
+    },
+    {
+      "reduction_slot": 5,
+      "semantic_group_id": "deltoid_lateral",
+      "names": {"en": "Lateral deltoid", "tr": "Yan deltoid"},
+      "regions": {
+        "right": {"id": "deltoid_lateral_right", "names": {"en": "Right lateral deltoid", "tr": "Sağ yan deltoid"}},
+        "left": {"id": "deltoid_lateral_left", "names": {"en": "Left lateral deltoid", "tr": "Sol yan deltoid"}}
+      }
+    },
+    {
+      "reduction_slot": 6,
+      "semantic_group_id": "deltoid_posterior",
+      "names": {"en": "Posterior deltoid", "tr": "Arka deltoid"},
+      "regions": {
+        "right": {"id": "deltoid_posterior_right", "names": {"en": "Right posterior deltoid", "tr": "Sağ arka deltoid"}},
+        "left": {"id": "deltoid_posterior_left", "names": {"en": "Left posterior deltoid", "tr": "Sol arka deltoid"}}
+      }
+    },
+    {
+      "reduction_slot": 7,
+      "semantic_group_id": "biceps_brachii",
+      "names": {"en": "Biceps brachii", "tr": "Biseps brakii"},
+      "regions": {
+        "right": {"id": "biceps_brachii_right", "names": {"en": "Right biceps brachii", "tr": "Sağ biseps brakii"}},
+        "left": {"id": "biceps_brachii_left", "names": {"en": "Left biceps brachii", "tr": "Sol biseps brakii"}}
+      }
+    },
+    {
+      "reduction_slot": 8,
+      "semantic_group_id": "brachialis",
+      "names": {"en": "Brachialis", "tr": "Brakialis"},
+      "regions": {
+        "right": {"id": "brachialis_right", "names": {"en": "Right brachialis", "tr": "Sağ brakialis"}},
+        "left": {"id": "brachialis_left", "names": {"en": "Left brachialis", "tr": "Sol brakialis"}}
+      }
+    },
+    {
+      "reduction_slot": 9,
+      "semantic_group_id": "triceps_brachii",
+      "names": {"en": "Triceps brachii", "tr": "Triseps brakii"},
+      "regions": {
+        "right": {"id": "triceps_brachii_right", "names": {"en": "Right triceps brachii", "tr": "Sağ triseps brakii"}},
+        "left": {"id": "triceps_brachii_left", "names": {"en": "Left triceps brachii", "tr": "Sol triseps brakii"}}
+      }
+    },
+    {
+      "reduction_slot": 10,
+      "semantic_group_id": "forearm_flexors_pronators",
+      "names": {"en": "Forearm flexors and pronators", "tr": "Ön kol fleksörleri ve pronatörleri"},
+      "regions": {
+        "right": {"id": "forearm_flexors_pronators_right", "names": {"en": "Right forearm flexors and pronators", "tr": "Sağ ön kol fleksörleri ve pronatörleri"}},
+        "left": {"id": "forearm_flexors_pronators_left", "names": {"en": "Left forearm flexors and pronators", "tr": "Sol ön kol fleksörleri ve pronatörleri"}}
+      }
+    },
+    {
+      "reduction_slot": 11,
+      "semantic_group_id": "forearm_extensors_supinators",
+      "names": {"en": "Forearm extensors and supinators", "tr": "Ön kol ekstansörleri ve supinatörleri"},
+      "regions": {
+        "right": {"id": "forearm_extensors_supinators_right", "names": {"en": "Right forearm extensors and supinators", "tr": "Sağ ön kol ekstansörleri ve supinatörleri"}},
+        "left": {"id": "forearm_extensors_supinators_left", "names": {"en": "Left forearm extensors and supinators", "tr": "Sol ön kol ekstansörleri ve supinatörleri"}}
+      }
+    },
+    {
+      "reduction_slot": 12,
+      "semantic_group_id": "trapezius",
+      "names": {"en": "Trapezius", "tr": "Trapez"},
+      "regions": {
+        "right": {"id": "trapezius_right", "names": {"en": "Right trapezius", "tr": "Sağ trapez"}},
+        "left": {"id": "trapezius_left", "names": {"en": "Left trapezius", "tr": "Sol trapez"}}
+      }
+    },
+    {
+      "reduction_slot": 13,
+      "semantic_group_id": "rhomboids",
+      "names": {"en": "Rhomboids", "tr": "Romboidler"},
+      "regions": {
+        "right": {"id": "rhomboids_right", "names": {"en": "Right rhomboids", "tr": "Sağ romboidler"}},
+        "left": {"id": "rhomboids_left", "names": {"en": "Left rhomboids", "tr": "Sol romboidler"}}
+      }
+    },
+    {
+      "reduction_slot": 14,
+      "semantic_group_id": "rotator_cuff",
+      "names": {"en": "Rotator cuff", "tr": "Rotator manşet"},
+      "regions": {
+        "right": {"id": "rotator_cuff_right", "names": {"en": "Right rotator cuff", "tr": "Sağ rotator manşet"}},
+        "left": {"id": "rotator_cuff_left", "names": {"en": "Left rotator cuff", "tr": "Sol rotator manşet"}}
+      }
+    },
+    {
+      "reduction_slot": 15,
+      "semantic_group_id": "teres_major",
+      "names": {"en": "Teres major", "tr": "Teres majör"},
+      "regions": {
+        "right": {"id": "teres_major_right", "names": {"en": "Right teres major", "tr": "Sağ teres majör"}},
+        "left": {"id": "teres_major_left", "names": {"en": "Left teres major", "tr": "Sol teres majör"}}
+      }
+    },
+    {
+      "reduction_slot": 16,
+      "semantic_group_id": "erector_spinae",
+      "names": {"en": "Erector spinae", "tr": "Erektör spina"},
+      "regions": {
+        "right": {"id": "erector_spinae_right", "names": {"en": "Right erector spinae", "tr": "Sağ erektör spina"}},
+        "left": {"id": "erector_spinae_left", "names": {"en": "Left erector spinae", "tr": "Sol erektör spina"}}
+      }
+    },
+    {
+      "reduction_slot": 17,
+      "semantic_group_id": "external_oblique",
+      "names": {"en": "External oblique", "tr": "Dış oblik"},
+      "regions": {
+        "right": {"id": "external_oblique_right", "names": {"en": "Right external oblique", "tr": "Sağ dış oblik"}},
+        "left": {"id": "external_oblique_left", "names": {"en": "Left external oblique", "tr": "Sol dış oblik"}}
+      }
+    },
+    {
+      "reduction_slot": 18,
+      "semantic_group_id": "gluteus_maximus",
+      "names": {"en": "Gluteus maximus", "tr": "Gluteus maksimus"},
+      "regions": {
+        "right": {"id": "gluteus_maximus_right", "names": {"en": "Right gluteus maximus", "tr": "Sağ gluteus maksimus"}},
+        "left": {"id": "gluteus_maximus_left", "names": {"en": "Left gluteus maximus", "tr": "Sol gluteus maksimus"}}
+      }
+    },
+    {
+      "reduction_slot": 19,
+      "semantic_group_id": "gluteus_medius_minimus",
+      "names": {"en": "Gluteus medius and minimus", "tr": "Gluteus medius ve minimus"},
+      "regions": {
+        "right": {"id": "gluteus_medius_minimus_right", "names": {"en": "Right gluteus medius and minimus", "tr": "Sağ gluteus medius ve minimus"}},
+        "left": {"id": "gluteus_medius_minimus_left", "names": {"en": "Left gluteus medius and minimus", "tr": "Sol gluteus medius ve minimus"}}
+      }
+    },
+    {
+      "reduction_slot": 20,
+      "semantic_group_id": "hip_adductors",
+      "names": {"en": "Hip adductors", "tr": "Kalça addüktörleri"},
+      "regions": {
+        "right": {"id": "hip_adductors_right", "names": {"en": "Right hip adductors", "tr": "Sağ kalça addüktörleri"}},
+        "left": {"id": "hip_adductors_left", "names": {"en": "Left hip adductors", "tr": "Sol kalça addüktörleri"}}
+      }
+    },
+    {
+      "reduction_slot": 21,
+      "semantic_group_id": "iliopsoas",
+      "names": {"en": "Iliopsoas", "tr": "İliopsoas"},
+      "regions": {
+        "right": {"id": "iliopsoas_right", "names": {"en": "Right iliopsoas", "tr": "Sağ iliopsoas"}},
+        "left": {"id": "iliopsoas_left", "names": {"en": "Left iliopsoas", "tr": "Sol iliopsoas"}}
+      }
+    },
+    {
+      "reduction_slot": 22,
+      "semantic_group_id": "quadriceps",
+      "names": {"en": "Quadriceps", "tr": "Kuadriseps"},
+      "regions": {
+        "right": {"id": "quadriceps_right", "names": {"en": "Right quadriceps", "tr": "Sağ kuadriseps"}},
+        "left": {"id": "quadriceps_left", "names": {"en": "Left quadriceps", "tr": "Sol kuadriseps"}}
+      }
+    },
+    {
+      "reduction_slot": 23,
+      "semantic_group_id": "hamstrings",
+      "names": {"en": "Hamstrings", "tr": "Hamstringler"},
+      "regions": {
+        "right": {"id": "hamstrings_right", "names": {"en": "Right hamstrings", "tr": "Sağ hamstringler"}},
+        "left": {"id": "hamstrings_left", "names": {"en": "Left hamstrings", "tr": "Sol hamstringler"}}
+      }
+    },
+    {
+      "reduction_slot": 24,
+      "semantic_group_id": "tibialis_anterior",
+      "names": {"en": "Tibialis anterior", "tr": "Tibialis anterior"},
+      "regions": {
+        "right": {"id": "tibialis_anterior_right", "names": {"en": "Right tibialis anterior", "tr": "Sağ tibialis anterior"}},
+        "left": {"id": "tibialis_anterior_left", "names": {"en": "Left tibialis anterior", "tr": "Sol tibialis anterior"}}
+      }
+    },
+    {
+      "reduction_slot": 25,
+      "semantic_group_id": "gastrocnemius",
+      "names": {"en": "Gastrocnemius", "tr": "Gastroknemius"},
+      "regions": {
+        "right": {"id": "gastrocnemius_right", "names": {"en": "Right gastrocnemius", "tr": "Sağ gastroknemius"}},
+        "left": {"id": "gastrocnemius_left", "names": {"en": "Left gastrocnemius", "tr": "Sol gastroknemius"}}
+      }
+    },
+    {
+      "reduction_slot": 26,
+      "semantic_group_id": "soleus",
+      "names": {"en": "Soleus", "tr": "Soleus"},
+      "regions": {
+        "right": {"id": "soleus_right", "names": {"en": "Right soleus", "tr": "Sağ soleus"}},
+        "left": {"id": "soleus_left", "names": {"en": "Left soleus", "tr": "Sol soleus"}}
+      }
+    },
+    {
+      "reduction_slot": 27,
+      "semantic_group_id": "fibularis",
+      "names": {"en": "Fibularis muscles", "tr": "Fibularis kasları"},
+      "regions": {
+        "right": {"id": "fibularis_right", "names": {"en": "Right fibularis muscles", "tr": "Sağ fibularis kasları"}},
+        "left": {"id": "fibularis_left", "names": {"en": "Left fibularis muscles", "tr": "Sol fibularis kasları"}}
+      }
+    },
+    {
+      "reduction_slot": 28,
+      "semantic_group_id": "hip_external_rotators_deep",
+      "names": {"en": "Deep hip external rotators", "tr": "Derin kalça dış rotatörleri"},
+      "regions": {
+        "right": {"id": "hip_external_rotators_deep_right", "names": {"en": "Right deep hip external rotators", "tr": "Sağ derin kalça dış rotatörleri"}},
+        "left": {"id": "hip_external_rotators_deep_left", "names": {"en": "Left deep hip external rotators", "tr": "Sol derin kalça dış rotatörleri"}}
+      }
+    }
+  ],
+  "deprecated_region_ids": []
+}

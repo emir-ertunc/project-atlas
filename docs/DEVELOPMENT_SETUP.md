@@ -118,9 +118,12 @@ dispatches. It uses Flutter 3.44.4 and Java 21, then performs these gates:
 
 1. Resolve dependencies and regenerate localization and Drift sources.
 2. Reject stale committed generated sources or a changed lockfile.
-3. Verify Dart formatting and static analysis.
-4. Run all tests with coverage.
-5. Build the Android debug APK.
+3. Validate anatomy asset budgets and reject bundled GLB/glTF files without
+   required manifests.
+4. Validate the anatomy shared rig and exercise animation prototype contract.
+5. Verify Dart formatting and static analysis.
+6. Run all tests with coverage.
+7. Build the Android debug APK.
 
 Successful runs retain `coverage/lcov.info` and the debug APK as workflow
 artifacts for 14 days. CI uses read-only repository permissions and does not

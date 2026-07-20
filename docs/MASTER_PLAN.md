@@ -6,6 +6,7 @@
 - Read `AGENTS.md` and the documents relevant to the active item before editing.
 - Do not begin the next item automatically.
 - Mark an item complete only after its acceptance checks pass.
+- After a completed checklist item, update this file and include the current phase progress plus the next open checklist item in the completion response.
 - Record architectural or product changes in `DECISIONS.md`.
 - Every phase ends with validation, an owner-authored commit, a pushed branch, a pull request, and a green CI result.
 
@@ -39,18 +40,18 @@
 
 ## Phase 2 — Anatomy and Asset Technical Spike
 
-- [ ] P2-01 Select redistributable skeleton and muscle source assets.
-- [ ] P2-02 Reduce the source anatomy into 40–80 meaningful left/right muscle regions.
-- [ ] P2-03 Define stable semantic muscle identifiers and Turkish/English names.
-- [ ] P2-04 Create the Blender cleanup, retopology, LOD, and GLB export pipeline.
-- [ ] P2-05 Create the Android Filament renderer and Flutter platform bridge.
-- [ ] P2-06 Implement rotation, zoom, picking, and muscle heatmap highlighting.
-- [ ] P2-07 Measure load time, frame rate, and memory on a mid-range Android device.
-- [ ] P2-08 Add CI budgets for GLB size, geometry, draw calls, and license metadata.
-- [ ] P2-09 Create a shared rig and short animation prototype for ten core exercises.
-- [ ] P2-10 Apply LOD or fallback behavior if performance thresholds are missed.
-- [ ] P2-11 Produce the profileable anatomy APK. **Build C1**
-- [ ] P2-12 Commit, push, open the pull request, and verify CI.
+- [x] P2-01 Select redistributable skeleton and muscle source assets.
+- [x] P2-02 Reduce the source anatomy into 40–80 meaningful left/right muscle regions.
+- [x] P2-03 Define stable semantic muscle identifiers and Turkish/English names.
+- [x] P2-04 Create the Blender cleanup, retopology, LOD, and GLB export pipeline.
+- [x] P2-05 Create the Android Filament renderer and Flutter platform bridge.
+- [x] P2-06 Implement rotation, zoom, picking, and muscle heatmap highlighting.
+- [x] P2-07 Measure load time, frame rate, and memory on a mid-range Android device.
+- [x] P2-08 Add CI budgets for GLB size, geometry, draw calls, and license metadata.
+- [x] P2-09 Create a shared rig and short animation prototype for ten core exercises.
+- [x] P2-10 Apply LOD or fallback behavior if performance thresholds are missed.
+- [x] P2-11 Produce the profileable anatomy APK. **Build C1**
+- [x] P2-12 Commit, push, open the pull request, and verify CI.
 
 ## Phase 3 — Exercise Catalog and Manual Program Builder
 
