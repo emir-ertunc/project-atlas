@@ -87,6 +87,16 @@ final class DriftProgramRepository implements ProgramRepository {
   }
 
   @override
+  Stream<List<ProgramTrainingDayRecord>> watchTrainingDays(String versionId) {
+    final query = _database.select(_database.programVersionTrainingDays)
+      ..where((row) => row.programVersionId.equals(versionId))
+      ..orderBy([(row) => OrderingTerm.asc(row.trainingDayOrder)]);
+    return query.watch().map(
+      (rows) => rows.map(_programTrainingDayFromRow).toList(growable: false),
+    );
+  }
+
+  @override
   Stream<List<PrescribedSetRecord>> watchPrescription(String versionId) {
     final query = _database.select(_database.prescribedSets)
       ..where((row) => row.programVersionId.equals(versionId))
@@ -104,24 +114,64 @@ final class DriftProgramRepository implements ProgramRepository {
   Future<void> saveProgram(ProgramRecord program) async {
     await _database
         .into(_database.programs)
-        .insertOnConflictUpdate(
-          ProgramsCompanion.insert(
-            id: program.id,
-            profileId: program.profileId,
-            name: program.name,
-            status: _enumByName(ProgramStatus.values, program.lifecycle),
-            createdAt: Value(_asUtc(program.createdAt)),
-            updatedAt: Value(_asUtc(program.updatedAt)),
-            archivedAt: Value(_nullableUtc(program.archivedAt)),
-          ),
-        );
+        .insertOnConflictUpdate(_programCompanion(program));
+  }
+
+  @override
+  Future<void> saveProgramSnapshot(
+    ProgramRecord program,
+    ProgramVersionRecord version,
+    List<ProgramTrainingDayRecord> trainingDays,
+    List<PrescribedSetRecord> prescription, {
+    bool retireActiveVersions = false,
+  }) async {
+    _validateVersionGraph(version, trainingDays, prescription);
+
+    await _database.transaction(() async {
+      await _database
+          .into(_database.programs)
+          .insertOnConflictUpdate(_programCompanion(program));
+      if (retireActiveVersions) {
+        await (_database.update(_database.programVersions)..where(
+              (row) =>
+                  row.programId.equals(version.programId) &
+                  row.status.equals(ProgramVersionStatus.active.name),
+            ))
+            .write(
+              const ProgramVersionsCompanion(
+                status: Value(ProgramVersionStatus.retired),
+              ),
+            );
+      }
+      await _insertVersionGraph(version, trainingDays, prescription);
+    });
   }
 
   @override
   Future<void> addVersion(
     ProgramVersionRecord version,
+    List<ProgramTrainingDayRecord> trainingDays,
     List<PrescribedSetRecord> prescription,
   ) async {
+    _validateVersionGraph(version, trainingDays, prescription);
+
+    await _database.transaction(() async {
+      await _insertVersionGraph(version, trainingDays, prescription);
+    });
+  }
+
+  void _validateVersionGraph(
+    ProgramVersionRecord version,
+    List<ProgramTrainingDayRecord> trainingDays,
+    List<PrescribedSetRecord> prescription,
+  ) {
+    if (trainingDays.any((day) => day.programVersionId != version.id)) {
+      throw ArgumentError.value(
+        trainingDays,
+        'trainingDays',
+        'Every training day must belong to the version being added.',
+      );
+    }
     if (prescription.any((set) => set.programVersionId != version.id)) {
       throw ArgumentError.value(
         prescription,
@@ -129,31 +179,44 @@ final class DriftProgramRepository implements ProgramRepository {
         'Every set must belong to the version being added.',
       );
     }
+  }
 
-    await _database.transaction(() async {
-      await _database
-          .into(_database.programVersions)
-          .insert(
-            ProgramVersionsCompanion.insert(
-              id: version.id,
-              programId: version.programId,
-              versionNumber: version.versionNumber,
-              status: _enumByName(
-                ProgramVersionStatus.values,
-                version.lifecycle,
-              ),
-              label: Value(version.label),
-              createdAt: Value(_asUtc(version.createdAt)),
-              activatedAt: Value(_nullableUtc(version.activatedAt)),
-            ),
-          );
+  Future<void> _insertVersionGraph(
+    ProgramVersionRecord version,
+    List<ProgramTrainingDayRecord> trainingDays,
+    List<PrescribedSetRecord> prescription,
+  ) async {
+    await _database
+        .into(_database.programVersions)
+        .insert(
+          ProgramVersionsCompanion.insert(
+            id: version.id,
+            programId: version.programId,
+            versionNumber: version.versionNumber,
+            status: _enumByName(ProgramVersionStatus.values, version.lifecycle),
+            label: Value(version.label),
+            createdAt: Value(_asUtc(version.createdAt)),
+            activatedAt: Value(_nullableUtc(version.activatedAt)),
+          ),
+        );
+    if (trainingDays.isNotEmpty) {
+      await _database.batch((batch) {
+        batch.insertAll(
+          _database.programVersionTrainingDays,
+          trainingDays
+              .map(_programTrainingDayCompanion)
+              .toList(growable: false),
+        );
+      });
+    }
+    if (prescription.isNotEmpty) {
       await _database.batch((batch) {
         batch.insertAll(
           _database.prescribedSets,
           prescription.map(_prescribedSetCompanion).toList(growable: false),
         );
       });
-    });
+    }
   }
 }
 
@@ -317,6 +380,17 @@ ProgramRecord _programFromRow(ProgramRow row) => ProgramRecord(
   archivedAt: _nullableUtc(row.archivedAt),
 );
 
+ProgramsCompanion _programCompanion(ProgramRecord program) =>
+    ProgramsCompanion.insert(
+      id: program.id,
+      profileId: program.profileId,
+      name: program.name,
+      status: _enumByName(ProgramStatus.values, program.lifecycle),
+      createdAt: Value(_asUtc(program.createdAt)),
+      updatedAt: Value(_asUtc(program.updatedAt)),
+      archivedAt: Value(_nullableUtc(program.archivedAt)),
+    );
+
 ProgramVersionRecord _programVersionFromRow(ProgramVersionRow row) =>
     ProgramVersionRecord(
       id: row.id,
@@ -327,6 +401,26 @@ ProgramVersionRecord _programVersionFromRow(ProgramVersionRow row) =>
       createdAt: _asUtc(row.createdAt),
       activatedAt: _nullableUtc(row.activatedAt),
     );
+
+ProgramTrainingDayRecord _programTrainingDayFromRow(
+  ProgramVersionTrainingDayRow row,
+) => ProgramTrainingDayRecord(
+  id: row.id,
+  programVersionId: row.programVersionId,
+  trainingDayOrder: row.trainingDayOrder,
+  name: row.name,
+  createdAt: _asUtc(row.createdAt),
+);
+
+ProgramVersionTrainingDaysCompanion _programTrainingDayCompanion(
+  ProgramTrainingDayRecord day,
+) => ProgramVersionTrainingDaysCompanion.insert(
+  id: day.id,
+  programVersionId: day.programVersionId,
+  trainingDayOrder: day.trainingDayOrder,
+  name: day.name,
+  createdAt: Value(_asUtc(day.createdAt)),
+);
 
 PrescribedSetRecord _prescribedSetFromRow(PrescribedSetRow row) =>
     PrescribedSetRecord(

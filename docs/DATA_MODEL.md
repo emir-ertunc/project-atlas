@@ -2,11 +2,11 @@
 
 ## Scope
 
-Schema version 3 establishes the local relational foundation for profiles,
-programs, immutable program versions, prescribed sets, workout sessions,
-actual set revisions, and measurement history. The Drift database is the source
-of truth for the personal release, and SQLite foreign key enforcement is
-enabled whenever the database opens.
+Schema version 4 establishes the local relational foundation for profiles,
+programs, immutable program versions, version-scoped training-day snapshots,
+prescribed sets, workout sessions, actual set revisions, and measurement
+history. The Drift database is the source of truth for the personal release,
+and SQLite foreign key enforcement is enabled whenever the database opens.
 
 Individual body-measurement fields remain Phase 6 extensions. The current
 measurement table provides the stable event identity, timestamp, source, and
@@ -43,6 +43,13 @@ Stores numbered draft, active, or retired versions belonging to a program. A
 program cannot contain the same version number twice. Repository operations
 insert a version and its complete prescription in one transaction and do not
 expose an update operation for version content.
+
+### `program_version_training_days`
+
+Stores the ordered training-day names that belong to one immutable program
+version. The day order is unique inside a version and is referenced by
+`prescribed_sets.training_day_order`, keeping day labels stable even when a
+later draft renames or reorders days.
 
 ### `prescribed_sets`
 
@@ -90,6 +97,7 @@ body-fat metadata, and regional measurements are added in Phase 6.
 profiles
   |-- programs
   |     `-- program_versions
+  |           |-- program_version_training_days
   |           `-- prescribed_sets
   |-- workout_sessions
   |     `-- session_sets
@@ -110,6 +118,7 @@ sets and actual logs.
 
 - Programs by profile and status
 - Program versions by program and status
+- Program-version training days by version and day order
 - Prescribed sets by version and training day
 - Sessions by profile and scheduled time, program, and program version
 - Session sets by session and exercise, and by prescribed set

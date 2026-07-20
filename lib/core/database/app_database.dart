@@ -4,6 +4,7 @@ import 'package:project_atlas/core/database/tables/actual_set_logs.dart';
 import 'package:project_atlas/core/database/tables/measurement_records.dart';
 import 'package:project_atlas/core/database/tables/prescribed_sets.dart';
 import 'package:project_atlas/core/database/tables/profiles.dart';
+import 'package:project_atlas/core/database/tables/program_version_training_days.dart';
 import 'package:project_atlas/core/database/tables/program_versions.dart';
 import 'package:project_atlas/core/database/tables/programs.dart';
 import 'package:project_atlas/core/database/tables/session_sets.dart';
@@ -16,6 +17,7 @@ part 'app_database.g.dart';
     Profiles,
     Programs,
     ProgramVersions,
+    ProgramVersionTrainingDays,
     PrescribedSets,
     WorkoutSessions,
     SessionSets,
@@ -29,7 +31,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -43,6 +45,7 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 3) {
         await migrator.createTable(programVersions);
+        await migrator.createTable(programVersionTrainingDays);
         await migrator.createTable(prescribedSets);
         await migrator.addColumn(
           workoutSessions,
@@ -53,6 +56,10 @@ class AppDatabase extends _$AppDatabase {
         await customStatement(
           'CREATE INDEX program_versions_program_status_idx '
           'ON program_versions (program_id, status)',
+        );
+        await customStatement(
+          'CREATE INDEX program_version_training_days_version_idx '
+          'ON program_version_training_days (program_version_id)',
         );
         await customStatement(
           'CREATE INDEX prescribed_sets_version_day_idx '
@@ -69,6 +76,13 @@ class AppDatabase extends _$AppDatabase {
         await customStatement(
           'CREATE INDEX actual_set_logs_session_set_recorded_idx '
           'ON actual_set_logs (session_set_id, recorded_at)',
+        );
+      }
+      if (from == 3) {
+        await migrator.createTable(programVersionTrainingDays);
+        await customStatement(
+          'CREATE INDEX program_version_training_days_version_idx '
+          'ON program_version_training_days (program_version_id)',
         );
       }
     },

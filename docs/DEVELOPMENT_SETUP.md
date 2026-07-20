@@ -120,7 +120,8 @@ dispatches. It uses Flutter 3.44.4 and Java 21, then performs these gates:
 2. Reject stale committed generated sources or a changed lockfile.
 3. Validate anatomy asset budgets and reject bundled GLB/glTF files without
    required manifests.
-4. Validate the anatomy shared rig and exercise animation prototype contract.
+4. Validate the anatomy shared rig, ten-exercise prototype contract, and
+   P3-10 thirty-exercise compound animation contract.
 5. Verify Dart formatting and static analysis.
 6. Run all tests with coverage.
 7. Build the Android debug APK.

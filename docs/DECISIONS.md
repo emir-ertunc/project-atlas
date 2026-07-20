@@ -207,3 +207,80 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Default the anatomy screen to a Flutter semantic fallback after the P2-07 mid-range Android measurement missed launch and frame-pacing thresholds; keep native Filament profiling available only through an explicit `interactive_lite` runtime override using `lod2`.
 - Consequence: Normal builds avoid mounting the native platform view until bundled assets and device measurements meet the threshold. The fallback preserves camera, heatmap, and semantic selection behavior, while the Android renderer uses a dirty-frame loop when native profiling is requested.
+
+## D-030 — Foundational Exercise Inventory Identity
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Define the initial exercise catalog as 120 immutable lowercase ASCII IDs with Turkish and English display names in a versioned inventory-only JSON contract.
+- Consequence: Program prescriptions, animation expansion, search, filters, and future history records can reference stable exercise IDs before detailed categories, muscle mappings, instructions, or media assets are added. P3-01 planning groups are internal coverage buckets and must not be treated as final product categories.
+
+## D-031 — Exercise Category Contract Separation
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Store P3-02 movement-pattern and broad muscle-region categories in a separate versioned JSON contract that references the P3-01 exercise inventory and P2 semantic muscle ontology.
+- Consequence: Catalog navigation and future filters can use stable category IDs without mutating exercise identity records. Broad muscle categories stay distinct from the P3-05 primary, secondary, and stabilizer activation maps, and P3-03 equipment, level, laterality, and exercise-type metadata remain separately owned.
+
+## D-032 — Exercise Filter Contract Separation
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Store equipment, level, laterality, and exercise-type filters in a separate P3-03 JSON contract that references the P3-01 inventory and P3-02 category contract.
+- Consequence: Catalog search and future program-builder filters can compose identity, category, and filter data without overloading a single exercise record. Filter assignments remain distinct from instructional content, detailed muscle activation maps, prescribed-set data, and media-review state.
+
+## D-033 — Exercise Content Contract Separation
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Store original setup, execution, form-cue, common-error, substitution, and regression content in a separate P3-04 JSON contract that references the inventory, category, and filter contracts.
+- Consequence: Exercise details can resolve complete localized content for every foundational exercise while preserving stable identity, category, and filter contracts. Detailed muscle activation maps, program prescriptions, thumbnails, animation bindings, license records, and review state remain independently owned by later checklist items.
+
+## D-034 — Exercise Muscle Mapping Contract Separation
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Store primary, secondary, and stabilizer muscle-region mappings in a separate P3-05 JSON contract using side-qualified P2 semantic muscle region IDs.
+- Consequence: Catalog details, anatomy heatmaps, future volume summaries, and exercise analytics can share stable region identifiers without mixing muscle mappings into identity, category, filter, or content records. The P3-05 verification is structural and does not replace the later qualified trainer review gate.
+
+## D-035 — Local Exercise Catalog Composition
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Bundle the P3 catalog JSON contracts and P2 muscle ontology as local read-only metadata, compose them into an immutable app model through Riverpod, and expose the first catalog UI from the Program branch with a nested exercise-detail route.
+- Consequence: Search, filters, list cards, and detail sections work offline from the canonical contracts without introducing a backend or duplicating the 120-exercise inventory in Dart constants. The Program branch can add builder workflows in P3-07 while preserving the same exercise identity and detail route.
+
+## D-036 — Manual Program Builder Draft Boundary
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P3-07 as a local in-memory program draft inside the Program branch, with Builder and Catalog tabs sharing the same exercise catalog identity model.
+- Consequence: Program creation, training-day editing, exercise selection, and exercise ordering can be tested before prescription inputs and persistence are added. P3-08 remains responsible for sets, repetitions, RIR, load, and rest; P3-09 remains responsible for draft persistence, immutable versions, copying, and archiving.
+
+## D-037 — Manual Prescription Input Boundary
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Add P3-08 prescription inputs to the in-memory program builder as exercise-level targets with fixed or ranged repetitions, optional RIR, optional load, set count, and rest duration.
+- Consequence: The builder can capture a complete local exercise prescription before persistence is introduced. Fixed repetitions are stored as equal minimum and maximum repetitions, RIR stays independently optional, load remains normalized to kilograms, and P3-09 remains responsible for saving drafts and publishing immutable versions.
+
+## D-038 â€” Program Version Snapshot Persistence
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Persist manual program builder changes by creating complete version snapshots through the repository layer, including version-scoped training-day names and expanded prescribed-set rows.
+- Consequence: Saving or publishing never rewrites earlier program versions. Published versions retire previous active versions for the same program, copied programs restart as local drafts with new persisted identity on save, and archived programs preserve their immutable version history.
+
+## D-039 — Procedural Catalog Media and Compound Animation Contract
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P3-10 exercise media as original procedural thumbnail metadata for all 120 catalog exercises plus a 30-exercise compound source-level animation contract that reuses the P2 shared rig.
+- Consequence: The catalog can display thumbnails and animation availability without bundling third-party image files or runtime animation binaries. Final 120-exercise runtime animations, artist review, and equipment-contact review remain Phase 7 responsibilities.
+
+## D-040 — Airplane-Mode Catalog and Builder Boundary
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Treat P3 airplane-mode acceptance as an application-level no-network boundary: local catalog assets must be present and bundled, catalog browsing must work with Dart network client creation blocked, and the manual builder must create a draft and add a catalog exercise without network access.
+- Consequence: Catalog and manual program creation stay compatible with offline personal use. Save, publish, copy, and archive behavior remains covered by the P3-09 local persistence lifecycle tests, while P3-12 remains responsible for the phase commit, push, pull request, and CI verification.

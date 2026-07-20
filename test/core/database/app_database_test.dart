@@ -34,7 +34,7 @@ void main() {
         .customSelect('PRAGMA foreign_keys')
         .getSingle();
 
-    expect(database.schemaVersion, 3);
+    expect(database.schemaVersion, 4);
     expect(
       schemaNames,
       containsAll(<String>{
@@ -43,7 +43,13 @@ void main() {
         'workout_sessions',
         'session_sets',
         'measurement_records',
+        'program_versions',
+        'program_version_training_days',
+        'prescribed_sets',
         'programs_profile_status_idx',
+        'program_versions_program_status_idx',
+        'program_version_training_days_version_idx',
+        'prescribed_sets_version_day_idx',
         'workout_sessions_profile_scheduled_idx',
         'workout_sessions_program_idx',
         'session_sets_session_exercise_idx',

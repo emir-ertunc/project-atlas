@@ -178,9 +178,9 @@ This APK is a development artifact and is not committed.
 The P2-11 Build C1 profileable anatomy APK output was:
 
 - `P:\build\app\outputs\flutter-apk\app-profile.apk`
-- Size: 104,467,562 bytes
+- Size: 104,647,786 bytes
 - SHA-256:
-  `92e883be31f5f2abb006fa251260355f54151c78c7e71b921b309e92c8527a3d`
+  `7cf3d7832e6e739dcc7a6d8a4d22242be70bde3f6752ee3e03d54db500bc37e5`
 - Build defines:
   `PROJECT_ATLAS_INITIAL_LOCATION=/anatomy`,
   `PROJECT_ATLAS_PERF_LOGS=true`,
@@ -188,4 +188,5 @@ The P2-11 Build C1 profileable anatomy APK output was:
 
 `aapt dump xmltree` confirmed the profile APK contains
 `<profileable android:shell="true" />`. The APK installed on a physical Android
-device and launched the native anatomy platform view for smoke validation.
+device and launched the native anatomy platform view for smoke validation with
+`anatomy_platform_view_created` at 518 ms.

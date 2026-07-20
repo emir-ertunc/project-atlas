@@ -1,0 +1,2766 @@
+{
+  "schema_version": 1,
+  "muscle_mapping_contract_id": "project_atlas_foundational_exercise_muscle_mappings_v1",
+  "scope": "P3-05",
+  "status": "structurally_verified_muscle_mapping_contract",
+  "source_inventory_id": "project_atlas_foundational_exercises_v1",
+  "source_inventory_file": "foundational_exercises.v1.json",
+  "source_category_contract_id": "project_atlas_foundational_exercise_categories_v1",
+  "source_category_file": "foundational_exercise_categories.v1.json",
+  "source_filter_contract_id": "project_atlas_foundational_exercise_filters_v1",
+  "source_filter_file": "foundational_exercise_filters.v1.json",
+  "source_content_contract_id": "project_atlas_foundational_exercise_content_v1",
+  "source_content_file": "foundational_exercise_content.v1.json",
+  "muscle_ontology_file": "../anatomy/muscle_region_ontology.v1.json",
+  "supported_locales": [
+    "en",
+    "tr"
+  ],
+  "muscle_role_order": [
+    "primary_region_ids",
+    "secondary_region_ids",
+    "stabilizer_region_ids"
+  ],
+  "exercise_muscle_mapping_count": 120,
+  "exercise_muscle_mappings": [
+    {
+      "exercise_id": "barbell_back_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "front_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "goblet_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "hack_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "leg_press",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "smith_machine_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "box_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "pause_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "bodyweight_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "wall_sit",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "sissy_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left"
+      ],
+      "secondary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "leg_extension",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left"
+      ],
+      "secondary_region_ids": [],
+      "stabilizer_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "barbell_deadlift",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "romanian_deadlift",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "sumo_deadlift",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "trap_bar_deadlift",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "stiff_leg_deadlift",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "good_morning",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "hip_thrust",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "barbell_glute_bridge",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "kettlebell_swing",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "back_extension",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "reverse_hyperextension",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "lying_leg_curl",
+      "primary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left"
+      ],
+      "secondary_region_ids": [
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "barbell_bench_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_bench_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "incline_barbell_bench_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "incline_dumbbell_bench_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "decline_barbell_bench_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "close_grip_bench_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "push_up",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "weighted_push_up",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_floor_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "machine_chest_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_chest_press",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_chest_fly",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left"
+      ],
+      "secondary_region_ids": [
+        "pectoralis_minor_right",
+        "pectoralis_minor_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "standing_overhead_press",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "seated_barbell_overhead_press",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_shoulder_press",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "arnold_press",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "push_press",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "landmine_press",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "handstand_push_up",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_lateral_raise",
+      "primary_region_ids": [
+        "deltoid_lateral_right",
+        "deltoid_lateral_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_posterior_right",
+        "deltoid_posterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "bent_over_barbell_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "pendlay_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "chest_supported_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "seated_cable_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "machine_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "inverted_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "t_bar_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "single_arm_cable_row",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "face_pull",
+      "primary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "rhomboids_right",
+        "rhomboids_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ]
+    },
+    {
+      "exercise_id": "rear_delt_fly",
+      "primary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "rhomboids_right",
+        "rhomboids_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "forearm_extensors_supinators_right",
+        "forearm_extensors_supinators_left"
+      ]
+    },
+    {
+      "exercise_id": "band_pull_apart",
+      "primary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "rhomboids_right",
+        "rhomboids_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "forearm_extensors_supinators_right",
+        "forearm_extensors_supinators_left"
+      ]
+    },
+    {
+      "exercise_id": "pull_up",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "chin_up",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left"
+      ],
+      "secondary_region_ids": [
+        "brachialis_right",
+        "brachialis_left",
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "neutral_grip_pull_up",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "lat_pulldown",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "neutral_grip_lat_pulldown",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "straight_arm_pulldown",
+      "primary_region_ids": [
+        "teres_major_right",
+        "teres_major_left",
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left"
+      ],
+      "secondary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "assisted_pull_up",
+      "primary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "teres_major_right",
+        "teres_major_left",
+        "biceps_brachii_right",
+        "biceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_posterior_right",
+        "deltoid_posterior_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "pullover_machine",
+      "primary_region_ids": [
+        "teres_major_right",
+        "teres_major_left",
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left"
+      ],
+      "secondary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "reverse_lunge",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "forward_lunge",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "walking_lunge",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "split_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "bulgarian_split_squat",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "step_up",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "lateral_lunge",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hip_adductors_right",
+        "hip_adductors_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "curtsy_lunge",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "single_leg_press",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "single_leg_romanian_deadlift",
+      "primary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_hip_abduction",
+      "primary_region_ids": [
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "secondary_region_ids": [
+        "hip_external_rotators_deep_right",
+        "hip_external_rotators_deep_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "seated_hip_abduction",
+      "primary_region_ids": [
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "secondary_region_ids": [
+        "hip_external_rotators_deep_right",
+        "hip_external_rotators_deep_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_hip_adduction",
+      "primary_region_ids": [
+        "hip_adductors_right",
+        "hip_adductors_left"
+      ],
+      "secondary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "seated_hip_adduction",
+      "primary_region_ids": [
+        "hip_adductors_right",
+        "hip_adductors_left"
+      ],
+      "secondary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_kickback",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "frog_pump",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "clamshell",
+      "primary_region_ids": [
+        "hip_external_rotators_deep_right",
+        "hip_external_rotators_deep_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "secondary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "bodyweight_donkey_kick",
+      "primary_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ],
+      "secondary_region_ids": [
+        "hamstrings_right",
+        "hamstrings_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "dumbbell_biceps_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "barbell_biceps_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "ez_bar_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "hammer_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "incline_dumbbell_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "preacher_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "concentration_curl",
+      "primary_region_ids": [
+        "biceps_brachii_right",
+        "biceps_brachii_left",
+        "brachialis_right",
+        "brachialis_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_triceps_pushdown",
+      "primary_region_ids": [
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_extensors_supinators_right",
+        "forearm_extensors_supinators_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "overhead_triceps_extension",
+      "primary_region_ids": [
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_extensors_supinators_right",
+        "forearm_extensors_supinators_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "skull_crusher",
+      "primary_region_ids": [
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_extensors_supinators_right",
+        "forearm_extensors_supinators_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "close_grip_push_up",
+      "primary_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "pectoralis_minor_right",
+        "pectoralis_minor_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "trapezius_right",
+        "trapezius_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "dip",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "bench_dip",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "trapezius_right",
+        "trapezius_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "rotator_cuff_right",
+        "rotator_cuff_left",
+        "external_oblique_right",
+        "external_oblique_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left"
+      ]
+    },
+    {
+      "exercise_id": "standing_calf_raise",
+      "primary_region_ids": [
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ],
+      "secondary_region_ids": [
+        "fibularis_right",
+        "fibularis_left"
+      ],
+      "stabilizer_region_ids": [
+        "tibialis_anterior_right",
+        "tibialis_anterior_left",
+        "quadriceps_right",
+        "quadriceps_left"
+      ]
+    },
+    {
+      "exercise_id": "seated_calf_raise",
+      "primary_region_ids": [
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ],
+      "secondary_region_ids": [
+        "fibularis_right",
+        "fibularis_left"
+      ],
+      "stabilizer_region_ids": [
+        "tibialis_anterior_right",
+        "tibialis_anterior_left",
+        "quadriceps_right",
+        "quadriceps_left"
+      ]
+    },
+    {
+      "exercise_id": "leg_press_calf_raise",
+      "primary_region_ids": [
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ],
+      "secondary_region_ids": [
+        "fibularis_right",
+        "fibularis_left"
+      ],
+      "stabilizer_region_ids": [
+        "tibialis_anterior_right",
+        "tibialis_anterior_left",
+        "quadriceps_right",
+        "quadriceps_left"
+      ]
+    },
+    {
+      "exercise_id": "donkey_calf_raise",
+      "primary_region_ids": [
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ],
+      "secondary_region_ids": [
+        "fibularis_right",
+        "fibularis_left"
+      ],
+      "stabilizer_region_ids": [
+        "tibialis_anterior_right",
+        "tibialis_anterior_left",
+        "quadriceps_right",
+        "quadriceps_left"
+      ]
+    },
+    {
+      "exercise_id": "tibialis_raise",
+      "primary_region_ids": [
+        "tibialis_anterior_right",
+        "tibialis_anterior_left"
+      ],
+      "secondary_region_ids": [
+        "fibularis_right",
+        "fibularis_left"
+      ],
+      "stabilizer_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ]
+    },
+    {
+      "exercise_id": "single_leg_calf_raise",
+      "primary_region_ids": [
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ],
+      "secondary_region_ids": [
+        "fibularis_right",
+        "fibularis_left"
+      ],
+      "stabilizer_region_ids": [
+        "tibialis_anterior_right",
+        "tibialis_anterior_left",
+        "quadriceps_right",
+        "quadriceps_left"
+      ]
+    },
+    {
+      "exercise_id": "plank",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ]
+    },
+    {
+      "exercise_id": "side_plank",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ],
+      "stabilizer_region_ids": [
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "trapezius_right",
+        "trapezius_left"
+      ]
+    },
+    {
+      "exercise_id": "dead_bug",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ]
+    },
+    {
+      "exercise_id": "bird_dog",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "rhomboids_right",
+        "rhomboids_left"
+      ]
+    },
+    {
+      "exercise_id": "hollow_body_hold",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left"
+      ]
+    },
+    {
+      "exercise_id": "crunch",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ]
+    },
+    {
+      "exercise_id": "reverse_crunch",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ]
+    },
+    {
+      "exercise_id": "hanging_knee_raise",
+      "primary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "trapezius_right",
+        "trapezius_left"
+      ]
+    },
+    {
+      "exercise_id": "hanging_leg_raise",
+      "primary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left",
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "trapezius_right",
+        "trapezius_left"
+      ]
+    },
+    {
+      "exercise_id": "cable_crunch",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ]
+    },
+    {
+      "exercise_id": "pallof_press",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "rhomboids_right",
+        "rhomboids_left"
+      ]
+    },
+    {
+      "exercise_id": "russian_twist",
+      "primary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left"
+      ],
+      "secondary_region_ids": [
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "iliopsoas_right",
+        "iliopsoas_left"
+      ],
+      "stabilizer_region_ids": [
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ]
+    },
+    {
+      "exercise_id": "farmers_carry",
+      "primary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "trapezius_right",
+        "trapezius_left"
+      ],
+      "secondary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "suitcase_carry",
+      "primary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "trapezius_right",
+        "trapezius_left"
+      ],
+      "secondary_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gluteus_medius_minimus_right",
+        "gluteus_medius_minimus_left"
+      ],
+      "stabilizer_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "overhead_carry",
+      "primary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "deltoid_lateral_right",
+        "deltoid_lateral_left",
+        "trapezius_right",
+        "trapezius_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "rotator_cuff_right",
+        "rotator_cuff_left"
+      ]
+    },
+    {
+      "exercise_id": "sled_push",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left",
+        "pectoralis_major_right",
+        "pectoralis_major_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "soleus_right",
+        "soleus_left"
+      ]
+    },
+    {
+      "exercise_id": "sled_pull",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "hamstrings_right",
+        "hamstrings_left"
+      ],
+      "secondary_region_ids": [
+        "rhomboids_right",
+        "rhomboids_left",
+        "trapezius_right",
+        "trapezius_left",
+        "forearm_flexors_pronators_right",
+        "forearm_flexors_pronators_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "erector_spinae_right",
+        "erector_spinae_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ]
+    },
+    {
+      "exercise_id": "burpee",
+      "primary_region_ids": [
+        "quadriceps_right",
+        "quadriceps_left",
+        "gluteus_maximus_right",
+        "gluteus_maximus_left",
+        "pectoralis_major_right",
+        "pectoralis_major_left",
+        "triceps_brachii_right",
+        "triceps_brachii_left"
+      ],
+      "secondary_region_ids": [
+        "deltoid_anterior_right",
+        "deltoid_anterior_left",
+        "hamstrings_right",
+        "hamstrings_left",
+        "gastrocnemius_right",
+        "gastrocnemius_left"
+      ],
+      "stabilizer_region_ids": [
+        "external_oblique_right",
+        "external_oblique_left",
+        "serratus_anterior_right",
+        "serratus_anterior_left",
+        "erector_spinae_right",
+        "erector_spinae_left"
+      ]
+    }
+  ]
+}

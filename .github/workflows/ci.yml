@@ -72,6 +72,14 @@ jobs:
           --animations tool/anatomy/animation/core_exercise_animation_prototypes.v1.json
           --ontology tool/anatomy/muscle_region_ontology.v1.json
 
+      - name: Validate compound exercise animation contract
+        run: >-
+          python3 tool/anatomy/animation/validate_animation_contract.py
+          --rig tool/anatomy/animation/shared_humanoid_rig.v1.json
+          --animations tool/anatomy/animation/compound_exercise_animation_prototypes.v1.json
+          --ontology tool/anatomy/muscle_region_ontology.v1.json
+          --expected-exercise-count 30
+
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed lib test
 

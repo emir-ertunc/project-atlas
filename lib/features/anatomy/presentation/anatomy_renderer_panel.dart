@@ -75,87 +75,109 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
         return Padding(
           key: AnatomyRendererPanel.panelKey,
           padding: const EdgeInsets.all(AppSpacing.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                l10n.anatomyRendererTitle,
-                style: theme.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                l10n.anatomyRendererDescription,
-                style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                l10n.anatomyInteractionInstructions,
-                style: theme.textTheme.bodySmall,
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(AppSpacing.md),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainerHighest,
-                    ),
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        final viewportSize = Size(
-                          constraints.maxWidth,
-                          constraints.maxHeight,
-                        );
-                        return GestureDetector(
-                          key: AnatomyRendererPanel.viewportGestureKey,
-                          behavior: HitTestBehavior.opaque,
-                          onTapUp: (details) {
-                            unawaited(
-                              _controller.pickAt(
-                                details.localPosition,
-                                viewportSize,
-                              ),
-                            );
-                          },
-                          onScaleStart: (_) {
-                            _lastScale = 1;
-                          },
-                          onScaleUpdate: (details) {
-                            if (details.scale != 1) {
-                              final scaleDelta = details.scale / _lastScale;
-                              _lastScale = details.scale;
-                              _controller.zoomByScale(scaleDelta);
-                            }
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final viewportHeight = _viewportHeightFor(constraints.maxHeight);
 
-                            if (details.pointerCount <= 1) {
-                              _controller.rotateByDragDelta(
-                                details.focalPointDelta,
-                              );
-                            }
-                          },
-                          onScaleEnd: (_) {
-                            _lastScale = 1;
-                          },
-                          child: AnatomyRendererPlatformView(
-                            controller: _controller,
-                            rendererOptions: _rendererOptions,
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        l10n.anatomyRendererTitle,
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(
+                        l10n.anatomyRendererDescription,
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(
+                        l10n.anatomyInteractionInstructions,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SizedBox(
+                        height: viewportHeight,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(AppSpacing.md),
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.surfaceContainerHighest,
+                            ),
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                final viewportSize = Size(
+                                  constraints.maxWidth,
+                                  constraints.maxHeight,
+                                );
+                                return GestureDetector(
+                                  key: AnatomyRendererPanel.viewportGestureKey,
+                                  behavior: HitTestBehavior.opaque,
+                                  onTapUp: (details) {
+                                    unawaited(
+                                      _controller.pickAt(
+                                        details.localPosition,
+                                        viewportSize,
+                                      ),
+                                    );
+                                  },
+                                  onScaleStart: (_) {
+                                    _lastScale = 1;
+                                  },
+                                  onScaleUpdate: (details) {
+                                    if (details.scale != 1) {
+                                      final scaleDelta =
+                                          details.scale / _lastScale;
+                                      _lastScale = details.scale;
+                                      _controller.zoomByScale(scaleDelta);
+                                    }
+
+                                    if (details.pointerCount <= 1) {
+                                      _controller.rotateByDragDelta(
+                                        details.focalPointDelta,
+                                      );
+                                    }
+                                  },
+                                  onScaleEnd: (_) {
+                                    _lastScale = 1;
+                                  },
+                                  child: AnatomyRendererPlatformView(
+                                    controller: _controller,
+                                    rendererOptions: _rendererOptions,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      _RendererInteractionSummary(controller: _controller),
+                      const SizedBox(height: AppSpacing.md),
+                      _RendererCapabilitySummary(
+                        rendererOptions: _rendererOptions,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              _RendererInteractionSummary(controller: _controller),
-              const SizedBox(height: AppSpacing.md),
-              _RendererCapabilitySummary(rendererOptions: _rendererOptions),
-            ],
+              );
+            },
           ),
         );
       },
     );
   }
+}
+
+double _viewportHeightFor(double availableHeight) {
+  if (!availableHeight.isFinite) {
+    return 280;
+  }
+  return (availableHeight * 0.42).clamp(220.0, 360.0);
 }
 
 class AnatomyRendererPlatformView extends StatelessWidget {

@@ -21,9 +21,10 @@ The foundation provides these contracts:
 - `MeasurementRepository` for measurement history
 - `ExerciseRepository` for the exercise catalog boundary
 
-The exercise contract receives its bundled catalog adapter in Phase 2, when the
-catalog schema and licensed media are introduced. All other foundation
-contracts have Drift-backed implementations and Riverpod providers.
+The exercise catalog is bundled as local read-only JSON metadata. P3-11 verifies
+the catalog asset paths, catalog browsing, and manual builder exercise selection
+with Dart network client creation blocked. All other foundation contracts have
+Drift-backed implementations and Riverpod providers.
 
 ## Read and Write Path
 
@@ -50,6 +51,14 @@ prescription or an earlier result.
 Riverpod owns the application database and exposes each implementation through
 its interface type. Tests can replace the database provider with an isolated
 in-memory database without changing repository consumers.
+
+## Offline Acceptance
+
+Airplane-mode acceptance is verified at the application boundary by blocking
+Dart `HttpClient` creation during catalog and manual program-builder widget
+flows. Catalog data is read from bundled local asset paths, and builder draft
+creation remains local until an explicit save or publish action persists a
+version snapshot through the repository layer.
 
 ## Future Synchronization Boundary
 

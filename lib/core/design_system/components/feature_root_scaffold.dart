@@ -10,6 +10,8 @@ class FeatureRootScaffold extends StatelessWidget {
     super.key,
   });
 
+  static const placeholderTitleKey = Key('feature-placeholder-title');
+
   final String title;
   final IconData icon;
   final Widget? child;
@@ -19,7 +21,9 @@ class FeatureRootScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: SafeArea(
-        child: child ?? _FeaturePlaceholder(icon: icon, title: title),
+        child: FocusTraversalGroup(
+          child: child ?? _FeaturePlaceholder(icon: icon, title: title),
+        ),
       ),
     );
   }
@@ -45,7 +49,14 @@ class _FeaturePlaceholder extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
           const SizedBox(height: AppSpacing.md),
-          Text(title, style: theme.textTheme.headlineSmall),
+          Semantics(
+            header: true,
+            child: Text(
+              title,
+              key: FeatureRootScaffold.placeholderTitleKey,
+              style: theme.textTheme.headlineSmall,
+            ),
+          ),
         ],
       ),
     );

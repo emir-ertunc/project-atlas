@@ -1416,6 +1416,401 @@ class ProgramVersionsCompanion extends UpdateCompanion<ProgramVersionRow> {
   }
 }
 
+class $ProgramVersionTrainingDaysTable extends ProgramVersionTrainingDays
+    with
+        TableInfo<
+          $ProgramVersionTrainingDaysTable,
+          ProgramVersionTrainingDayRow
+        > {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProgramVersionTrainingDaysTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 64,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _programVersionIdMeta = const VerificationMeta(
+    'programVersionId',
+  );
+  @override
+  late final GeneratedColumn<String> programVersionId = GeneratedColumn<String>(
+    'program_version_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES program_versions (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _trainingDayOrderMeta = const VerificationMeta(
+    'trainingDayOrder',
+  );
+  @override
+  late final GeneratedColumn<int> trainingDayOrder = GeneratedColumn<int>(
+    'training_day_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 120,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    programVersionId,
+    trainingDayOrder,
+    name,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'program_version_training_days';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ProgramVersionTrainingDayRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('program_version_id')) {
+      context.handle(
+        _programVersionIdMeta,
+        programVersionId.isAcceptableOrUnknown(
+          data['program_version_id']!,
+          _programVersionIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_programVersionIdMeta);
+    }
+    if (data.containsKey('training_day_order')) {
+      context.handle(
+        _trainingDayOrderMeta,
+        trainingDayOrder.isAcceptableOrUnknown(
+          data['training_day_order']!,
+          _trainingDayOrderMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_trainingDayOrderMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {programVersionId, trainingDayOrder},
+  ];
+  @override
+  ProgramVersionTrainingDayRow map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProgramVersionTrainingDayRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      programVersionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}program_version_id'],
+      )!,
+      trainingDayOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}training_day_order'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ProgramVersionTrainingDaysTable createAlias(String alias) {
+    return $ProgramVersionTrainingDaysTable(attachedDatabase, alias);
+  }
+}
+
+class ProgramVersionTrainingDayRow extends DataClass
+    implements Insertable<ProgramVersionTrainingDayRow> {
+  final String id;
+  final String programVersionId;
+  final int trainingDayOrder;
+  final String name;
+  final DateTime createdAt;
+  const ProgramVersionTrainingDayRow({
+    required this.id,
+    required this.programVersionId,
+    required this.trainingDayOrder,
+    required this.name,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['program_version_id'] = Variable<String>(programVersionId);
+    map['training_day_order'] = Variable<int>(trainingDayOrder);
+    map['name'] = Variable<String>(name);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ProgramVersionTrainingDaysCompanion toCompanion(bool nullToAbsent) {
+    return ProgramVersionTrainingDaysCompanion(
+      id: Value(id),
+      programVersionId: Value(programVersionId),
+      trainingDayOrder: Value(trainingDayOrder),
+      name: Value(name),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ProgramVersionTrainingDayRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProgramVersionTrainingDayRow(
+      id: serializer.fromJson<String>(json['id']),
+      programVersionId: serializer.fromJson<String>(json['programVersionId']),
+      trainingDayOrder: serializer.fromJson<int>(json['trainingDayOrder']),
+      name: serializer.fromJson<String>(json['name']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'programVersionId': serializer.toJson<String>(programVersionId),
+      'trainingDayOrder': serializer.toJson<int>(trainingDayOrder),
+      'name': serializer.toJson<String>(name),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ProgramVersionTrainingDayRow copyWith({
+    String? id,
+    String? programVersionId,
+    int? trainingDayOrder,
+    String? name,
+    DateTime? createdAt,
+  }) => ProgramVersionTrainingDayRow(
+    id: id ?? this.id,
+    programVersionId: programVersionId ?? this.programVersionId,
+    trainingDayOrder: trainingDayOrder ?? this.trainingDayOrder,
+    name: name ?? this.name,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  ProgramVersionTrainingDayRow copyWithCompanion(
+    ProgramVersionTrainingDaysCompanion data,
+  ) {
+    return ProgramVersionTrainingDayRow(
+      id: data.id.present ? data.id.value : this.id,
+      programVersionId: data.programVersionId.present
+          ? data.programVersionId.value
+          : this.programVersionId,
+      trainingDayOrder: data.trainingDayOrder.present
+          ? data.trainingDayOrder.value
+          : this.trainingDayOrder,
+      name: data.name.present ? data.name.value : this.name,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProgramVersionTrainingDayRow(')
+          ..write('id: $id, ')
+          ..write('programVersionId: $programVersionId, ')
+          ..write('trainingDayOrder: $trainingDayOrder, ')
+          ..write('name: $name, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, programVersionId, trainingDayOrder, name, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProgramVersionTrainingDayRow &&
+          other.id == this.id &&
+          other.programVersionId == this.programVersionId &&
+          other.trainingDayOrder == this.trainingDayOrder &&
+          other.name == this.name &&
+          other.createdAt == this.createdAt);
+}
+
+class ProgramVersionTrainingDaysCompanion
+    extends UpdateCompanion<ProgramVersionTrainingDayRow> {
+  final Value<String> id;
+  final Value<String> programVersionId;
+  final Value<int> trainingDayOrder;
+  final Value<String> name;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const ProgramVersionTrainingDaysCompanion({
+    this.id = const Value.absent(),
+    this.programVersionId = const Value.absent(),
+    this.trainingDayOrder = const Value.absent(),
+    this.name = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ProgramVersionTrainingDaysCompanion.insert({
+    required String id,
+    required String programVersionId,
+    required int trainingDayOrder,
+    required String name,
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       programVersionId = Value(programVersionId),
+       trainingDayOrder = Value(trainingDayOrder),
+       name = Value(name);
+  static Insertable<ProgramVersionTrainingDayRow> custom({
+    Expression<String>? id,
+    Expression<String>? programVersionId,
+    Expression<int>? trainingDayOrder,
+    Expression<String>? name,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (programVersionId != null) 'program_version_id': programVersionId,
+      if (trainingDayOrder != null) 'training_day_order': trainingDayOrder,
+      if (name != null) 'name': name,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ProgramVersionTrainingDaysCompanion copyWith({
+    Value<String>? id,
+    Value<String>? programVersionId,
+    Value<int>? trainingDayOrder,
+    Value<String>? name,
+    Value<DateTime>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return ProgramVersionTrainingDaysCompanion(
+      id: id ?? this.id,
+      programVersionId: programVersionId ?? this.programVersionId,
+      trainingDayOrder: trainingDayOrder ?? this.trainingDayOrder,
+      name: name ?? this.name,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (programVersionId.present) {
+      map['program_version_id'] = Variable<String>(programVersionId.value);
+    }
+    if (trainingDayOrder.present) {
+      map['training_day_order'] = Variable<int>(trainingDayOrder.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProgramVersionTrainingDaysCompanion(')
+          ..write('id: $id, ')
+          ..write('programVersionId: $programVersionId, ')
+          ..write('trainingDayOrder: $trainingDayOrder, ')
+          ..write('name: $name, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $PrescribedSetsTable extends PrescribedSets
     with TableInfo<$PrescribedSetsTable, PrescribedSetRow> {
   @override
@@ -4607,6 +5002,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ProgramVersionsTable programVersions = $ProgramVersionsTable(
     this,
   );
+  late final $ProgramVersionTrainingDaysTable programVersionTrainingDays =
+      $ProgramVersionTrainingDaysTable(this);
   late final $PrescribedSetsTable prescribedSets = $PrescribedSetsTable(this);
   late final $WorkoutSessionsTable workoutSessions = $WorkoutSessionsTable(
     this,
@@ -4622,6 +5019,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final Index programVersionsProgramStatusIdx = Index(
     'program_versions_program_status_idx',
     'CREATE INDEX program_versions_program_status_idx ON program_versions (program_id, status)',
+  );
+  late final Index programVersionTrainingDaysVersionIdx = Index(
+    'program_version_training_days_version_idx',
+    'CREATE INDEX program_version_training_days_version_idx ON program_version_training_days (program_version_id)',
   );
   late final Index prescribedSetsVersionDayIdx = Index(
     'prescribed_sets_version_day_idx',
@@ -4663,6 +5064,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     profiles,
     programs,
     programVersions,
+    programVersionTrainingDays,
     prescribedSets,
     workoutSessions,
     sessionSets,
@@ -4670,6 +5072,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     measurementRecords,
     programsProfileStatusIdx,
     programVersionsProgramStatusIdx,
+    programVersionTrainingDaysVersionIdx,
     prescribedSetsVersionDayIdx,
     workoutSessionsProfileScheduledIdx,
     workoutSessionsProgramIdx,
@@ -4694,6 +5097,15 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('program_versions', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'program_versions',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('program_version_training_days', kind: UpdateKind.delete),
+      ],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -5909,6 +6321,36 @@ final class $$ProgramVersionsTableReferences
     );
   }
 
+  static MultiTypedResultKey<
+    $ProgramVersionTrainingDaysTable,
+    List<ProgramVersionTrainingDayRow>
+  >
+  _programVersionTrainingDaysRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.programVersionTrainingDays,
+    aliasName:
+        'program_versions__id__program_version_training_days__program_version_id',
+  );
+
+  $$ProgramVersionTrainingDaysTableProcessedTableManager
+  get programVersionTrainingDaysRefs {
+    final manager =
+        $$ProgramVersionTrainingDaysTableTableManager(
+          $_db,
+          $_db.programVersionTrainingDays,
+        ).filter(
+          (f) => f.programVersionId.id.sqlEquals($_itemColumn<String>('id')!),
+        );
+
+    final cache = $_typedResult.readTableOrNull(
+      _programVersionTrainingDaysRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
   static MultiTypedResultKey<$PrescribedSetsTable, List<PrescribedSetRow>>
   _prescribedSetsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
     db.prescribedSets,
@@ -6013,6 +6455,33 @@ class $$ProgramVersionsTableFilterComposer
           ),
     );
     return composer;
+  }
+
+  Expression<bool> programVersionTrainingDaysRefs(
+    Expression<bool> Function($$ProgramVersionTrainingDaysTableFilterComposer f)
+    f,
+  ) {
+    final $$ProgramVersionTrainingDaysTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.programVersionTrainingDays,
+          getReferencedColumn: (t) => t.programVersionId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ProgramVersionTrainingDaysTableFilterComposer(
+                $db: $db,
+                $table: $db.programVersionTrainingDays,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
   }
 
   Expression<bool> prescribedSetsRefs(
@@ -6183,6 +6652,35 @@ class $$ProgramVersionsTableAnnotationComposer
     return composer;
   }
 
+  Expression<T> programVersionTrainingDaysRefs<T extends Object>(
+    Expression<T> Function(
+      $$ProgramVersionTrainingDaysTableAnnotationComposer a,
+    )
+    f,
+  ) {
+    final $$ProgramVersionTrainingDaysTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.programVersionTrainingDays,
+          getReferencedColumn: (t) => t.programVersionId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ProgramVersionTrainingDaysTableAnnotationComposer(
+                $db: $db,
+                $table: $db.programVersionTrainingDays,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
   Expression<T> prescribedSetsRefs<T extends Object>(
     Expression<T> Function($$PrescribedSetsTableAnnotationComposer a) f,
   ) {
@@ -6249,6 +6747,7 @@ class $$ProgramVersionsTableTableManager
           ProgramVersionRow,
           PrefetchHooks Function({
             bool programId,
+            bool programVersionTrainingDaysRefs,
             bool prescribedSetsRefs,
             bool workoutSessionsRefs,
           })
@@ -6317,12 +6816,15 @@ class $$ProgramVersionsTableTableManager
           prefetchHooksCallback:
               ({
                 programId = false,
+                programVersionTrainingDaysRefs = false,
                 prescribedSetsRefs = false,
                 workoutSessionsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
+                    if (programVersionTrainingDaysRefs)
+                      db.programVersionTrainingDays,
                     if (prescribedSetsRefs) db.prescribedSets,
                     if (workoutSessionsRefs) db.workoutSessions,
                   ],
@@ -6362,6 +6864,27 @@ class $$ProgramVersionsTableTableManager
                       },
                   getPrefetchedDataCallback: (items) async {
                     return [
+                      if (programVersionTrainingDaysRefs)
+                        await $_getPrefetchedData<
+                          ProgramVersionRow,
+                          $ProgramVersionsTable,
+                          ProgramVersionTrainingDayRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProgramVersionsTableReferences
+                              ._programVersionTrainingDaysRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProgramVersionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).programVersionTrainingDaysRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.programVersionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                       if (prescribedSetsRefs)
                         await $_getPrefetchedData<
                           ProgramVersionRow,
@@ -6426,9 +6949,360 @@ typedef $$ProgramVersionsTableProcessedTableManager =
       ProgramVersionRow,
       PrefetchHooks Function({
         bool programId,
+        bool programVersionTrainingDaysRefs,
         bool prescribedSetsRefs,
         bool workoutSessionsRefs,
       })
+    >;
+typedef $$ProgramVersionTrainingDaysTableCreateCompanionBuilder =
+    ProgramVersionTrainingDaysCompanion Function({
+      required String id,
+      required String programVersionId,
+      required int trainingDayOrder,
+      required String name,
+      Value<DateTime> createdAt,
+      Value<int> rowid,
+    });
+typedef $$ProgramVersionTrainingDaysTableUpdateCompanionBuilder =
+    ProgramVersionTrainingDaysCompanion Function({
+      Value<String> id,
+      Value<String> programVersionId,
+      Value<int> trainingDayOrder,
+      Value<String> name,
+      Value<DateTime> createdAt,
+      Value<int> rowid,
+    });
+
+final class $$ProgramVersionTrainingDaysTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $ProgramVersionTrainingDaysTable,
+          ProgramVersionTrainingDayRow
+        > {
+  $$ProgramVersionTrainingDaysTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProgramVersionsTable _programVersionIdTable(
+    _$AppDatabase db,
+  ) => db.programVersions.createAlias(
+    'program_version_training_days__program_version_id__program_versions__id',
+  );
+
+  $$ProgramVersionsTableProcessedTableManager get programVersionId {
+    final $_column = $_itemColumn<String>('program_version_id')!;
+
+    final manager = $$ProgramVersionsTableTableManager(
+      $_db,
+      $_db.programVersions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_programVersionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ProgramVersionTrainingDaysTableFilterComposer
+    extends Composer<_$AppDatabase, $ProgramVersionTrainingDaysTable> {
+  $$ProgramVersionTrainingDaysTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get trainingDayOrder => $composableBuilder(
+    column: $table.trainingDayOrder,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProgramVersionsTableFilterComposer get programVersionId {
+    final $$ProgramVersionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.programVersionId,
+      referencedTable: $db.programVersions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProgramVersionsTableFilterComposer(
+            $db: $db,
+            $table: $db.programVersions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ProgramVersionTrainingDaysTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProgramVersionTrainingDaysTable> {
+  $$ProgramVersionTrainingDaysTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get trainingDayOrder => $composableBuilder(
+    column: $table.trainingDayOrder,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProgramVersionsTableOrderingComposer get programVersionId {
+    final $$ProgramVersionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.programVersionId,
+      referencedTable: $db.programVersions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProgramVersionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.programVersions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ProgramVersionTrainingDaysTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProgramVersionTrainingDaysTable> {
+  $$ProgramVersionTrainingDaysTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get trainingDayOrder => $composableBuilder(
+    column: $table.trainingDayOrder,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$ProgramVersionsTableAnnotationComposer get programVersionId {
+    final $$ProgramVersionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.programVersionId,
+      referencedTable: $db.programVersions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProgramVersionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.programVersions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ProgramVersionTrainingDaysTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ProgramVersionTrainingDaysTable,
+          ProgramVersionTrainingDayRow,
+          $$ProgramVersionTrainingDaysTableFilterComposer,
+          $$ProgramVersionTrainingDaysTableOrderingComposer,
+          $$ProgramVersionTrainingDaysTableAnnotationComposer,
+          $$ProgramVersionTrainingDaysTableCreateCompanionBuilder,
+          $$ProgramVersionTrainingDaysTableUpdateCompanionBuilder,
+          (
+            ProgramVersionTrainingDayRow,
+            $$ProgramVersionTrainingDaysTableReferences,
+          ),
+          ProgramVersionTrainingDayRow,
+          PrefetchHooks Function({bool programVersionId})
+        > {
+  $$ProgramVersionTrainingDaysTableTableManager(
+    _$AppDatabase db,
+    $ProgramVersionTrainingDaysTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ProgramVersionTrainingDaysTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$ProgramVersionTrainingDaysTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$ProgramVersionTrainingDaysTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> programVersionId = const Value.absent(),
+                Value<int> trainingDayOrder = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ProgramVersionTrainingDaysCompanion(
+                id: id,
+                programVersionId: programVersionId,
+                trainingDayOrder: trainingDayOrder,
+                name: name,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String programVersionId,
+                required int trainingDayOrder,
+                required String name,
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ProgramVersionTrainingDaysCompanion.insert(
+                id: id,
+                programVersionId: programVersionId,
+                trainingDayOrder: trainingDayOrder,
+                name: name,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ProgramVersionTrainingDaysTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({programVersionId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (programVersionId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.programVersionId,
+                                referencedTable:
+                                    $$ProgramVersionTrainingDaysTableReferences
+                                        ._programVersionIdTable(db),
+                                referencedColumn:
+                                    $$ProgramVersionTrainingDaysTableReferences
+                                        ._programVersionIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ProgramVersionTrainingDaysTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ProgramVersionTrainingDaysTable,
+      ProgramVersionTrainingDayRow,
+      $$ProgramVersionTrainingDaysTableFilterComposer,
+      $$ProgramVersionTrainingDaysTableOrderingComposer,
+      $$ProgramVersionTrainingDaysTableAnnotationComposer,
+      $$ProgramVersionTrainingDaysTableCreateCompanionBuilder,
+      $$ProgramVersionTrainingDaysTableUpdateCompanionBuilder,
+      (
+        ProgramVersionTrainingDayRow,
+        $$ProgramVersionTrainingDaysTableReferences,
+      ),
+      ProgramVersionTrainingDayRow,
+      PrefetchHooks Function({bool programVersionId})
     >;
 typedef $$PrescribedSetsTableCreateCompanionBuilder =
     PrescribedSetsCompanion Function({
@@ -9234,6 +10108,12 @@ class $AppDatabaseManager {
       $$ProgramsTableTableManager(_db, _db.programs);
   $$ProgramVersionsTableTableManager get programVersions =>
       $$ProgramVersionsTableTableManager(_db, _db.programVersions);
+  $$ProgramVersionTrainingDaysTableTableManager
+  get programVersionTrainingDays =>
+      $$ProgramVersionTrainingDaysTableTableManager(
+        _db,
+        _db.programVersionTrainingDays,
+      );
   $$PrescribedSetsTableTableManager get prescribedSets =>
       $$PrescribedSetsTableTableManager(_db, _db.prescribedSets);
   $$WorkoutSessionsTableTableManager get workoutSessions =>
