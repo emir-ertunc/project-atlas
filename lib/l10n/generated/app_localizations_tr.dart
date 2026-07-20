@@ -24,6 +24,147 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressNavigationLabel => 'İlerleme';
 
   @override
+  String get progressScreenSubtitle =>
+      'Antrenman gecmisini incele, set sonuclarina bak ve kisisel rekorlari takip et.';
+
+  @override
+  String get progressHistoryTitle => 'Antrenman gecmisi';
+
+  @override
+  String get progressHistoryEmptyTitle => 'Henuz antrenman gecmisi yok';
+
+  @override
+  String get progressHistoryEmptyMessage =>
+      'Yerel gecmisi olusturmak icin Bugun sekmesinden setleri tamamla.';
+
+  @override
+  String get progressHistoryLoadError => 'Antrenman gecmisi yuklenemedi.';
+
+  @override
+  String get progressUnnamedSession => 'Antrenman oturumu';
+
+  @override
+  String progressSessionSummary(
+    String status,
+    int completedSetCount,
+    int setCount,
+  ) {
+    return '$status - $completedSetCount/$setCount set kaydedildi';
+  }
+
+  @override
+  String progressSetButtonLabel(String exerciseName, int setNumber) {
+    return '$exerciseName set $setNumber';
+  }
+
+  @override
+  String get progressSetDetailsTitle => 'Set detaylari';
+
+  @override
+  String get progressSetDetailsEmpty =>
+      'Sonucunu incelemek icin antrenman gecmisinden bir set sec.';
+
+  @override
+  String progressSetDetailSession(String sessionName, String dateTime) {
+    return '$sessionName - $dateTime';
+  }
+
+  @override
+  String progressSetDetailStatus(String status) {
+    return 'Durum: $status';
+  }
+
+  @override
+  String progressSetDetailTarget(String target) {
+    return '$target';
+  }
+
+  @override
+  String progressSetDetailLatest(String latest) {
+    return '$latest';
+  }
+
+  @override
+  String progressSetDetailRevisionCount(int revisionCount) {
+    return '$revisionCount revizyon';
+  }
+
+  @override
+  String get progressNoActualLog => 'Gercek sonuc kaydedilmedi';
+
+  @override
+  String get progressRevisionHistoryTitle => 'Revizyon gecmisi';
+
+  @override
+  String progressRevisionRow(int revision, String result) {
+    return 'Revizyon $revision: $result';
+  }
+
+  @override
+  String progressRevisionSupersedes(String logId) {
+    return '$logId kaydinin yerine gecer';
+  }
+
+  @override
+  String get progressCorrectionTitle => 'Kayitli sonucu duzelt';
+
+  @override
+  String get progressCorrectionDescription =>
+      'Duzeltme kaydedilince yeni bir revizyon eklenir. Eski kayitlar korunur.';
+
+  @override
+  String get progressCorrectionUnavailable =>
+      'Yalnizca tamamlanmis ve sonucu kaydedilmis setler duzeltilebilir.';
+
+  @override
+  String get progressCorrectionRepetitionsLabel => 'Duzeltilen tekrar';
+
+  @override
+  String get progressCorrectionLoadLabel => 'Duzeltilen yuk';
+
+  @override
+  String get progressCorrectionRirLabel => 'Duzeltilen RIR';
+
+  @override
+  String get progressCorrectionOutcomeLabel => 'Duzeltilen sonuc';
+
+  @override
+  String get progressCorrectionSave => 'Duzeltmeyi kaydet';
+
+  @override
+  String get progressCorrectionSaved =>
+      'Duzeltme yeni revizyon olarak kaydedildi.';
+
+  @override
+  String get progressCorrectionFailed => 'Duzeltme kaydedilemedi.';
+
+  @override
+  String get progressCorrectionInvalid =>
+      'Gecerli tekrar, yuk ve RIR degerleri gir.';
+
+  @override
+  String get progressPersonalRecordsTitle => 'Kisisel rekorlar';
+
+  @override
+  String get progressPersonalRecordsEmpty =>
+      'Henuz kisisel rekor yok. Rekor takibi icin tekrar veya yuk iceren temiz setleri tamamla.';
+
+  @override
+  String progressBestLoad(String load) {
+    return 'En iyi yuk: $load';
+  }
+
+  @override
+  String progressBestRepetitions(int repetitions) {
+    return 'En iyi tekrar: $repetitions';
+  }
+
+  @override
+  String progressBestVolume(String volume) {
+    return 'En iyi hacim: $volume';
+  }
+
+  @override
   String get settingsNavigationLabel => 'Ayarlar';
 
   @override
@@ -442,4 +583,285 @@ class AppLocalizationsTr extends AppLocalizations {
   String programBuilderCopiedProgramName(String programName) {
     return '$programName kopya';
   }
+
+  @override
+  String get todayScreenSubtitle =>
+      'Aktif programindan siradaki yerel antrenmani baslat.';
+
+  @override
+  String get todayNoActiveProgramTitle => 'Aktif program yok';
+
+  @override
+  String get todayNoActiveProgramMessage =>
+      'Antrenman baslatmadan once Program sekmesinde bir program versiyonu yayinla.';
+
+  @override
+  String get todayOpenProgramBuilder => 'Programi ac';
+
+  @override
+  String todayActiveProgramSummary(int versionNumber, int dayCount) {
+    return 'Aktif versiyon $versionNumber - $dayCount antrenman gunu';
+  }
+
+  @override
+  String get todayChooseTrainingDay => 'Antrenman gunu sec';
+
+  @override
+  String todayTrainingDaySummary(int exerciseCount, int setCount) {
+    return '$exerciseCount egzersiz - $setCount planli set';
+  }
+
+  @override
+  String get todayStartWorkout => 'Antrenmani baslat';
+
+  @override
+  String get todaySessionStarted => 'Antrenman oturumu baslatildi.';
+
+  @override
+  String get todaySessionStartFailed => 'Antrenman baslatilamadi.';
+
+  @override
+  String get todayLoadError => 'Bugun ekrani yuklenemedi.';
+
+  @override
+  String get todayRetry => 'Tekrar dene';
+
+  @override
+  String todayFixedRepetitions(int repetitions) {
+    return '$repetitions tekrar';
+  }
+
+  @override
+  String todayRangeRepetitions(int minimumRepetitions, int maximumRepetitions) {
+    return '$minimumRepetitions-$maximumRepetitions tekrar';
+  }
+
+  @override
+  String todayExercisePrescriptionSummary(
+    int setCount,
+    String repetitionTarget,
+    String rirTarget,
+    String loadTarget,
+    int restSeconds,
+  ) {
+    return '$setCount set - $repetitionTarget - $rirTarget - $loadTarget - $restSeconds sn dinlenme';
+  }
+
+  @override
+  String get todayNoExercisesTitle => 'Bu gunde egzersiz yok';
+
+  @override
+  String get todayNoExercisesMessage =>
+      'Oturum baslatmadan once bu antrenman gunune egzersiz ekle.';
+
+  @override
+  String get todaySessionInProgressTitle => 'Oturum devam ediyor';
+
+  @override
+  String todaySessionInProgressSummary(int exerciseCount, int setCount) {
+    return '$exerciseCount egzersiz - $setCount planli set';
+  }
+
+  @override
+  String get todaySessionInProgressMessage =>
+      'Her seti bitirdikce kaydet. Tamamlanan setler gercek sonucuyla yerel olarak saklanir.';
+
+  @override
+  String get todaySessionRestoredMessage =>
+      'Devam eden bu antrenman yerel kayittan geri yuklendi.';
+
+  @override
+  String todaySessionStatusLabel(String status) {
+    return 'Oturum durumu: $status';
+  }
+
+  @override
+  String todayExerciseStatusLabel(String status) {
+    return 'Egzersiz durumu: $status';
+  }
+
+  @override
+  String todaySetStatusLabel(String status) {
+    return 'Set durumu: $status';
+  }
+
+  @override
+  String get todayStatusPending => 'Bekliyor';
+
+  @override
+  String get todayStatusNotStarted => 'Baslamadi';
+
+  @override
+  String get todayStatusInProgress => 'Devam ediyor';
+
+  @override
+  String get todayStatusSuccessful => 'Basarili';
+
+  @override
+  String get todayStatusTargetMet => 'Hedef karsilandi';
+
+  @override
+  String get todayStatusNeedsReview => 'Inceleme gerekli';
+
+  @override
+  String get todayStatusPerformanceMiss => 'Performans hedefi kacirildi';
+
+  @override
+  String get todayStatusInterrupted => 'Kesintiye ugradi';
+
+  @override
+  String get todayStatusPainReported => 'Agri bildirildi';
+
+  @override
+  String get todayStatusNotComparable => 'Kayit var, karsilastirilamaz';
+
+  @override
+  String todaySetProgressSummary(int completedSetCount, int setCount) {
+    return '$completedSetCount/$setCount set tamamlandi';
+  }
+
+  @override
+  String todayExerciseActiveSetSummary(int setCount) {
+    return '$setCount set kaydedilecek';
+  }
+
+  @override
+  String todaySessionSetLabel(int setNumber) {
+    return 'Set $setNumber';
+  }
+
+  @override
+  String get todayActualRepetitionsLabel => 'Gercek tekrar';
+
+  @override
+  String get todayActualLoadLabel => 'Gercek yuk';
+
+  @override
+  String get todayActualRirLabel => 'Gercek RIR';
+
+  @override
+  String get todayOutcomeLabel => 'Sonuc';
+
+  @override
+  String get todayOutcomeNone => 'Sinirlama yok';
+
+  @override
+  String get todayOutcomeStrengthLimitation => 'Guc limiti';
+
+  @override
+  String get todayOutcomeTechniqueLimitation => 'Teknik limiti';
+
+  @override
+  String get todayOutcomePain => 'Agri';
+
+  @override
+  String get todayOutcomeTimeLimitation => 'Zaman limiti';
+
+  @override
+  String get todayOutcomeEquipmentLimitation => 'Ekipman limiti';
+
+  @override
+  String get todayOutcomeExternalInterruption => 'Dis kesinti';
+
+  @override
+  String get todayCompleteSet => 'Seti tamamla';
+
+  @override
+  String todaySetPrescriptionSummary(
+    String repetitionTarget,
+    String rirTarget,
+    String loadTarget,
+  ) {
+    return 'Hedef: $repetitionTarget - $rirTarget - $loadTarget';
+  }
+
+  @override
+  String get todaySetPrescriptionUnavailable => 'Hedef bulunamadi';
+
+  @override
+  String todayPreviousPerformanceSummary(
+    String repetitionTarget,
+    String loadTarget,
+    String rirTarget,
+    String outcomeTarget,
+  ) {
+    return 'Onceki: $repetitionTarget - $loadTarget - $rirTarget - $outcomeTarget';
+  }
+
+  @override
+  String get todayPreviousPerformanceUnavailable =>
+      'Onceki: henuz kaydedilmis set yok';
+
+  @override
+  String get todayRepetitionsNotRecorded => 'tekrar kaydedilmedi';
+
+  @override
+  String todaySetActualSummary(
+    String repetitionTarget,
+    String loadTarget,
+    String rirTarget,
+    String outcomeTarget,
+  ) {
+    return 'Kaydedildi: $repetitionTarget - $loadTarget - $rirTarget - $outcomeTarget';
+  }
+
+  @override
+  String get todaySetLogSaved => 'Set kaydedildi.';
+
+  @override
+  String get todaySetLogFailed => 'Set kaydedilemedi.';
+
+  @override
+  String get todaySetLogInvalid => 'Gecerli tekrar, yuk ve RIR degerleri gir.';
+
+  @override
+  String get todayQuickLoadDecrease => 'Yuku azalt';
+
+  @override
+  String get todayQuickLoadIncrease => 'Yuku artir';
+
+  @override
+  String get todayRestTimerTitle => 'Dinlenme zamanlayicisi';
+
+  @override
+  String todayRestTimerRunning(
+    String exerciseName,
+    int setNumber,
+    String remainingTime,
+  ) {
+    return '$exerciseName set $setNumber sonrasi dinlenme: $remainingTime';
+  }
+
+  @override
+  String get todayRestTimerComplete =>
+      'Dinlenme tamamlandi. Hazir olunca sonraki sete basla.';
+
+  @override
+  String get todayRestTimerDismiss => 'Kapat';
+
+  @override
+  String get todayRestTimerNotificationTitle => 'Dinlenme tamamlandi';
+
+  @override
+  String get todayRestTimerNotificationBody => 'Sonraki set zamani.';
+
+  @override
+  String get todayRestTimerNotificationScheduled =>
+      'Arka plan uyarisi zamanlandi.';
+
+  @override
+  String get todayRestTimerNotificationPermissionDenied =>
+      'Arka planda dinlenme uyarisi almak icin bildirimleri etkinlestir.';
+
+  @override
+  String get todayRestTimerNotificationUnsupported =>
+      'Bu cihazda arka plan uyarisi kullanilamiyor.';
+
+  @override
+  String get todayRestTimerNotificationFailed =>
+      'Arka plan uyarisi zamanlanamadi.';
+
+  @override
+  String get todayRestTimerNotificationSkipped =>
+      'Dinlenme uyarisi gerekmiyor.';
 }

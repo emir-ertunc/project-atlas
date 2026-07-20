@@ -284,3 +284,73 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Treat P3 airplane-mode acceptance as an application-level no-network boundary: local catalog assets must be present and bundled, catalog browsing must work with Dart network client creation blocked, and the manual builder must create a draft and add a catalog exercise without network access.
 - Consequence: Catalog and manual program creation stay compatible with offline personal use. Save, publish, copy, and archive behavior remains covered by the P3-09 local persistence lifecycle tests, while P3-12 remains responsible for the phase commit, push, pull request, and CI verification.
+
+## D-041 — Today Session Start Boundary
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P4-01 as a Today-screen local session-start flow that reads the active published program version, lets the user select a training day before the scheduling engine exists, and stores the selected prescription as an `inProgress` workout session with planned session-set slots.
+- Consequence: Active workout execution starts from immutable program-version data without adding a new schema or synchronization dependency. Set-level actual logging, previous-performance display, session status calculation, timers, recovery, and history remain explicitly deferred to later Phase 4 checklist items.
+
+## D-042 — Active Set Logging Transaction Boundary
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P4-02 set completion as a single local repository transaction that updates the session-set status to `completed` and appends the matching actual-set log revision.
+- Consequence: The active workout UI can record actual repetitions, load, and optional RIR without adding schema or backend dependencies. Completed set slots and actual result logs remain consistent, while previous-performance context, interruption outcomes, rest timers, session rollups, and historical correction revisions stay assigned to later Phase 4 checklist items.
+
+## D-043 — Previous Performance Read Model
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P4-03 previous-performance context as a repository read model over local workout sessions, session sets, and actual set logs, excluding the active session and selecting the latest actual-log revision for each historical set slot.
+- Consequence: The active workout screen can show previous same-exercise performance beside the current prescription without schema changes or session-completion dependencies. Matching is set-order based for this slice; broader history views, session status rollups, and correction management remain later Phase 4 responsibilities.
+
+## D-044 — Active Set Outcome Logging
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P4-04 as an active-set outcome selector that writes the selected strength, technique, pain, time, equipment, or external-interruption outcome to the append-only actual-set log.
+- Consequence: Numeric set results and non-numeric limitations share the same local transaction and history read path. Outcome-only logs are allowed for interrupted sets, while progression interpretation, pain guidance, rest timers, session rollups, and historical correction management remain assigned to later checklist items.
+
+## D-045 — Active Rest Timer and Quick Load Boundary
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P4-05 rest timers as volatile active-workout state derived from prescribed rest seconds, with a native Android method-channel bridge for best-effort background alerts while the app process is alive.
+- Consequence: Rest countdowns and notifications do not require schema changes and do not affect progression rules yet. Quick load controls adjust only the pending actual-load input; the repository records a value only through the existing set-completion transaction. Process-restored timers, session rollups, and history correction remain later Phase 4 responsibilities.
+
+## D-046 — Active Workout Process Recovery
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Restore P4-06 active workout execution from the local database by loading an existing `inProgress` session, its set slots, latest actual logs, and linked prescription when the Today controller starts.
+- Consequence: A restarted app can continue the same active workout without losing completed set evidence or showing the wrong source training day. Recovery remains schema-free, rest countdowns stay volatile, and session status rollups plus history correction remain later Phase 4 responsibilities.
+
+## D-047 — Active Workout Execution Statuses
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Calculate P4-07 set, exercise, and session execution statuses as non-persisted application read-model values derived from set lifecycle, linked prescription, latest actual log, and outcome.
+- Consequence: Set-level target misses, interruptions, and pain reports can be surfaced separately from exercise and session status without changing the database schema or overwriting append-only logs. Session status can require review without automatically marking the whole workout failed, while progression interpretation remains assigned to later rules.
+
+## D-048 — Workout History and Personal Record Read Model
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Implement P4-08 history, set detail, and personal-record views as a Progress-branch read model over local sessions, session sets, linked prescriptions, and latest actual-log revisions.
+- Consequence: Historical review stays offline and schema-free while preserving append-only correction semantics. Personal records are recalculated from clean latest logs and exclude limiting outcomes; editing historical entries remains assigned to P4-09.
+
+## D-049 — Append-Only Historical Corrections
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Correct historical set results by appending a new `actual_set_logs` revision for the same session set and linking it to the previous latest log through `supersedesLogId`.
+- Consequence: The Progress screen can fix incorrect historical repetitions, load, RIR, or outcome without destructive edits. Latest-revision read models update immediately, while earlier evidence remains available in revision history for later rule review and export.
+
+## D-050 — Phase 4 Resilience Acceptance
+
+- Date: 2026-07-20
+- Status: Accepted
+- Decision: Verify Phase 4 workout execution, history review, and historical correction with application-level airplane-mode tests and file-backed process-recovery tests.
+- Consequence: Session start, set logging, Progress history, append-only corrections, and personal-record recalculation are proven local-only and recoverable before the workout MVP build checkpoint. Rest-timer replay and completed-session lifecycle remain separate later tasks.

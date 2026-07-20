@@ -159,6 +159,281 @@ void main() {
     expect(await database.select(database.actualSetLogs).get(), hasLength(2));
   });
 
+  test('set completion and actual log are stored atomically', () async {
+    await _saveProgramGraph(container, now);
+    final repository = container.read(workoutRepositoryProvider);
+    final session = WorkoutSessionRecord(
+      id: 'session-1',
+      profileId: 'profile-1',
+      programId: 'program-1',
+      programVersionId: 'version-1',
+      lifecycle: WorkoutLifecycle.inProgress,
+      scheduledAt: now,
+      startedAt: now,
+      createdAt: now,
+      updatedAt: now,
+    );
+    final plannedSet = SessionSetRecord(
+      id: 'session-set-1',
+      sessionId: session.id,
+      prescribedSetId: 'prescribed-set-1',
+      exerciseId: 'barbell-bench-press',
+      exerciseOrder: 0,
+      setOrder: 0,
+      lifecycle: SetLifecycle.planned,
+      createdAt: now,
+      updatedAt: now,
+    );
+    await repository.saveSessionPlan(session, [plannedSet]);
+
+    await repository.completeSessionSet(
+      SessionSetRecord(
+        id: plannedSet.id,
+        sessionId: plannedSet.sessionId,
+        prescribedSetId: plannedSet.prescribedSetId,
+        exerciseId: plannedSet.exerciseId,
+        exerciseOrder: plannedSet.exerciseOrder,
+        setOrder: plannedSet.setOrder,
+        lifecycle: SetLifecycle.completed,
+        createdAt: plannedSet.createdAt,
+        updatedAt: now.add(const Duration(minutes: 5)),
+      ),
+      ActualSetLogRecord(
+        id: 'log-1',
+        sessionSetId: plannedSet.id,
+        revision: 1,
+        repetitions: 7,
+        loadKilograms: 52.5,
+        rir: 1,
+        result: SetResult.techniqueLimitation,
+        recordedAt: now.add(const Duration(minutes: 5)),
+      ),
+    );
+
+    final completedSet = await database
+        .select(database.sessionSets)
+        .getSingle();
+    final logs = await repository.getActualSetLogs(plannedSet.id);
+
+    expect(completedSet.status.name, SetLifecycle.completed.name);
+    expect(completedSet.updatedAt.toUtc(), now.add(const Duration(minutes: 5)));
+    expect(logs.single.revision, 1);
+    expect(logs.single.repetitions, 7);
+    expect(logs.single.loadKilograms, 52.5);
+    expect(logs.single.rir, 1);
+    expect(logs.single.result, SetResult.techniqueLimitation);
+  });
+
+  test('set completion accepts an outcome-only actual log', () async {
+    await _saveProgramGraph(container, now);
+    final repository = container.read(workoutRepositoryProvider);
+    final session = WorkoutSessionRecord(
+      id: 'session-1',
+      profileId: 'profile-1',
+      programId: 'program-1',
+      programVersionId: 'version-1',
+      lifecycle: WorkoutLifecycle.inProgress,
+      scheduledAt: now,
+      startedAt: now,
+      createdAt: now,
+      updatedAt: now,
+    );
+    final plannedSet = SessionSetRecord(
+      id: 'session-set-1',
+      sessionId: session.id,
+      prescribedSetId: 'prescribed-set-1',
+      exerciseId: 'barbell-bench-press',
+      exerciseOrder: 0,
+      setOrder: 0,
+      lifecycle: SetLifecycle.planned,
+      createdAt: now,
+      updatedAt: now,
+    );
+    await repository.saveSessionPlan(session, [plannedSet]);
+
+    await repository.completeSessionSet(
+      SessionSetRecord(
+        id: plannedSet.id,
+        sessionId: plannedSet.sessionId,
+        prescribedSetId: plannedSet.prescribedSetId,
+        exerciseId: plannedSet.exerciseId,
+        exerciseOrder: plannedSet.exerciseOrder,
+        setOrder: plannedSet.setOrder,
+        lifecycle: SetLifecycle.completed,
+        createdAt: plannedSet.createdAt,
+        updatedAt: now.add(const Duration(minutes: 5)),
+      ),
+      ActualSetLogRecord(
+        id: 'log-1',
+        sessionSetId: plannedSet.id,
+        revision: 1,
+        result: SetResult.externalInterruption,
+        recordedAt: now.add(const Duration(minutes: 5)),
+      ),
+    );
+
+    final completedSet = await database
+        .select(database.sessionSets)
+        .getSingle();
+    final logs = await repository.getActualSetLogs(plannedSet.id);
+
+    expect(completedSet.status.name, SetLifecycle.completed.name);
+    expect(logs.single.repetitions, isNull);
+    expect(logs.single.loadKilograms, isNull);
+    expect(logs.single.rir, isNull);
+    expect(logs.single.result, SetResult.externalInterruption);
+  });
+
+  test(
+    'exercise performance history excludes the active session and uses latest revisions',
+    () async {
+      await _saveProgramGraph(container, now);
+      final repository = container.read(workoutRepositoryProvider);
+      final previousAt = now.subtract(const Duration(days: 7));
+      final previousSession = WorkoutSessionRecord(
+        id: 'previous-session',
+        profileId: 'profile-1',
+        programId: 'program-1',
+        programVersionId: 'version-1',
+        lifecycle: WorkoutLifecycle.completed,
+        scheduledAt: previousAt,
+        startedAt: previousAt,
+        endedAt: previousAt.add(const Duration(hours: 1)),
+        createdAt: previousAt,
+        updatedAt: previousAt.add(const Duration(hours: 1)),
+      );
+      final previousSet = SessionSetRecord(
+        id: 'previous-set-1',
+        sessionId: previousSession.id,
+        prescribedSetId: 'prescribed-set-1',
+        exerciseId: 'barbell-bench-press',
+        exerciseOrder: 0,
+        setOrder: 0,
+        lifecycle: SetLifecycle.completed,
+        createdAt: previousAt,
+        updatedAt: previousAt.add(const Duration(minutes: 5)),
+      );
+      final activeSession = WorkoutSessionRecord(
+        id: 'active-session',
+        profileId: 'profile-1',
+        programId: 'program-1',
+        programVersionId: 'version-1',
+        lifecycle: WorkoutLifecycle.inProgress,
+        scheduledAt: now,
+        startedAt: now,
+        createdAt: now,
+        updatedAt: now,
+      );
+      final activeSet = SessionSetRecord(
+        id: 'active-set-1',
+        sessionId: activeSession.id,
+        prescribedSetId: 'prescribed-set-1',
+        exerciseId: 'barbell-bench-press',
+        exerciseOrder: 0,
+        setOrder: 0,
+        lifecycle: SetLifecycle.completed,
+        createdAt: now,
+        updatedAt: now.add(const Duration(minutes: 5)),
+      );
+
+      await repository.saveSessionPlan(previousSession, [previousSet]);
+      await repository.appendActualSetLog(
+        ActualSetLogRecord(
+          id: 'previous-log-1',
+          sessionSetId: previousSet.id,
+          revision: 1,
+          repetitions: 6,
+          loadKilograms: 50,
+          rir: 2,
+          recordedAt: previousAt.add(const Duration(minutes: 5)),
+        ),
+      );
+      await repository.appendActualSetLog(
+        ActualSetLogRecord(
+          id: 'previous-log-2',
+          sessionSetId: previousSet.id,
+          revision: 2,
+          repetitions: 7,
+          loadKilograms: 52.5,
+          rir: 1,
+          supersedesLogId: 'previous-log-1',
+          recordedAt: now.add(const Duration(minutes: 30)),
+        ),
+      );
+      final recentPreviousAt = now.subtract(const Duration(days: 1));
+      final recentPreviousSession = WorkoutSessionRecord(
+        id: 'recent-previous-session',
+        profileId: 'profile-1',
+        programId: 'program-1',
+        programVersionId: 'version-1',
+        lifecycle: WorkoutLifecycle.completed,
+        scheduledAt: recentPreviousAt,
+        startedAt: recentPreviousAt,
+        endedAt: recentPreviousAt.add(const Duration(hours: 1)),
+        createdAt: recentPreviousAt,
+        updatedAt: recentPreviousAt.add(const Duration(hours: 1)),
+      );
+      final recentPreviousSet = SessionSetRecord(
+        id: 'recent-previous-set-1',
+        sessionId: recentPreviousSession.id,
+        prescribedSetId: 'prescribed-set-1',
+        exerciseId: 'barbell-bench-press',
+        exerciseOrder: 0,
+        setOrder: 0,
+        lifecycle: SetLifecycle.completed,
+        createdAt: recentPreviousAt,
+        updatedAt: recentPreviousAt.add(const Duration(minutes: 5)),
+      );
+      await repository.saveSessionPlan(recentPreviousSession, [
+        recentPreviousSet,
+      ]);
+      await repository.appendActualSetLog(
+        ActualSetLogRecord(
+          id: 'recent-previous-log-1',
+          sessionSetId: recentPreviousSet.id,
+          revision: 1,
+          repetitions: 8,
+          loadKilograms: 55,
+          rir: 1,
+          recordedAt: recentPreviousAt.add(const Duration(minutes: 5)),
+        ),
+      );
+      await repository.saveSessionPlan(activeSession, [activeSet]);
+      await repository.appendActualSetLog(
+        ActualSetLogRecord(
+          id: 'active-log-1',
+          sessionSetId: activeSet.id,
+          revision: 1,
+          repetitions: 8,
+          loadKilograms: 55,
+          rir: 1,
+          recordedAt: now.add(const Duration(minutes: 5)),
+        ),
+      );
+
+      final history = await repository.getExercisePerformanceHistory(
+        profileId: 'profile-1',
+        exerciseId: 'barbell-bench-press',
+        excludedSessionId: activeSession.id,
+      );
+
+      expect(history, hasLength(2));
+      expect(history.first.sessionId, recentPreviousSession.id);
+      expect(history.first.sessionSetId, recentPreviousSet.id);
+      expect(history.first.setOrder, 0);
+      expect(history.first.log.repetitions, 8);
+      expect(history.first.log.loadKilograms, 55);
+      expect(history.first.log.rir, 1);
+      expect(history.last.sessionId, previousSession.id);
+      expect(history.last.sessionSetId, previousSet.id);
+      expect(history.last.setOrder, 0);
+      expect(history.last.log.revision, 2);
+      expect(history.last.log.repetitions, 7);
+      expect(history.last.log.loadKilograms, 52.5);
+      expect(history.last.log.rir, 1);
+    },
+  );
+
   test(
     'removing a program template preserves session history and actual logs',
     () async {

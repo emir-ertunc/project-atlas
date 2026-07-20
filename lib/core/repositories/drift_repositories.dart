@@ -60,12 +60,15 @@ final class DriftProgramRepository implements ProgramRepository {
 
   @override
   Stream<List<ProgramRecord>> watchPrograms(String profileId) {
-    final query = _database.select(_database.programs)
-      ..where((row) => row.profileId.equals(profileId))
-      ..orderBy([(row) => OrderingTerm.desc(row.updatedAt)]);
-    return query.watch().map(
-      (rows) => rows.map(_programFromRow).toList(growable: false),
-    );
+    return _programsQuery(
+      profileId,
+    ).watch().map((rows) => rows.map(_programFromRow).toList(growable: false));
+  }
+
+  @override
+  Future<List<ProgramRecord>> getPrograms(String profileId) async {
+    final rows = await _programsQuery(profileId).get();
+    return rows.map(_programFromRow).toList(growable: false);
   }
 
   @override
@@ -78,36 +81,43 @@ final class DriftProgramRepository implements ProgramRepository {
 
   @override
   Stream<List<ProgramVersionRecord>> watchVersions(String programId) {
-    final query = _database.select(_database.programVersions)
-      ..where((row) => row.programId.equals(programId))
-      ..orderBy([(row) => OrderingTerm.desc(row.versionNumber)]);
-    return query.watch().map(
+    return _versionsQuery(programId).watch().map(
       (rows) => rows.map(_programVersionFromRow).toList(growable: false),
     );
   }
 
   @override
+  Future<List<ProgramVersionRecord>> getVersions(String programId) async {
+    final rows = await _versionsQuery(programId).get();
+    return rows.map(_programVersionFromRow).toList(growable: false);
+  }
+
+  @override
   Stream<List<ProgramTrainingDayRecord>> watchTrainingDays(String versionId) {
-    final query = _database.select(_database.programVersionTrainingDays)
-      ..where((row) => row.programVersionId.equals(versionId))
-      ..orderBy([(row) => OrderingTerm.asc(row.trainingDayOrder)]);
-    return query.watch().map(
+    return _trainingDaysQuery(versionId).watch().map(
       (rows) => rows.map(_programTrainingDayFromRow).toList(growable: false),
     );
   }
 
   @override
+  Future<List<ProgramTrainingDayRecord>> getTrainingDays(
+    String versionId,
+  ) async {
+    final rows = await _trainingDaysQuery(versionId).get();
+    return rows.map(_programTrainingDayFromRow).toList(growable: false);
+  }
+
+  @override
   Stream<List<PrescribedSetRecord>> watchPrescription(String versionId) {
-    final query = _database.select(_database.prescribedSets)
-      ..where((row) => row.programVersionId.equals(versionId))
-      ..orderBy([
-        (row) => OrderingTerm.asc(row.trainingDayOrder),
-        (row) => OrderingTerm.asc(row.exerciseOrder),
-        (row) => OrderingTerm.asc(row.setOrder),
-      ]);
-    return query.watch().map(
+    return _prescriptionQuery(versionId).watch().map(
       (rows) => rows.map(_prescribedSetFromRow).toList(growable: false),
     );
+  }
+
+  @override
+  Future<List<PrescribedSetRecord>> getPrescription(String versionId) async {
+    final rows = await _prescriptionQuery(versionId).get();
+    return rows.map(_prescribedSetFromRow).toList(growable: false);
   }
 
   @override
@@ -218,6 +228,42 @@ final class DriftProgramRepository implements ProgramRepository {
       });
     }
   }
+
+  SimpleSelectStatement<$ProgramsTable, ProgramRow> _programsQuery(
+    String profileId,
+  ) {
+    return _database.select(_database.programs)
+      ..where((row) => row.profileId.equals(profileId))
+      ..orderBy([(row) => OrderingTerm.desc(row.updatedAt)]);
+  }
+
+  SimpleSelectStatement<$ProgramVersionsTable, ProgramVersionRow>
+  _versionsQuery(String programId) {
+    return _database.select(_database.programVersions)
+      ..where((row) => row.programId.equals(programId))
+      ..orderBy([(row) => OrderingTerm.desc(row.versionNumber)]);
+  }
+
+  SimpleSelectStatement<
+    $ProgramVersionTrainingDaysTable,
+    ProgramVersionTrainingDayRow
+  >
+  _trainingDaysQuery(String versionId) {
+    return _database.select(_database.programVersionTrainingDays)
+      ..where((row) => row.programVersionId.equals(versionId))
+      ..orderBy([(row) => OrderingTerm.asc(row.trainingDayOrder)]);
+  }
+
+  SimpleSelectStatement<$PrescribedSetsTable, PrescribedSetRow>
+  _prescriptionQuery(String versionId) {
+    return _database.select(_database.prescribedSets)
+      ..where((row) => row.programVersionId.equals(versionId))
+      ..orderBy([
+        (row) => OrderingTerm.asc(row.trainingDayOrder),
+        (row) => OrderingTerm.asc(row.exerciseOrder),
+        (row) => OrderingTerm.asc(row.setOrder),
+      ]);
+  }
 }
 
 final class DriftWorkoutRepository implements WorkoutRepository {
@@ -227,38 +273,90 @@ final class DriftWorkoutRepository implements WorkoutRepository {
 
   @override
   Stream<List<WorkoutSessionRecord>> watchSessions(String profileId) {
-    final query = _database.select(_database.workoutSessions)
-      ..where((row) => row.profileId.equals(profileId))
-      ..orderBy([
-        (row) => OrderingTerm.desc(row.scheduledAt),
-        (row) => OrderingTerm.desc(row.createdAt),
-      ]);
-    return query.watch().map(
+    return _sessionsQuery(profileId).watch().map(
       (rows) => rows.map(_workoutSessionFromRow).toList(growable: false),
     );
   }
 
   @override
+  Future<List<WorkoutSessionRecord>> getSessions(String profileId) async {
+    final rows = await _sessionsQuery(profileId).get();
+    return rows.map(_workoutSessionFromRow).toList(growable: false);
+  }
+
+  @override
   Stream<List<SessionSetRecord>> watchSessionSets(String sessionId) {
-    final query = _database.select(_database.sessionSets)
-      ..where((row) => row.sessionId.equals(sessionId))
-      ..orderBy([
-        (row) => OrderingTerm.asc(row.exerciseOrder),
-        (row) => OrderingTerm.asc(row.setOrder),
-      ]);
-    return query.watch().map(
+    return _sessionSetsQuery(sessionId).watch().map(
       (rows) => rows.map(_sessionSetFromRow).toList(growable: false),
     );
   }
 
   @override
+  Future<List<SessionSetRecord>> getSessionSets(String sessionId) async {
+    final rows = await _sessionSetsQuery(sessionId).get();
+    return rows.map(_sessionSetFromRow).toList(growable: false);
+  }
+
+  @override
   Stream<List<ActualSetLogRecord>> watchActualSetLogs(String sessionSetId) {
-    final query = _database.select(_database.actualSetLogs)
-      ..where((row) => row.sessionSetId.equals(sessionSetId))
-      ..orderBy([(row) => OrderingTerm.asc(row.revision)]);
-    return query.watch().map(
+    return _actualSetLogsQuery(sessionSetId).watch().map(
       (rows) => rows.map(_actualSetLogFromRow).toList(growable: false),
     );
+  }
+
+  @override
+  Future<List<ActualSetLogRecord>> getActualSetLogs(String sessionSetId) async {
+    final rows = await _actualSetLogsQuery(sessionSetId).get();
+    return rows.map(_actualSetLogFromRow).toList(growable: false);
+  }
+
+  @override
+  Future<List<ExerciseSetPerformanceRecord>> getExercisePerformanceHistory({
+    required String profileId,
+    required String exerciseId,
+    String? excludedSessionId,
+    int limit = 50,
+  }) async {
+    if (limit <= 0) {
+      return const [];
+    }
+
+    final sessions = await getSessions(profileId);
+    final history = <ExerciseSetPerformanceRecord>[];
+    for (final session in sessions) {
+      if (session.id == excludedSessionId) {
+        continue;
+      }
+
+      final sets = await getSessionSets(session.id);
+      for (final set in sets) {
+        if (set.exerciseId != exerciseId) {
+          continue;
+        }
+
+        final latestLog = _latestActualSetLog(await getActualSetLogs(set.id));
+        if (latestLog == null) {
+          continue;
+        }
+
+        history.add(
+          ExerciseSetPerformanceRecord(
+            sessionId: session.id,
+            sessionSetId: set.id,
+            exerciseId: set.exerciseId,
+            setOrder: set.setOrder,
+            sessionLifecycle: session.lifecycle,
+            sessionCreatedAt: session.createdAt,
+            sessionScheduledAt: session.scheduledAt,
+            sessionStartedAt: session.startedAt,
+            log: latestLog,
+          ),
+        );
+      }
+    }
+
+    history.sort(_comparePerformanceDescending);
+    return List.unmodifiable(history.take(limit));
   }
 
   @override
@@ -305,7 +403,51 @@ final class DriftWorkoutRepository implements WorkoutRepository {
   }
 
   @override
+  Future<void> completeSessionSet(
+    SessionSetRecord completedSet,
+    ActualSetLogRecord log,
+  ) async {
+    if (completedSet.id != log.sessionSetId) {
+      throw ArgumentError.value(
+        log,
+        'log',
+        'The actual set log must belong to the completed session set.',
+      );
+    }
+    if (completedSet.lifecycle != SetLifecycle.completed) {
+      throw ArgumentError.value(
+        completedSet,
+        'completedSet',
+        'The session set must be marked completed before it is saved.',
+      );
+    }
+
+    await _database.transaction(() async {
+      final updatedRows =
+          await (_database.update(
+            _database.sessionSets,
+          )..where((row) => row.id.equals(completedSet.id))).write(
+            SessionSetsCompanion(
+              status: Value(
+                _enumByName(SessionSetStatus.values, completedSet.lifecycle),
+              ),
+              updatedAt: Value(_asUtc(completedSet.updatedAt)),
+            ),
+          );
+      if (updatedRows != 1) {
+        throw StateError('Session set ${completedSet.id} was not found.');
+      }
+
+      await _insertActualSetLog(log);
+    });
+  }
+
+  @override
   Future<void> appendActualSetLog(ActualSetLogRecord log) async {
+    await _insertActualSetLog(log);
+  }
+
+  Future<void> _insertActualSetLog(ActualSetLogRecord log) async {
     await _database
         .into(_database.actualSetLogs)
         .insert(
@@ -326,6 +468,34 @@ final class DriftWorkoutRepository implements WorkoutRepository {
             recordedAt: Value(_asUtc(log.recordedAt)),
           ),
         );
+  }
+
+  SimpleSelectStatement<$ActualSetLogsTable, ActualSetLogRow>
+  _actualSetLogsQuery(String sessionSetId) {
+    return _database.select(_database.actualSetLogs)
+      ..where((row) => row.sessionSetId.equals(sessionSetId))
+      ..orderBy([(row) => OrderingTerm.asc(row.revision)]);
+  }
+
+  SimpleSelectStatement<$WorkoutSessionsTable, WorkoutSessionRow>
+  _sessionsQuery(String profileId) {
+    return _database.select(_database.workoutSessions)
+      ..where((row) => row.profileId.equals(profileId))
+      ..orderBy([
+        (row) => OrderingTerm.desc(row.scheduledAt),
+        (row) => OrderingTerm.desc(row.createdAt),
+      ]);
+  }
+
+  SimpleSelectStatement<$SessionSetsTable, SessionSetRow> _sessionSetsQuery(
+    String sessionId,
+  ) {
+    return _database.select(_database.sessionSets)
+      ..where((row) => row.sessionId.equals(sessionId))
+      ..orderBy([
+        (row) => OrderingTerm.asc(row.exerciseOrder),
+        (row) => OrderingTerm.asc(row.setOrder),
+      ]);
   }
 }
 
@@ -517,6 +687,45 @@ ActualSetLogRecord _actualSetLogFromRow(ActualSetLogRow row) =>
       supersedesLogId: row.supersedesLogId,
       recordedAt: _asUtc(row.recordedAt),
     );
+
+ActualSetLogRecord? _latestActualSetLog(List<ActualSetLogRecord> logs) {
+  if (logs.isEmpty) {
+    return null;
+  }
+
+  var latest = logs.first;
+  for (final log in logs.skip(1)) {
+    if (log.revision > latest.revision) {
+      latest = log;
+    }
+  }
+  return latest;
+}
+
+int _comparePerformanceDescending(
+  ExerciseSetPerformanceRecord left,
+  ExerciseSetPerformanceRecord right,
+) {
+  final sessionComparison = _sessionPerformanceTime(
+    right,
+  ).compareTo(_sessionPerformanceTime(left));
+  if (sessionComparison != 0) {
+    return sessionComparison;
+  }
+
+  final recordedComparison = right.performedAt.compareTo(left.performedAt);
+  if (recordedComparison != 0) {
+    return recordedComparison;
+  }
+
+  return left.setOrder.compareTo(right.setOrder);
+}
+
+DateTime _sessionPerformanceTime(ExerciseSetPerformanceRecord performance) {
+  return performance.sessionStartedAt ??
+      performance.sessionScheduledAt ??
+      performance.sessionCreatedAt;
+}
 
 MeasurementRecord _measurementFromRow(MeasurementRecordRow row) =>
     MeasurementRecord(

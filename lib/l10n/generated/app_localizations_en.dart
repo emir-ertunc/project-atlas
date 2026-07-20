@@ -24,6 +24,146 @@ class AppLocalizationsEn extends AppLocalizations {
   String get progressNavigationLabel => 'Progress';
 
   @override
+  String get progressScreenSubtitle =>
+      'Review workout history, inspect set results, and track personal records.';
+
+  @override
+  String get progressHistoryTitle => 'Workout history';
+
+  @override
+  String get progressHistoryEmptyTitle => 'No workout history yet';
+
+  @override
+  String get progressHistoryEmptyMessage =>
+      'Complete sets from the Today tab to build your local history.';
+
+  @override
+  String get progressHistoryLoadError => 'Workout history could not load.';
+
+  @override
+  String get progressUnnamedSession => 'Workout session';
+
+  @override
+  String progressSessionSummary(
+    String status,
+    int completedSetCount,
+    int setCount,
+  ) {
+    return '$status · $completedSetCount of $setCount sets logged';
+  }
+
+  @override
+  String progressSetButtonLabel(String exerciseName, int setNumber) {
+    return '$exerciseName set $setNumber';
+  }
+
+  @override
+  String get progressSetDetailsTitle => 'Set details';
+
+  @override
+  String get progressSetDetailsEmpty =>
+      'Select a set from workout history to inspect its result.';
+
+  @override
+  String progressSetDetailSession(String sessionName, String dateTime) {
+    return '$sessionName · $dateTime';
+  }
+
+  @override
+  String progressSetDetailStatus(String status) {
+    return 'Status: $status';
+  }
+
+  @override
+  String progressSetDetailTarget(String target) {
+    return '$target';
+  }
+
+  @override
+  String progressSetDetailLatest(String latest) {
+    return '$latest';
+  }
+
+  @override
+  String progressSetDetailRevisionCount(int revisionCount) {
+    return '$revisionCount revisions';
+  }
+
+  @override
+  String get progressNoActualLog => 'No actual result logged';
+
+  @override
+  String get progressRevisionHistoryTitle => 'Revision history';
+
+  @override
+  String progressRevisionRow(int revision, String result) {
+    return 'Revision $revision: $result';
+  }
+
+  @override
+  String progressRevisionSupersedes(String logId) {
+    return 'Supersedes $logId';
+  }
+
+  @override
+  String get progressCorrectionTitle => 'Correct logged result';
+
+  @override
+  String get progressCorrectionDescription =>
+      'Saving a correction adds a new revision. Earlier logs stay preserved.';
+
+  @override
+  String get progressCorrectionUnavailable =>
+      'Only completed sets with a logged result can be corrected.';
+
+  @override
+  String get progressCorrectionRepetitionsLabel => 'Corrected reps';
+
+  @override
+  String get progressCorrectionLoadLabel => 'Corrected load';
+
+  @override
+  String get progressCorrectionRirLabel => 'Corrected RIR';
+
+  @override
+  String get progressCorrectionOutcomeLabel => 'Corrected outcome';
+
+  @override
+  String get progressCorrectionSave => 'Save correction';
+
+  @override
+  String get progressCorrectionSaved => 'Correction saved as a new revision.';
+
+  @override
+  String get progressCorrectionFailed => 'Correction could not be saved.';
+
+  @override
+  String get progressCorrectionInvalid =>
+      'Enter valid reps, load, and RIR values.';
+
+  @override
+  String get progressPersonalRecordsTitle => 'Personal records';
+
+  @override
+  String get progressPersonalRecordsEmpty =>
+      'No personal records yet. Complete clean sets with reps or load to start tracking records.';
+
+  @override
+  String progressBestLoad(String load) {
+    return 'Best load: $load';
+  }
+
+  @override
+  String progressBestRepetitions(int repetitions) {
+    return 'Best reps: $repetitions';
+  }
+
+  @override
+  String progressBestVolume(String volume) {
+    return 'Best volume: $volume';
+  }
+
+  @override
   String get settingsNavigationLabel => 'Settings';
 
   @override
@@ -441,4 +581,284 @@ class AppLocalizationsEn extends AppLocalizations {
   String programBuilderCopiedProgramName(String programName) {
     return '$programName copy';
   }
+
+  @override
+  String get todayScreenSubtitle =>
+      'Start the next local workout from your active program.';
+
+  @override
+  String get todayNoActiveProgramTitle => 'No active program yet';
+
+  @override
+  String get todayNoActiveProgramMessage =>
+      'Publish a program version in the Program tab before starting a workout.';
+
+  @override
+  String get todayOpenProgramBuilder => 'Open Program';
+
+  @override
+  String todayActiveProgramSummary(int versionNumber, int dayCount) {
+    return 'Active version $versionNumber · $dayCount training days';
+  }
+
+  @override
+  String get todayChooseTrainingDay => 'Choose training day';
+
+  @override
+  String todayTrainingDaySummary(int exerciseCount, int setCount) {
+    return '$exerciseCount exercises · $setCount planned sets';
+  }
+
+  @override
+  String get todayStartWorkout => 'Start workout';
+
+  @override
+  String get todaySessionStarted => 'Workout session started.';
+
+  @override
+  String get todaySessionStartFailed => 'Workout could not be started.';
+
+  @override
+  String get todayLoadError => 'Today could not load.';
+
+  @override
+  String get todayRetry => 'Retry';
+
+  @override
+  String todayFixedRepetitions(int repetitions) {
+    return '$repetitions reps';
+  }
+
+  @override
+  String todayRangeRepetitions(int minimumRepetitions, int maximumRepetitions) {
+    return '$minimumRepetitions-$maximumRepetitions reps';
+  }
+
+  @override
+  String todayExercisePrescriptionSummary(
+    int setCount,
+    String repetitionTarget,
+    String rirTarget,
+    String loadTarget,
+    int restSeconds,
+  ) {
+    return '$setCount sets · $repetitionTarget · $rirTarget · $loadTarget · $restSeconds sec rest';
+  }
+
+  @override
+  String get todayNoExercisesTitle => 'No exercises on this day';
+
+  @override
+  String get todayNoExercisesMessage =>
+      'Add exercises to this training day before starting a session.';
+
+  @override
+  String get todaySessionInProgressTitle => 'Session in progress';
+
+  @override
+  String todaySessionInProgressSummary(int exerciseCount, int setCount) {
+    return '$exerciseCount exercises · $setCount planned sets';
+  }
+
+  @override
+  String get todaySessionInProgressMessage =>
+      'Record each set as you finish it. Completed sets are saved locally with their actual result.';
+
+  @override
+  String get todaySessionRestoredMessage =>
+      'This in-progress workout was restored from local storage.';
+
+  @override
+  String todaySessionStatusLabel(String status) {
+    return 'Session status: $status';
+  }
+
+  @override
+  String todayExerciseStatusLabel(String status) {
+    return 'Exercise status: $status';
+  }
+
+  @override
+  String todaySetStatusLabel(String status) {
+    return 'Set status: $status';
+  }
+
+  @override
+  String get todayStatusPending => 'Pending';
+
+  @override
+  String get todayStatusNotStarted => 'Not started';
+
+  @override
+  String get todayStatusInProgress => 'In progress';
+
+  @override
+  String get todayStatusSuccessful => 'Successful';
+
+  @override
+  String get todayStatusTargetMet => 'Target met';
+
+  @override
+  String get todayStatusNeedsReview => 'Needs review';
+
+  @override
+  String get todayStatusPerformanceMiss => 'Performance miss';
+
+  @override
+  String get todayStatusInterrupted => 'Interrupted';
+
+  @override
+  String get todayStatusPainReported => 'Pain reported';
+
+  @override
+  String get todayStatusNotComparable => 'Logged, not comparable';
+
+  @override
+  String todaySetProgressSummary(int completedSetCount, int setCount) {
+    return '$completedSetCount of $setCount sets completed';
+  }
+
+  @override
+  String todayExerciseActiveSetSummary(int setCount) {
+    return '$setCount sets to log';
+  }
+
+  @override
+  String todaySessionSetLabel(int setNumber) {
+    return 'Set $setNumber';
+  }
+
+  @override
+  String get todayActualRepetitionsLabel => 'Actual reps';
+
+  @override
+  String get todayActualLoadLabel => 'Actual load';
+
+  @override
+  String get todayActualRirLabel => 'Actual RIR';
+
+  @override
+  String get todayOutcomeLabel => 'Outcome';
+
+  @override
+  String get todayOutcomeNone => 'No limitation';
+
+  @override
+  String get todayOutcomeStrengthLimitation => 'Strength limitation';
+
+  @override
+  String get todayOutcomeTechniqueLimitation => 'Technique limitation';
+
+  @override
+  String get todayOutcomePain => 'Pain';
+
+  @override
+  String get todayOutcomeTimeLimitation => 'Time limitation';
+
+  @override
+  String get todayOutcomeEquipmentLimitation => 'Equipment limitation';
+
+  @override
+  String get todayOutcomeExternalInterruption => 'External interruption';
+
+  @override
+  String get todayCompleteSet => 'Complete set';
+
+  @override
+  String todaySetPrescriptionSummary(
+    String repetitionTarget,
+    String rirTarget,
+    String loadTarget,
+  ) {
+    return 'Target: $repetitionTarget · $rirTarget · $loadTarget';
+  }
+
+  @override
+  String get todaySetPrescriptionUnavailable => 'Target unavailable';
+
+  @override
+  String todayPreviousPerformanceSummary(
+    String repetitionTarget,
+    String loadTarget,
+    String rirTarget,
+    String outcomeTarget,
+  ) {
+    return 'Previous: $repetitionTarget · $loadTarget · $rirTarget · $outcomeTarget';
+  }
+
+  @override
+  String get todayPreviousPerformanceUnavailable =>
+      'Previous: no logged set yet';
+
+  @override
+  String get todayRepetitionsNotRecorded => 'reps not recorded';
+
+  @override
+  String todaySetActualSummary(
+    String repetitionTarget,
+    String loadTarget,
+    String rirTarget,
+    String outcomeTarget,
+  ) {
+    return 'Logged: $repetitionTarget · $loadTarget · $rirTarget · $outcomeTarget';
+  }
+
+  @override
+  String get todaySetLogSaved => 'Set logged.';
+
+  @override
+  String get todaySetLogFailed => 'Set could not be logged.';
+
+  @override
+  String get todaySetLogInvalid => 'Enter valid reps, load, and RIR values.';
+
+  @override
+  String get todayQuickLoadDecrease => 'Decrease load';
+
+  @override
+  String get todayQuickLoadIncrease => 'Increase load';
+
+  @override
+  String get todayRestTimerTitle => 'Rest timer';
+
+  @override
+  String todayRestTimerRunning(
+    String exerciseName,
+    int setNumber,
+    String remainingTime,
+  ) {
+    return 'Rest after $exerciseName set $setNumber: $remainingTime';
+  }
+
+  @override
+  String get todayRestTimerComplete =>
+      'Rest complete. Start the next set when ready.';
+
+  @override
+  String get todayRestTimerDismiss => 'Dismiss';
+
+  @override
+  String get todayRestTimerNotificationTitle => 'Rest complete';
+
+  @override
+  String get todayRestTimerNotificationBody => 'Time for your next set.';
+
+  @override
+  String get todayRestTimerNotificationScheduled =>
+      'Background alert scheduled.';
+
+  @override
+  String get todayRestTimerNotificationPermissionDenied =>
+      'Enable notifications to receive rest alerts in the background.';
+
+  @override
+  String get todayRestTimerNotificationUnsupported =>
+      'Background alert unavailable on this device.';
+
+  @override
+  String get todayRestTimerNotificationFailed =>
+      'Background alert could not be scheduled.';
+
+  @override
+  String get todayRestTimerNotificationSkipped => 'No rest alert needed.';
 }

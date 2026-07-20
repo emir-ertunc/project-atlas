@@ -1,9 +1,12 @@
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_atlas/app/navigation/main_navigation_shell.dart';
 import 'package:project_atlas/app/project_atlas_app.dart';
+import 'package:project_atlas/core/database/app_database.dart';
+import 'package:project_atlas/core/database/database_providers.dart';
 import 'package:project_atlas/core/design_system/tokens/app_color_tokens.dart';
 import 'package:project_atlas/core/localization/locale_provider.dart';
 import 'package:project_atlas/features/anatomy/presentation/anatomy_screen.dart';
@@ -24,9 +27,13 @@ void main() {
   });
 
   Future<void> pumpApp(WidgetTester tester, Locale locale) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          appDatabaseProvider.overrideWithValue(database),
           appLocaleProvider.overrideWithValue(locale),
           exerciseCatalogProvider.overrideWith((ref) => testCatalog),
         ],

@@ -72,18 +72,20 @@
 
 ## Phase 4 — Active Workout and History
 
-- [ ] P4-01 Build the Today screen and session start flow.
-- [ ] P4-02 Add set-level repetition, load, RIR, and completion logging.
-- [ ] P4-03 Show previous performance beside the current prescription.
-- [ ] P4-04 Add strength, technique, pain, time, equipment, and interruption outcomes.
-- [ ] P4-05 Add rest timers, background notifications, and quick load editing.
-- [ ] P4-06 Restore active sessions after process termination.
-- [ ] P4-07 Calculate separate set, exercise, and session statuses.
-- [ ] P4-08 Build history, set details, and personal-record views.
-- [ ] P4-09 Correct historical entries through revisions instead of destructive edits.
-- [ ] P4-10 Complete airplane-mode and process-recovery tests.
-- [ ] P4-11 Produce the workout MVP APK. **Build C2**
-- [ ] P4-12 Commit, push, open the pull request, and verify CI.
+- [x] P4-01 Build the Today screen and session start flow.
+- [x] P4-02 Add set-level repetition, load, RIR, and completion logging.
+- [x] P4-03 Show previous performance beside the current prescription.
+- [x] P4-04 Add strength, technique, pain, time, equipment, and interruption outcomes.
+- [x] P4-05 Add rest timers, background notifications, and quick load editing.
+- [x] P4-06 Restore active sessions after process termination.
+- [x] P4-07 Calculate separate set, exercise, and session statuses.
+- [x] P4-08 Build history, set details, and personal-record views.
+- [x] P4-09 Correct historical entries through revisions instead of destructive edits.
+- [x] P4-10 Complete airplane-mode and process-recovery tests.
+- [x] P4-11 Produce the workout MVP APK. **Build C2**
+- [x] P4-12 Commit, push, open the pull request, and verify CI.
+- Phase 4 validation record:
+  [`docs/PHASE_4_VALIDATION.md`](PHASE_4_VALIDATION.md)
 
 ## Phase 5 — Adaptive Programming and Availability Engine
 

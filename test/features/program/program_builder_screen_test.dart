@@ -508,6 +508,13 @@ final class _MemoryProgramRepository implements ProgramRepository {
   }
 
   @override
+  Future<List<ProgramRecord>> getPrograms(String profileId) async {
+    return _programs.values
+        .where((program) => program.profileId == profileId)
+        .toList(growable: false);
+  }
+
+  @override
   Future<ProgramRecord?> getProgram(String programId) async {
     return _programs[programId];
   }
@@ -520,10 +527,24 @@ final class _MemoryProgramRepository implements ProgramRepository {
   }
 
   @override
+  Future<List<ProgramVersionRecord>> getVersions(String programId) async {
+    return [...?_versionsByProgram[programId]]
+      ..sort((a, b) => b.versionNumber.compareTo(a.versionNumber));
+  }
+
+  @override
   Stream<List<ProgramTrainingDayRecord>> watchTrainingDays(String versionId) {
     final records = [...?_trainingDaysByVersion[versionId]]
       ..sort((a, b) => a.trainingDayOrder.compareTo(b.trainingDayOrder));
     return Stream.value(records);
+  }
+
+  @override
+  Future<List<ProgramTrainingDayRecord>> getTrainingDays(
+    String versionId,
+  ) async {
+    return [...?_trainingDaysByVersion[versionId]]
+      ..sort((a, b) => a.trainingDayOrder.compareTo(b.trainingDayOrder));
   }
 
   @override
@@ -541,6 +562,21 @@ final class _MemoryProgramRepository implements ProgramRepository {
         return a.setOrder.compareTo(b.setOrder);
       });
     return Stream.value(records);
+  }
+
+  @override
+  Future<List<PrescribedSetRecord>> getPrescription(String versionId) async {
+    return [...?_prescriptionByVersion[versionId]]..sort((a, b) {
+      final dayOrder = a.trainingDayOrder.compareTo(b.trainingDayOrder);
+      if (dayOrder != 0) {
+        return dayOrder;
+      }
+      final exerciseOrder = a.exerciseOrder.compareTo(b.exerciseOrder);
+      if (exerciseOrder != 0) {
+        return exerciseOrder;
+      }
+      return a.setOrder.compareTo(b.setOrder);
+    });
   }
 
   @override
