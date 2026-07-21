@@ -168,6 +168,384 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsNavigationLabel => 'Ayarlar';
 
   @override
+  String get onboardingTitle => 'Uyarlanabilir başlangıç';
+
+  @override
+  String get onboardingDescription =>
+      'Öneriler oluşturulmadan önce planlayıcının kullanacağı girişleri belirle. Bu seçimler yalnızca bu cihazda kalır.';
+
+  @override
+  String get onboardingGoalLabel => 'Ana hedef';
+
+  @override
+  String get onboardingExperienceLabel => 'Antrenman deneyimi';
+
+  @override
+  String get onboardingEquipmentLabel => 'Mevcut ekipman';
+
+  @override
+  String get onboardingSessionLengthLabel => 'Tercih edilen seans süresi';
+
+  @override
+  String get onboardingWeekdaysLabel => 'Tercih edilen antrenman günleri';
+
+  @override
+  String get onboardingSaveButton => 'Başlangıcı kaydet';
+
+  @override
+  String get onboardingSavedMessage => 'Başlangıç tercihleri kaydedildi.';
+
+  @override
+  String get onboardingSaveFailed => 'Başlangıç tercihleri kaydedilemedi.';
+
+  @override
+  String get onboardingLoadError => 'Başlangıç tercihleri yüklenemedi.';
+
+  @override
+  String onboardingSessionLengthValue(int minutes) {
+    return '$minutes dakika';
+  }
+
+  @override
+  String onboardingSavedSummary(
+    String goal,
+    String experience,
+    int minutes,
+    String weekdays,
+    String equipment,
+  ) {
+    return 'Kaydedildi: $goal, $experience, $minutes dakika, $weekdays. Ekipman: $equipment.';
+  }
+
+  @override
+  String get onboardingGoalGeneralFitness => 'Genel kondisyon';
+
+  @override
+  String get onboardingGoalHypertrophy => 'Kas gelişimi';
+
+  @override
+  String get onboardingGoalMaximumStrength => 'Maksimum güç';
+
+  @override
+  String get onboardingGoalBodyRecomposition => 'Vücut kompozisyonu';
+
+  @override
+  String get onboardingGoalMuscularEndurance => 'Kas dayanıklılığı';
+
+  @override
+  String get onboardingGoalAthleticPerformance => 'Atletik performans';
+
+  @override
+  String get onboardingGoalMaintenance => 'Korumak';
+
+  @override
+  String get onboardingExperienceNewToTraining => 'Antrenmana yeni';
+
+  @override
+  String get onboardingExperienceBeginner => 'Başlangıç';
+
+  @override
+  String get onboardingExperienceIntermediate => 'Orta seviye';
+
+  @override
+  String get onboardingExperienceAdvanced => 'İleri seviye';
+
+  @override
+  String get onboardingEquipmentBodyweight => 'Vücut ağırlığı';
+
+  @override
+  String get onboardingEquipmentDumbbells => 'Dambıl';
+
+  @override
+  String get onboardingEquipmentBarbell => 'Bar';
+
+  @override
+  String get onboardingEquipmentMachines => 'Makineler';
+
+  @override
+  String get onboardingEquipmentCableStation => 'Kablo istasyonu';
+
+  @override
+  String get onboardingEquipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get onboardingEquipmentResistanceBands => 'Direnç bantları';
+
+  @override
+  String get onboardingEquipmentCardio => 'Kardiyo ekipmanı';
+
+  @override
+  String get onboardingWeekdayMonday => 'Pazartesi';
+
+  @override
+  String get onboardingWeekdayTuesday => 'Salı';
+
+  @override
+  String get onboardingWeekdayWednesday => 'Çarşamba';
+
+  @override
+  String get onboardingWeekdayThursday => 'Perşembe';
+
+  @override
+  String get onboardingWeekdayFriday => 'Cuma';
+
+  @override
+  String get onboardingWeekdaySaturday => 'Cumartesi';
+
+  @override
+  String get onboardingWeekdaySunday => 'Pazar';
+
+  @override
+  String get calibrationBlockTitle => 'Konservatif kalibrasyon bloğu';
+
+  @override
+  String get calibrationBlockDescription =>
+      'Gelecek antrenmanı değiştiren önerilerden önce tekrarlanabilir başlangıç yüklerini bulmak için bu ilk bloğu kullan.';
+
+  @override
+  String calibrationBlockSummary(
+    int weeks,
+    int sessionsPerWeek,
+    int minimumRir,
+  ) {
+    return '$weeks hafta - haftada $sessionsPerWeek seans - en az RIR $minimumRir koru';
+  }
+
+  @override
+  String calibrationBlockSessionTarget(int minutes, String weekdays) {
+    return '$minutes dakikalık hedef seanslar: $weekdays';
+  }
+
+  @override
+  String get calibrationBlockNoProgression =>
+      'Kalibrasyon sırasında yük artışı yok; önce temiz set kanıtı topla.';
+
+  @override
+  String calibrationWeekSummary(
+    int weekNumber,
+    String focus,
+    int volumePercent,
+    int minimumRir,
+  ) {
+    return 'Hafta $weekNumber: $focus - planlı hacmin %$volumePercent kadarı - RIR $minimumRir+';
+  }
+
+  @override
+  String calibrationExitRequirements(String requirements) {
+    return 'Sadece şu koşullardan sonra ilerle: $requirements.';
+  }
+
+  @override
+  String get calibrationFocusTechniqueBaseline => 'teknik başlangıç noktası';
+
+  @override
+  String get calibrationFocusRepeatableExecution => 'tekrarlanabilir uygulama';
+
+  @override
+  String get calibrationFocusStableExposure => 'stabil maruziyet';
+
+  @override
+  String get calibrationFocusPrescriptionPreview => 'reçete önizlemesi';
+
+  @override
+  String get calibrationExitPlannedWeeksCompleted =>
+      'planlanan haftalar tamamlandı';
+
+  @override
+  String get calibrationExitNoPainReports => 'ağrı bildirimi yok';
+
+  @override
+  String get calibrationExitNoRepeatedPerformanceMisses =>
+      'tekrarlanan performans kaçırma yok';
+
+  @override
+  String get calibrationExitStableRirEvidence => 'RIR kanıtı stabil';
+
+  @override
+  String get availabilityTitle => 'Haftalık müsaitlik';
+
+  @override
+  String get availabilityDescription =>
+      'Her hafta antrenmanın ne zaman sığabileceğini seç. Sabit dönemler kesin randevudur; esnek dönemler planlayıcının seansı pencere içine yerleştirmesine alan verir.';
+
+  @override
+  String get availabilityFixedPeriod => 'Sabit';
+
+  @override
+  String get availabilityFlexiblePeriod => 'Esnek';
+
+  @override
+  String get availabilityStartTimeLabel => 'Başlangıç';
+
+  @override
+  String get availabilityEndTimeLabel => 'Bitiş';
+
+  @override
+  String availabilityWindowSummary(
+    String type,
+    String startTime,
+    String endTime,
+  ) {
+    return '$type pencere: $startTime - $endTime';
+  }
+
+  @override
+  String get availabilitySaveButton => 'Müsaitliği kaydet';
+
+  @override
+  String get availabilitySavedMessage => 'Haftalık müsaitlik kaydedildi.';
+
+  @override
+  String get availabilitySaveFailed => 'Haftalık müsaitlik kaydedilemedi.';
+
+  @override
+  String get availabilityLoadError => 'Haftalık müsaitlik yüklenemedi.';
+
+  @override
+  String get availabilityLoading => 'Haftalık müsaitlik yükleniyor...';
+
+  @override
+  String get generatedProgramTitle => 'Program taslağı planlayıcı';
+
+  @override
+  String get generatedProgramDescription =>
+      'Başlangıç bilgileri, haftalık müsaitlik, ekipman, toparlanma aralığı ve konservatif hacim kurallarıyla düzenlenebilir yerel taslak oluştur.';
+
+  @override
+  String get generatedProgramAvailabilityRequired =>
+      'Program taslağı oluşturmadan önce haftalık müsaitliği kaydet.';
+
+  @override
+  String get generatedProgramCatalogLoadError =>
+      'Egzersiz kataloğu yüklenemediği için program taslağı oluşturulamıyor.';
+
+  @override
+  String get generatedProgramNoPlan =>
+      'Kaydedilmiş ekipmana uygun program oluşturulamadı. Daha fazla ekipman ekle veya müsaitliği güncelle.';
+
+  @override
+  String generatedProgramSummary(
+    int sessionsPerWeek,
+    int weeklySetTarget,
+    int maxExercisesPerSession,
+    int minimumRir,
+  ) {
+    return 'Haftada $sessionsPerWeek seans - $weeklySetTarget çalışma seti - seans başına en fazla $maxExercisesPerSession egzersiz - RIR $minimumRir+';
+  }
+
+  @override
+  String generatedProgramDaySummary(
+    String weekday,
+    String windowType,
+    String startTime,
+    String endTime,
+    int exerciseCount,
+    int setCount,
+  ) {
+    return '$weekday - $windowType $startTime-$endTime - $exerciseCount egzersiz - $setCount set';
+  }
+
+  @override
+  String generatedProgramExerciseSummary(
+    int setCount,
+    int minimumRepetitions,
+    int maximumRepetitions,
+    int targetRir,
+    int restSeconds,
+  ) {
+    return '$setCount set - $minimumRepetitions-$maximumRepetitions tekrar - RIR $targetRir - $restSeconds sn dinlenme';
+  }
+
+  @override
+  String get generatedProgramApplyDraft => 'Yerel taslak olarak uygula';
+
+  @override
+  String get generatedProgramAppliedMessage =>
+      'Program taslağı yerel olarak uygulandı. Düzenlemek, kaydetmek veya yayınlamak için Program ekranını aç.';
+
+  @override
+  String get generatedProgramReplaceDraftTitle =>
+      'Yerel taslak değiştirilsin mi?';
+
+  @override
+  String get generatedProgramReplaceDraftMessage =>
+      'Bu plan uygulanırsa mevcut kaydedilmemiş Program taslağı değişir. Kaydedilmiş versiyonlar değişmez.';
+
+  @override
+  String get generatedProgramReplaceDraftCancel => 'Mevcut taslağı koru';
+
+  @override
+  String get generatedProgramReplaceDraftConfirm => 'Taslağı değiştir';
+
+  @override
+  String generatedProgramDraftName(String goal) {
+    return '$goal taslağı';
+  }
+
+  @override
+  String get generatedProgramFocusFullBody => 'Tüm vücut';
+
+  @override
+  String get generatedProgramFocusUpperEmphasis => 'Üst vücut odaklı';
+
+  @override
+  String get generatedProgramFocusLowerEmphasis => 'Alt vücut odaklı';
+
+  @override
+  String get generatedProgramFocusPosteriorChain => 'Arka zincir';
+
+  @override
+  String get generatedProgramFocusConditioningSupport => 'Kondisyon destek';
+
+  @override
+  String get missedSessionReplacementTitle => 'Kaçırılan seans telafisi';
+
+  @override
+  String get missedSessionReplacementDescription =>
+      'Kaçırılan planlı günü seçerek en güvenli uygun telafi penceresini önizle. Bu işlem hiçbir antrenmanı taşımaz veya yayınlamaz.';
+
+  @override
+  String get missedSessionReplacementAvailabilityRequired =>
+      'Telafi penceresini önizlemeden önce haftalık müsaitliği kaydet.';
+
+  @override
+  String get missedSessionReplacementMissedDayLabel => 'Kaçırılan planlı gün';
+
+  @override
+  String missedSessionReplacementDayOption(String dayName, String weekday) {
+    return '$dayName - $weekday';
+  }
+
+  @override
+  String missedSessionReplacementProposalSummary(
+    String weekday,
+    String windowType,
+    String startTime,
+    String endTime,
+    int dayOffset,
+    int recoveryHours,
+  ) {
+    return 'Öneri: $weekday, $windowType $startTime-$endTime. Bu pencere kaçırılan seanstan $dayOffset gün sonra ve planlı seanslar arasında en az $recoveryHours saat toparlanma bırakıyor.';
+  }
+
+  @override
+  String get missedSessionReplacementNoSafeWindow =>
+      'Kaydedilmiş haftalık müsaitlik içinde güvenli telafi penceresi yok.';
+
+  @override
+  String get missedSessionReplacementNoSafeWindowWithDuration =>
+      'Planlı seans için yeterli süreye sahip güvenli telafi penceresi yok.';
+
+  @override
+  String missedSessionReplacementNoSafeWindowWithRecovery(int recoveryHours) {
+    return 'Kalan planlı seanslar etrafında gereken $recoveryHours saat toparlanmayı koruyan güvenli telafi penceresi yok.';
+  }
+
+  @override
+  String get missedSessionReplacementMissingDay =>
+      'Seçilen planlı gün artık mevcut değil. Program önizlemesini yeniden oluşturup tekrar dene.';
+
+  @override
   String get anatomyRendererTitle => '3B anatomi görüntüleyici';
 
   @override

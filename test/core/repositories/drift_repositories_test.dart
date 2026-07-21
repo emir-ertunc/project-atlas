@@ -530,6 +530,130 @@ void main() {
       ]);
     },
   );
+
+  test('onboarding preferences are saved and replaced locally', () async {
+    await _saveProfile(container, now);
+    final repository = container.read(onboardingRepositoryProvider);
+
+    await repository.savePreferences(
+      OnboardingPreferencesRecord(
+        profileId: 'profile-1',
+        goal: TrainingGoal.maximumStrength,
+        experienceLevel: TrainingExperienceLevel.intermediate,
+        equipment: const [
+          EquipmentPreference.barbell,
+          EquipmentPreference.bodyweight,
+        ],
+        preferredSessionLengthMinutes: 75,
+        preferredWeekdays: const [
+          TrainingWeekday.friday,
+          TrainingWeekday.monday,
+        ],
+        createdAt: now,
+        updatedAt: now,
+      ),
+    );
+
+    final saved = await repository
+        .watchPreferences('profile-1')
+        .firstWhere((value) => value != null);
+    expect(saved?.goal, TrainingGoal.maximumStrength);
+    expect(saved?.equipment, [
+      EquipmentPreference.bodyweight,
+      EquipmentPreference.barbell,
+    ]);
+    expect(saved?.preferredWeekdays, [
+      TrainingWeekday.monday,
+      TrainingWeekday.friday,
+    ]);
+
+    await repository.savePreferences(
+      OnboardingPreferencesRecord(
+        profileId: 'profile-1',
+        goal: TrainingGoal.hypertrophy,
+        experienceLevel: TrainingExperienceLevel.advanced,
+        equipment: const [EquipmentPreference.dumbbells],
+        preferredSessionLengthMinutes: 60,
+        preferredWeekdays: const [TrainingWeekday.wednesday],
+        createdAt: saved!.createdAt,
+        updatedAt: now.add(const Duration(minutes: 1)),
+      ),
+    );
+
+    final updated = await repository.getPreferences('profile-1');
+    expect(updated?.goal, TrainingGoal.hypertrophy);
+    expect(updated?.experienceLevel, TrainingExperienceLevel.advanced);
+    expect(updated?.equipment, [EquipmentPreference.dumbbells]);
+    expect(updated?.preferredSessionLengthMinutes, 60);
+    expect(updated?.preferredWeekdays, [TrainingWeekday.wednesday]);
+    expect(
+      await database.select(database.onboardingPreferences).get(),
+      hasLength(1),
+    );
+  });
+
+  test(
+    'availability windows are replaced and emitted in weekday order',
+    () async {
+      await _saveProfile(container, now);
+      final repository = container.read(availabilityRepositoryProvider);
+
+      await repository.replaceWindows('profile-1', [
+        AvailabilityWindowRecord(
+          id: 'availability-friday',
+          profileId: 'profile-1',
+          weekday: TrainingWeekday.friday,
+          windowType: AvailabilityWindowType.flexible,
+          startMinute: 17 * 60,
+          endMinute: 21 * 60,
+          createdAt: now,
+          updatedAt: now,
+        ),
+        AvailabilityWindowRecord(
+          id: 'availability-monday',
+          profileId: 'profile-1',
+          weekday: TrainingWeekday.monday,
+          windowType: AvailabilityWindowType.fixed,
+          startMinute: 18 * 60,
+          endMinute: 19 * 60,
+          createdAt: now,
+          updatedAt: now,
+        ),
+      ]);
+
+      final saved = await repository
+          .watchWindows('profile-1')
+          .firstWhere((items) => items.length == 2);
+      expect(saved.map((window) => window.weekday), [
+        TrainingWeekday.monday,
+        TrainingWeekday.friday,
+      ]);
+      expect(saved.first.windowType, AvailabilityWindowType.fixed);
+      expect(saved.last.windowType, AvailabilityWindowType.flexible);
+
+      await repository.replaceWindows('profile-1', [
+        AvailabilityWindowRecord(
+          id: 'availability-wednesday',
+          profileId: 'profile-1',
+          weekday: TrainingWeekday.wednesday,
+          windowType: AvailabilityWindowType.flexible,
+          startMinute: 6 * 60,
+          endMinute: 8 * 60,
+          createdAt: now,
+          updatedAt: now.add(const Duration(minutes: 1)),
+        ),
+      ]);
+
+      final updated = await repository.getWindows('profile-1');
+      expect(updated, hasLength(1));
+      expect(updated.single.weekday, TrainingWeekday.wednesday);
+      expect(updated.single.durationMinutes, 120);
+      expect(
+        await database.select(database.availabilityWindows).get(),
+        hasLength(1),
+      );
+    },
+  );
 }
 
 ProfileRecord _profile(DateTime now) => ProfileRecord(

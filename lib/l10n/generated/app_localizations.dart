@@ -348,6 +348,626 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsNavigationLabel;
 
+  /// Title for the adaptive programming onboarding section
+  ///
+  /// In en, this message translates to:
+  /// **'Adaptive onboarding'**
+  String get onboardingTitle;
+
+  /// Description for the adaptive programming onboarding section
+  ///
+  /// In en, this message translates to:
+  /// **'Set the inputs the planner will use before generating recommendations. These choices stay local to this device.'**
+  String get onboardingDescription;
+
+  /// Label for selecting the primary training goal
+  ///
+  /// In en, this message translates to:
+  /// **'Primary goal'**
+  String get onboardingGoalLabel;
+
+  /// Label for selecting training experience
+  ///
+  /// In en, this message translates to:
+  /// **'Training experience'**
+  String get onboardingExperienceLabel;
+
+  /// Label for selecting available equipment
+  ///
+  /// In en, this message translates to:
+  /// **'Available equipment'**
+  String get onboardingEquipmentLabel;
+
+  /// Label for selecting preferred workout duration
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred session length'**
+  String get onboardingSessionLengthLabel;
+
+  /// Label for selecting preferred training weekdays
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred training days'**
+  String get onboardingWeekdaysLabel;
+
+  /// Button label for saving onboarding preferences
+  ///
+  /// In en, this message translates to:
+  /// **'Save onboarding'**
+  String get onboardingSaveButton;
+
+  /// Snack bar shown after onboarding preferences are saved
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding preferences saved.'**
+  String get onboardingSavedMessage;
+
+  /// Snack bar shown when onboarding preferences fail to save
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding preferences could not be saved.'**
+  String get onboardingSaveFailed;
+
+  /// Message shown when onboarding preferences fail to load
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding preferences could not load.'**
+  String get onboardingLoadError;
+
+  /// Dropdown value for a preferred session duration in minutes
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String onboardingSessionLengthValue(int minutes);
+
+  /// Summary shown after onboarding preferences have been saved
+  ///
+  /// In en, this message translates to:
+  /// **'Saved: {goal}, {experience}, {minutes} minutes, {weekdays}. Equipment: {equipment}.'**
+  String onboardingSavedSummary(
+    String goal,
+    String experience,
+    int minutes,
+    String weekdays,
+    String equipment,
+  );
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'General fitness'**
+  String get onboardingGoalGeneralFitness;
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'Hypertrophy'**
+  String get onboardingGoalHypertrophy;
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum strength'**
+  String get onboardingGoalMaximumStrength;
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'Body recomposition'**
+  String get onboardingGoalBodyRecomposition;
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'Muscular endurance'**
+  String get onboardingGoalMuscularEndurance;
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'Athletic performance'**
+  String get onboardingGoalAthleticPerformance;
+
+  /// Training goal label
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get onboardingGoalMaintenance;
+
+  /// Training experience label
+  ///
+  /// In en, this message translates to:
+  /// **'New to training'**
+  String get onboardingExperienceNewToTraining;
+
+  /// Training experience label
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get onboardingExperienceBeginner;
+
+  /// Training experience label
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get onboardingExperienceIntermediate;
+
+  /// Training experience label
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get onboardingExperienceAdvanced;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Bodyweight'**
+  String get onboardingEquipmentBodyweight;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Dumbbells'**
+  String get onboardingEquipmentDumbbells;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Barbell'**
+  String get onboardingEquipmentBarbell;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Machines'**
+  String get onboardingEquipmentMachines;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Cable station'**
+  String get onboardingEquipmentCableStation;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Kettlebell'**
+  String get onboardingEquipmentKettlebell;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Resistance bands'**
+  String get onboardingEquipmentResistanceBands;
+
+  /// Equipment label
+  ///
+  /// In en, this message translates to:
+  /// **'Cardio equipment'**
+  String get onboardingEquipmentCardio;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get onboardingWeekdayMonday;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get onboardingWeekdayTuesday;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get onboardingWeekdayWednesday;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get onboardingWeekdayThursday;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get onboardingWeekdayFriday;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get onboardingWeekdaySaturday;
+
+  /// Weekday label
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get onboardingWeekdaySunday;
+
+  /// Title for the conservative calibration block preview
+  ///
+  /// In en, this message translates to:
+  /// **'Conservative calibration block'**
+  String get calibrationBlockTitle;
+
+  /// Description of the conservative calibration block
+  ///
+  /// In en, this message translates to:
+  /// **'Use this first block to find repeatable starting loads before recommendations change future training.'**
+  String get calibrationBlockDescription;
+
+  /// Summary of the conservative calibration block
+  ///
+  /// In en, this message translates to:
+  /// **'{weeks} weeks - {sessionsPerWeek} sessions/week - keep at least RIR {minimumRir}'**
+  String calibrationBlockSummary(
+    int weeks,
+    int sessionsPerWeek,
+    int minimumRir,
+  );
+
+  /// Session length and weekday target for calibration
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minute target sessions on {weekdays}'**
+  String calibrationBlockSessionTarget(int minutes, String weekdays);
+
+  /// Policy note that calibration does not increase load
+  ///
+  /// In en, this message translates to:
+  /// **'No load increases during calibration; collect clean set evidence first.'**
+  String get calibrationBlockNoProgression;
+
+  /// One week row in the calibration block preview
+  ///
+  /// In en, this message translates to:
+  /// **'Week {weekNumber}: {focus} - {volumePercent}% planned volume - RIR {minimumRir}+'**
+  String calibrationWeekSummary(
+    int weekNumber,
+    String focus,
+    int volumePercent,
+    int minimumRir,
+  );
+
+  /// Exit requirements for leaving the calibration block
+  ///
+  /// In en, this message translates to:
+  /// **'Advance only after: {requirements}.'**
+  String calibrationExitRequirements(String requirements);
+
+  /// Calibration week focus label
+  ///
+  /// In en, this message translates to:
+  /// **'technique baseline'**
+  String get calibrationFocusTechniqueBaseline;
+
+  /// Calibration week focus label
+  ///
+  /// In en, this message translates to:
+  /// **'repeatable execution'**
+  String get calibrationFocusRepeatableExecution;
+
+  /// Calibration week focus label
+  ///
+  /// In en, this message translates to:
+  /// **'stable exposure'**
+  String get calibrationFocusStableExposure;
+
+  /// Calibration week focus label
+  ///
+  /// In en, this message translates to:
+  /// **'prescription preview'**
+  String get calibrationFocusPrescriptionPreview;
+
+  /// Calibration exit requirement label
+  ///
+  /// In en, this message translates to:
+  /// **'planned weeks are completed'**
+  String get calibrationExitPlannedWeeksCompleted;
+
+  /// Calibration exit requirement label
+  ///
+  /// In en, this message translates to:
+  /// **'no pain reports'**
+  String get calibrationExitNoPainReports;
+
+  /// Calibration exit requirement label
+  ///
+  /// In en, this message translates to:
+  /// **'no repeated performance misses'**
+  String get calibrationExitNoRepeatedPerformanceMisses;
+
+  /// Calibration exit requirement label
+  ///
+  /// In en, this message translates to:
+  /// **'RIR evidence is stable'**
+  String get calibrationExitStableRirEvidence;
+
+  /// Title for the weekly availability editor
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly availability'**
+  String get availabilityTitle;
+
+  /// Description for fixed and flexible weekly availability windows
+  ///
+  /// In en, this message translates to:
+  /// **'Choose when training can fit each week. Fixed periods are hard appointments; flexible periods give the planner room to place a session inside the window.'**
+  String get availabilityDescription;
+
+  /// Label for fixed availability windows
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed'**
+  String get availabilityFixedPeriod;
+
+  /// Label for flexible availability windows
+  ///
+  /// In en, this message translates to:
+  /// **'Flexible'**
+  String get availabilityFlexiblePeriod;
+
+  /// Label for availability start time
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get availabilityStartTimeLabel;
+
+  /// Label for availability end time
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get availabilityEndTimeLabel;
+
+  /// Summary for one weekly availability window
+  ///
+  /// In en, this message translates to:
+  /// **'{type} window from {startTime} to {endTime}'**
+  String availabilityWindowSummary(
+    String type,
+    String startTime,
+    String endTime,
+  );
+
+  /// Button label for saving weekly availability windows
+  ///
+  /// In en, this message translates to:
+  /// **'Save availability'**
+  String get availabilitySaveButton;
+
+  /// Snack bar shown after weekly availability is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly availability saved.'**
+  String get availabilitySavedMessage;
+
+  /// Snack bar shown when weekly availability fails to save
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly availability could not be saved.'**
+  String get availabilitySaveFailed;
+
+  /// Message shown when weekly availability fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly availability could not load.'**
+  String get availabilityLoadError;
+
+  /// Message shown while weekly availability is loading
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly availability loading...'**
+  String get availabilityLoading;
+
+  /// Title for the generated editable program draft preview
+  ///
+  /// In en, this message translates to:
+  /// **'Program draft planner'**
+  String get generatedProgramTitle;
+
+  /// Description of the program draft planner
+  ///
+  /// In en, this message translates to:
+  /// **'Build an editable local draft from onboarding, weekly availability, equipment, recovery spacing, and conservative volume rules.'**
+  String get generatedProgramDescription;
+
+  /// Message shown when no saved availability windows exist
+  ///
+  /// In en, this message translates to:
+  /// **'Save weekly availability before building a program draft.'**
+  String get generatedProgramAvailabilityRequired;
+
+  /// Message shown when the exercise catalog cannot be loaded for program planning
+  ///
+  /// In en, this message translates to:
+  /// **'The exercise catalog could not load, so the program draft cannot be built.'**
+  String get generatedProgramCatalogLoadError;
+
+  /// Message shown when no exercises can be selected for a generated program
+  ///
+  /// In en, this message translates to:
+  /// **'No matching program could be built from the saved equipment. Add more equipment or update availability.'**
+  String get generatedProgramNoPlan;
+
+  /// Summary for a generated program plan
+  ///
+  /// In en, this message translates to:
+  /// **'{sessionsPerWeek} sessions/week - {weeklySetTarget} working sets - up to {maxExercisesPerSession} exercises/session - RIR {minimumRir}+'**
+  String generatedProgramSummary(
+    int sessionsPerWeek,
+    int weeklySetTarget,
+    int maxExercisesPerSession,
+    int minimumRir,
+  );
+
+  /// Summary for one generated program day
+  ///
+  /// In en, this message translates to:
+  /// **'{weekday} - {windowType} {startTime}-{endTime} - {exerciseCount} exercises - {setCount} sets'**
+  String generatedProgramDaySummary(
+    String weekday,
+    String windowType,
+    String startTime,
+    String endTime,
+    int exerciseCount,
+    int setCount,
+  );
+
+  /// Prescription summary for one generated exercise
+  ///
+  /// In en, this message translates to:
+  /// **'{setCount} sets - {minimumRepetitions}-{maximumRepetitions} reps - RIR {targetRir} - {restSeconds} sec rest'**
+  String generatedProgramExerciseSummary(
+    int setCount,
+    int minimumRepetitions,
+    int maximumRepetitions,
+    int targetRir,
+    int restSeconds,
+  );
+
+  /// Button label for applying the generated plan to the editable local program draft
+  ///
+  /// In en, this message translates to:
+  /// **'Apply as local draft'**
+  String get generatedProgramApplyDraft;
+
+  /// Snack bar shown after applying a generated plan to the local draft
+  ///
+  /// In en, this message translates to:
+  /// **'Program draft applied locally. Open Program to edit, save, or publish it.'**
+  String get generatedProgramAppliedMessage;
+
+  /// Confirmation dialog title before replacing an existing local program draft
+  ///
+  /// In en, this message translates to:
+  /// **'Replace local draft?'**
+  String get generatedProgramReplaceDraftTitle;
+
+  /// Confirmation dialog body before replacing an existing local program draft
+  ///
+  /// In en, this message translates to:
+  /// **'Applying this plan replaces the current unsaved Program draft. Saved versions stay unchanged.'**
+  String get generatedProgramReplaceDraftMessage;
+
+  /// Cancel button for generated program draft replacement
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current draft'**
+  String get generatedProgramReplaceDraftCancel;
+
+  /// Confirm button for generated program draft replacement
+  ///
+  /// In en, this message translates to:
+  /// **'Replace draft'**
+  String get generatedProgramReplaceDraftConfirm;
+
+  /// Name for a generated local program draft
+  ///
+  /// In en, this message translates to:
+  /// **'{goal} draft'**
+  String generatedProgramDraftName(String goal);
+
+  /// Generated program day focus label
+  ///
+  /// In en, this message translates to:
+  /// **'Full body'**
+  String get generatedProgramFocusFullBody;
+
+  /// Generated program day focus label
+  ///
+  /// In en, this message translates to:
+  /// **'Upper emphasis'**
+  String get generatedProgramFocusUpperEmphasis;
+
+  /// Generated program day focus label
+  ///
+  /// In en, this message translates to:
+  /// **'Lower emphasis'**
+  String get generatedProgramFocusLowerEmphasis;
+
+  /// Generated program day focus label
+  ///
+  /// In en, this message translates to:
+  /// **'Posterior chain'**
+  String get generatedProgramFocusPosteriorChain;
+
+  /// Generated program day focus label
+  ///
+  /// In en, this message translates to:
+  /// **'Conditioning support'**
+  String get generatedProgramFocusConditioningSupport;
+
+  /// Title for the missed-session replacement preview
+  ///
+  /// In en, this message translates to:
+  /// **'Missed-session replacement'**
+  String get missedSessionReplacementTitle;
+
+  /// Description of the missed-session replacement preview
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a missed planned day to preview the safest available replacement window. This does not move or publish any workout.'**
+  String get missedSessionReplacementDescription;
+
+  /// Message shown when availability is missing for missed-session replacement
+  ///
+  /// In en, this message translates to:
+  /// **'Save weekly availability before previewing a replacement window.'**
+  String get missedSessionReplacementAvailabilityRequired;
+
+  /// Dropdown label for choosing the missed planned training day
+  ///
+  /// In en, this message translates to:
+  /// **'Missed planned day'**
+  String get missedSessionReplacementMissedDayLabel;
+
+  /// Dropdown option for a generated training day
+  ///
+  /// In en, this message translates to:
+  /// **'{dayName} - {weekday}'**
+  String missedSessionReplacementDayOption(String dayName, String weekday);
+
+  /// Summary of a safe missed-session replacement proposal
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested: {weekday}, {windowType} {startTime}-{endTime}. This is {dayOffset} days after the missed session and keeps at least {recoveryHours} hours between planned sessions.'**
+  String missedSessionReplacementProposalSummary(
+    String weekday,
+    String windowType,
+    String startTime,
+    String endTime,
+    int dayOffset,
+    int recoveryHours,
+  );
+
+  /// Fallback when no safe replacement window exists
+  ///
+  /// In en, this message translates to:
+  /// **'No safe replacement window is available from the saved weekly availability.'**
+  String get missedSessionReplacementNoSafeWindow;
+
+  /// Message when replacement windows are too short
+  ///
+  /// In en, this message translates to:
+  /// **'No safe replacement window is available with enough time for the planned session.'**
+  String get missedSessionReplacementNoSafeWindowWithDuration;
+
+  /// Message when recovery spacing blocks replacement
+  ///
+  /// In en, this message translates to:
+  /// **'No safe replacement window keeps the required {recoveryHours} hours of recovery around remaining planned sessions.'**
+  String missedSessionReplacementNoSafeWindowWithRecovery(int recoveryHours);
+
+  /// Message when a selected missed day cannot be found
+  ///
+  /// In en, this message translates to:
+  /// **'The selected planned day is no longer available. Rebuild the program preview and try again.'**
+  String get missedSessionReplacementMissingDay;
+
   /// Title for the anatomy renderer panel
   ///
   /// In en, this message translates to:

@@ -1,5 +1,40 @@
 enum UnitPreference { metric, imperial }
 
+enum TrainingGoal {
+  generalFitness,
+  hypertrophy,
+  maximumStrength,
+  bodyRecomposition,
+  muscularEndurance,
+  athleticPerformance,
+  maintenance,
+}
+
+enum TrainingExperienceLevel { newToTraining, beginner, intermediate, advanced }
+
+enum EquipmentPreference {
+  bodyweight,
+  dumbbells,
+  barbell,
+  machines,
+  cableStation,
+  kettlebell,
+  resistanceBands,
+  cardioEquipment,
+}
+
+enum TrainingWeekday {
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday,
+}
+
+enum AvailabilityWindowType { fixed, flexible }
+
 enum ProgramLifecycle { draft, active, archived }
 
 enum ProgramVersionLifecycle { draft, active, retired }
@@ -37,6 +72,52 @@ final class ProfileRecord {
   final UnitPreference unitPreference;
   final DateTime createdAt;
   final DateTime updatedAt;
+}
+
+final class OnboardingPreferencesRecord {
+  const OnboardingPreferencesRecord({
+    required this.profileId,
+    required this.goal,
+    required this.experienceLevel,
+    required this.equipment,
+    required this.preferredSessionLengthMinutes,
+    required this.preferredWeekdays,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final String profileId;
+  final TrainingGoal goal;
+  final TrainingExperienceLevel experienceLevel;
+  final List<EquipmentPreference> equipment;
+  final int preferredSessionLengthMinutes;
+  final List<TrainingWeekday> preferredWeekdays;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+}
+
+final class AvailabilityWindowRecord {
+  const AvailabilityWindowRecord({
+    required this.id,
+    required this.profileId,
+    required this.weekday,
+    required this.windowType,
+    required this.startMinute,
+    required this.endMinute,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final String id;
+  final String profileId;
+  final TrainingWeekday weekday;
+  final AvailabilityWindowType windowType;
+  final int startMinute;
+  final int endMinute;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  int get durationMinutes => endMinute - startMinute;
 }
 
 final class ProgramRecord {

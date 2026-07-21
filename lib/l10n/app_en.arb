@@ -239,6 +239,550 @@
   "@settingsNavigationLabel": {
     "description": "Label for the Settings primary navigation destination"
   },
+  "onboardingTitle": "Adaptive onboarding",
+  "@onboardingTitle": {
+    "description": "Title for the adaptive programming onboarding section"
+  },
+  "onboardingDescription": "Set the inputs the planner will use before generating recommendations. These choices stay local to this device.",
+  "@onboardingDescription": {
+    "description": "Description for the adaptive programming onboarding section"
+  },
+  "onboardingGoalLabel": "Primary goal",
+  "@onboardingGoalLabel": {
+    "description": "Label for selecting the primary training goal"
+  },
+  "onboardingExperienceLabel": "Training experience",
+  "@onboardingExperienceLabel": {
+    "description": "Label for selecting training experience"
+  },
+  "onboardingEquipmentLabel": "Available equipment",
+  "@onboardingEquipmentLabel": {
+    "description": "Label for selecting available equipment"
+  },
+  "onboardingSessionLengthLabel": "Preferred session length",
+  "@onboardingSessionLengthLabel": {
+    "description": "Label for selecting preferred workout duration"
+  },
+  "onboardingWeekdaysLabel": "Preferred training days",
+  "@onboardingWeekdaysLabel": {
+    "description": "Label for selecting preferred training weekdays"
+  },
+  "onboardingSaveButton": "Save onboarding",
+  "@onboardingSaveButton": {
+    "description": "Button label for saving onboarding preferences"
+  },
+  "onboardingSavedMessage": "Onboarding preferences saved.",
+  "@onboardingSavedMessage": {
+    "description": "Snack bar shown after onboarding preferences are saved"
+  },
+  "onboardingSaveFailed": "Onboarding preferences could not be saved.",
+  "@onboardingSaveFailed": {
+    "description": "Snack bar shown when onboarding preferences fail to save"
+  },
+  "onboardingLoadError": "Onboarding preferences could not load.",
+  "@onboardingLoadError": {
+    "description": "Message shown when onboarding preferences fail to load"
+  },
+  "onboardingSessionLengthValue": "{minutes} minutes",
+  "@onboardingSessionLengthValue": {
+    "description": "Dropdown value for a preferred session duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingSavedSummary": "Saved: {goal}, {experience}, {minutes} minutes, {weekdays}. Equipment: {equipment}.",
+  "@onboardingSavedSummary": {
+    "description": "Summary shown after onboarding preferences have been saved",
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      },
+      "experience": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      },
+      "weekdays": {
+        "type": "String"
+      },
+      "equipment": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingGoalGeneralFitness": "General fitness",
+  "@onboardingGoalGeneralFitness": {
+    "description": "Training goal label"
+  },
+  "onboardingGoalHypertrophy": "Hypertrophy",
+  "@onboardingGoalHypertrophy": {
+    "description": "Training goal label"
+  },
+  "onboardingGoalMaximumStrength": "Maximum strength",
+  "@onboardingGoalMaximumStrength": {
+    "description": "Training goal label"
+  },
+  "onboardingGoalBodyRecomposition": "Body recomposition",
+  "@onboardingGoalBodyRecomposition": {
+    "description": "Training goal label"
+  },
+  "onboardingGoalMuscularEndurance": "Muscular endurance",
+  "@onboardingGoalMuscularEndurance": {
+    "description": "Training goal label"
+  },
+  "onboardingGoalAthleticPerformance": "Athletic performance",
+  "@onboardingGoalAthleticPerformance": {
+    "description": "Training goal label"
+  },
+  "onboardingGoalMaintenance": "Maintenance",
+  "@onboardingGoalMaintenance": {
+    "description": "Training goal label"
+  },
+  "onboardingExperienceNewToTraining": "New to training",
+  "@onboardingExperienceNewToTraining": {
+    "description": "Training experience label"
+  },
+  "onboardingExperienceBeginner": "Beginner",
+  "@onboardingExperienceBeginner": {
+    "description": "Training experience label"
+  },
+  "onboardingExperienceIntermediate": "Intermediate",
+  "@onboardingExperienceIntermediate": {
+    "description": "Training experience label"
+  },
+  "onboardingExperienceAdvanced": "Advanced",
+  "@onboardingExperienceAdvanced": {
+    "description": "Training experience label"
+  },
+  "onboardingEquipmentBodyweight": "Bodyweight",
+  "@onboardingEquipmentBodyweight": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentDumbbells": "Dumbbells",
+  "@onboardingEquipmentDumbbells": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentBarbell": "Barbell",
+  "@onboardingEquipmentBarbell": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentMachines": "Machines",
+  "@onboardingEquipmentMachines": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentCableStation": "Cable station",
+  "@onboardingEquipmentCableStation": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentKettlebell": "Kettlebell",
+  "@onboardingEquipmentKettlebell": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentResistanceBands": "Resistance bands",
+  "@onboardingEquipmentResistanceBands": {
+    "description": "Equipment label"
+  },
+  "onboardingEquipmentCardio": "Cardio equipment",
+  "@onboardingEquipmentCardio": {
+    "description": "Equipment label"
+  },
+  "onboardingWeekdayMonday": "Monday",
+  "@onboardingWeekdayMonday": {
+    "description": "Weekday label"
+  },
+  "onboardingWeekdayTuesday": "Tuesday",
+  "@onboardingWeekdayTuesday": {
+    "description": "Weekday label"
+  },
+  "onboardingWeekdayWednesday": "Wednesday",
+  "@onboardingWeekdayWednesday": {
+    "description": "Weekday label"
+  },
+  "onboardingWeekdayThursday": "Thursday",
+  "@onboardingWeekdayThursday": {
+    "description": "Weekday label"
+  },
+  "onboardingWeekdayFriday": "Friday",
+  "@onboardingWeekdayFriday": {
+    "description": "Weekday label"
+  },
+  "onboardingWeekdaySaturday": "Saturday",
+  "@onboardingWeekdaySaturday": {
+    "description": "Weekday label"
+  },
+  "onboardingWeekdaySunday": "Sunday",
+  "@onboardingWeekdaySunday": {
+    "description": "Weekday label"
+  },
+  "calibrationBlockTitle": "Conservative calibration block",
+  "@calibrationBlockTitle": {
+    "description": "Title for the conservative calibration block preview"
+  },
+  "calibrationBlockDescription": "Use this first block to find repeatable starting loads before recommendations change future training.",
+  "@calibrationBlockDescription": {
+    "description": "Description of the conservative calibration block"
+  },
+  "calibrationBlockSummary": "{weeks} weeks - {sessionsPerWeek} sessions/week - keep at least RIR {minimumRir}",
+  "@calibrationBlockSummary": {
+    "description": "Summary of the conservative calibration block",
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "sessionsPerWeek": {
+        "type": "int"
+      },
+      "minimumRir": {
+        "type": "int"
+      }
+    }
+  },
+  "calibrationBlockSessionTarget": "{minutes} minute target sessions on {weekdays}",
+  "@calibrationBlockSessionTarget": {
+    "description": "Session length and weekday target for calibration",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "weekdays": {
+        "type": "String"
+      }
+    }
+  },
+  "calibrationBlockNoProgression": "No load increases during calibration; collect clean set evidence first.",
+  "@calibrationBlockNoProgression": {
+    "description": "Policy note that calibration does not increase load"
+  },
+  "calibrationWeekSummary": "Week {weekNumber}: {focus} - {volumePercent}% planned volume - RIR {minimumRir}+",
+  "@calibrationWeekSummary": {
+    "description": "One week row in the calibration block preview",
+    "placeholders": {
+      "weekNumber": {
+        "type": "int"
+      },
+      "focus": {
+        "type": "String"
+      },
+      "volumePercent": {
+        "type": "int"
+      },
+      "minimumRir": {
+        "type": "int"
+      }
+    }
+  },
+  "calibrationExitRequirements": "Advance only after: {requirements}.",
+  "@calibrationExitRequirements": {
+    "description": "Exit requirements for leaving the calibration block",
+    "placeholders": {
+      "requirements": {
+        "type": "String"
+      }
+    }
+  },
+  "calibrationFocusTechniqueBaseline": "technique baseline",
+  "@calibrationFocusTechniqueBaseline": {
+    "description": "Calibration week focus label"
+  },
+  "calibrationFocusRepeatableExecution": "repeatable execution",
+  "@calibrationFocusRepeatableExecution": {
+    "description": "Calibration week focus label"
+  },
+  "calibrationFocusStableExposure": "stable exposure",
+  "@calibrationFocusStableExposure": {
+    "description": "Calibration week focus label"
+  },
+  "calibrationFocusPrescriptionPreview": "prescription preview",
+  "@calibrationFocusPrescriptionPreview": {
+    "description": "Calibration week focus label"
+  },
+  "calibrationExitPlannedWeeksCompleted": "planned weeks are completed",
+  "@calibrationExitPlannedWeeksCompleted": {
+    "description": "Calibration exit requirement label"
+  },
+  "calibrationExitNoPainReports": "no pain reports",
+  "@calibrationExitNoPainReports": {
+    "description": "Calibration exit requirement label"
+  },
+  "calibrationExitNoRepeatedPerformanceMisses": "no repeated performance misses",
+  "@calibrationExitNoRepeatedPerformanceMisses": {
+    "description": "Calibration exit requirement label"
+  },
+  "calibrationExitStableRirEvidence": "RIR evidence is stable",
+  "@calibrationExitStableRirEvidence": {
+    "description": "Calibration exit requirement label"
+  },
+  "availabilityTitle": "Weekly availability",
+  "@availabilityTitle": {
+    "description": "Title for the weekly availability editor"
+  },
+  "availabilityDescription": "Choose when training can fit each week. Fixed periods are hard appointments; flexible periods give the planner room to place a session inside the window.",
+  "@availabilityDescription": {
+    "description": "Description for fixed and flexible weekly availability windows"
+  },
+  "availabilityFixedPeriod": "Fixed",
+  "@availabilityFixedPeriod": {
+    "description": "Label for fixed availability windows"
+  },
+  "availabilityFlexiblePeriod": "Flexible",
+  "@availabilityFlexiblePeriod": {
+    "description": "Label for flexible availability windows"
+  },
+  "availabilityStartTimeLabel": "Start",
+  "@availabilityStartTimeLabel": {
+    "description": "Label for availability start time"
+  },
+  "availabilityEndTimeLabel": "End",
+  "@availabilityEndTimeLabel": {
+    "description": "Label for availability end time"
+  },
+  "availabilityWindowSummary": "{type} window from {startTime} to {endTime}",
+  "@availabilityWindowSummary": {
+    "description": "Summary for one weekly availability window",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "startTime": {
+        "type": "String"
+      },
+      "endTime": {
+        "type": "String"
+      }
+    }
+  },
+  "availabilitySaveButton": "Save availability",
+  "@availabilitySaveButton": {
+    "description": "Button label for saving weekly availability windows"
+  },
+  "availabilitySavedMessage": "Weekly availability saved.",
+  "@availabilitySavedMessage": {
+    "description": "Snack bar shown after weekly availability is saved"
+  },
+  "availabilitySaveFailed": "Weekly availability could not be saved.",
+  "@availabilitySaveFailed": {
+    "description": "Snack bar shown when weekly availability fails to save"
+  },
+  "availabilityLoadError": "Weekly availability could not load.",
+  "@availabilityLoadError": {
+    "description": "Message shown when weekly availability fails to load"
+  },
+  "availabilityLoading": "Weekly availability loading...",
+  "@availabilityLoading": {
+    "description": "Message shown while weekly availability is loading"
+  },
+  "generatedProgramTitle": "Program draft planner",
+  "@generatedProgramTitle": {
+    "description": "Title for the generated editable program draft preview"
+  },
+  "generatedProgramDescription": "Build an editable local draft from onboarding, weekly availability, equipment, recovery spacing, and conservative volume rules.",
+  "@generatedProgramDescription": {
+    "description": "Description of the program draft planner"
+  },
+  "generatedProgramAvailabilityRequired": "Save weekly availability before building a program draft.",
+  "@generatedProgramAvailabilityRequired": {
+    "description": "Message shown when no saved availability windows exist"
+  },
+  "generatedProgramCatalogLoadError": "The exercise catalog could not load, so the program draft cannot be built.",
+  "@generatedProgramCatalogLoadError": {
+    "description": "Message shown when the exercise catalog cannot be loaded for program planning"
+  },
+  "generatedProgramNoPlan": "No matching program could be built from the saved equipment. Add more equipment or update availability.",
+  "@generatedProgramNoPlan": {
+    "description": "Message shown when no exercises can be selected for a generated program"
+  },
+  "generatedProgramSummary": "{sessionsPerWeek} sessions/week - {weeklySetTarget} working sets - up to {maxExercisesPerSession} exercises/session - RIR {minimumRir}+",
+  "@generatedProgramSummary": {
+    "description": "Summary for a generated program plan",
+    "placeholders": {
+      "sessionsPerWeek": {
+        "type": "int"
+      },
+      "weeklySetTarget": {
+        "type": "int"
+      },
+      "maxExercisesPerSession": {
+        "type": "int"
+      },
+      "minimumRir": {
+        "type": "int"
+      }
+    }
+  },
+  "generatedProgramDaySummary": "{weekday} - {windowType} {startTime}-{endTime} - {exerciseCount} exercises - {setCount} sets",
+  "@generatedProgramDaySummary": {
+    "description": "Summary for one generated program day",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      },
+      "windowType": {
+        "type": "String"
+      },
+      "startTime": {
+        "type": "String"
+      },
+      "endTime": {
+        "type": "String"
+      },
+      "exerciseCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "generatedProgramExerciseSummary": "{setCount} sets - {minimumRepetitions}-{maximumRepetitions} reps - RIR {targetRir} - {restSeconds} sec rest",
+  "@generatedProgramExerciseSummary": {
+    "description": "Prescription summary for one generated exercise",
+    "placeholders": {
+      "setCount": {
+        "type": "int"
+      },
+      "minimumRepetitions": {
+        "type": "int"
+      },
+      "maximumRepetitions": {
+        "type": "int"
+      },
+      "targetRir": {
+        "type": "int"
+      },
+      "restSeconds": {
+        "type": "int"
+      }
+    }
+  },
+  "generatedProgramApplyDraft": "Apply as local draft",
+  "@generatedProgramApplyDraft": {
+    "description": "Button label for applying the generated plan to the editable local program draft"
+  },
+  "generatedProgramAppliedMessage": "Program draft applied locally. Open Program to edit, save, or publish it.",
+  "@generatedProgramAppliedMessage": {
+    "description": "Snack bar shown after applying a generated plan to the local draft"
+  },
+  "generatedProgramReplaceDraftTitle": "Replace local draft?",
+  "@generatedProgramReplaceDraftTitle": {
+    "description": "Confirmation dialog title before replacing an existing local program draft"
+  },
+  "generatedProgramReplaceDraftMessage": "Applying this plan replaces the current unsaved Program draft. Saved versions stay unchanged.",
+  "@generatedProgramReplaceDraftMessage": {
+    "description": "Confirmation dialog body before replacing an existing local program draft"
+  },
+  "generatedProgramReplaceDraftCancel": "Keep current draft",
+  "@generatedProgramReplaceDraftCancel": {
+    "description": "Cancel button for generated program draft replacement"
+  },
+  "generatedProgramReplaceDraftConfirm": "Replace draft",
+  "@generatedProgramReplaceDraftConfirm": {
+    "description": "Confirm button for generated program draft replacement"
+  },
+  "generatedProgramDraftName": "{goal} draft",
+  "@generatedProgramDraftName": {
+    "description": "Name for a generated local program draft",
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "generatedProgramFocusFullBody": "Full body",
+  "@generatedProgramFocusFullBody": {
+    "description": "Generated program day focus label"
+  },
+  "generatedProgramFocusUpperEmphasis": "Upper emphasis",
+  "@generatedProgramFocusUpperEmphasis": {
+    "description": "Generated program day focus label"
+  },
+  "generatedProgramFocusLowerEmphasis": "Lower emphasis",
+  "@generatedProgramFocusLowerEmphasis": {
+    "description": "Generated program day focus label"
+  },
+  "generatedProgramFocusPosteriorChain": "Posterior chain",
+  "@generatedProgramFocusPosteriorChain": {
+    "description": "Generated program day focus label"
+  },
+  "generatedProgramFocusConditioningSupport": "Conditioning support",
+  "@generatedProgramFocusConditioningSupport": {
+    "description": "Generated program day focus label"
+  },
+  "missedSessionReplacementTitle": "Missed-session replacement",
+  "@missedSessionReplacementTitle": {
+    "description": "Title for the missed-session replacement preview"
+  },
+  "missedSessionReplacementDescription": "Choose a missed planned day to preview the safest available replacement window. This does not move or publish any workout.",
+  "@missedSessionReplacementDescription": {
+    "description": "Description of the missed-session replacement preview"
+  },
+  "missedSessionReplacementAvailabilityRequired": "Save weekly availability before previewing a replacement window.",
+  "@missedSessionReplacementAvailabilityRequired": {
+    "description": "Message shown when availability is missing for missed-session replacement"
+  },
+  "missedSessionReplacementMissedDayLabel": "Missed planned day",
+  "@missedSessionReplacementMissedDayLabel": {
+    "description": "Dropdown label for choosing the missed planned training day"
+  },
+  "missedSessionReplacementDayOption": "{dayName} - {weekday}",
+  "@missedSessionReplacementDayOption": {
+    "description": "Dropdown option for a generated training day",
+    "placeholders": {
+      "dayName": {
+        "type": "String"
+      },
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "missedSessionReplacementProposalSummary": "Suggested: {weekday}, {windowType} {startTime}-{endTime}. This is {dayOffset} days after the missed session and keeps at least {recoveryHours} hours between planned sessions.",
+  "@missedSessionReplacementProposalSummary": {
+    "description": "Summary of a safe missed-session replacement proposal",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      },
+      "windowType": {
+        "type": "String"
+      },
+      "startTime": {
+        "type": "String"
+      },
+      "endTime": {
+        "type": "String"
+      },
+      "dayOffset": {
+        "type": "int"
+      },
+      "recoveryHours": {
+        "type": "int"
+      }
+    }
+  },
+  "missedSessionReplacementNoSafeWindow": "No safe replacement window is available from the saved weekly availability.",
+  "@missedSessionReplacementNoSafeWindow": {
+    "description": "Fallback when no safe replacement window exists"
+  },
+  "missedSessionReplacementNoSafeWindowWithDuration": "No safe replacement window is available with enough time for the planned session.",
+  "@missedSessionReplacementNoSafeWindowWithDuration": {
+    "description": "Message when replacement windows are too short"
+  },
+  "missedSessionReplacementNoSafeWindowWithRecovery": "No safe replacement window keeps the required {recoveryHours} hours of recovery around remaining planned sessions.",
+  "@missedSessionReplacementNoSafeWindowWithRecovery": {
+    "description": "Message when recovery spacing blocks replacement",
+    "placeholders": {
+      "recoveryHours": {
+        "type": "int"
+      }
+    }
+  },
+  "missedSessionReplacementMissingDay": "The selected planned day is no longer available. Rebuild the program preview and try again.",
+  "@missedSessionReplacementMissingDay": {
+    "description": "Message when a selected missed day cannot be found"
+  },
   "anatomyRendererTitle": "3D anatomy renderer",
   "@anatomyRendererTitle": {
     "description": "Title for the anatomy renderer panel"

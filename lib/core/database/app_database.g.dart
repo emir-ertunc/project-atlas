@@ -447,6 +447,556 @@ class ProfilesCompanion extends UpdateCompanion<ProfileRow> {
   }
 }
 
+class $AvailabilityWindowsTable extends AvailabilityWindows
+    with TableInfo<$AvailabilityWindowsTable, AvailabilityWindowRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AvailabilityWindowsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 64,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _profileIdMeta = const VerificationMeta(
+    'profileId',
+  );
+  @override
+  late final GeneratedColumn<String> profileId = GeneratedColumn<String>(
+    'profile_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES profiles (id) ON DELETE CASCADE',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<StoredTrainingWeekday, String>
+  weekday =
+      GeneratedColumn<String>(
+        'weekday',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<StoredTrainingWeekday>(
+        $AvailabilityWindowsTable.$converterweekday,
+      );
+  @override
+  late final GeneratedColumnWithTypeConverter<
+    StoredAvailabilityWindowType,
+    String
+  >
+  windowType =
+      GeneratedColumn<String>(
+        'window_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<StoredAvailabilityWindowType>(
+        $AvailabilityWindowsTable.$converterwindowType,
+      );
+  static const VerificationMeta _startMinuteMeta = const VerificationMeta(
+    'startMinute',
+  );
+  @override
+  late final GeneratedColumn<int> startMinute = GeneratedColumn<int>(
+    'start_minute',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _endMinuteMeta = const VerificationMeta(
+    'endMinute',
+  );
+  @override
+  late final GeneratedColumn<int> endMinute = GeneratedColumn<int>(
+    'end_minute',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    profileId,
+    weekday,
+    windowType,
+    startMinute,
+    endMinute,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'availability_windows';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AvailabilityWindowRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('profile_id')) {
+      context.handle(
+        _profileIdMeta,
+        profileId.isAcceptableOrUnknown(data['profile_id']!, _profileIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_profileIdMeta);
+    }
+    if (data.containsKey('start_minute')) {
+      context.handle(
+        _startMinuteMeta,
+        startMinute.isAcceptableOrUnknown(
+          data['start_minute']!,
+          _startMinuteMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_startMinuteMeta);
+    }
+    if (data.containsKey('end_minute')) {
+      context.handle(
+        _endMinuteMeta,
+        endMinute.isAcceptableOrUnknown(data['end_minute']!, _endMinuteMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_endMinuteMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {profileId, weekday, windowType, startMinute, endMinute},
+  ];
+  @override
+  AvailabilityWindowRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AvailabilityWindowRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      profileId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}profile_id'],
+      )!,
+      weekday: $AvailabilityWindowsTable.$converterweekday.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}weekday'],
+        )!,
+      ),
+      windowType: $AvailabilityWindowsTable.$converterwindowType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}window_type'],
+        )!,
+      ),
+      startMinute: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_minute'],
+      )!,
+      endMinute: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}end_minute'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $AvailabilityWindowsTable createAlias(String alias) {
+    return $AvailabilityWindowsTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<StoredTrainingWeekday, String, String>
+  $converterweekday = const EnumNameConverter<StoredTrainingWeekday>(
+    StoredTrainingWeekday.values,
+  );
+  static JsonTypeConverter2<StoredAvailabilityWindowType, String, String>
+  $converterwindowType = const EnumNameConverter<StoredAvailabilityWindowType>(
+    StoredAvailabilityWindowType.values,
+  );
+}
+
+class AvailabilityWindowRow extends DataClass
+    implements Insertable<AvailabilityWindowRow> {
+  final String id;
+  final String profileId;
+  final StoredTrainingWeekday weekday;
+  final StoredAvailabilityWindowType windowType;
+  final int startMinute;
+  final int endMinute;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const AvailabilityWindowRow({
+    required this.id,
+    required this.profileId,
+    required this.weekday,
+    required this.windowType,
+    required this.startMinute,
+    required this.endMinute,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['profile_id'] = Variable<String>(profileId);
+    {
+      map['weekday'] = Variable<String>(
+        $AvailabilityWindowsTable.$converterweekday.toSql(weekday),
+      );
+    }
+    {
+      map['window_type'] = Variable<String>(
+        $AvailabilityWindowsTable.$converterwindowType.toSql(windowType),
+      );
+    }
+    map['start_minute'] = Variable<int>(startMinute);
+    map['end_minute'] = Variable<int>(endMinute);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  AvailabilityWindowsCompanion toCompanion(bool nullToAbsent) {
+    return AvailabilityWindowsCompanion(
+      id: Value(id),
+      profileId: Value(profileId),
+      weekday: Value(weekday),
+      windowType: Value(windowType),
+      startMinute: Value(startMinute),
+      endMinute: Value(endMinute),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory AvailabilityWindowRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AvailabilityWindowRow(
+      id: serializer.fromJson<String>(json['id']),
+      profileId: serializer.fromJson<String>(json['profileId']),
+      weekday: $AvailabilityWindowsTable.$converterweekday.fromJson(
+        serializer.fromJson<String>(json['weekday']),
+      ),
+      windowType: $AvailabilityWindowsTable.$converterwindowType.fromJson(
+        serializer.fromJson<String>(json['windowType']),
+      ),
+      startMinute: serializer.fromJson<int>(json['startMinute']),
+      endMinute: serializer.fromJson<int>(json['endMinute']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'profileId': serializer.toJson<String>(profileId),
+      'weekday': serializer.toJson<String>(
+        $AvailabilityWindowsTable.$converterweekday.toJson(weekday),
+      ),
+      'windowType': serializer.toJson<String>(
+        $AvailabilityWindowsTable.$converterwindowType.toJson(windowType),
+      ),
+      'startMinute': serializer.toJson<int>(startMinute),
+      'endMinute': serializer.toJson<int>(endMinute),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  AvailabilityWindowRow copyWith({
+    String? id,
+    String? profileId,
+    StoredTrainingWeekday? weekday,
+    StoredAvailabilityWindowType? windowType,
+    int? startMinute,
+    int? endMinute,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => AvailabilityWindowRow(
+    id: id ?? this.id,
+    profileId: profileId ?? this.profileId,
+    weekday: weekday ?? this.weekday,
+    windowType: windowType ?? this.windowType,
+    startMinute: startMinute ?? this.startMinute,
+    endMinute: endMinute ?? this.endMinute,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  AvailabilityWindowRow copyWithCompanion(AvailabilityWindowsCompanion data) {
+    return AvailabilityWindowRow(
+      id: data.id.present ? data.id.value : this.id,
+      profileId: data.profileId.present ? data.profileId.value : this.profileId,
+      weekday: data.weekday.present ? data.weekday.value : this.weekday,
+      windowType: data.windowType.present
+          ? data.windowType.value
+          : this.windowType,
+      startMinute: data.startMinute.present
+          ? data.startMinute.value
+          : this.startMinute,
+      endMinute: data.endMinute.present ? data.endMinute.value : this.endMinute,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AvailabilityWindowRow(')
+          ..write('id: $id, ')
+          ..write('profileId: $profileId, ')
+          ..write('weekday: $weekday, ')
+          ..write('windowType: $windowType, ')
+          ..write('startMinute: $startMinute, ')
+          ..write('endMinute: $endMinute, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    profileId,
+    weekday,
+    windowType,
+    startMinute,
+    endMinute,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AvailabilityWindowRow &&
+          other.id == this.id &&
+          other.profileId == this.profileId &&
+          other.weekday == this.weekday &&
+          other.windowType == this.windowType &&
+          other.startMinute == this.startMinute &&
+          other.endMinute == this.endMinute &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class AvailabilityWindowsCompanion
+    extends UpdateCompanion<AvailabilityWindowRow> {
+  final Value<String> id;
+  final Value<String> profileId;
+  final Value<StoredTrainingWeekday> weekday;
+  final Value<StoredAvailabilityWindowType> windowType;
+  final Value<int> startMinute;
+  final Value<int> endMinute;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const AvailabilityWindowsCompanion({
+    this.id = const Value.absent(),
+    this.profileId = const Value.absent(),
+    this.weekday = const Value.absent(),
+    this.windowType = const Value.absent(),
+    this.startMinute = const Value.absent(),
+    this.endMinute = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AvailabilityWindowsCompanion.insert({
+    required String id,
+    required String profileId,
+    required StoredTrainingWeekday weekday,
+    required StoredAvailabilityWindowType windowType,
+    required int startMinute,
+    required int endMinute,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       profileId = Value(profileId),
+       weekday = Value(weekday),
+       windowType = Value(windowType),
+       startMinute = Value(startMinute),
+       endMinute = Value(endMinute);
+  static Insertable<AvailabilityWindowRow> custom({
+    Expression<String>? id,
+    Expression<String>? profileId,
+    Expression<String>? weekday,
+    Expression<String>? windowType,
+    Expression<int>? startMinute,
+    Expression<int>? endMinute,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (profileId != null) 'profile_id': profileId,
+      if (weekday != null) 'weekday': weekday,
+      if (windowType != null) 'window_type': windowType,
+      if (startMinute != null) 'start_minute': startMinute,
+      if (endMinute != null) 'end_minute': endMinute,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AvailabilityWindowsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? profileId,
+    Value<StoredTrainingWeekday>? weekday,
+    Value<StoredAvailabilityWindowType>? windowType,
+    Value<int>? startMinute,
+    Value<int>? endMinute,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return AvailabilityWindowsCompanion(
+      id: id ?? this.id,
+      profileId: profileId ?? this.profileId,
+      weekday: weekday ?? this.weekday,
+      windowType: windowType ?? this.windowType,
+      startMinute: startMinute ?? this.startMinute,
+      endMinute: endMinute ?? this.endMinute,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (profileId.present) {
+      map['profile_id'] = Variable<String>(profileId.value);
+    }
+    if (weekday.present) {
+      map['weekday'] = Variable<String>(
+        $AvailabilityWindowsTable.$converterweekday.toSql(weekday.value),
+      );
+    }
+    if (windowType.present) {
+      map['window_type'] = Variable<String>(
+        $AvailabilityWindowsTable.$converterwindowType.toSql(windowType.value),
+      );
+    }
+    if (startMinute.present) {
+      map['start_minute'] = Variable<int>(startMinute.value);
+    }
+    if (endMinute.present) {
+      map['end_minute'] = Variable<int>(endMinute.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AvailabilityWindowsCompanion(')
+          ..write('id: $id, ')
+          ..write('profileId: $profileId, ')
+          ..write('weekday: $weekday, ')
+          ..write('windowType: $windowType, ')
+          ..write('startMinute: $startMinute, ')
+          ..write('endMinute: $endMinute, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $ProgramsTable extends Programs
     with TableInfo<$ProgramsTable, ProgramRow> {
   @override
@@ -4994,10 +5544,603 @@ class MeasurementRecordsCompanion
   }
 }
 
+class $OnboardingPreferencesTable extends OnboardingPreferences
+    with TableInfo<$OnboardingPreferencesTable, OnboardingPreferenceRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $OnboardingPreferencesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _profileIdMeta = const VerificationMeta(
+    'profileId',
+  );
+  @override
+  late final GeneratedColumn<String> profileId = GeneratedColumn<String>(
+    'profile_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES profiles (id) ON DELETE CASCADE',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<StoredTrainingGoal, String> goal =
+      GeneratedColumn<String>(
+        'goal',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<StoredTrainingGoal>(
+        $OnboardingPreferencesTable.$convertergoal,
+      );
+  @override
+  late final GeneratedColumnWithTypeConverter<
+    StoredTrainingExperienceLevel,
+    String
+  >
+  experienceLevel =
+      GeneratedColumn<String>(
+        'experience_level',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<StoredTrainingExperienceLevel>(
+        $OnboardingPreferencesTable.$converterexperienceLevel,
+      );
+  static const VerificationMeta _equipmentIdsMeta = const VerificationMeta(
+    'equipmentIds',
+  );
+  @override
+  late final GeneratedColumn<String> equipmentIds = GeneratedColumn<String>(
+    'equipment_ids',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 500,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _preferredSessionLengthMinutesMeta =
+      const VerificationMeta('preferredSessionLengthMinutes');
+  @override
+  late final GeneratedColumn<int> preferredSessionLengthMinutes =
+      GeneratedColumn<int>(
+        'preferred_session_length_minutes',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _preferredWeekdaysMeta = const VerificationMeta(
+    'preferredWeekdays',
+  );
+  @override
+  late final GeneratedColumn<String> preferredWeekdays =
+      GeneratedColumn<String>(
+        'preferred_weekdays',
+        aliasedName,
+        false,
+        additionalChecks: GeneratedColumn.checkTextLength(
+          minTextLength: 1,
+          maxTextLength: 80,
+        ),
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    profileId,
+    goal,
+    experienceLevel,
+    equipmentIds,
+    preferredSessionLengthMinutes,
+    preferredWeekdays,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'onboarding_preferences';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<OnboardingPreferenceRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('profile_id')) {
+      context.handle(
+        _profileIdMeta,
+        profileId.isAcceptableOrUnknown(data['profile_id']!, _profileIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_profileIdMeta);
+    }
+    if (data.containsKey('equipment_ids')) {
+      context.handle(
+        _equipmentIdsMeta,
+        equipmentIds.isAcceptableOrUnknown(
+          data['equipment_ids']!,
+          _equipmentIdsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_equipmentIdsMeta);
+    }
+    if (data.containsKey('preferred_session_length_minutes')) {
+      context.handle(
+        _preferredSessionLengthMinutesMeta,
+        preferredSessionLengthMinutes.isAcceptableOrUnknown(
+          data['preferred_session_length_minutes']!,
+          _preferredSessionLengthMinutesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_preferredSessionLengthMinutesMeta);
+    }
+    if (data.containsKey('preferred_weekdays')) {
+      context.handle(
+        _preferredWeekdaysMeta,
+        preferredWeekdays.isAcceptableOrUnknown(
+          data['preferred_weekdays']!,
+          _preferredWeekdaysMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_preferredWeekdaysMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {profileId};
+  @override
+  OnboardingPreferenceRow map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return OnboardingPreferenceRow(
+      profileId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}profile_id'],
+      )!,
+      goal: $OnboardingPreferencesTable.$convertergoal.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}goal'],
+        )!,
+      ),
+      experienceLevel: $OnboardingPreferencesTable.$converterexperienceLevel
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}experience_level'],
+            )!,
+          ),
+      equipmentIds: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}equipment_ids'],
+      )!,
+      preferredSessionLengthMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}preferred_session_length_minutes'],
+      )!,
+      preferredWeekdays: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}preferred_weekdays'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $OnboardingPreferencesTable createAlias(String alias) {
+    return $OnboardingPreferencesTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<StoredTrainingGoal, String, String> $convertergoal =
+      const EnumNameConverter<StoredTrainingGoal>(StoredTrainingGoal.values);
+  static JsonTypeConverter2<StoredTrainingExperienceLevel, String, String>
+  $converterexperienceLevel =
+      const EnumNameConverter<StoredTrainingExperienceLevel>(
+        StoredTrainingExperienceLevel.values,
+      );
+}
+
+class OnboardingPreferenceRow extends DataClass
+    implements Insertable<OnboardingPreferenceRow> {
+  final String profileId;
+  final StoredTrainingGoal goal;
+  final StoredTrainingExperienceLevel experienceLevel;
+  final String equipmentIds;
+  final int preferredSessionLengthMinutes;
+  final String preferredWeekdays;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const OnboardingPreferenceRow({
+    required this.profileId,
+    required this.goal,
+    required this.experienceLevel,
+    required this.equipmentIds,
+    required this.preferredSessionLengthMinutes,
+    required this.preferredWeekdays,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['profile_id'] = Variable<String>(profileId);
+    {
+      map['goal'] = Variable<String>(
+        $OnboardingPreferencesTable.$convertergoal.toSql(goal),
+      );
+    }
+    {
+      map['experience_level'] = Variable<String>(
+        $OnboardingPreferencesTable.$converterexperienceLevel.toSql(
+          experienceLevel,
+        ),
+      );
+    }
+    map['equipment_ids'] = Variable<String>(equipmentIds);
+    map['preferred_session_length_minutes'] = Variable<int>(
+      preferredSessionLengthMinutes,
+    );
+    map['preferred_weekdays'] = Variable<String>(preferredWeekdays);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  OnboardingPreferencesCompanion toCompanion(bool nullToAbsent) {
+    return OnboardingPreferencesCompanion(
+      profileId: Value(profileId),
+      goal: Value(goal),
+      experienceLevel: Value(experienceLevel),
+      equipmentIds: Value(equipmentIds),
+      preferredSessionLengthMinutes: Value(preferredSessionLengthMinutes),
+      preferredWeekdays: Value(preferredWeekdays),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory OnboardingPreferenceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return OnboardingPreferenceRow(
+      profileId: serializer.fromJson<String>(json['profileId']),
+      goal: $OnboardingPreferencesTable.$convertergoal.fromJson(
+        serializer.fromJson<String>(json['goal']),
+      ),
+      experienceLevel: $OnboardingPreferencesTable.$converterexperienceLevel
+          .fromJson(serializer.fromJson<String>(json['experienceLevel'])),
+      equipmentIds: serializer.fromJson<String>(json['equipmentIds']),
+      preferredSessionLengthMinutes: serializer.fromJson<int>(
+        json['preferredSessionLengthMinutes'],
+      ),
+      preferredWeekdays: serializer.fromJson<String>(json['preferredWeekdays']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'profileId': serializer.toJson<String>(profileId),
+      'goal': serializer.toJson<String>(
+        $OnboardingPreferencesTable.$convertergoal.toJson(goal),
+      ),
+      'experienceLevel': serializer.toJson<String>(
+        $OnboardingPreferencesTable.$converterexperienceLevel.toJson(
+          experienceLevel,
+        ),
+      ),
+      'equipmentIds': serializer.toJson<String>(equipmentIds),
+      'preferredSessionLengthMinutes': serializer.toJson<int>(
+        preferredSessionLengthMinutes,
+      ),
+      'preferredWeekdays': serializer.toJson<String>(preferredWeekdays),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  OnboardingPreferenceRow copyWith({
+    String? profileId,
+    StoredTrainingGoal? goal,
+    StoredTrainingExperienceLevel? experienceLevel,
+    String? equipmentIds,
+    int? preferredSessionLengthMinutes,
+    String? preferredWeekdays,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => OnboardingPreferenceRow(
+    profileId: profileId ?? this.profileId,
+    goal: goal ?? this.goal,
+    experienceLevel: experienceLevel ?? this.experienceLevel,
+    equipmentIds: equipmentIds ?? this.equipmentIds,
+    preferredSessionLengthMinutes:
+        preferredSessionLengthMinutes ?? this.preferredSessionLengthMinutes,
+    preferredWeekdays: preferredWeekdays ?? this.preferredWeekdays,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  OnboardingPreferenceRow copyWithCompanion(
+    OnboardingPreferencesCompanion data,
+  ) {
+    return OnboardingPreferenceRow(
+      profileId: data.profileId.present ? data.profileId.value : this.profileId,
+      goal: data.goal.present ? data.goal.value : this.goal,
+      experienceLevel: data.experienceLevel.present
+          ? data.experienceLevel.value
+          : this.experienceLevel,
+      equipmentIds: data.equipmentIds.present
+          ? data.equipmentIds.value
+          : this.equipmentIds,
+      preferredSessionLengthMinutes: data.preferredSessionLengthMinutes.present
+          ? data.preferredSessionLengthMinutes.value
+          : this.preferredSessionLengthMinutes,
+      preferredWeekdays: data.preferredWeekdays.present
+          ? data.preferredWeekdays.value
+          : this.preferredWeekdays,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OnboardingPreferenceRow(')
+          ..write('profileId: $profileId, ')
+          ..write('goal: $goal, ')
+          ..write('experienceLevel: $experienceLevel, ')
+          ..write('equipmentIds: $equipmentIds, ')
+          ..write(
+            'preferredSessionLengthMinutes: $preferredSessionLengthMinutes, ',
+          )
+          ..write('preferredWeekdays: $preferredWeekdays, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    profileId,
+    goal,
+    experienceLevel,
+    equipmentIds,
+    preferredSessionLengthMinutes,
+    preferredWeekdays,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is OnboardingPreferenceRow &&
+          other.profileId == this.profileId &&
+          other.goal == this.goal &&
+          other.experienceLevel == this.experienceLevel &&
+          other.equipmentIds == this.equipmentIds &&
+          other.preferredSessionLengthMinutes ==
+              this.preferredSessionLengthMinutes &&
+          other.preferredWeekdays == this.preferredWeekdays &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class OnboardingPreferencesCompanion
+    extends UpdateCompanion<OnboardingPreferenceRow> {
+  final Value<String> profileId;
+  final Value<StoredTrainingGoal> goal;
+  final Value<StoredTrainingExperienceLevel> experienceLevel;
+  final Value<String> equipmentIds;
+  final Value<int> preferredSessionLengthMinutes;
+  final Value<String> preferredWeekdays;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const OnboardingPreferencesCompanion({
+    this.profileId = const Value.absent(),
+    this.goal = const Value.absent(),
+    this.experienceLevel = const Value.absent(),
+    this.equipmentIds = const Value.absent(),
+    this.preferredSessionLengthMinutes = const Value.absent(),
+    this.preferredWeekdays = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  OnboardingPreferencesCompanion.insert({
+    required String profileId,
+    required StoredTrainingGoal goal,
+    required StoredTrainingExperienceLevel experienceLevel,
+    required String equipmentIds,
+    required int preferredSessionLengthMinutes,
+    required String preferredWeekdays,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : profileId = Value(profileId),
+       goal = Value(goal),
+       experienceLevel = Value(experienceLevel),
+       equipmentIds = Value(equipmentIds),
+       preferredSessionLengthMinutes = Value(preferredSessionLengthMinutes),
+       preferredWeekdays = Value(preferredWeekdays);
+  static Insertable<OnboardingPreferenceRow> custom({
+    Expression<String>? profileId,
+    Expression<String>? goal,
+    Expression<String>? experienceLevel,
+    Expression<String>? equipmentIds,
+    Expression<int>? preferredSessionLengthMinutes,
+    Expression<String>? preferredWeekdays,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (profileId != null) 'profile_id': profileId,
+      if (goal != null) 'goal': goal,
+      if (experienceLevel != null) 'experience_level': experienceLevel,
+      if (equipmentIds != null) 'equipment_ids': equipmentIds,
+      if (preferredSessionLengthMinutes != null)
+        'preferred_session_length_minutes': preferredSessionLengthMinutes,
+      if (preferredWeekdays != null) 'preferred_weekdays': preferredWeekdays,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  OnboardingPreferencesCompanion copyWith({
+    Value<String>? profileId,
+    Value<StoredTrainingGoal>? goal,
+    Value<StoredTrainingExperienceLevel>? experienceLevel,
+    Value<String>? equipmentIds,
+    Value<int>? preferredSessionLengthMinutes,
+    Value<String>? preferredWeekdays,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return OnboardingPreferencesCompanion(
+      profileId: profileId ?? this.profileId,
+      goal: goal ?? this.goal,
+      experienceLevel: experienceLevel ?? this.experienceLevel,
+      equipmentIds: equipmentIds ?? this.equipmentIds,
+      preferredSessionLengthMinutes:
+          preferredSessionLengthMinutes ?? this.preferredSessionLengthMinutes,
+      preferredWeekdays: preferredWeekdays ?? this.preferredWeekdays,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (profileId.present) {
+      map['profile_id'] = Variable<String>(profileId.value);
+    }
+    if (goal.present) {
+      map['goal'] = Variable<String>(
+        $OnboardingPreferencesTable.$convertergoal.toSql(goal.value),
+      );
+    }
+    if (experienceLevel.present) {
+      map['experience_level'] = Variable<String>(
+        $OnboardingPreferencesTable.$converterexperienceLevel.toSql(
+          experienceLevel.value,
+        ),
+      );
+    }
+    if (equipmentIds.present) {
+      map['equipment_ids'] = Variable<String>(equipmentIds.value);
+    }
+    if (preferredSessionLengthMinutes.present) {
+      map['preferred_session_length_minutes'] = Variable<int>(
+        preferredSessionLengthMinutes.value,
+      );
+    }
+    if (preferredWeekdays.present) {
+      map['preferred_weekdays'] = Variable<String>(preferredWeekdays.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OnboardingPreferencesCompanion(')
+          ..write('profileId: $profileId, ')
+          ..write('goal: $goal, ')
+          ..write('experienceLevel: $experienceLevel, ')
+          ..write('equipmentIds: $equipmentIds, ')
+          ..write(
+            'preferredSessionLengthMinutes: $preferredSessionLengthMinutes, ',
+          )
+          ..write('preferredWeekdays: $preferredWeekdays, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $ProfilesTable profiles = $ProfilesTable(this);
+  late final $AvailabilityWindowsTable availabilityWindows =
+      $AvailabilityWindowsTable(this);
   late final $ProgramsTable programs = $ProgramsTable(this);
   late final $ProgramVersionsTable programVersions = $ProgramVersionsTable(
     this,
@@ -5012,6 +6155,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ActualSetLogsTable actualSetLogs = $ActualSetLogsTable(this);
   late final $MeasurementRecordsTable measurementRecords =
       $MeasurementRecordsTable(this);
+  late final $OnboardingPreferencesTable onboardingPreferences =
+      $OnboardingPreferencesTable(this);
+  late final Index availabilityWindowsProfileWeekdayIdx = Index(
+    'availability_windows_profile_weekday_idx',
+    'CREATE INDEX availability_windows_profile_weekday_idx ON availability_windows (profile_id, weekday)',
+  );
   late final Index programsProfileStatusIdx = Index(
     'programs_profile_status_idx',
     'CREATE INDEX programs_profile_status_idx ON programs (profile_id, status)',
@@ -5062,6 +6211,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     profiles,
+    availabilityWindows,
     programs,
     programVersions,
     programVersionTrainingDays,
@@ -5070,6 +6220,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     sessionSets,
     actualSetLogs,
     measurementRecords,
+    onboardingPreferences,
+    availabilityWindowsProfileWeekdayIdx,
     programsProfileStatusIdx,
     programVersionsProgramStatusIdx,
     programVersionTrainingDaysVersionIdx,
@@ -5084,6 +6236,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'profiles',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('availability_windows', kind: UpdateKind.delete)],
+    ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
         'profiles',
@@ -5170,6 +6329,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       ),
       result: [TableUpdate('measurement_records', kind: UpdateKind.delete)],
     ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'profiles',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('onboarding_preferences', kind: UpdateKind.delete)],
+    ),
   ]);
 }
 
@@ -5197,6 +6363,30 @@ typedef $$ProfilesTableUpdateCompanionBuilder =
 final class $$ProfilesTableReferences
     extends BaseReferences<_$AppDatabase, $ProfilesTable, ProfileRow> {
   $$ProfilesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<
+    $AvailabilityWindowsTable,
+    List<AvailabilityWindowRow>
+  >
+  _availabilityWindowsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.availabilityWindows,
+        aliasName: 'profiles__id__availability_windows__profile_id',
+      );
+
+  $$AvailabilityWindowsTableProcessedTableManager get availabilityWindowsRefs {
+    final manager = $$AvailabilityWindowsTableTableManager(
+      $_db,
+      $_db.availabilityWindows,
+    ).filter((f) => f.profileId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _availabilityWindowsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 
   static MultiTypedResultKey<$ProgramsTable, List<ProgramRow>>
   _programsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
@@ -5259,6 +6449,31 @@ final class $$ProfilesTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<
+    $OnboardingPreferencesTable,
+    List<OnboardingPreferenceRow>
+  >
+  _onboardingPreferencesRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.onboardingPreferences,
+        aliasName: 'profiles__id__onboarding_preferences__profile_id',
+      );
+
+  $$OnboardingPreferencesTableProcessedTableManager
+  get onboardingPreferencesRefs {
+    final manager = $$OnboardingPreferencesTableTableManager(
+      $_db,
+      $_db.onboardingPreferences,
+    ).filter((f) => f.profileId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _onboardingPreferencesRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ProfilesTableFilterComposer
@@ -5304,6 +6519,31 @@ class $$ProfilesTableFilterComposer
     column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> availabilityWindowsRefs(
+    Expression<bool> Function($$AvailabilityWindowsTableFilterComposer f) f,
+  ) {
+    final $$AvailabilityWindowsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.availabilityWindows,
+      getReferencedColumn: (t) => t.profileId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AvailabilityWindowsTableFilterComposer(
+            $db: $db,
+            $table: $db.availabilityWindows,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 
   Expression<bool> programsRefs(
     Expression<bool> Function($$ProgramsTableFilterComposer f) f,
@@ -5377,6 +6617,32 @@ class $$ProfilesTableFilterComposer
                 $removeJoinBuilderFromRootComposer,
           ),
     );
+    return f(composer);
+  }
+
+  Expression<bool> onboardingPreferencesRefs(
+    Expression<bool> Function($$OnboardingPreferencesTableFilterComposer f) f,
+  ) {
+    final $$OnboardingPreferencesTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.onboardingPreferences,
+          getReferencedColumn: (t) => t.profileId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$OnboardingPreferencesTableFilterComposer(
+                $db: $db,
+                $table: $db.onboardingPreferences,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 }
@@ -5455,6 +6721,32 @@ class $$ProfilesTableAnnotationComposer
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
+  Expression<T> availabilityWindowsRefs<T extends Object>(
+    Expression<T> Function($$AvailabilityWindowsTableAnnotationComposer a) f,
+  ) {
+    final $$AvailabilityWindowsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.availabilityWindows,
+          getReferencedColumn: (t) => t.profileId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AvailabilityWindowsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.availabilityWindows,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
   Expression<T> programsRefs<T extends Object>(
     Expression<T> Function($$ProgramsTableAnnotationComposer a) f,
   ) {
@@ -5530,6 +6822,32 @@ class $$ProfilesTableAnnotationComposer
         );
     return f(composer);
   }
+
+  Expression<T> onboardingPreferencesRefs<T extends Object>(
+    Expression<T> Function($$OnboardingPreferencesTableAnnotationComposer a) f,
+  ) {
+    final $$OnboardingPreferencesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.onboardingPreferences,
+          getReferencedColumn: (t) => t.profileId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$OnboardingPreferencesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.onboardingPreferences,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$ProfilesTableTableManager
@@ -5546,9 +6864,11 @@ class $$ProfilesTableTableManager
           (ProfileRow, $$ProfilesTableReferences),
           ProfileRow,
           PrefetchHooks Function({
+            bool availabilityWindowsRefs,
             bool programsRefs,
             bool workoutSessionsRefs,
             bool measurementRecordsRefs,
+            bool onboardingPreferencesRefs,
           })
         > {
   $$ProfilesTableTableManager(_$AppDatabase db, $ProfilesTable table)
@@ -5608,20 +6928,45 @@ class $$ProfilesTableTableManager
               .toList(),
           prefetchHooksCallback:
               ({
+                availabilityWindowsRefs = false,
                 programsRefs = false,
                 workoutSessionsRefs = false,
                 measurementRecordsRefs = false,
+                onboardingPreferencesRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
+                    if (availabilityWindowsRefs) db.availabilityWindows,
                     if (programsRefs) db.programs,
                     if (workoutSessionsRefs) db.workoutSessions,
                     if (measurementRecordsRefs) db.measurementRecords,
+                    if (onboardingPreferencesRefs) db.onboardingPreferences,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
                     return [
+                      if (availabilityWindowsRefs)
+                        await $_getPrefetchedData<
+                          ProfileRow,
+                          $ProfilesTable,
+                          AvailabilityWindowRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProfilesTableReferences
+                              ._availabilityWindowsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProfilesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).availabilityWindowsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.profileId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                       if (programsRefs)
                         await $_getPrefetchedData<
                           ProfileRow,
@@ -5685,6 +7030,27 @@ class $$ProfilesTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (onboardingPreferencesRefs)
+                        await $_getPrefetchedData<
+                          ProfileRow,
+                          $ProfilesTable,
+                          OnboardingPreferenceRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProfilesTableReferences
+                              ._onboardingPreferencesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProfilesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).onboardingPreferencesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.profileId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -5706,10 +7072,421 @@ typedef $$ProfilesTableProcessedTableManager =
       (ProfileRow, $$ProfilesTableReferences),
       ProfileRow,
       PrefetchHooks Function({
+        bool availabilityWindowsRefs,
         bool programsRefs,
         bool workoutSessionsRefs,
         bool measurementRecordsRefs,
+        bool onboardingPreferencesRefs,
       })
+    >;
+typedef $$AvailabilityWindowsTableCreateCompanionBuilder =
+    AvailabilityWindowsCompanion Function({
+      required String id,
+      required String profileId,
+      required StoredTrainingWeekday weekday,
+      required StoredAvailabilityWindowType windowType,
+      required int startMinute,
+      required int endMinute,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+typedef $$AvailabilityWindowsTableUpdateCompanionBuilder =
+    AvailabilityWindowsCompanion Function({
+      Value<String> id,
+      Value<String> profileId,
+      Value<StoredTrainingWeekday> weekday,
+      Value<StoredAvailabilityWindowType> windowType,
+      Value<int> startMinute,
+      Value<int> endMinute,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+final class $$AvailabilityWindowsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $AvailabilityWindowsTable,
+          AvailabilityWindowRow
+        > {
+  $$AvailabilityWindowsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProfilesTable _profileIdTable(_$AppDatabase db) =>
+      db.profiles.createAlias('availability_windows__profile_id__profiles__id');
+
+  $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<String>('profile_id')!;
+
+    final manager = $$ProfilesTableTableManager(
+      $_db,
+      $_db.profiles,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AvailabilityWindowsTableFilterComposer
+    extends Composer<_$AppDatabase, $AvailabilityWindowsTable> {
+  $$AvailabilityWindowsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    StoredTrainingWeekday,
+    StoredTrainingWeekday,
+    String
+  >
+  get weekday => $composableBuilder(
+    column: $table.weekday,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    StoredAvailabilityWindowType,
+    StoredAvailabilityWindowType,
+    String
+  >
+  get windowType => $composableBuilder(
+    column: $table.windowType,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<int> get startMinute => $composableBuilder(
+    column: $table.startMinute,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get endMinute => $composableBuilder(
+    column: $table.endMinute,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProfilesTableFilterComposer get profileId {
+    final $$ProfilesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.profileId,
+      referencedTable: $db.profiles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProfilesTableFilterComposer(
+            $db: $db,
+            $table: $db.profiles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AvailabilityWindowsTableOrderingComposer
+    extends Composer<_$AppDatabase, $AvailabilityWindowsTable> {
+  $$AvailabilityWindowsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weekday => $composableBuilder(
+    column: $table.weekday,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get windowType => $composableBuilder(
+    column: $table.windowType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startMinute => $composableBuilder(
+    column: $table.startMinute,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get endMinute => $composableBuilder(
+    column: $table.endMinute,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProfilesTableOrderingComposer get profileId {
+    final $$ProfilesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.profileId,
+      referencedTable: $db.profiles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProfilesTableOrderingComposer(
+            $db: $db,
+            $table: $db.profiles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AvailabilityWindowsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AvailabilityWindowsTable> {
+  $$AvailabilityWindowsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<StoredTrainingWeekday, String> get weekday =>
+      $composableBuilder(column: $table.weekday, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<StoredAvailabilityWindowType, String>
+  get windowType => $composableBuilder(
+    column: $table.windowType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get startMinute => $composableBuilder(
+    column: $table.startMinute,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get endMinute =>
+      $composableBuilder(column: $table.endMinute, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$ProfilesTableAnnotationComposer get profileId {
+    final $$ProfilesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.profileId,
+      referencedTable: $db.profiles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProfilesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.profiles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AvailabilityWindowsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AvailabilityWindowsTable,
+          AvailabilityWindowRow,
+          $$AvailabilityWindowsTableFilterComposer,
+          $$AvailabilityWindowsTableOrderingComposer,
+          $$AvailabilityWindowsTableAnnotationComposer,
+          $$AvailabilityWindowsTableCreateCompanionBuilder,
+          $$AvailabilityWindowsTableUpdateCompanionBuilder,
+          (AvailabilityWindowRow, $$AvailabilityWindowsTableReferences),
+          AvailabilityWindowRow,
+          PrefetchHooks Function({bool profileId})
+        > {
+  $$AvailabilityWindowsTableTableManager(
+    _$AppDatabase db,
+    $AvailabilityWindowsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AvailabilityWindowsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AvailabilityWindowsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$AvailabilityWindowsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> profileId = const Value.absent(),
+                Value<StoredTrainingWeekday> weekday = const Value.absent(),
+                Value<StoredAvailabilityWindowType> windowType =
+                    const Value.absent(),
+                Value<int> startMinute = const Value.absent(),
+                Value<int> endMinute = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AvailabilityWindowsCompanion(
+                id: id,
+                profileId: profileId,
+                weekday: weekday,
+                windowType: windowType,
+                startMinute: startMinute,
+                endMinute: endMinute,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String profileId,
+                required StoredTrainingWeekday weekday,
+                required StoredAvailabilityWindowType windowType,
+                required int startMinute,
+                required int endMinute,
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AvailabilityWindowsCompanion.insert(
+                id: id,
+                profileId: profileId,
+                weekday: weekday,
+                windowType: windowType,
+                startMinute: startMinute,
+                endMinute: endMinute,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$AvailabilityWindowsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({profileId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (profileId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.profileId,
+                                referencedTable:
+                                    $$AvailabilityWindowsTableReferences
+                                        ._profileIdTable(db),
+                                referencedColumn:
+                                    $$AvailabilityWindowsTableReferences
+                                        ._profileIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AvailabilityWindowsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AvailabilityWindowsTable,
+      AvailabilityWindowRow,
+      $$AvailabilityWindowsTableFilterComposer,
+      $$AvailabilityWindowsTableOrderingComposer,
+      $$AvailabilityWindowsTableAnnotationComposer,
+      $$AvailabilityWindowsTableCreateCompanionBuilder,
+      $$AvailabilityWindowsTableUpdateCompanionBuilder,
+      (AvailabilityWindowRow, $$AvailabilityWindowsTableReferences),
+      AvailabilityWindowRow,
+      PrefetchHooks Function({bool profileId})
     >;
 typedef $$ProgramsTableCreateCompanionBuilder =
     ProgramsCompanion Function({
@@ -10098,12 +11875,426 @@ typedef $$MeasurementRecordsTableProcessedTableManager =
       MeasurementRecordRow,
       PrefetchHooks Function({bool profileId})
     >;
+typedef $$OnboardingPreferencesTableCreateCompanionBuilder =
+    OnboardingPreferencesCompanion Function({
+      required String profileId,
+      required StoredTrainingGoal goal,
+      required StoredTrainingExperienceLevel experienceLevel,
+      required String equipmentIds,
+      required int preferredSessionLengthMinutes,
+      required String preferredWeekdays,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+typedef $$OnboardingPreferencesTableUpdateCompanionBuilder =
+    OnboardingPreferencesCompanion Function({
+      Value<String> profileId,
+      Value<StoredTrainingGoal> goal,
+      Value<StoredTrainingExperienceLevel> experienceLevel,
+      Value<String> equipmentIds,
+      Value<int> preferredSessionLengthMinutes,
+      Value<String> preferredWeekdays,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+final class $$OnboardingPreferencesTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $OnboardingPreferencesTable,
+          OnboardingPreferenceRow
+        > {
+  $$OnboardingPreferencesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProfilesTable _profileIdTable(_$AppDatabase db) => db.profiles
+      .createAlias('onboarding_preferences__profile_id__profiles__id');
+
+  $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<String>('profile_id')!;
+
+    final manager = $$ProfilesTableTableManager(
+      $_db,
+      $_db.profiles,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$OnboardingPreferencesTableFilterComposer
+    extends Composer<_$AppDatabase, $OnboardingPreferencesTable> {
+  $$OnboardingPreferencesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnWithTypeConverterFilters<StoredTrainingGoal, StoredTrainingGoal, String>
+  get goal => $composableBuilder(
+    column: $table.goal,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    StoredTrainingExperienceLevel,
+    StoredTrainingExperienceLevel,
+    String
+  >
+  get experienceLevel => $composableBuilder(
+    column: $table.experienceLevel,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<String> get equipmentIds => $composableBuilder(
+    column: $table.equipmentIds,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get preferredSessionLengthMinutes => $composableBuilder(
+    column: $table.preferredSessionLengthMinutes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get preferredWeekdays => $composableBuilder(
+    column: $table.preferredWeekdays,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProfilesTableFilterComposer get profileId {
+    final $$ProfilesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.profileId,
+      referencedTable: $db.profiles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProfilesTableFilterComposer(
+            $db: $db,
+            $table: $db.profiles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$OnboardingPreferencesTableOrderingComposer
+    extends Composer<_$AppDatabase, $OnboardingPreferencesTable> {
+  $$OnboardingPreferencesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get goal => $composableBuilder(
+    column: $table.goal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get experienceLevel => $composableBuilder(
+    column: $table.experienceLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get equipmentIds => $composableBuilder(
+    column: $table.equipmentIds,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get preferredSessionLengthMinutes => $composableBuilder(
+    column: $table.preferredSessionLengthMinutes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get preferredWeekdays => $composableBuilder(
+    column: $table.preferredWeekdays,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProfilesTableOrderingComposer get profileId {
+    final $$ProfilesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.profileId,
+      referencedTable: $db.profiles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProfilesTableOrderingComposer(
+            $db: $db,
+            $table: $db.profiles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$OnboardingPreferencesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $OnboardingPreferencesTable> {
+  $$OnboardingPreferencesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumnWithTypeConverter<StoredTrainingGoal, String> get goal =>
+      $composableBuilder(column: $table.goal, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<StoredTrainingExperienceLevel, String>
+  get experienceLevel => $composableBuilder(
+    column: $table.experienceLevel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get equipmentIds => $composableBuilder(
+    column: $table.equipmentIds,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get preferredSessionLengthMinutes => $composableBuilder(
+    column: $table.preferredSessionLengthMinutes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get preferredWeekdays => $composableBuilder(
+    column: $table.preferredWeekdays,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$ProfilesTableAnnotationComposer get profileId {
+    final $$ProfilesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.profileId,
+      referencedTable: $db.profiles,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProfilesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.profiles,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$OnboardingPreferencesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $OnboardingPreferencesTable,
+          OnboardingPreferenceRow,
+          $$OnboardingPreferencesTableFilterComposer,
+          $$OnboardingPreferencesTableOrderingComposer,
+          $$OnboardingPreferencesTableAnnotationComposer,
+          $$OnboardingPreferencesTableCreateCompanionBuilder,
+          $$OnboardingPreferencesTableUpdateCompanionBuilder,
+          (OnboardingPreferenceRow, $$OnboardingPreferencesTableReferences),
+          OnboardingPreferenceRow,
+          PrefetchHooks Function({bool profileId})
+        > {
+  $$OnboardingPreferencesTableTableManager(
+    _$AppDatabase db,
+    $OnboardingPreferencesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$OnboardingPreferencesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$OnboardingPreferencesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$OnboardingPreferencesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> profileId = const Value.absent(),
+                Value<StoredTrainingGoal> goal = const Value.absent(),
+                Value<StoredTrainingExperienceLevel> experienceLevel =
+                    const Value.absent(),
+                Value<String> equipmentIds = const Value.absent(),
+                Value<int> preferredSessionLengthMinutes = const Value.absent(),
+                Value<String> preferredWeekdays = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => OnboardingPreferencesCompanion(
+                profileId: profileId,
+                goal: goal,
+                experienceLevel: experienceLevel,
+                equipmentIds: equipmentIds,
+                preferredSessionLengthMinutes: preferredSessionLengthMinutes,
+                preferredWeekdays: preferredWeekdays,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String profileId,
+                required StoredTrainingGoal goal,
+                required StoredTrainingExperienceLevel experienceLevel,
+                required String equipmentIds,
+                required int preferredSessionLengthMinutes,
+                required String preferredWeekdays,
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => OnboardingPreferencesCompanion.insert(
+                profileId: profileId,
+                goal: goal,
+                experienceLevel: experienceLevel,
+                equipmentIds: equipmentIds,
+                preferredSessionLengthMinutes: preferredSessionLengthMinutes,
+                preferredWeekdays: preferredWeekdays,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$OnboardingPreferencesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({profileId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (profileId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.profileId,
+                                referencedTable:
+                                    $$OnboardingPreferencesTableReferences
+                                        ._profileIdTable(db),
+                                referencedColumn:
+                                    $$OnboardingPreferencesTableReferences
+                                        ._profileIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$OnboardingPreferencesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $OnboardingPreferencesTable,
+      OnboardingPreferenceRow,
+      $$OnboardingPreferencesTableFilterComposer,
+      $$OnboardingPreferencesTableOrderingComposer,
+      $$OnboardingPreferencesTableAnnotationComposer,
+      $$OnboardingPreferencesTableCreateCompanionBuilder,
+      $$OnboardingPreferencesTableUpdateCompanionBuilder,
+      (OnboardingPreferenceRow, $$OnboardingPreferencesTableReferences),
+      OnboardingPreferenceRow,
+      PrefetchHooks Function({bool profileId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $$ProfilesTableTableManager get profiles =>
       $$ProfilesTableTableManager(_db, _db.profiles);
+  $$AvailabilityWindowsTableTableManager get availabilityWindows =>
+      $$AvailabilityWindowsTableTableManager(_db, _db.availabilityWindows);
   $$ProgramsTableTableManager get programs =>
       $$ProgramsTableTableManager(_db, _db.programs);
   $$ProgramVersionsTableTableManager get programVersions =>
@@ -10124,4 +12315,6 @@ class $AppDatabaseManager {
       $$ActualSetLogsTableTableManager(_db, _db.actualSetLogs);
   $$MeasurementRecordsTableTableManager get measurementRecords =>
       $$MeasurementRecordsTableTableManager(_db, _db.measurementRecords);
+  $$OnboardingPreferencesTableTableManager get onboardingPreferences =>
+      $$OnboardingPreferencesTableTableManager(_db, _db.onboardingPreferences);
 }

@@ -354,3 +354,108 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Verify Phase 4 workout execution, history review, and historical correction with application-level airplane-mode tests and file-backed process-recovery tests.
 - Consequence: Session start, set logging, Progress history, append-only corrections, and personal-record recalculation are proven local-only and recoverable before the workout MVP build checkpoint. Rest-timer replay and completed-session lifecycle remain separate later tasks.
+
+## D-051 — Adaptive Onboarding Preference Boundary
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Store P5-01 onboarding as one local profile-scoped preference row containing goal, experience level, available equipment, preferred session length, and preferred weekdays.
+- Consequence: Later calibration, availability, and generator features can read stable local inputs without inferring them from workout history. Saving onboarding creates the local profile if needed, but does not generate or change a training program.
+
+## D-052 — Conservative Calibration Read Model
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement the P5-02 calibration block as a deterministic read model derived from onboarding preferences, lasting two to four weeks with reduced volume, minimum RIR guardrails, experience-based session caps, no load increases, and explicit exit requirements.
+- Consequence: The app can preview a safe starting block before schedule solving or program generation exists. Calibration remains non-mutating in this step, so later Phase 5 rules must explicitly create recommendations before any program or prescription changes.
+
+## D-053 — Weekly Availability Window Boundary
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Store P5-03 weekly availability as profile-scoped recurring windows with weekday, fixed or flexible period type, start minute, and end minute.
+- Consequence: Future schedule solving can distinguish hard availability from flexible placement ranges without inferring time windows from preferred days alone. Saving availability remains non-mutating for programs and sessions until later recommendation and scheduling checklist items.
+
+## D-054 — Deterministic Program Draft Planner
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-04 as a deterministic local planner that converts onboarding preferences, the conservative calibration block, saved weekly availability, and bundled exercise catalog constraints into an editable Program builder draft.
+- Consequence: The app can create an initial structured program without network services or silent activation. The planner respects volume, recovery spacing, equipment, and schedule bounds, while save, publish, missed-session replacement, progression changes, and recommendation review remain separate user-controlled checklist items.
+
+## D-055 — Missed-Session Replacement Preview
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-05 as a deterministic preview that proposes the earliest spare weekly availability window after a missed generated program day while preserving goal-specific recovery spacing around remaining planned sessions.
+- Consequence: Missed-session handling becomes explainable and local without silently moving workouts. The result remains presentation state only; persistence, acceptance, editing, undo, and calendar/session mutation remain assigned to later recommendation review and scheduling work.
+
+## D-056 — Bounded Load Progression Rule
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-06 as a deterministic domain rule that turns an explicit increase, hold, or decrease request into a bounded loaded-prescription proposal using equipment increments, maximum percentage changes, and a minimum load floor.
+- Consequence: Later progression features can reuse one guarded load-change boundary instead of duplicating percentage caps and rounding rules. The rule remains non-mutating and does not yet decide qualification, miss streaks, interruption filtering, pain handling, persistence, or review actions.
+
+## D-057 — Smallest Load Increase After Two Qualifying Exposures
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-07 as a deterministic domain rule that proposes one smallest available load increment only when the two most recent matching exposures for an exercise qualify, then routes the change through the bounded progression rule.
+- Consequence: Load increases now require repeatable evidence before a recommendation candidate exists. The rule remains non-mutating and does not skip recent non-qualifying evidence; holds, reductions, interruption streak filtering, pain guidance, persistence, and review actions remain assigned to later Phase 5 items.
+
+## D-058 — Isolated Miss Hold and Repeated Miss Decrease
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-08 as a deterministic domain rule that holds after no data, non-miss latest evidence, or one isolated performance miss, and proposes a bounded decrease only after the two most recent matching exposures are both performance misses.
+- Consequence: One bad exposure cannot reduce a prescription, while repeated misses can create a conservative decrease candidate. The rule consumes pre-classified signals and remains non-mutating; raw outcome filtering, pain handling, persistence, explanations, and review actions remain assigned to later Phase 5 items.
+
+## D-059 — Interruption Filtering for Performance Failure Streaks
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-09 as a deterministic progression signal classifier that converts raw set evidence into target-met, performance-miss, or not-comparable signals while keeping time, equipment, and external interruptions out of performance-failure streaks.
+- Consequence: Interrupted exposures cannot trigger a repeated-miss load reduction even when their numeric results are low. The classifier remains non-mutating, and pain safety guidance, persistence, explanations, and review actions remain assigned to later Phase 5 items.
+
+## D-060 — Pain Progression Guard
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-10 as a deterministic domain guard that detects pain outcomes in matching exercise exposure evidence, blocks loaded progression for that exercise, and returns typed safety guidance while delegating the unchanged load result to the bounded progression hold path.
+- Consequence: Pain is handled as a safety state rather than a performance miss or earned reduction trigger. The guard remains non-mutating and does not persist safety state, change program versions, create recommendation-review records, or prescribe rehabilitation.
+
+## D-061 — Plateau and Deload Data Gate
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-11 as a deterministic domain gate that allows future plateau checks only after four comparable matching exposures across at least 21 days, and future deload checks only after three comparable matching exposures across at least 14 days, while requiring the latest matching exposure to be comparable.
+- Consequence: Plateau and deload recommendations cannot be inferred from one-off performance, stale history, pain, interruptions, or missing evidence. The gate remains non-mutating and does not diagnose plateaus, recommend deloads, persist recommendation state, change program versions, or implement explanation and review flows.
+
+## D-062 — Recommendation Explanation Envelope
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-12 as a deterministic explanation envelope that converts existing adaptive recommendation candidates into typed change summaries, reason codes, triggering evidence references, and undo metadata without applying the candidate.
+- Consequence: Future review surfaces can explain what would change, why it was proposed, which data triggered it, and what previous load should be restored if an accepted load change is undone. The envelope remains non-mutating and does not persist recommendation state, localize final copy, apply changes, or implement accept, reject, edit, and undo flows.
+
+## D-063 — Recommendation Review Flow State Machine
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-13 as a deterministic in-memory review state machine that opens explained adaptive recommendation candidates and supports accept, reject, load edit, and undo actions against copied prescription state.
+- Consequence: Recommendation review behavior is now testable before durable recommendation persistence or UI wiring. Accepted load changes update only the copied prescription, rejected candidates leave it unchanged, edits replace the proposed load before acceptance, and undo restores the previous load only after an accepted load change.
+
+## D-064 — Golden-Persona Twelve-Week Simulation Coverage
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Implement P5-14 as test-only golden-persona coverage that runs three synthetic twelve-week adaptive programming histories through the Phase 5 domain rules.
+- Consequence: Clean progression, repeated-miss with interruption, and pain-safety behavior are verified as integrated flows before the adaptive-programming beta APK build. The coverage remains non-mutating and does not introduce runtime simulation engines, persisted fixtures, durable recommendation state, or program-version publishing.
+
+## D-065 — Build C3 Adaptive-Programming Beta APK
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Produce Build C3 as a development-only Android debug APK that packages Phase 5 adaptive onboarding, calibration, weekly availability, generated program drafts, missed-session replacement previews, bounded progression, recommendation explanation and review rules, and golden-persona simulation coverage.
+- Consequence: The adaptive-programming beta can be installed and tested without release signing or external services. The APK artifact stays excluded from source control, while durable recommendation persistence, program-version publication from recommendations, branch publication, pull request creation, and CI verification remain separate work.

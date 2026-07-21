@@ -8,6 +8,25 @@ abstract interface class ProfileRepository {
   Future<void> saveProfile(ProfileRecord profile);
 }
 
+abstract interface class OnboardingRepository {
+  Stream<OnboardingPreferencesRecord?> watchPreferences(String profileId);
+
+  Future<OnboardingPreferencesRecord?> getPreferences(String profileId);
+
+  Future<void> savePreferences(OnboardingPreferencesRecord preferences);
+}
+
+abstract interface class AvailabilityRepository {
+  Stream<List<AvailabilityWindowRecord>> watchWindows(String profileId);
+
+  Future<List<AvailabilityWindowRecord>> getWindows(String profileId);
+
+  Future<void> replaceWindows(
+    String profileId,
+    List<AvailabilityWindowRecord> windows,
+  );
+}
+
 abstract interface class ProgramRepository {
   Stream<List<ProgramRecord>> watchPrograms(String profileId);
 

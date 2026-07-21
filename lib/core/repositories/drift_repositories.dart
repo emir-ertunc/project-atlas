@@ -1,7 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/tables/actual_set_logs.dart';
+import 'package:project_atlas/core/database/tables/availability_windows.dart';
 import 'package:project_atlas/core/database/tables/measurement_records.dart';
+import 'package:project_atlas/core/database/tables/onboarding_preferences.dart';
 import 'package:project_atlas/core/database/tables/prescribed_sets.dart';
 import 'package:project_atlas/core/database/tables/profiles.dart';
 import 'package:project_atlas/core/database/tables/program_versions.dart';
@@ -50,6 +52,92 @@ final class DriftProfileRepository implements ProfileRepository {
             updatedAt: Value(_asUtc(profile.updatedAt)),
           ),
         );
+  }
+}
+
+final class DriftOnboardingRepository implements OnboardingRepository {
+  DriftOnboardingRepository(this._database);
+
+  final AppDatabase _database;
+
+  @override
+  Stream<OnboardingPreferencesRecord?> watchPreferences(String profileId) {
+    final query = _database.select(_database.onboardingPreferences)
+      ..where((row) => row.profileId.equals(profileId));
+    return query.watchSingleOrNull().map(
+      (row) => row == null ? null : _onboardingPreferencesFromRow(row),
+    );
+  }
+
+  @override
+  Future<OnboardingPreferencesRecord?> getPreferences(String profileId) async {
+    final query = _database.select(_database.onboardingPreferences)
+      ..where((row) => row.profileId.equals(profileId));
+    final row = await query.getSingleOrNull();
+    return row == null ? null : _onboardingPreferencesFromRow(row);
+  }
+
+  @override
+  Future<void> savePreferences(OnboardingPreferencesRecord preferences) async {
+    _validateOnboardingPreferences(preferences);
+    await _database
+        .into(_database.onboardingPreferences)
+        .insertOnConflictUpdate(_onboardingPreferencesCompanion(preferences));
+  }
+}
+
+final class DriftAvailabilityRepository implements AvailabilityRepository {
+  DriftAvailabilityRepository(this._database);
+
+  final AppDatabase _database;
+
+  @override
+  Stream<List<AvailabilityWindowRecord>> watchWindows(String profileId) {
+    return _availabilityWindowsQuery(profileId).watch().map(
+      (rows) => _sortAvailabilityWindows(
+        rows.map(_availabilityWindowFromRow).toList(growable: false),
+      ),
+    );
+  }
+
+  @override
+  Future<List<AvailabilityWindowRecord>> getWindows(String profileId) async {
+    final rows = await _availabilityWindowsQuery(profileId).get();
+    return _sortAvailabilityWindows(
+      rows.map(_availabilityWindowFromRow).toList(growable: false),
+    );
+  }
+
+  @override
+  Future<void> replaceWindows(
+    String profileId,
+    List<AvailabilityWindowRecord> windows,
+  ) async {
+    _validateAvailabilityWindows(profileId, windows);
+    await _database.transaction(() async {
+      await (_database.delete(
+        _database.availabilityWindows,
+      )..where((row) => row.profileId.equals(profileId))).go();
+      if (windows.isEmpty) {
+        return;
+      }
+      await _database.batch((batch) {
+        batch.insertAll(
+          _database.availabilityWindows,
+          windows.map(_availabilityWindowCompanion).toList(growable: false),
+        );
+      });
+    });
+  }
+
+  SimpleSelectStatement<$AvailabilityWindowsTable, AvailabilityWindowRow>
+  _availabilityWindowsQuery(String profileId) {
+    return _database.select(_database.availabilityWindows)
+      ..where((row) => row.profileId.equals(profileId))
+      ..orderBy([
+        (row) => OrderingTerm.asc(row.startMinute),
+        (row) => OrderingTerm.asc(row.windowType),
+      ]);
   }
 }
 
@@ -540,6 +628,79 @@ ProfileRecord _profileFromRow(ProfileRow row) => ProfileRecord(
   updatedAt: _asUtc(row.updatedAt),
 );
 
+OnboardingPreferencesRecord _onboardingPreferencesFromRow(
+  OnboardingPreferenceRow row,
+) => OnboardingPreferencesRecord(
+  profileId: row.profileId,
+  goal: _enumByName(TrainingGoal.values, row.goal),
+  experienceLevel: _enumByName(
+    TrainingExperienceLevel.values,
+    row.experienceLevel,
+  ),
+  equipment: List.unmodifiable(
+    _decodeEnumCsv(EquipmentPreference.values, row.equipmentIds),
+  ),
+  preferredSessionLengthMinutes: row.preferredSessionLengthMinutes,
+  preferredWeekdays: List.unmodifiable(
+    _decodeEnumCsv(TrainingWeekday.values, row.preferredWeekdays),
+  ),
+  createdAt: _asUtc(row.createdAt),
+  updatedAt: _asUtc(row.updatedAt),
+);
+
+OnboardingPreferencesCompanion _onboardingPreferencesCompanion(
+  OnboardingPreferencesRecord preferences,
+) => OnboardingPreferencesCompanion.insert(
+  profileId: preferences.profileId,
+  goal: _enumByName(StoredTrainingGoal.values, preferences.goal),
+  experienceLevel: _enumByName(
+    StoredTrainingExperienceLevel.values,
+    preferences.experienceLevel,
+  ),
+  equipmentIds: _encodeEnumCsv(
+    preferences.equipment,
+    EquipmentPreference.values,
+    'equipment',
+  ),
+  preferredSessionLengthMinutes: preferences.preferredSessionLengthMinutes,
+  preferredWeekdays: _encodeEnumCsv(
+    preferences.preferredWeekdays,
+    TrainingWeekday.values,
+    'preferredWeekdays',
+  ),
+  createdAt: Value(_asUtc(preferences.createdAt)),
+  updatedAt: Value(_asUtc(preferences.updatedAt)),
+);
+
+AvailabilityWindowRecord _availabilityWindowFromRow(
+  AvailabilityWindowRow row,
+) => AvailabilityWindowRecord(
+  id: row.id,
+  profileId: row.profileId,
+  weekday: _enumByName(TrainingWeekday.values, row.weekday),
+  windowType: _enumByName(AvailabilityWindowType.values, row.windowType),
+  startMinute: row.startMinute,
+  endMinute: row.endMinute,
+  createdAt: _asUtc(row.createdAt),
+  updatedAt: _asUtc(row.updatedAt),
+);
+
+AvailabilityWindowsCompanion _availabilityWindowCompanion(
+  AvailabilityWindowRecord window,
+) => AvailabilityWindowsCompanion.insert(
+  id: window.id,
+  profileId: window.profileId,
+  weekday: _enumByName(StoredTrainingWeekday.values, window.weekday),
+  windowType: _enumByName(
+    StoredAvailabilityWindowType.values,
+    window.windowType,
+  ),
+  startMinute: window.startMinute,
+  endMinute: window.endMinute,
+  createdAt: Value(_asUtc(window.createdAt)),
+  updatedAt: Value(_asUtc(window.updatedAt)),
+);
+
 ProgramRecord _programFromRow(ProgramRow row) => ProgramRecord(
   id: row.id,
   profileId: row.profileId,
@@ -739,6 +900,163 @@ MeasurementRecord _measurementFromRow(MeasurementRecordRow row) =>
 
 T _enumByName<T extends Enum>(List<T> values, Enum source) =>
     values.firstWhere((value) => value.name == source.name);
+
+List<T> _decodeEnumCsv<T extends Enum>(List<T> values, String csv) {
+  if (csv.trim().isEmpty) {
+    return const [];
+  }
+  return [
+    for (final token in csv.split(','))
+      values.firstWhere((value) => value.name == token),
+  ];
+}
+
+String _encodeEnumCsv<T extends Enum>(
+  List<T> values,
+  List<T> canonicalValues,
+  String fieldName,
+) {
+  _validateNonEmptyUnique(values, fieldName);
+  final canonicalIndexes = {
+    for (final (index, value) in canonicalValues.indexed) value: index,
+  };
+  final sorted = values.toSet().toList(growable: false)
+    ..sort(
+      (left, right) =>
+          canonicalIndexes[left]!.compareTo(canonicalIndexes[right]!),
+    );
+  return sorted.map((value) => value.name).join(',');
+}
+
+void _validateOnboardingPreferences(OnboardingPreferencesRecord preferences) {
+  if (preferences.profileId.trim().isEmpty) {
+    throw ArgumentError.value(
+      preferences.profileId,
+      'profileId',
+      'Profile id is required.',
+    );
+  }
+  if (preferences.preferredSessionLengthMinutes < 20 ||
+      preferences.preferredSessionLengthMinutes > 180) {
+    throw ArgumentError.value(
+      preferences.preferredSessionLengthMinutes,
+      'preferredSessionLengthMinutes',
+      'Session length must be between 20 and 180 minutes.',
+    );
+  }
+  _validateNonEmptyUnique(preferences.equipment, 'equipment');
+  _validateNonEmptyUnique(preferences.preferredWeekdays, 'preferredWeekdays');
+}
+
+void _validateAvailabilityWindows(
+  String profileId,
+  List<AvailabilityWindowRecord> windows,
+) {
+  if (profileId.trim().isEmpty) {
+    throw ArgumentError.value(
+      profileId,
+      'profileId',
+      'Profile id is required.',
+    );
+  }
+
+  final ids = <String>{};
+  final exactWindows = <String>{};
+  for (final window in windows) {
+    if (window.id.trim().isEmpty) {
+      throw ArgumentError.value(window.id, 'id', 'Window id is required.');
+    }
+    if (window.profileId != profileId) {
+      throw ArgumentError.value(
+        window.profileId,
+        'profileId',
+        'Every availability window must belong to the replaced profile.',
+      );
+    }
+    if (window.startMinute < 0 || window.startMinute > 1439) {
+      throw ArgumentError.value(
+        window.startMinute,
+        'startMinute',
+        'Start minute must be between 0 and 1439.',
+      );
+    }
+    if (window.endMinute < 1 || window.endMinute > 1440) {
+      throw ArgumentError.value(
+        window.endMinute,
+        'endMinute',
+        'End minute must be between 1 and 1440.',
+      );
+    }
+    if (window.endMinute <= window.startMinute) {
+      throw ArgumentError.value(
+        window.endMinute,
+        'endMinute',
+        'End minute must be after start minute.',
+      );
+    }
+
+    if (!ids.add(window.id)) {
+      throw ArgumentError.value(window.id, 'id', 'Window ids must be unique.');
+    }
+    final exactKey = [
+      window.profileId,
+      window.weekday.name,
+      window.windowType.name,
+      window.startMinute,
+      window.endMinute,
+    ].join('|');
+    if (!exactWindows.add(exactKey)) {
+      throw ArgumentError.value(
+        window,
+        'windows',
+        'Duplicate availability windows are not allowed.',
+      );
+    }
+  }
+}
+
+void _validateNonEmptyUnique<T extends Enum>(List<T> values, String fieldName) {
+  if (values.isEmpty) {
+    throw ArgumentError.value(
+      values,
+      fieldName,
+      'At least one value required.',
+    );
+  }
+  if (values.toSet().length != values.length) {
+    throw ArgumentError.value(values, fieldName, 'Values must be unique.');
+  }
+}
+
+List<AvailabilityWindowRecord> _sortAvailabilityWindows(
+  List<AvailabilityWindowRecord> windows,
+) {
+  final weekdayIndexes = {
+    for (final (index, weekday) in TrainingWeekday.values.indexed)
+      weekday: index,
+  };
+  final windowTypeIndexes = {
+    for (final (index, type) in AvailabilityWindowType.values.indexed)
+      type: index,
+  };
+  return List.unmodifiable(
+    windows..sort((left, right) {
+      final weekdayComparison = weekdayIndexes[left.weekday]!.compareTo(
+        weekdayIndexes[right.weekday]!,
+      );
+      if (weekdayComparison != 0) {
+        return weekdayComparison;
+      }
+      final startComparison = left.startMinute.compareTo(right.startMinute);
+      if (startComparison != 0) {
+        return startComparison;
+      }
+      return windowTypeIndexes[left.windowType]!.compareTo(
+        windowTypeIndexes[right.windowType]!,
+      );
+    }),
+  );
+}
 
 DateTime _asUtc(DateTime value) => value.toUtc();
 
