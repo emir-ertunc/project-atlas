@@ -9,6 +9,12 @@ gesture interpretation, and training behavior. Android owns the native Filament
 surface, render loop, swapchain lifecycle, camera application, and future GLB
 loading details.
 
+P6-07 reuses the same heatmap boundary for training-derived anatomy overlays.
+Trained-muscle, weekly-volume, and fatigue maps are calculated in Flutter from
+local workout evidence and exercise-catalog muscle mappings, then passed to
+`setHeatmap` as normalized semantic muscle-region scores. No platform-channel
+method or native renderer ownership changes are required.
+
 No anatomy GLB is bundled in this step. The P2-04 GLB outputs remain external
 until a later checklist item explicitly reviews and packages runtime assets.
 
@@ -61,6 +67,9 @@ LOD tier, render mode, fallback reason, and missed performance threshold IDs.
   channel.
 - Heatmaps are keyed by P2-03 semantic muscle region IDs and clamp every score
   to `0.0..1.0`.
+- P6-07 training heatmaps use the same score range and semantic IDs, so the
+  current fallback renderer and future GLB material highlighting share one
+  contract.
 - Non-Android targets and widget tests use the same semantic IDs with a safe
   fallback picker, so interaction behavior remains testable without native
   renderer access.
@@ -190,3 +199,17 @@ The P2-11 Build C1 profileable anatomy APK output was:
 `<profileable android:shell="true" />`. The APK installed on a physical Android
 device and launched the native anatomy platform view for smoke validation with
 `anatomy_platform_view_created` at 518 ms.
+
+The P6-11 Build C4 personalized anatomy alpha APK output was:
+
+- `P:\build\app\outputs\flutter-apk\app-debug.apk`
+- Size: 198,872,646 bytes
+- SHA-256:
+  `7B7A4EB193CB78A1AA3320199C1DA9547B5637387F799626FDBCE82251731393`
+- Build define: `PROJECT_ATLAS_INITIAL_LOCATION=/anatomy`
+
+Build C4 opens to the Anatomy branch and keeps the P2-10 default renderer
+policy unchanged. The native Filament view remains behind the explicit
+`interactive_lite` override, while the packaged checkpoint exposes the
+measurement-based visual estimate, disclosure, and training heatmaps through
+the Flutter fallback path.

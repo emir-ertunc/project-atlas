@@ -110,18 +110,20 @@
 
 ## Phase 6 — Measurements, Personalized Anatomy, and Progress
 
-- [ ] P6-01 Add height, weight, torso, and left/right limb measurements.
-- [ ] P6-02 Add optional body-fat value and measurement-method fields.
-- [ ] P6-03 Add measurement guidance, reference points, and validation.
-- [ ] P6-04 Create bounded regional morph targets from body measurements.
-- [ ] P6-05 Clamp morph values to artist-validated visual ranges.
-- [ ] P6-06 Label the result as a visual estimate rather than a medical scan.
-- [ ] P6-07 Show trained-muscle, weekly-volume, and fatigue heatmaps.
-- [ ] P6-08 Add measurement, volume, load, repetition, and estimated-strength trends.
-- [ ] P6-09 Add comparison and export for measurement history.
-- [ ] P6-10 Complete morph-boundary and visual-regression tests.
-- [ ] P6-11 Produce the anatomy alpha APK. **Build C4**
+- [x] P6-01 Add height, weight, torso, and left/right limb measurements.
+- [x] P6-02 Add optional body-fat value and measurement-method fields.
+- [x] P6-03 Add measurement guidance, reference points, and validation.
+- [x] P6-04 Create bounded regional morph targets from body measurements.
+- [x] P6-05 Clamp morph values to artist-validated visual ranges.
+- [x] P6-06 Label the result as a visual estimate rather than a medical scan.
+- [x] P6-07 Show trained-muscle, weekly-volume, and fatigue heatmaps.
+- [x] P6-08 Add measurement, volume, load, repetition, and estimated-strength trends.
+- [x] P6-09 Add comparison and export for measurement history.
+- [x] P6-10 Complete morph-boundary and visual-regression tests.
+- [x] P6-11 Produce the anatomy alpha APK. **Build C4**
 - [ ] P6-12 Commit, push, open the pull request, and verify CI.
+- Phase 6 local validation record:
+  [`docs/PHASE_6_VALIDATION.md`](PHASE_6_VALIDATION.md)
 
 ## Phase 7 — Content Quality, Notifications, and Personal Release
 

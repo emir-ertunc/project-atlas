@@ -56,6 +56,25 @@ enum SetResult {
 
 enum MeasurementOrigin { manual, imported }
 
+enum BodyMeasurementMethod {
+  tapeMeasure,
+  scaleOrStadiometer,
+  smartScale,
+  importedDevice,
+  selfReported,
+  other,
+}
+
+enum BodyFatMeasurementMethod {
+  caliper,
+  bioelectricalImpedance,
+  dexa,
+  navyTape,
+  visualEstimate,
+  importedDevice,
+  other,
+}
+
 final class ProfileRecord {
   const ProfileRecord({
     required this.id,
@@ -319,6 +338,23 @@ final class MeasurementRecord {
     required this.measuredAt,
     required this.origin,
     required this.createdAt,
+    this.heightCentimeters,
+    this.weightKilograms,
+    this.torsoLengthCentimeters,
+    this.chestCircumferenceCentimeters,
+    this.waistCircumferenceCentimeters,
+    this.hipCircumferenceCentimeters,
+    this.leftUpperArmCircumferenceCentimeters,
+    this.rightUpperArmCircumferenceCentimeters,
+    this.leftForearmCircumferenceCentimeters,
+    this.rightForearmCircumferenceCentimeters,
+    this.leftThighCircumferenceCentimeters,
+    this.rightThighCircumferenceCentimeters,
+    this.leftCalfCircumferenceCentimeters,
+    this.rightCalfCircumferenceCentimeters,
+    this.bodyFatPercentage,
+    this.bodyMeasurementMethod,
+    this.bodyFatMeasurementMethod,
     this.notes,
   });
 
@@ -326,6 +362,23 @@ final class MeasurementRecord {
   final String profileId;
   final DateTime measuredAt;
   final MeasurementOrigin origin;
+  final double? heightCentimeters;
+  final double? weightKilograms;
+  final double? torsoLengthCentimeters;
+  final double? chestCircumferenceCentimeters;
+  final double? waistCircumferenceCentimeters;
+  final double? hipCircumferenceCentimeters;
+  final double? leftUpperArmCircumferenceCentimeters;
+  final double? rightUpperArmCircumferenceCentimeters;
+  final double? leftForearmCircumferenceCentimeters;
+  final double? rightForearmCircumferenceCentimeters;
+  final double? leftThighCircumferenceCentimeters;
+  final double? rightThighCircumferenceCentimeters;
+  final double? leftCalfCircumferenceCentimeters;
+  final double? rightCalfCircumferenceCentimeters;
+  final double? bodyFatPercentage;
+  final BodyMeasurementMethod? bodyMeasurementMethod;
+  final BodyFatMeasurementMethod? bodyFatMeasurementMethod;
   final String? notes;
   final DateTime createdAt;
 }

@@ -2,16 +2,29 @@
 
 ## Scope
 
-Schema version 6 establishes the local relational foundation for profiles,
+Schema version 8 establishes the local relational foundation for profiles,
 onboarding preferences, weekly availability windows, programs, immutable
 program versions, version-scoped training-day snapshots, prescribed sets,
 workout sessions, actual set revisions, and measurement history. The Drift
 database is the source of truth for the personal release, and SQLite foreign
 key enforcement is enabled whenever the database opens.
 
-Individual body-measurement fields remain Phase 6 extensions. The current
-measurement table provides the stable event identity, timestamp, source, and
-history relationship needed for those additions.
+P6-01 extends measurement history with nullable body-measurement values, P6-02
+adds nullable body-fat percentage plus measurement-method metadata, P6-03 adds
+schema-free measurement guidance and validation, P6-04 adds schema-free bounded
+regional morph target derivation, and P6-05 adds schema-free visual range
+clamping. P6-06 adds schema-free visual-estimate labeling. P6-07 adds
+schema-free training heatmaps from workout history and catalog muscle mappings.
+P6-08 adds schema-free progress trends from measurement history and completed
+clean workout logs. P6-09 adds schema-free measurement-history comparison and
+copyable CSV/JSON report generation. P6-10 adds test-only morph-boundary and
+visual-regression coverage. P6-11 produces Build C4 without adding schema,
+persisted derived visual state, sample personal data, or release signing.
+The current
+measurement table now provides stable event identity, timestamp, source, height,
+weight, torso, left/right limb values, body-fat value, and method provenance
+needed by later
+visual-estimate and trend features.
 
 ## Identifier and Time Conventions
 
@@ -234,9 +247,84 @@ latest-revision values used by history and personal-record read models.
 
 ### `measurement_records`
 
-Stores the timestamped header and provenance for one measurement event. Each
-record belongs to a profile and is deleted with that profile. Height, weight,
-body-fat metadata, and regional measurements are added in Phase 6.
+Stores one timestamped body-measurement event. Each record belongs to a profile
+and is deleted with that profile.
+
+P6-01 adds nullable normalized body-measurement values:
+
+- `height_centimeters`
+- `weight_kilograms`
+- `torso_length_centimeters`
+- `chest_circumference_centimeters`
+- `waist_circumference_centimeters`
+- `hip_circumference_centimeters`
+- `left_upper_arm_circumference_centimeters`
+- `right_upper_arm_circumference_centimeters`
+- `left_forearm_circumference_centimeters`
+- `right_forearm_circumference_centimeters`
+- `left_thigh_circumference_centimeters`
+- `right_thigh_circumference_centimeters`
+- `left_calf_circumference_centimeters`
+- `right_calf_circumference_centimeters`
+
+P6-02 adds nullable body-fat and method metadata:
+
+- `body_fat_percentage`
+- `body_measurement_method`
+- `body_fat_measurement_method`
+
+All body-measurement values are optional for backwards compatibility and must
+be positive when present. Body-fat percentage is optional and must be greater
+than 0 and less than 100 when present. Method values are optional enum values;
+`body_measurement_method` records how the circumference, height, or weight
+facts were captured, while `body_fat_measurement_method` records how the
+body-fat estimate was captured. Existing timestamp, source, notes, and creation
+fields remain unchanged.
+
+P6-03 does not add columns. It defines field-level reference points, capture
+instructions, broad warning ranges, missing-method warnings, and left/right
+side-difference warnings in application code. Repository writes block only
+invalid measurement events: no numeric value, non-finite value, non-positive
+length or mass value, or body-fat percentage outside the open 0-100 range.
+
+P6-04 also does not add columns. It derives transient regional morph target
+signals from a loaded `MeasurementRecord`, reuses P6-03 validation, and returns
+bounded values in `[-1, 1]` keyed by stable target definitions and P2 anatomy
+region IDs. P6-05 remains schema-free as well: it maps those normalized signals
+into target-specific visual minimum, neutral, and maximum multipliers. The
+values are not stored, not exported, and not applied to renderer meshes in this
+step. P6-06 also adds no columns: it wraps the clamped output with a
+non-diagnostic visual-estimate label and preserves blocking-validation and
+missing-range state.
+
+P6-07 also adds no columns. Anatomy heatmaps are derived in memory from
+completed `session_sets`, their latest `actual_set_logs` revisions, and bundled
+exercise-catalog muscle mappings. The derived trained-muscle, weekly-volume,
+and fatigue scores are not stored, exported, or used to mutate measurement,
+workout, prescription, or recommendation rows.
+
+P6-08 also adds no columns. Progress trends are derived in memory from
+`measurement_records`, completed `session_sets`, and the latest clean
+`actual_set_logs` revisions. The derived measurement, volume, load, repetition,
+and estimated-strength trends are not stored, exported, or used to mutate
+measurement, workout, prescription, or recommendation rows.
+
+P6-09 also adds no columns. Measurement-history comparisons and CSV/JSON report
+text are derived in memory from `measurement_records`. The read model compares
+first and latest usable field values, derives latest left/right side
+differences for paired circumference fields, and omits `profile_id` from report
+text. It does not write plaintext files, add restore/import behavior, persist
+derived comparisons, or mutate measurement rows.
+
+P6-10 also adds no columns. Morph-boundary and visual-regression tests exercise
+the existing measurement, morph target, visual range, and anatomy disclosure
+contracts without adding tables, indexes, migrations, fixtures with personal
+data, or stored derived visual state.
+
+P6-11 also adds no columns. Build C4 packages the existing Phase 6 measurement,
+visual-estimate, heatmap, trend, comparison, and test contracts into a
+development-only Android debug APK without changing table definitions,
+migrations, stored analytics, export containers, or bundled personal data.
 
 ## Relationship Summary
 

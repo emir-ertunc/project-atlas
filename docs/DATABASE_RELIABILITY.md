@@ -14,12 +14,21 @@ The migration test suite covers supported schema origins:
 - Version 3, which predates immutable training-day snapshots
 - Version 4, which predates onboarding preferences
 - Version 5, which predates weekly availability windows
+- Version 6, which predates height, weight, torso, and side-specific limb
+  measurement fields
+- Version 7, which predates body-fat value and measurement-method fields
 
 Each path is opened through the production migration strategy and compared with
 a newly created current database. The comparison covers tables, columns,
 defaults, primary keys, foreign keys, unique indexes, and query indexes. SQLite
 foreign key and integrity checks must also pass after migration. Synthetic
 legacy records verify that upgrades retain existing data.
+
+P6-03 through P6-11 add schema-free validation, visual estimate, heatmap,
+trend, measurement-history comparison, report-copy read models, and test-only
+morph boundary coverage, then package those contracts into Build C4. They do
+not increment `schemaVersion` because they do not change persisted tables,
+indexes, constraints, or migrations.
 
 ## Process Recovery
 

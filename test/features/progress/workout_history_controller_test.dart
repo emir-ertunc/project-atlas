@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
+import 'package:project_atlas/core/measurements/measurement_guidance.dart';
 import 'package:project_atlas/core/repositories/repository_providers.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 import 'package:project_atlas/features/program/application/program_draft_persistence.dart';
 import 'package:project_atlas/features/progress/application/workout_history_controller.dart';
+import 'package:project_atlas/features/progress/domain/progress_trends.dart';
 import 'package:project_atlas/features/today/application/workout_status_calculator.dart';
 
 void main() {
@@ -138,6 +140,44 @@ void main() {
       expect(record.bestVolume?.value, 540);
     },
   );
+
+  test('builds measurement and training trends from local history', () async {
+    await _seedProgram(container, now);
+    await _seedOlderCleanBenchSession(container, now);
+    await _seedCleanBenchSession(container, now);
+    await _seedMeasurements(container, now);
+
+    final state = await container.read(workoutHistoryProvider.future);
+
+    expect(state.measurementHistory.records, hasLength(2));
+    expect(
+      state.measurementHistory
+          .comparisonFor(BodyMeasurementField.weightKilograms)
+          ?.delta,
+      -2,
+    );
+
+    final weightTrend = state.trends.measurementTrendFor(
+      MeasurementTrendMetric.weight,
+    );
+    expect(weightTrend, isNotNull);
+    expect(weightTrend!.latestPoint.value, 79);
+    expect(weightTrend.delta, -2);
+
+    final benchTrend = state.trends.trainingTrendFor('barbell_bench_press');
+    expect(benchTrend, isNotNull);
+    expect(
+      benchTrend!.metricTrendFor(TrainingTrendMetric.volume)!.latestPoint.value,
+      440,
+    );
+    expect(
+      benchTrend
+          .metricTrendFor(TrainingTrendMetric.estimatedStrength)!
+          .latestPoint
+          .value,
+      closeTo(69.67, 0.01),
+    );
+  });
 }
 
 Future<void> _seedProgram(ProviderContainer container, DateTime now) async {
@@ -259,6 +299,68 @@ Future<void> _seedOlderLimitedBenchSession(
       rir: 0,
       result: SetResult.strengthLimitation,
       recordedAt: performedAt.add(const Duration(minutes: 6)),
+    ),
+  );
+}
+
+Future<void> _seedOlderCleanBenchSession(
+  ProviderContainer container,
+  DateTime now,
+) async {
+  final repository = container.read(workoutRepositoryProvider);
+  final performedAt = now.subtract(const Duration(days: 8));
+  final session = _session(
+    id: 'older-clean-session',
+    at: performedAt,
+    notes: 'Upper A',
+  );
+  final set = _sessionSet(
+    id: 'older-clean-bench-set-0',
+    sessionId: session.id,
+    prescribedSetId: 'upper-bench-0',
+    at: performedAt,
+  );
+
+  await repository.saveSessionPlan(session, [set]);
+  await repository.completeSessionSet(
+    _completed(set, performedAt.add(const Duration(minutes: 6))),
+    ActualSetLogRecord(
+      id: 'older-clean-bench-log-1',
+      sessionSetId: set.id,
+      revision: 1,
+      repetitions: 6,
+      loadKilograms: 50,
+      rir: 2,
+      recordedAt: performedAt.add(const Duration(minutes: 6)),
+    ),
+  );
+}
+
+Future<void> _seedMeasurements(
+  ProviderContainer container,
+  DateTime now,
+) async {
+  final repository = container.read(measurementRepositoryProvider);
+  await repository.addMeasurement(
+    MeasurementRecord(
+      id: 'measurement-old',
+      profileId: localProgramProfileId,
+      measuredAt: now.subtract(const Duration(days: 30)),
+      origin: MeasurementOrigin.manual,
+      weightKilograms: 81,
+      bodyFatPercentage: 18,
+      createdAt: now.subtract(const Duration(days: 30)),
+    ),
+  );
+  await repository.addMeasurement(
+    MeasurementRecord(
+      id: 'measurement-new',
+      profileId: localProgramProfileId,
+      measuredAt: now,
+      origin: MeasurementOrigin.manual,
+      weightKilograms: 79,
+      bodyFatPercentage: 17.5,
+      createdAt: now,
     ),
   );
 }

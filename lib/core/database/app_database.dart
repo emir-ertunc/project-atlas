@@ -35,7 +35,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -97,6 +97,78 @@ class AppDatabase extends _$AppDatabase {
         await customStatement(
           'CREATE INDEX availability_windows_profile_weekday_idx '
           'ON availability_windows (profile_id, weekday)',
+        );
+      }
+      if (from < 7) {
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.heightCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.weightKilograms,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.torsoLengthCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.chestCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.waistCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.hipCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.leftUpperArmCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.rightUpperArmCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.leftForearmCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.rightForearmCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.leftThighCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.rightThighCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.leftCalfCircumferenceCentimeters,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.rightCalfCircumferenceCentimeters,
+        );
+      }
+      if (from < 8) {
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.bodyFatPercentage,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.bodyMeasurementMethod,
+        );
+        await migrator.addColumn(
+          measurementRecords,
+          measurementRecords.bodyFatMeasurementMethod,
         );
       }
     },

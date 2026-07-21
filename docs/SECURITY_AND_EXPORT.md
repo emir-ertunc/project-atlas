@@ -63,6 +63,14 @@ physical device.
 - Plaintext working files stay in an operating-system no-backup temporary
   location and are removed after success or failure.
 
+## Measurement History Report Copy
+
+P6-09 adds a measurement-history CSV/JSON report copy on the Progress screen.
+This is not a backup or restore path and does not write a plaintext file. It is
+an explicit clipboard action with a personal-data warning, omits `profile_id`,
+and remains separate from the restore-capable encrypted container required for
+P7-10.
+
 ## Container Version 1
 
 The file extension is `.atlasbackup`. Multi-byte integers use big-endian byte

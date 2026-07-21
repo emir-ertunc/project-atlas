@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: P5-15 adaptive-programming beta build complete
+- Status: P6-11 anatomy alpha APK produced
 - Architecture style: Offline-first, layered, and feature-oriented
 
 ## Technology Baseline
@@ -90,7 +90,7 @@ Drift tables, data access objects, repository implementations, migrations, expor
 
 ## Core Relational Schema
 
-- Schema version 6 contains profiles, onboarding preferences, weekly
+- Schema version 8 contains profiles, onboarding preferences, weekly
   availability windows, programs, immutable program versions, version-scoped
   training-day snapshots, prescribed sets, workout sessions, session sets,
   append-only actual set logs, and measurement records.
@@ -99,8 +99,25 @@ Drift tables, data access objects, repository implementations, migrations, expor
   workout history by setting the optional session reference to null.
 - Stable text identifiers keep records portable across a future synchronization
   boundary.
-- Prescriptions and actual performance are separate records. Detailed body
-  measurement fields remain a Phase 6 extension.
+- Prescriptions and actual performance are separate records. P6-01 stores
+  height, weight, torso, and side-specific limb measurements on each
+  measurement event for later visual estimation and progress history. P6-02
+  adds optional body-fat percentage plus separate body-measurement and
+  body-fat method fields without changing training decisions. P6-03 adds a
+  schema-free guidance and validation contract for those fields. P6-04 creates
+  bounded regional morph target signals from validated measurement records.
+  P6-05 maps those normalized signals into target-specific visual ranges before
+  renderer consumption. P6-06 labels personalized anatomy output as a visual
+  estimate rather than a medical scan. P6-07 derives trained-muscle,
+  weekly-volume, and fatigue heatmaps from local workout history and catalog
+  muscle mappings without adding schema. P6-08 derives measurement, volume,
+  load, repetition, and estimated-strength trends as Progress read models.
+  P6-09 derives measurement-history comparisons and copyable CSV/JSON report
+  text without adding schema or a restore path. P6-10 adds test-only morph
+  boundary and visual regression coverage for the schema-free body estimate
+  contracts. P6-11 packages those Phase 6 contracts into Build C4 without
+  adding schema, runtime GLB assets, renderer mesh deformation, or release
+  signing.
 - Table definitions, constraints, indexes, and extension boundaries are recorded
   in [the core data model](DATA_MODEL.md).
 
@@ -487,6 +504,20 @@ consuming features.
   [the Android anatomy renderer bridge](ANATOMY_RENDERER_BRIDGE.md).
 - The static asset budget contract is recorded in
   [the anatomy asset budgets](ANATOMY_ASSET_BUDGETS.md).
+- Bounded body-measurement morph signals are recorded in
+  [body morph targets](BODY_MORPH_TARGETS.md).
+- Morph visual range clamps are recorded in
+  [body morph visual ranges](BODY_MORPH_VISUAL_RANGES.md).
+- Morph boundary and visual regression coverage is recorded in
+  [morph boundary and visual regression tests](MORPH_BOUNDARY_VISUAL_REGRESSION.md).
+- Personalized anatomy disclosure rules are recorded in
+  [body visual estimate label](BODY_VISUAL_ESTIMATE_LABEL.md).
+- Training-derived anatomy heatmaps are recorded in
+  [anatomy training heatmaps](ANATOMY_TRAINING_HEATMAPS.md).
+- Progress trend rules are recorded in
+  [progress trends](PROGRESS_TRENDS.md).
+- Build C4 local validation is recorded in
+  [the Phase 6 validation record](PHASE_6_VALIDATION.md).
 
 ## Local-First Repository Flow
 
@@ -501,10 +532,36 @@ consuming features.
 - Availability window writes are profile-scoped and replace the local recurring
   weekly windows for that profile.
 - Actual set corrections append revisions instead of replacing earlier results.
+- P6-01 measurement writes store nullable normalized body measurements in
+  kilograms and centimeters while preserving existing measurement records.
+- P6-02 measurement writes can also store nullable body-fat percentage and
+  method metadata while preserving existing measurement records.
+- P6-03 measurement writes run blocking data-quality validation before SQLite
+  insertion. Warning-level guidance remains available to the presentation layer
+  without blocking persistence.
+- P6-04 reads measurement records into schema-free morph target signals. P6-05
+  clamps those signals into schema-free visual multipliers. Neither path writes
+  morph rows, mutates renderer state, or stores derived visual state. P6-06 adds
+  a schema-free label and visible disclosure that the result is only a visual
+  estimate. P6-07 adds a schema-free heatmap read model over completed workout
+  set logs and bundled muscle mappings, then applies normalized scores to the
+  renderer controller only when the user selects a heatmap mode. P6-08 adds a
+  schema-free Progress trend read model over measurements and completed clean
+  workout logs without storing derived analytics. P6-09 adds schema-free
+  measurement-history comparison and explicit CSV/JSON report-copy actions that
+  do not write files or create restore behavior. P6-10 adds no runtime data
+  flow; it extends tests around morph boundaries, visual range interpolation,
+  deterministic clamped snapshots, and disclosure layout anchors. P6-11 adds
+  no runtime data flow; it packages the validated Phase 6 slice into a
+  development-only Android debug APK.
 - Riverpod provides interface-typed repositories from one lifecycle-managed
   database instance.
 - Detailed contracts and ownership rules are recorded in
   [the local-first data flow](LOCAL_DATA_FLOW.md).
+- Measurement reference points and validation rules are recorded in
+  [measurement guidance and validation](MEASUREMENT_GUIDANCE.md).
+- Measurement-history comparison and report-copy rules are recorded in
+  [measurement history comparison and export](MEASUREMENT_HISTORY_EXPORT.md).
 
 ## Database Migration and Recovery
 

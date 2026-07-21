@@ -208,6 +208,224 @@
   "@progressPersonalRecordsEmpty": {
     "description": "Empty state for personal records"
   },
+  "progressTrendsTitle": "Trends",
+  "@progressTrendsTitle": {
+    "description": "Title for measurement and training trend section"
+  },
+  "progressTrendsDescription": "Derived locally from saved measurements and latest clean set logs. Estimated strength is a display-only training estimate.",
+  "@progressTrendsDescription": {
+    "description": "Description for measurement and training trends"
+  },
+  "progressMeasurementTrendsTitle": "Measurements",
+  "@progressMeasurementTrendsTitle": {
+    "description": "Title for measurement trends"
+  },
+  "progressTrainingTrendsTitle": "Training",
+  "@progressTrainingTrendsTitle": {
+    "description": "Title for training trends"
+  },
+  "progressMeasurementHistoryTitle": "Measurement history",
+  "@progressMeasurementHistoryTitle": {
+    "description": "Title for measurement history comparison and export section"
+  },
+  "progressMeasurementHistoryDescription": "Compare saved body measurements and copy a local CSV or JSON export when you explicitly need it.",
+  "@progressMeasurementHistoryDescription": {
+    "description": "Description for measurement history comparison and export section"
+  },
+  "progressMeasurementComparisonTitle": "First vs latest",
+  "@progressMeasurementComparisonTitle": {
+    "description": "Title for first-to-latest measurement comparisons"
+  },
+  "progressMeasurementComparisonLine": "{metric}: {baseline} -> {latest} ({change})",
+  "@progressMeasurementComparisonLine": {
+    "description": "One first-to-latest measurement comparison row",
+    "placeholders": {
+      "metric": {
+        "type": "String"
+      },
+      "baseline": {
+        "type": "String"
+      },
+      "latest": {
+        "type": "String"
+      },
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "progressMeasurementSideComparisonTitle": "Latest side comparison",
+  "@progressMeasurementSideComparisonTitle": {
+    "description": "Title for latest left/right measurement comparisons"
+  },
+  "progressMeasurementSideComparisonLine": "{pair}: left {left} / right {right} ({difference}, {percent}%)",
+  "@progressMeasurementSideComparisonLine": {
+    "description": "One latest left/right body measurement comparison row",
+    "placeholders": {
+      "pair": {
+        "type": "String"
+      },
+      "left": {
+        "type": "String"
+      },
+      "right": {
+        "type": "String"
+      },
+      "difference": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "progressMeasurementPairUpperArm": "Upper arm",
+  "@progressMeasurementPairUpperArm": {
+    "description": "Left/right measurement pair label"
+  },
+  "progressMeasurementPairForearm": "Forearm",
+  "@progressMeasurementPairForearm": {
+    "description": "Left/right measurement pair label"
+  },
+  "progressMeasurementPairThigh": "Thigh",
+  "@progressMeasurementPairThigh": {
+    "description": "Left/right measurement pair label"
+  },
+  "progressMeasurementPairCalf": "Calf",
+  "@progressMeasurementPairCalf": {
+    "description": "Left/right measurement pair label"
+  },
+  "progressMeasurementExportTitle": "Measurement export",
+  "@progressMeasurementExportTitle": {
+    "description": "Title for measurement history export actions"
+  },
+  "progressMeasurementExportDescription": "The copied text contains personal measurement data. Store or share it only in a location you trust.",
+  "@progressMeasurementExportDescription": {
+    "description": "Privacy warning for copying measurement export text"
+  },
+  "progressMeasurementExportCount": "{recordCount} measurement records available",
+  "@progressMeasurementExportCount": {
+    "description": "Number of measurement records included in export",
+    "placeholders": {
+      "recordCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressMeasurementExportCopyCsv": "Copy CSV",
+  "@progressMeasurementExportCopyCsv": {
+    "description": "Button label for copying measurement history CSV"
+  },
+  "progressMeasurementExportCopyJson": "Copy JSON",
+  "@progressMeasurementExportCopyJson": {
+    "description": "Button label for copying measurement history JSON"
+  },
+  "progressMeasurementExportCopiedCsv": "Measurement CSV copied.",
+  "@progressMeasurementExportCopiedCsv": {
+    "description": "Snack bar after measurement CSV is copied"
+  },
+  "progressMeasurementExportCopiedJson": "Measurement JSON copied.",
+  "@progressMeasurementExportCopiedJson": {
+    "description": "Snack bar after measurement JSON is copied"
+  },
+  "progressTrendLine": "{metric}: {latest} ({change}, {pointCount} points)",
+  "@progressTrendLine": {
+    "description": "One trend summary line",
+    "placeholders": {
+      "metric": {
+        "type": "String"
+      },
+      "latest": {
+        "type": "String"
+      },
+      "change": {
+        "type": "String"
+      },
+      "pointCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressTrendNoChange": "no change",
+  "@progressTrendNoChange": {
+    "description": "Trend change text when latest and first values are equal"
+  },
+  "progressTrendHeight": "Height",
+  "@progressTrendHeight": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendWeight": "Weight",
+  "@progressTrendWeight": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendTorsoLength": "Torso length",
+  "@progressTrendTorsoLength": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendChest": "Chest",
+  "@progressTrendChest": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendWaist": "Waist",
+  "@progressTrendWaist": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendHips": "Hips",
+  "@progressTrendHips": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendLeftUpperArm": "Left upper arm",
+  "@progressTrendLeftUpperArm": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendRightUpperArm": "Right upper arm",
+  "@progressTrendRightUpperArm": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendLeftForearm": "Left forearm",
+  "@progressTrendLeftForearm": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendRightForearm": "Right forearm",
+  "@progressTrendRightForearm": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendLeftThigh": "Left thigh",
+  "@progressTrendLeftThigh": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendRightThigh": "Right thigh",
+  "@progressTrendRightThigh": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendLeftCalf": "Left calf",
+  "@progressTrendLeftCalf": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendRightCalf": "Right calf",
+  "@progressTrendRightCalf": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendBodyFat": "Body fat",
+  "@progressTrendBodyFat": {
+    "description": "Measurement trend metric label"
+  },
+  "progressTrendVolume": "Volume",
+  "@progressTrendVolume": {
+    "description": "Training trend metric label"
+  },
+  "progressTrendLoad": "Load",
+  "@progressTrendLoad": {
+    "description": "Training trend metric label"
+  },
+  "progressTrendRepetitions": "Repetitions",
+  "@progressTrendRepetitions": {
+    "description": "Training trend metric label"
+  },
+  "progressTrendEstimatedStrength": "Estimated strength",
+  "@progressTrendEstimatedStrength": {
+    "description": "Training trend metric label for estimated one-repetition strength"
+  },
   "progressBestLoad": "Best load: {load}",
   "@progressBestLoad": {
     "description": "Personal record row for best load",
@@ -795,6 +1013,22 @@
   "@anatomyInteractionInstructions": {
     "description": "Interaction help text shown above the anatomy renderer"
   },
+  "anatomyVisualEstimateLabel": "Visual estimate, not a medical scan",
+  "@anatomyVisualEstimateLabel": {
+    "description": "Disclosure title for personalized anatomy estimates"
+  },
+  "anatomyVisualEstimateDescription": "Personalized anatomy output is built from saved measurements and training data. It is approximate and cannot diagnose health, injury, disease, or body composition.",
+  "@anatomyVisualEstimateDescription": {
+    "description": "Disclosure body explaining that anatomy personalization is not diagnostic"
+  },
+  "anatomyVisualEstimateInputNote": "Use it to review training and measurement trends; if it looks wrong, re-check the saved inputs.",
+  "@anatomyVisualEstimateInputNote": {
+    "description": "Disclosure note directing the user to review measurement inputs"
+  },
+  "anatomyVisualEstimateIconLabel": "Visual estimate information",
+  "@anatomyVisualEstimateIconLabel": {
+    "description": "Accessibility label for the visual estimate disclosure icon"
+  },
   "anatomyRendererContentDescription": "Interactive anatomy renderer",
   "@anatomyRendererContentDescription": {
     "description": "Accessibility label passed to the native Android renderer view"
@@ -905,6 +1139,50 @@
   "anatomyRendererHeatmapEmpty": "No heatmap applied",
   "@anatomyRendererHeatmapEmpty": {
     "description": "Label shown when no anatomy heatmap is active"
+  },
+  "anatomyTrainingHeatmapTitle": "Training heatmaps",
+  "@anatomyTrainingHeatmapTitle": {
+    "description": "Title for training-derived anatomy heatmaps"
+  },
+  "anatomyTrainingHeatmapDescription": "Apply trained-muscle, weekly volume, or fatigue views from completed local sets in the last 7 days.",
+  "@anatomyTrainingHeatmapDescription": {
+    "description": "Description for training-derived anatomy heatmaps"
+  },
+  "anatomyTrainingHeatmapTrainedMuscle": "Trained muscles",
+  "@anatomyTrainingHeatmapTrainedMuscle": {
+    "description": "Button label for the trained-muscle heatmap"
+  },
+  "anatomyTrainingHeatmapWeeklyVolume": "Weekly volume",
+  "@anatomyTrainingHeatmapWeeklyVolume": {
+    "description": "Button label for the weekly-volume heatmap"
+  },
+  "anatomyTrainingHeatmapFatigue": "Fatigue",
+  "@anatomyTrainingHeatmapFatigue": {
+    "description": "Button label for the fatigue heatmap"
+  },
+  "anatomyTrainingHeatmapLoading": "Training heatmaps loading...",
+  "@anatomyTrainingHeatmapLoading": {
+    "description": "Message shown while training heatmaps are loading"
+  },
+  "anatomyTrainingHeatmapLoadError": "Training heatmaps could not load.",
+  "@anatomyTrainingHeatmapLoadError": {
+    "description": "Message shown when training heatmaps fail to load"
+  },
+  "anatomyTrainingHeatmapEmpty": "No completed workout evidence in the last 7 days.",
+  "@anatomyTrainingHeatmapEmpty": {
+    "description": "Empty state for training heatmaps"
+  },
+  "anatomyTrainingHeatmapSummary": "{regionCount} regions - strongest {topRegionId}",
+  "@anatomyTrainingHeatmapSummary": {
+    "description": "Summary for the selected training heatmap",
+    "placeholders": {
+      "regionCount": {
+        "type": "int"
+      },
+      "topRegionId": {
+        "type": "String"
+      }
+    }
   },
   "exerciseCatalogTitle": "Exercise catalog",
   "@exerciseCatalogTitle": {

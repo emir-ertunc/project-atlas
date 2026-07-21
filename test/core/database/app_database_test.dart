@@ -36,7 +36,7 @@ void main() {
         .customSelect('PRAGMA foreign_keys')
         .getSingle();
 
-    expect(database.schemaVersion, 6);
+    expect(database.schemaVersion, 8);
     expect(
       schemaNames,
       containsAll(<String>{
@@ -81,6 +81,27 @@ void main() {
             profileId: 'profile-1',
             measuredAt: measuredAt,
             source: MeasurementSource.manual,
+            heightCentimeters: const Value(180),
+            weightKilograms: const Value(82.5),
+            torsoLengthCentimeters: const Value(61),
+            chestCircumferenceCentimeters: const Value(103),
+            waistCircumferenceCentimeters: const Value(86),
+            hipCircumferenceCentimeters: const Value(99),
+            leftUpperArmCircumferenceCentimeters: const Value(34),
+            rightUpperArmCircumferenceCentimeters: const Value(34.5),
+            leftForearmCircumferenceCentimeters: const Value(28),
+            rightForearmCircumferenceCentimeters: const Value(28.5),
+            leftThighCircumferenceCentimeters: const Value(59),
+            rightThighCircumferenceCentimeters: const Value(59.5),
+            leftCalfCircumferenceCentimeters: const Value(38),
+            rightCalfCircumferenceCentimeters: const Value(38.5),
+            bodyFatPercentage: const Value(16.5),
+            bodyMeasurementMethod: const Value(
+              StoredBodyMeasurementMethod.tapeMeasure,
+            ),
+            bodyFatMeasurementMethod: const Value(
+              StoredBodyFatMeasurementMethod.bioelectricalImpedance,
+            ),
             notes: const Value('Baseline'),
           ),
         );
@@ -109,6 +130,29 @@ void main() {
         .getSingle();
     expect(measurement.source, MeasurementSource.manual);
     expect(measurement.measuredAt.toUtc(), measuredAt);
+    expect(measurement.heightCentimeters, 180);
+    expect(measurement.weightKilograms, 82.5);
+    expect(measurement.torsoLengthCentimeters, 61);
+    expect(measurement.chestCircumferenceCentimeters, 103);
+    expect(measurement.waistCircumferenceCentimeters, 86);
+    expect(measurement.hipCircumferenceCentimeters, 99);
+    expect(measurement.leftUpperArmCircumferenceCentimeters, 34);
+    expect(measurement.rightUpperArmCircumferenceCentimeters, 34.5);
+    expect(measurement.leftForearmCircumferenceCentimeters, 28);
+    expect(measurement.rightForearmCircumferenceCentimeters, 28.5);
+    expect(measurement.leftThighCircumferenceCentimeters, 59);
+    expect(measurement.rightThighCircumferenceCentimeters, 59.5);
+    expect(measurement.leftCalfCircumferenceCentimeters, 38);
+    expect(measurement.rightCalfCircumferenceCentimeters, 38.5);
+    expect(measurement.bodyFatPercentage, 16.5);
+    expect(
+      measurement.bodyMeasurementMethod,
+      StoredBodyMeasurementMethod.tapeMeasure,
+    );
+    expect(
+      measurement.bodyFatMeasurementMethod,
+      StoredBodyFatMeasurementMethod.bioelectricalImpedance,
+    );
     expect(preferences.goal, StoredTrainingGoal.hypertrophy);
     expect(
       preferences.experienceLevel,
@@ -204,6 +248,53 @@ void main() {
               endedAt: Value(DateTime.utc(2026, 7, 7, 9)),
             ),
           ),
+      throwsA(isA<Exception>()),
+    );
+  });
+
+  test('rejects non-positive body measurement values', () async {
+    await _insertProfile(database);
+
+    expect(
+      () => database
+          .into(database.measurementRecords)
+          .insert(
+            MeasurementRecordsCompanion.insert(
+              id: 'measurement-invalid',
+              profileId: 'profile-1',
+              measuredAt: DateTime.utc(2026, 7, 7),
+              source: MeasurementSource.manual,
+              heightCentimeters: const Value(0),
+            ),
+          ),
+      throwsA(isA<Exception>()),
+    );
+  });
+
+  test('rejects invalid body-fat values and measurement methods', () async {
+    await _insertProfile(database);
+
+    expect(
+      () => database
+          .into(database.measurementRecords)
+          .insert(
+            MeasurementRecordsCompanion.insert(
+              id: 'body-fat-invalid',
+              profileId: 'profile-1',
+              measuredAt: DateTime.utc(2026, 7, 7),
+              source: MeasurementSource.manual,
+              bodyFatPercentage: const Value(100),
+            ),
+          ),
+      throwsA(isA<Exception>()),
+    );
+    expect(
+      () => database.customStatement(
+        'INSERT INTO measurement_records '
+        '(id, profile_id, measured_at, source, body_measurement_method) '
+        "VALUES ('method-invalid', 'profile-1', "
+        "strftime('%s', '2026-07-07 09:00:00'), 'manual', 'unreviewed')",
+      ),
       throwsA(isA<Exception>()),
     );
   });

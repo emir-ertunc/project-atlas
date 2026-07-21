@@ -145,6 +145,74 @@ paths into a development-only Android debug APK. It does not add a
 recommendation write path, mutate active program versions, or introduce network
 or account dependencies.
 
+P6-01 extends the existing `MeasurementRepository` write path. A measurement
+event can now carry nullable height, weight, torso, and side-specific limb
+values in addition to timestamp, source, notes, and profile ownership. Values
+are validated at the repository boundary as positive finite numbers and are
+stored locally in kilograms and centimeters. Existing measurement records
+migrate forward with the new fields set to null.
+
+P6-02 extends the same measurement write path with optional body-fat percentage,
+body-measurement method, and body-fat measurement method. Body-fat percentage is
+validated as greater than 0 and less than 100 when present. Method fields are
+stored as local enum metadata and are not used to mutate training prescriptions.
+Existing measurement records migrate forward with the new fields set to null.
+
+P6-03 adds a schema-free measurement guidance and validation boundary before
+the same repository write. Blocking validation rejects new measurement events
+with no numeric value, non-finite values, non-positive length or mass values, or
+body-fat percentage outside the open 0-100 range. Warning-level issues, such as
+missing method metadata, broad reference-range checks, or left/right side
+differences, are returned by the domain validator for later presentation review
+but do not block persistence.
+
+P6-04 adds a read-only morph target derivation path. A loaded
+`MeasurementRecord` is converted in memory into bounded regional morph signals
+keyed by stable target definitions and P2 anatomy region IDs. This path reuses
+measurement validation, produces no targets when blocking validation fails, and
+does not insert morph rows, update measurement history, or mutate renderer
+state. P6-05 adds a second read-only step that maps the normalized targets into
+target-specific visual ranges and records missing range definitions instead of
+fabricating fallback deformations.
+
+P6-06 adds a presentation-facing label around that in-memory clamped result. It
+preserves blocking validation and missing range status, displays a
+visual-estimate disclosure on the anatomy screen, and does not write derived
+state, update measurement history, or mutate renderer state.
+
+P6-07 adds a read-only training heatmap path. The Anatomy screen reads the
+local exercise catalog and completed workout set evidence through repository
+providers, selects the latest actual-log revision per completed set, and builds
+trained-muscle, weekly-volume, and fatigue maps in memory for the trailing
+seven-day window. Applying a heatmap updates only the renderer controller's
+transient heatmap state; it does not write workout history, measurement
+history, prescriptions, recommendations, or derived analytics rows.
+
+P6-08 adds a read-only Progress trend path. The Progress read model now reads a
+snapshot of local measurement history plus workout sessions, completed set
+slots, linked prescriptions, and latest actual-log revisions. It derives
+measurement, volume, load, repetition, and estimated-strength trends in memory.
+Trend rendering updates only presentation state and does not write
+measurements, workouts, prescriptions, recommendations, exports, or derived
+analytics rows.
+
+P6-09 adds a read-only measurement-history comparison and report-copy path. The
+Progress read model reuses the local measurement snapshot, compares first and
+latest usable field values, derives latest left/right circumference differences,
+and generates CSV/JSON text only when the user taps an explicit copy action.
+The feature writes no files, creates no restore/import path, omits `profile_id`
+from copied text, and does not mutate measurement history or derived analytics
+state.
+
+P6-10 adds no new read or write path. It extends automated coverage around the
+existing morph target derivation, visual range clamp, and visual-estimate
+disclosure contracts.
+
+P6-11 adds no new read or write path. Build C4 packages the existing local
+measurement, visual-estimate, heatmap, trend, comparison, and report-copy paths
+into a development-only Android debug APK without adding remote services,
+stored derived analytics, plaintext file export, or restore behavior.
+
 P4-01 starts an active workout by copying the selected active program version's
 training-day prescription into a local session plan. The write creates the
 `workout_sessions` row with `inProgress` status and all planned `session_sets`
@@ -230,7 +298,8 @@ Airplane-mode acceptance is verified at the application boundary by blocking
 Dart `HttpClient` creation during catalog, manual program-builder, and Phase 4
 workout widget flows. Catalog data is read from bundled local asset paths, and
 onboarding preferences, availability windows, workout session plans, set logs,
-history reads, and history corrections remain local SQLite operations.
+history reads, history corrections, and measurement writes including body-fat
+and method metadata remain local SQLite operations.
 
 ## Future Synchronization Boundary
 
