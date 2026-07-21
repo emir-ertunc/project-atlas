@@ -459,3 +459,80 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Produce Build C3 as a development-only Android debug APK that packages Phase 5 adaptive onboarding, calibration, weekly availability, generated program drafts, missed-session replacement previews, bounded progression, recommendation explanation and review rules, and golden-persona simulation coverage.
 - Consequence: The adaptive-programming beta can be installed and tested without release signing or external services. The APK artifact stays excluded from source control, while durable recommendation persistence, program-version publication from recommendations, branch publication, pull request creation, and CI verification remain separate work.
+
+## D-066 — Body Measurement Storage Fields
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Extend measurement events with nullable height, weight, torso, and side-specific limb fields stored in kilograms and centimeters.
+- Consequence: Existing measurement records migrate forward without synthetic values, while later Phase 6 work can build guidance, body-fat metadata, visual estimates, and trends on a stable local schema. These fields remain separate from load progression decisions.
+
+## D-067 — Body-Fat and Measurement Method Metadata
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Extend measurement events with nullable body-fat percentage, body-measurement method, and body-fat measurement method fields.
+- Consequence: Existing measurement records migrate forward without inferred body-fat values or method labels. Future progress and anatomy estimate features can preserve provenance for tape, scale, caliper, impedance, visual-estimate, imported, or other measurement inputs without using these fields as direct load-progression triggers.
+
+## D-068 — Measurement Guidance and Validation Boundary
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Define field-level measurement guidance, reference points, broad warning ranges, method-metadata warnings, side-to-side warnings, and blocking repository validation in a schema-free core measurement contract.
+- Consequence: New measurement writes reject unusable events without adding database columns. Warning-level issues remain available for later presentation review, while measurement guidance and validation do not trigger program generation, scheduling, progression, pain, plateau, or recommendation changes.
+
+## D-069 — Bounded Regional Body Morph Signals
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Derive in-memory regional morph target signals from validated body measurements, bounded to `[-1, 1]` and keyed by stable P2 anatomy region identifiers.
+- Consequence: Body measurements can now drive deterministic anatomy estimate inputs without persisting morph state or mutating renderer state. These morph signals remain separate from training progression and health classification, and P6-05 maps them into bounded visual ranges before renderer use.
+
+## D-070 — Body Morph Visual Range Clamps
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Map P6-04 normalized morph target signals into target-specific minimum, neutral, and maximum visual multipliers through a versioned in-memory range contract.
+- Consequence: Renderer-facing anatomy estimates receive bounded visual values without adding database columns, storing derived morph state, or changing training progression. Missing visual ranges are reported explicitly instead of silently applying fallback deformations.
+
+## D-071 — Body Visual Estimate Disclosure
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Label personalized anatomy output as a measurement-based visual estimate rather than a medical scan through a versioned disclosure contract and visible anatomy-screen copy.
+- Consequence: The anatomy experience can personalize visuals while explicitly avoiding diagnostic, scan, exam, or medical-assessment claims. The label preserves validation and missing-range state, adds no database columns, and does not affect training progression.
+
+## D-072 — Training-Derived Anatomy Heatmaps
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Derive trained-muscle, weekly-volume, and fatigue anatomy heatmaps in memory from completed local workout sets, latest actual-log revisions, and bundled exercise-catalog muscle mappings.
+- Consequence: The Anatomy screen can visualize recent training distribution without adding database schema, storing derived analytics, changing prescriptions, or creating medical/recovery diagnoses. Heatmaps reuse the existing renderer `setHeatmap` contract with normalized P2 semantic muscle-region scores.
+
+## D-073 — Progress Trend Read Model
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Derive Progress-screen measurement, volume, load, repetition, and estimated-strength trends in memory from local measurement records, completed clean set logs, and latest actual-log revisions.
+- Consequence: Progress trends can show local changes without adding schema, persisting analytics, mutating history, or bypassing Phase 5 recommendation rules. Estimated strength remains display-only and must not be treated as a true max test, diagnosis, or automatic progression trigger.
+
+## D-074 — Measurement History Comparison and Report Copy
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Derive Progress-screen measurement-history comparisons and copyable CSV/JSON report text in memory from local measurement records.
+- Consequence: Users can review first-to-latest body-measurement changes, latest left/right circumference differences, and copy a measurement report without adding schema, writing plaintext files, creating restore/import behavior, or exposing `profile_id`. The feature remains separate from the encrypted backup container planned for P7-10.
+
+## D-075 — Morph Boundary and Visual Regression Coverage
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Complete P6-10 as automated test coverage for morph boundary values, visual range interpolation, deterministic clamped morph snapshots, and visual-estimate disclosure layout anchors.
+- Consequence: The personalized anatomy estimate contracts are now protected against unbounded numeric output, accidental visual multiplier drift, missing-height fallback regressions, and disclosure layout regressions without adding schema, renderer mesh deformation, screenshot artifacts, or training-rule behavior.
+
+## D-076 — Build C4 Personalized Anatomy Alpha APK
+
+- Date: 2026-07-21
+- Status: Accepted
+- Decision: Produce Build C4 as a development-only Android debug APK that opens to the Anatomy branch and packages Phase 6 measurement storage, body-fat provenance, measurement guidance, bounded morph targets, visual range clamps, visual-estimate disclosure, training heatmaps, Progress trends, measurement-history comparison, report copy, and morph-boundary coverage.
+- Consequence: The personalized anatomy alpha can be installed and tested without release signing or external services. The APK artifact stays excluded from source control, while renderer mesh deformation, reviewed runtime GLB packaging, encrypted backup restore, branch publication, pull request creation, and CI verification remain separate work.

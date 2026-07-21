@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
+import 'package:project_atlas/core/measurements/measurement_guidance.dart';
 import 'package:project_atlas/core/repositories/repository_providers.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 
@@ -508,6 +509,24 @@ void main() {
           measuredAt: now,
           origin: MeasurementOrigin.manual,
           createdAt: now,
+          heightCentimeters: 180,
+          weightKilograms: 82.5,
+          torsoLengthCentimeters: 61,
+          chestCircumferenceCentimeters: 103,
+          waistCircumferenceCentimeters: 86,
+          hipCircumferenceCentimeters: 99,
+          leftUpperArmCircumferenceCentimeters: 34,
+          rightUpperArmCircumferenceCentimeters: 34.5,
+          leftForearmCircumferenceCentimeters: 28,
+          rightForearmCircumferenceCentimeters: 28.5,
+          leftThighCircumferenceCentimeters: 59,
+          rightThighCircumferenceCentimeters: 59.5,
+          leftCalfCircumferenceCentimeters: 38,
+          rightCalfCircumferenceCentimeters: 38.5,
+          bodyFatPercentage: 16.5,
+          bodyMeasurementMethod: BodyMeasurementMethod.tapeMeasure,
+          bodyFatMeasurementMethod:
+              BodyFatMeasurementMethod.bioelectricalImpedance,
         ),
       );
       await repository.addMeasurement(
@@ -517,6 +536,7 @@ void main() {
           measuredAt: now.add(const Duration(days: 7)),
           origin: MeasurementOrigin.manual,
           createdAt: now.add(const Duration(days: 7)),
+          weightKilograms: 83,
         ),
       );
 
@@ -528,6 +548,78 @@ void main() {
         'measurement-2',
         'measurement-1',
       ]);
+      final baseline = measurements.last;
+      expect(baseline.heightCentimeters, 180);
+      expect(baseline.weightKilograms, 82.5);
+      expect(baseline.torsoLengthCentimeters, 61);
+      expect(baseline.chestCircumferenceCentimeters, 103);
+      expect(baseline.waistCircumferenceCentimeters, 86);
+      expect(baseline.hipCircumferenceCentimeters, 99);
+      expect(baseline.leftUpperArmCircumferenceCentimeters, 34);
+      expect(baseline.rightUpperArmCircumferenceCentimeters, 34.5);
+      expect(baseline.leftForearmCircumferenceCentimeters, 28);
+      expect(baseline.rightForearmCircumferenceCentimeters, 28.5);
+      expect(baseline.leftThighCircumferenceCentimeters, 59);
+      expect(baseline.rightThighCircumferenceCentimeters, 59.5);
+      expect(baseline.leftCalfCircumferenceCentimeters, 38);
+      expect(baseline.rightCalfCircumferenceCentimeters, 38.5);
+      expect(baseline.bodyFatPercentage, 16.5);
+      expect(baseline.bodyMeasurementMethod, BodyMeasurementMethod.tapeMeasure);
+      expect(
+        baseline.bodyFatMeasurementMethod,
+        BodyFatMeasurementMethod.bioelectricalImpedance,
+      );
+      expect(measurements.first.heightCentimeters, isNull);
+      expect(measurements.first.bodyFatPercentage, isNull);
+      expect(measurements.first.bodyMeasurementMethod, isNull);
+      expect(measurements.first.bodyFatMeasurementMethod, isNull);
+    },
+  );
+
+  test(
+    'measurement repository rejects invalid body measurement and body-fat values',
+    () async {
+      await _saveProfile(container, now);
+      final repository = container.read(measurementRepositoryProvider);
+
+      expect(
+        () => repository.addMeasurement(
+          MeasurementRecord(
+            id: 'measurement-invalid',
+            profileId: 'profile-1',
+            measuredAt: now,
+            origin: MeasurementOrigin.manual,
+            createdAt: now,
+            weightKilograms: double.nan,
+          ),
+        ),
+        throwsA(isA<MeasurementValidationException>()),
+      );
+      expect(
+        () => repository.addMeasurement(
+          MeasurementRecord(
+            id: 'body-fat-invalid',
+            profileId: 'profile-1',
+            measuredAt: now,
+            origin: MeasurementOrigin.manual,
+            createdAt: now,
+            bodyFatPercentage: 100,
+          ),
+        ),
+        throwsA(isA<MeasurementValidationException>()),
+      );
+      expect(
+        () => repository.addMeasurement(
+          MeasurementRecord(
+            id: 'measurement-empty',
+            profileId: 'profile-1',
+            measuredAt: now,
+            origin: MeasurementOrigin.manual,
+            createdAt: now,
+          ),
+        ),
+        throwsA(isA<MeasurementValidationException>()),
+      );
     },
   );
 

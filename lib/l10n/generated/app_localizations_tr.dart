@@ -150,6 +150,160 @@ class AppLocalizationsTr extends AppLocalizations {
       'Henuz kisisel rekor yok. Rekor takibi icin tekrar veya yuk iceren temiz setleri tamamla.';
 
   @override
+  String get progressTrendsTitle => 'Trendler';
+
+  @override
+  String get progressTrendsDescription =>
+      'Kayitli olcumlerden ve en son temiz set kayitlarindan yerel olarak turetilir. Tahmini guc yalnizca goruntuleme amacli bir antrenman tahminidir.';
+
+  @override
+  String get progressMeasurementTrendsTitle => 'Olcumler';
+
+  @override
+  String get progressTrainingTrendsTitle => 'Antrenman';
+
+  @override
+  String get progressMeasurementHistoryTitle => 'Olcum gecmisi';
+
+  @override
+  String get progressMeasurementHistoryDescription =>
+      'Kayitli vucut olcumlerini karsilastir ve yalnizca acikca gerektiginde yerel CSV veya JSON export metnini kopyala.';
+
+  @override
+  String get progressMeasurementComparisonTitle => 'Ilk ve son';
+
+  @override
+  String progressMeasurementComparisonLine(
+    String metric,
+    String baseline,
+    String latest,
+    String change,
+  ) {
+    return '$metric: $baseline -> $latest ($change)';
+  }
+
+  @override
+  String get progressMeasurementSideComparisonTitle =>
+      'Son sag/sol karsilastirma';
+
+  @override
+  String progressMeasurementSideComparisonLine(
+    String pair,
+    String left,
+    String right,
+    String difference,
+    String percent,
+  ) {
+    return '$pair: sol $left / sag $right ($difference, %$percent)';
+  }
+
+  @override
+  String get progressMeasurementPairUpperArm => 'Ust kol';
+
+  @override
+  String get progressMeasurementPairForearm => 'On kol';
+
+  @override
+  String get progressMeasurementPairThigh => 'Uyluk';
+
+  @override
+  String get progressMeasurementPairCalf => 'Baldir';
+
+  @override
+  String get progressMeasurementExportTitle => 'Olcum export';
+
+  @override
+  String get progressMeasurementExportDescription =>
+      'Kopyalanan metin kisisel olcum verisi icerir. Yalnizca guvendigin bir yerde sakla veya paylas.';
+
+  @override
+  String progressMeasurementExportCount(int recordCount) {
+    return '$recordCount olcum kaydi hazir';
+  }
+
+  @override
+  String get progressMeasurementExportCopyCsv => 'CSV kopyala';
+
+  @override
+  String get progressMeasurementExportCopyJson => 'JSON kopyala';
+
+  @override
+  String get progressMeasurementExportCopiedCsv => 'Olcum CSV kopyalandi.';
+
+  @override
+  String get progressMeasurementExportCopiedJson => 'Olcum JSON kopyalandi.';
+
+  @override
+  String progressTrendLine(
+    String metric,
+    String latest,
+    String change,
+    int pointCount,
+  ) {
+    return '$metric: $latest ($change, $pointCount nokta)';
+  }
+
+  @override
+  String get progressTrendNoChange => 'degisim yok';
+
+  @override
+  String get progressTrendHeight => 'Boy';
+
+  @override
+  String get progressTrendWeight => 'Kilo';
+
+  @override
+  String get progressTrendTorsoLength => 'Gövde uzunlugu';
+
+  @override
+  String get progressTrendChest => 'Gogus';
+
+  @override
+  String get progressTrendWaist => 'Bel';
+
+  @override
+  String get progressTrendHips => 'Kalca';
+
+  @override
+  String get progressTrendLeftUpperArm => 'Sol ust kol';
+
+  @override
+  String get progressTrendRightUpperArm => 'Sag ust kol';
+
+  @override
+  String get progressTrendLeftForearm => 'Sol on kol';
+
+  @override
+  String get progressTrendRightForearm => 'Sag on kol';
+
+  @override
+  String get progressTrendLeftThigh => 'Sol uyluk';
+
+  @override
+  String get progressTrendRightThigh => 'Sag uyluk';
+
+  @override
+  String get progressTrendLeftCalf => 'Sol baldir';
+
+  @override
+  String get progressTrendRightCalf => 'Sag baldir';
+
+  @override
+  String get progressTrendBodyFat => 'Vucut yagi';
+
+  @override
+  String get progressTrendVolume => 'Hacim';
+
+  @override
+  String get progressTrendLoad => 'Yuk';
+
+  @override
+  String get progressTrendRepetitions => 'Tekrar';
+
+  @override
+  String get progressTrendEstimatedStrength => 'Tahmini guc';
+
+  @override
   String progressBestLoad(String load) {
     return 'En iyi yuk: $load';
   }
@@ -557,6 +711,20 @@ class AppLocalizationsTr extends AppLocalizations {
       'Döndürmek için sürükle, yakınlaştırmak için iki parmakla sıkıştır, seçmek için bir bölgeye dokun. Heatmap önizlemesi çalışma zamanı GLB pakete eklenene kadar semantik kas kimliklerini kullanır.';
 
   @override
+  String get anatomyVisualEstimateLabel => 'Görsel tahmin, tıbbi tarama değil';
+
+  @override
+  String get anatomyVisualEstimateDescription =>
+      'Kişiselleştirilmiş anatomi çıktısı kayıtlı ölçümler ve antrenman verilerinden oluşturulur. Yaklaşıktır; sağlık, sakatlık, hastalık veya vücut kompozisyonu tanısı koyamaz.';
+
+  @override
+  String get anatomyVisualEstimateInputNote =>
+      'Bunu antrenman ve ölçüm eğilimlerini incelemek için kullan; hatalı görünürse kayıtlı girişleri tekrar kontrol et.';
+
+  @override
+  String get anatomyVisualEstimateIconLabel => 'Görsel tahmin bilgisi';
+
+  @override
   String get anatomyRendererContentDescription =>
       'Etkileşimli anatomi görüntüleyici';
 
@@ -628,6 +796,39 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get anatomyRendererHeatmapEmpty => 'Uygulanmış heatmap yok';
+
+  @override
+  String get anatomyTrainingHeatmapTitle => 'Antrenman heatmapleri';
+
+  @override
+  String get anatomyTrainingHeatmapDescription =>
+      'Son 7 gündeki tamamlanmış yerel setlerden çalışan kas, haftalık hacim veya yorgunluk görünümünü uygula.';
+
+  @override
+  String get anatomyTrainingHeatmapTrainedMuscle => 'Çalışan kaslar';
+
+  @override
+  String get anatomyTrainingHeatmapWeeklyVolume => 'Haftalık hacim';
+
+  @override
+  String get anatomyTrainingHeatmapFatigue => 'Yorgunluk';
+
+  @override
+  String get anatomyTrainingHeatmapLoading =>
+      'Antrenman heatmapleri yükleniyor...';
+
+  @override
+  String get anatomyTrainingHeatmapLoadError =>
+      'Antrenman heatmapleri yüklenemedi.';
+
+  @override
+  String get anatomyTrainingHeatmapEmpty =>
+      'Son 7 günde tamamlanmış antrenman kanıtı yok.';
+
+  @override
+  String anatomyTrainingHeatmapSummary(int regionCount, String topRegionId) {
+    return '$regionCount bölge - en güçlü $topRegionId';
+  }
 
   @override
   String get exerciseCatalogTitle => 'Egzersiz katalogu';

@@ -5,6 +5,7 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/tables/availability_windows.dart';
+import 'package:project_atlas/core/database/tables/measurement_records.dart';
 import 'package:project_atlas/core/database/tables/onboarding_preferences.dart';
 import 'package:project_atlas/core/database/tables/profiles.dart';
 import 'package:project_atlas/core/database/tables/program_versions.dart';
@@ -208,6 +209,133 @@ void main() {
     expect(window.windowType, StoredAvailabilityWindowType.flexible);
   });
 
+  test('migrates version 6 databases by adding body measurements', () async {
+    await _createVersion6Database(databaseFile);
+
+    final database = _openDatabase(databaseFile);
+    addTearDown(database.close);
+    await database.customSelect('SELECT 1').getSingle();
+
+    await _expectCurrentSchema(database, temporaryDirectory);
+    expect(await _userVersion(database), database.schemaVersion);
+    final legacyMeasurement = await database
+        .select(database.measurementRecords)
+        .getSingle();
+    expect(legacyMeasurement.id, 'measurement-v6');
+    expect(legacyMeasurement.heightCentimeters, isNull);
+    expect(legacyMeasurement.bodyFatPercentage, isNull);
+    expect(legacyMeasurement.bodyMeasurementMethod, isNull);
+    expect(legacyMeasurement.bodyFatMeasurementMethod, isNull);
+
+    await database
+        .into(database.measurementRecords)
+        .insert(
+          MeasurementRecordsCompanion.insert(
+            id: 'measurement-after-v6-migration',
+            profileId: 'profile-v6',
+            measuredAt: DateTime.utc(2026, 7, 21, 9),
+            source: MeasurementSource.manual,
+            heightCentimeters: const Value(181),
+            weightKilograms: const Value(84),
+            torsoLengthCentimeters: const Value(62),
+            chestCircumferenceCentimeters: const Value(104),
+            waistCircumferenceCentimeters: const Value(87),
+            hipCircumferenceCentimeters: const Value(100),
+            leftUpperArmCircumferenceCentimeters: const Value(35),
+            rightUpperArmCircumferenceCentimeters: const Value(35.5),
+            leftForearmCircumferenceCentimeters: const Value(29),
+            rightForearmCircumferenceCentimeters: const Value(29.5),
+            leftThighCircumferenceCentimeters: const Value(60),
+            rightThighCircumferenceCentimeters: const Value(60.5),
+            leftCalfCircumferenceCentimeters: const Value(39),
+            rightCalfCircumferenceCentimeters: const Value(39.5),
+            bodyFatPercentage: const Value(17),
+            bodyMeasurementMethod: const Value(
+              StoredBodyMeasurementMethod.tapeMeasure,
+            ),
+            bodyFatMeasurementMethod: const Value(
+              StoredBodyFatMeasurementMethod.caliper,
+            ),
+          ),
+        );
+
+    final measurements = await database
+        .select(database.measurementRecords)
+        .get();
+    final current = measurements.singleWhere(
+      (measurement) => measurement.id == 'measurement-after-v6-migration',
+    );
+    expect(current.heightCentimeters, 181);
+    expect(current.weightKilograms, 84);
+    expect(current.torsoLengthCentimeters, 62);
+    expect(current.leftUpperArmCircumferenceCentimeters, 35);
+    expect(current.rightCalfCircumferenceCentimeters, 39.5);
+    expect(current.bodyFatPercentage, 17);
+    expect(
+      current.bodyMeasurementMethod,
+      StoredBodyMeasurementMethod.tapeMeasure,
+    );
+    expect(
+      current.bodyFatMeasurementMethod,
+      StoredBodyFatMeasurementMethod.caliper,
+    );
+  });
+
+  test('migrates version 7 databases by adding body-fat metadata', () async {
+    await _createVersion7Database(databaseFile);
+
+    final database = _openDatabase(databaseFile);
+    addTearDown(database.close);
+    await database.customSelect('SELECT 1').getSingle();
+
+    await _expectCurrentSchema(database, temporaryDirectory);
+    expect(await _userVersion(database), database.schemaVersion);
+    final legacyMeasurement = await database
+        .select(database.measurementRecords)
+        .getSingle();
+    expect(legacyMeasurement.id, 'measurement-v7');
+    expect(legacyMeasurement.weightKilograms, 83);
+    expect(legacyMeasurement.bodyFatPercentage, isNull);
+    expect(legacyMeasurement.bodyMeasurementMethod, isNull);
+    expect(legacyMeasurement.bodyFatMeasurementMethod, isNull);
+
+    await database
+        .into(database.measurementRecords)
+        .insert(
+          MeasurementRecordsCompanion.insert(
+            id: 'measurement-after-v7-migration',
+            profileId: 'profile-v7',
+            measuredAt: DateTime.utc(2026, 7, 21, 10),
+            source: MeasurementSource.manual,
+            weightKilograms: const Value(82.5),
+            bodyFatPercentage: const Value(16.5),
+            bodyMeasurementMethod: const Value(
+              StoredBodyMeasurementMethod.smartScale,
+            ),
+            bodyFatMeasurementMethod: const Value(
+              StoredBodyFatMeasurementMethod.bioelectricalImpedance,
+            ),
+          ),
+        );
+
+    final measurements = await database
+        .select(database.measurementRecords)
+        .get();
+    final current = measurements.singleWhere(
+      (measurement) => measurement.id == 'measurement-after-v7-migration',
+    );
+    expect(current.weightKilograms, 82.5);
+    expect(current.bodyFatPercentage, 16.5);
+    expect(
+      current.bodyMeasurementMethod,
+      StoredBodyMeasurementMethod.smartScale,
+    );
+    expect(
+      current.bodyFatMeasurementMethod,
+      StoredBodyFatMeasurementMethod.bioelectricalImpedance,
+    );
+  });
+
   test(
     'restores committed workout state and rolls back interrupted work',
     () async {
@@ -384,6 +512,7 @@ Future<void> _createVersion2Database(File file) async {
   legacy.execute('DROP TABLE program_versions');
   legacy.execute('DROP TABLE availability_windows');
   legacy.execute('DROP TABLE onboarding_preferences');
+  _dropP6MeasurementColumns(legacy);
   legacy.userVersion = 2;
 
   legacy.execute(
@@ -445,6 +574,7 @@ Future<void> _createVersion3Database(File file) async {
   legacy.execute('DROP TABLE program_version_training_days');
   legacy.execute('DROP TABLE availability_windows');
   legacy.execute('DROP TABLE onboarding_preferences');
+  _dropP6MeasurementColumns(legacy);
   legacy.userVersion = 3;
   legacy.close();
 }
@@ -465,6 +595,7 @@ Future<void> _createVersion4Database(File file) async {
   final legacy = sqlite.sqlite3.open(file.path);
   legacy.execute('DROP TABLE availability_windows');
   legacy.execute('DROP TABLE onboarding_preferences');
+  _dropP6MeasurementColumns(legacy);
   legacy.userVersion = 4;
   legacy.close();
 }
@@ -484,9 +615,108 @@ Future<void> _createVersion5Database(File file) async {
 
   final legacy = sqlite.sqlite3.open(file.path);
   legacy.execute('DROP TABLE availability_windows');
+  _dropP6MeasurementColumns(legacy);
   legacy.userVersion = 5;
   legacy.close();
 }
+
+Future<void> _createVersion6Database(File file) async {
+  final current = _openDatabase(file);
+  await current.customSelect('SELECT 1').getSingle();
+  await current
+      .into(current.profiles)
+      .insert(
+        ProfilesCompanion.insert(
+          id: 'profile-v6',
+          unitSystem: UnitSystemPreference.metric,
+        ),
+      );
+  await current
+      .into(current.measurementRecords)
+      .insert(
+        MeasurementRecordsCompanion.insert(
+          id: 'measurement-v6',
+          profileId: 'profile-v6',
+          measuredAt: DateTime.utc(2026, 7, 1, 9),
+          source: MeasurementSource.manual,
+        ),
+      );
+  await current.close();
+
+  final legacy = sqlite.sqlite3.open(file.path);
+  _dropP6MeasurementColumns(legacy);
+  legacy.userVersion = 6;
+  legacy.close();
+}
+
+Future<void> _createVersion7Database(File file) async {
+  final current = _openDatabase(file);
+  await current.customSelect('SELECT 1').getSingle();
+  await current
+      .into(current.profiles)
+      .insert(
+        ProfilesCompanion.insert(
+          id: 'profile-v7',
+          unitSystem: UnitSystemPreference.metric,
+        ),
+      );
+  await current
+      .into(current.measurementRecords)
+      .insert(
+        MeasurementRecordsCompanion.insert(
+          id: 'measurement-v7',
+          profileId: 'profile-v7',
+          measuredAt: DateTime.utc(2026, 7, 7, 9),
+          source: MeasurementSource.manual,
+          heightCentimeters: const Value(180),
+          weightKilograms: const Value(83),
+          torsoLengthCentimeters: const Value(61),
+          chestCircumferenceCentimeters: const Value(103),
+        ),
+      );
+  await current.close();
+
+  final legacy = sqlite.sqlite3.open(file.path);
+  _dropP602MeasurementColumns(legacy);
+  legacy.userVersion = 7;
+  legacy.close();
+}
+
+void _dropP6MeasurementColumns(sqlite.Database legacy) {
+  for (final column in _p6MeasurementColumns) {
+    legacy.execute('ALTER TABLE measurement_records DROP COLUMN $column');
+  }
+}
+
+void _dropP602MeasurementColumns(sqlite.Database legacy) {
+  for (final column in _p602MeasurementColumns) {
+    legacy.execute('ALTER TABLE measurement_records DROP COLUMN $column');
+  }
+}
+
+const _p6MeasurementColumns = [
+  'height_centimeters',
+  'weight_kilograms',
+  'torso_length_centimeters',
+  'chest_circumference_centimeters',
+  'waist_circumference_centimeters',
+  'hip_circumference_centimeters',
+  'left_upper_arm_circumference_centimeters',
+  'right_upper_arm_circumference_centimeters',
+  'left_forearm_circumference_centimeters',
+  'right_forearm_circumference_centimeters',
+  'left_thigh_circumference_centimeters',
+  'right_thigh_circumference_centimeters',
+  'left_calf_circumference_centimeters',
+  'right_calf_circumference_centimeters',
+  ..._p602MeasurementColumns,
+];
+
+const _p602MeasurementColumns = [
+  'body_fat_percentage',
+  'body_measurement_method',
+  'body_fat_measurement_method',
+];
 
 Future<void> _insertRecoverableWorkout(AppDatabase database) async {
   await database

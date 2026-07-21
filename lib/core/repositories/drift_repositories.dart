@@ -10,6 +10,7 @@ import 'package:project_atlas/core/database/tables/program_versions.dart';
 import 'package:project_atlas/core/database/tables/programs.dart';
 import 'package:project_atlas/core/database/tables/session_sets.dart';
 import 'package:project_atlas/core/database/tables/workout_sessions.dart';
+import 'package:project_atlas/core/measurements/measurement_guidance.dart';
 import 'package:project_atlas/core/repositories/repository_contracts.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 
@@ -594,16 +595,21 @@ final class DriftMeasurementRepository implements MeasurementRepository {
 
   @override
   Stream<List<MeasurementRecord>> watchMeasurements(String profileId) {
-    final query = _database.select(_database.measurementRecords)
-      ..where((row) => row.profileId.equals(profileId))
-      ..orderBy([(row) => OrderingTerm.desc(row.measuredAt)]);
-    return query.watch().map(
+    return _measurementsQuery(profileId).watch().map(
       (rows) => rows.map(_measurementFromRow).toList(growable: false),
     );
   }
 
   @override
+  Future<List<MeasurementRecord>> getMeasurements(String profileId) async {
+    final rows = await _measurementsQuery(profileId).get();
+    return rows.map(_measurementFromRow).toList(growable: false);
+  }
+
+  @override
   Future<void> addMeasurement(MeasurementRecord measurement) async {
+    throwIfMeasurementHasBlockingIssues(measurement);
+
     await _database
         .into(_database.measurementRecords)
         .insert(
@@ -612,10 +618,120 @@ final class DriftMeasurementRepository implements MeasurementRepository {
             profileId: measurement.profileId,
             measuredAt: _asUtc(measurement.measuredAt),
             source: _enumByName(MeasurementSource.values, measurement.origin),
+            heightCentimeters: Value(
+              _positiveMeasurement(
+                'heightCentimeters',
+                measurement.heightCentimeters,
+              ),
+            ),
+            weightKilograms: Value(
+              _positiveMeasurement(
+                'weightKilograms',
+                measurement.weightKilograms,
+              ),
+            ),
+            torsoLengthCentimeters: Value(
+              _positiveMeasurement(
+                'torsoLengthCentimeters',
+                measurement.torsoLengthCentimeters,
+              ),
+            ),
+            chestCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'chestCircumferenceCentimeters',
+                measurement.chestCircumferenceCentimeters,
+              ),
+            ),
+            waistCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'waistCircumferenceCentimeters',
+                measurement.waistCircumferenceCentimeters,
+              ),
+            ),
+            hipCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'hipCircumferenceCentimeters',
+                measurement.hipCircumferenceCentimeters,
+              ),
+            ),
+            leftUpperArmCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'leftUpperArmCircumferenceCentimeters',
+                measurement.leftUpperArmCircumferenceCentimeters,
+              ),
+            ),
+            rightUpperArmCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'rightUpperArmCircumferenceCentimeters',
+                measurement.rightUpperArmCircumferenceCentimeters,
+              ),
+            ),
+            leftForearmCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'leftForearmCircumferenceCentimeters',
+                measurement.leftForearmCircumferenceCentimeters,
+              ),
+            ),
+            rightForearmCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'rightForearmCircumferenceCentimeters',
+                measurement.rightForearmCircumferenceCentimeters,
+              ),
+            ),
+            leftThighCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'leftThighCircumferenceCentimeters',
+                measurement.leftThighCircumferenceCentimeters,
+              ),
+            ),
+            rightThighCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'rightThighCircumferenceCentimeters',
+                measurement.rightThighCircumferenceCentimeters,
+              ),
+            ),
+            leftCalfCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'leftCalfCircumferenceCentimeters',
+                measurement.leftCalfCircumferenceCentimeters,
+              ),
+            ),
+            rightCalfCircumferenceCentimeters: Value(
+              _positiveMeasurement(
+                'rightCalfCircumferenceCentimeters',
+                measurement.rightCalfCircumferenceCentimeters,
+              ),
+            ),
+            bodyFatPercentage: Value(
+              _bodyFatPercentage(measurement.bodyFatPercentage),
+            ),
+            bodyMeasurementMethod: Value(
+              measurement.bodyMeasurementMethod == null
+                  ? null
+                  : _enumByName(
+                      StoredBodyMeasurementMethod.values,
+                      measurement.bodyMeasurementMethod!,
+                    ),
+            ),
+            bodyFatMeasurementMethod: Value(
+              measurement.bodyFatMeasurementMethod == null
+                  ? null
+                  : _enumByName(
+                      StoredBodyFatMeasurementMethod.values,
+                      measurement.bodyFatMeasurementMethod!,
+                    ),
+            ),
             notes: Value(measurement.notes),
             createdAt: Value(_asUtc(measurement.createdAt)),
           ),
         );
+  }
+
+  SimpleSelectStatement<$MeasurementRecordsTable, MeasurementRecordRow>
+  _measurementsQuery(String profileId) {
+    return _database.select(_database.measurementRecords)
+      ..where((row) => row.profileId.equals(profileId))
+      ..orderBy([(row) => OrderingTerm.desc(row.measuredAt)]);
   }
 }
 
@@ -888,15 +1004,67 @@ DateTime _sessionPerformanceTime(ExerciseSetPerformanceRecord performance) {
       performance.sessionCreatedAt;
 }
 
-MeasurementRecord _measurementFromRow(MeasurementRecordRow row) =>
-    MeasurementRecord(
-      id: row.id,
-      profileId: row.profileId,
-      measuredAt: _asUtc(row.measuredAt),
-      origin: _enumByName(MeasurementOrigin.values, row.source),
-      notes: row.notes,
-      createdAt: _asUtc(row.createdAt),
+MeasurementRecord _measurementFromRow(
+  MeasurementRecordRow row,
+) => MeasurementRecord(
+  id: row.id,
+  profileId: row.profileId,
+  measuredAt: _asUtc(row.measuredAt),
+  origin: _enumByName(MeasurementOrigin.values, row.source),
+  heightCentimeters: row.heightCentimeters,
+  weightKilograms: row.weightKilograms,
+  torsoLengthCentimeters: row.torsoLengthCentimeters,
+  chestCircumferenceCentimeters: row.chestCircumferenceCentimeters,
+  waistCircumferenceCentimeters: row.waistCircumferenceCentimeters,
+  hipCircumferenceCentimeters: row.hipCircumferenceCentimeters,
+  leftUpperArmCircumferenceCentimeters:
+      row.leftUpperArmCircumferenceCentimeters,
+  rightUpperArmCircumferenceCentimeters:
+      row.rightUpperArmCircumferenceCentimeters,
+  leftForearmCircumferenceCentimeters: row.leftForearmCircumferenceCentimeters,
+  rightForearmCircumferenceCentimeters:
+      row.rightForearmCircumferenceCentimeters,
+  leftThighCircumferenceCentimeters: row.leftThighCircumferenceCentimeters,
+  rightThighCircumferenceCentimeters: row.rightThighCircumferenceCentimeters,
+  leftCalfCircumferenceCentimeters: row.leftCalfCircumferenceCentimeters,
+  rightCalfCircumferenceCentimeters: row.rightCalfCircumferenceCentimeters,
+  bodyFatPercentage: row.bodyFatPercentage,
+  bodyMeasurementMethod: row.bodyMeasurementMethod == null
+      ? null
+      : _enumByName(BodyMeasurementMethod.values, row.bodyMeasurementMethod!),
+  bodyFatMeasurementMethod: row.bodyFatMeasurementMethod == null
+      ? null
+      : _enumByName(
+          BodyFatMeasurementMethod.values,
+          row.bodyFatMeasurementMethod!,
+        ),
+  notes: row.notes,
+  createdAt: _asUtc(row.createdAt),
+);
+
+double? _positiveMeasurement(String fieldName, double? value) {
+  if (value == null) {
+    return null;
+  }
+  if (!value.isFinite || value <= 0) {
+    throw ArgumentError.value(value, fieldName, 'must be a positive number');
+  }
+  return value;
+}
+
+double? _bodyFatPercentage(double? value) {
+  if (value == null) {
+    return null;
+  }
+  if (!value.isFinite || value <= 0 || value >= 100) {
+    throw ArgumentError.value(
+      value,
+      'bodyFatPercentage',
+      'must be greater than 0 and less than 100',
     );
+  }
+  return value;
+}
 
 T _enumByName<T extends Enum>(List<T> values, Enum source) =>
     values.firstWhere((value) => value.name == source.name);

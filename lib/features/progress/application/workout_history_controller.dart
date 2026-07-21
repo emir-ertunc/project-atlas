@@ -5,6 +5,8 @@ import 'package:project_atlas/core/repositories/repository_contracts.dart';
 import 'package:project_atlas/core/repositories/repository_providers.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 import 'package:project_atlas/features/program/application/program_draft_persistence.dart';
+import 'package:project_atlas/features/progress/domain/measurement_history_export.dart';
+import 'package:project_atlas/features/progress/domain/progress_trends.dart';
 import 'package:project_atlas/features/today/application/workout_status_calculator.dart';
 
 final workoutHistoryClockProvider = Provider<DateTime Function()>(
@@ -15,7 +17,9 @@ final workoutHistoryProvider = FutureProvider<WorkoutHistoryState>((ref) async {
   final profileId = ref.read(localProgramProfileIdProvider);
   final programRepository = ref.read(programRepositoryProvider);
   final workoutRepository = ref.read(workoutRepositoryProvider);
+  final measurementRepository = ref.read(measurementRepositoryProvider);
   final sessions = await workoutRepository.getSessions(profileId);
+  final measurements = await measurementRepository.getMeasurements(profileId);
   final prescriptionCache = <String, List<PrescribedSetRecord>>{};
   final summaries = <WorkoutHistorySessionSummary>[];
 
@@ -34,9 +38,20 @@ final workoutHistoryProvider = FutureProvider<WorkoutHistoryState>((ref) async {
     );
   }
 
+  final generatedAt = ref.read(workoutHistoryClockProvider)().toUtc();
+
   return WorkoutHistoryState(
     sessions: List.unmodifiable(summaries),
     personalRecords: _buildPersonalRecords(summaries),
+    measurementHistory: buildMeasurementHistoryReadModel(
+      measurements: measurements,
+      generatedAt: generatedAt,
+    ),
+    trends: buildProgressTrends(
+      measurements: measurements,
+      workoutSets: _workoutTrendEvidence(summaries),
+      generatedAt: generatedAt,
+    ),
   );
 });
 
@@ -110,10 +125,14 @@ final class WorkoutHistoryState {
   const WorkoutHistoryState({
     required this.sessions,
     required this.personalRecords,
+    required this.measurementHistory,
+    required this.trends,
   });
 
   final List<WorkoutHistorySessionSummary> sessions;
   final List<PersonalRecordSummary> personalRecords;
+  final MeasurementHistoryReadModel measurementHistory;
+  final ProgressTrendSet trends;
 
   bool get isEmpty => sessions.isEmpty;
 
@@ -319,6 +338,33 @@ List<PersonalRecordSummary> _buildPersonalRecords(
           .toList(growable: false)
         ..sort((left, right) => left.exerciseId.compareTo(right.exerciseId));
   return List.unmodifiable(records);
+}
+
+List<WorkoutTrendSetEvidence> _workoutTrendEvidence(
+  List<WorkoutHistorySessionSummary> sessions,
+) {
+  final evidence = <WorkoutTrendSetEvidence>[];
+  for (final session in sessions) {
+    final occurredAt = session.occurredAt;
+    for (final detail in session.setDetails) {
+      final latestLog = detail.latestLog;
+      if (!detail.isCompleted || latestLog == null) {
+        continue;
+      }
+      evidence.add(
+        WorkoutTrendSetEvidence(
+          sessionId: detail.session.id,
+          sessionSetId: detail.sessionSet.id,
+          exerciseId: detail.sessionSet.exerciseId,
+          occurredAt: occurredAt,
+          repetitions: latestLog.repetitions,
+          loadKilograms: latestLog.loadKilograms,
+          result: latestLog.result,
+        ),
+      );
+    }
+  }
+  return List.unmodifiable(evidence);
 }
 
 bool _qualifiesForPersonalRecord(ActualSetLogRecord? log) {

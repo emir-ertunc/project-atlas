@@ -99,6 +99,8 @@ abstract interface class WorkoutRepository {
 abstract interface class MeasurementRepository {
   Stream<List<MeasurementRecord>> watchMeasurements(String profileId);
 
+  Future<List<MeasurementRecord>> getMeasurements(String profileId);
+
   Future<void> addMeasurement(MeasurementRecord measurement);
 }
 

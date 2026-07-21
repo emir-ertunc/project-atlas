@@ -5171,6 +5171,227 @@ class $MeasurementRecordsTable extends MeasurementRecords
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   ).withConverter<MeasurementSource>($MeasurementRecordsTable.$convertersource);
+  static const VerificationMeta _heightCentimetersMeta = const VerificationMeta(
+    'heightCentimeters',
+  );
+  @override
+  late final GeneratedColumn<double> heightCentimeters =
+      GeneratedColumn<double>(
+        'height_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (height_centimeters > 0)',
+      );
+  static const VerificationMeta _weightKilogramsMeta = const VerificationMeta(
+    'weightKilograms',
+  );
+  @override
+  late final GeneratedColumn<double> weightKilograms = GeneratedColumn<double>(
+    'weight_kilograms',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    $customConstraints: 'CHECK (weight_kilograms > 0)',
+  );
+  static const VerificationMeta _torsoLengthCentimetersMeta =
+      const VerificationMeta('torsoLengthCentimeters');
+  @override
+  late final GeneratedColumn<double> torsoLengthCentimeters =
+      GeneratedColumn<double>(
+        'torso_length_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (torso_length_centimeters > 0)',
+      );
+  static const VerificationMeta _chestCircumferenceCentimetersMeta =
+      const VerificationMeta('chestCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> chestCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'chest_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (chest_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _waistCircumferenceCentimetersMeta =
+      const VerificationMeta('waistCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> waistCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'waist_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (waist_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _hipCircumferenceCentimetersMeta =
+      const VerificationMeta('hipCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> hipCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'hip_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (hip_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _leftUpperArmCircumferenceCentimetersMeta =
+      const VerificationMeta('leftUpperArmCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> leftUpperArmCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'left_upper_arm_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (left_upper_arm_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _rightUpperArmCircumferenceCentimetersMeta =
+      const VerificationMeta('rightUpperArmCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> rightUpperArmCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'right_upper_arm_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (right_upper_arm_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _leftForearmCircumferenceCentimetersMeta =
+      const VerificationMeta('leftForearmCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> leftForearmCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'left_forearm_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (left_forearm_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _rightForearmCircumferenceCentimetersMeta =
+      const VerificationMeta('rightForearmCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> rightForearmCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'right_forearm_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (right_forearm_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _leftThighCircumferenceCentimetersMeta =
+      const VerificationMeta('leftThighCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> leftThighCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'left_thigh_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (left_thigh_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _rightThighCircumferenceCentimetersMeta =
+      const VerificationMeta('rightThighCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> rightThighCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'right_thigh_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (right_thigh_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _leftCalfCircumferenceCentimetersMeta =
+      const VerificationMeta('leftCalfCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> leftCalfCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'left_calf_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (left_calf_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _rightCalfCircumferenceCentimetersMeta =
+      const VerificationMeta('rightCalfCircumferenceCentimeters');
+  @override
+  late final GeneratedColumn<double> rightCalfCircumferenceCentimeters =
+      GeneratedColumn<double>(
+        'right_calf_circumference_centimeters',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints: 'CHECK (right_calf_circumference_centimeters > 0)',
+      );
+  static const VerificationMeta _bodyFatPercentageMeta = const VerificationMeta(
+    'bodyFatPercentage',
+  );
+  @override
+  late final GeneratedColumn<double> bodyFatPercentage =
+      GeneratedColumn<double>(
+        'body_fat_percentage',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (body_fat_percentage > 0 AND body_fat_percentage < 100)',
+      );
+  @override
+  late final GeneratedColumnWithTypeConverter<
+    StoredBodyMeasurementMethod?,
+    String
+  >
+  bodyMeasurementMethod =
+      GeneratedColumn<String>(
+        'body_measurement_method',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (body_measurement_method IN (\'tapeMeasure\', \'scaleOrStadiometer\', \'smartScale\', \'importedDevice\', \'selfReported\', \'other\'))',
+      ).withConverter<StoredBodyMeasurementMethod?>(
+        $MeasurementRecordsTable.$converterbodyMeasurementMethodn,
+      );
+  @override
+  late final GeneratedColumnWithTypeConverter<
+    StoredBodyFatMeasurementMethod?,
+    String
+  >
+  bodyFatMeasurementMethod =
+      GeneratedColumn<String>(
+        'body_fat_measurement_method',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        $customConstraints:
+            'CHECK (body_fat_measurement_method IN (\'caliper\', \'bioelectricalImpedance\', \'dexa\', \'navyTape\', \'visualEstimate\', \'importedDevice\', \'other\'))',
+      ).withConverter<StoredBodyFatMeasurementMethod?>(
+        $MeasurementRecordsTable.$converterbodyFatMeasurementMethodn,
+      );
   static const VerificationMeta _notesMeta = const VerificationMeta('notes');
   @override
   late final GeneratedColumn<String> notes = GeneratedColumn<String>(
@@ -5199,6 +5420,23 @@ class $MeasurementRecordsTable extends MeasurementRecords
     profileId,
     measuredAt,
     source,
+    heightCentimeters,
+    weightKilograms,
+    torsoLengthCentimeters,
+    chestCircumferenceCentimeters,
+    waistCircumferenceCentimeters,
+    hipCircumferenceCentimeters,
+    leftUpperArmCircumferenceCentimeters,
+    rightUpperArmCircumferenceCentimeters,
+    leftForearmCircumferenceCentimeters,
+    rightForearmCircumferenceCentimeters,
+    leftThighCircumferenceCentimeters,
+    rightThighCircumferenceCentimeters,
+    leftCalfCircumferenceCentimeters,
+    rightCalfCircumferenceCentimeters,
+    bodyFatPercentage,
+    bodyMeasurementMethod,
+    bodyFatMeasurementMethod,
     notes,
     createdAt,
   ];
@@ -5234,6 +5472,141 @@ class $MeasurementRecordsTable extends MeasurementRecords
       );
     } else if (isInserting) {
       context.missing(_measuredAtMeta);
+    }
+    if (data.containsKey('height_centimeters')) {
+      context.handle(
+        _heightCentimetersMeta,
+        heightCentimeters.isAcceptableOrUnknown(
+          data['height_centimeters']!,
+          _heightCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('weight_kilograms')) {
+      context.handle(
+        _weightKilogramsMeta,
+        weightKilograms.isAcceptableOrUnknown(
+          data['weight_kilograms']!,
+          _weightKilogramsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('torso_length_centimeters')) {
+      context.handle(
+        _torsoLengthCentimetersMeta,
+        torsoLengthCentimeters.isAcceptableOrUnknown(
+          data['torso_length_centimeters']!,
+          _torsoLengthCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('chest_circumference_centimeters')) {
+      context.handle(
+        _chestCircumferenceCentimetersMeta,
+        chestCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['chest_circumference_centimeters']!,
+          _chestCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('waist_circumference_centimeters')) {
+      context.handle(
+        _waistCircumferenceCentimetersMeta,
+        waistCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['waist_circumference_centimeters']!,
+          _waistCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('hip_circumference_centimeters')) {
+      context.handle(
+        _hipCircumferenceCentimetersMeta,
+        hipCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['hip_circumference_centimeters']!,
+          _hipCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('left_upper_arm_circumference_centimeters')) {
+      context.handle(
+        _leftUpperArmCircumferenceCentimetersMeta,
+        leftUpperArmCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['left_upper_arm_circumference_centimeters']!,
+          _leftUpperArmCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('right_upper_arm_circumference_centimeters')) {
+      context.handle(
+        _rightUpperArmCircumferenceCentimetersMeta,
+        rightUpperArmCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['right_upper_arm_circumference_centimeters']!,
+          _rightUpperArmCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('left_forearm_circumference_centimeters')) {
+      context.handle(
+        _leftForearmCircumferenceCentimetersMeta,
+        leftForearmCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['left_forearm_circumference_centimeters']!,
+          _leftForearmCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('right_forearm_circumference_centimeters')) {
+      context.handle(
+        _rightForearmCircumferenceCentimetersMeta,
+        rightForearmCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['right_forearm_circumference_centimeters']!,
+          _rightForearmCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('left_thigh_circumference_centimeters')) {
+      context.handle(
+        _leftThighCircumferenceCentimetersMeta,
+        leftThighCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['left_thigh_circumference_centimeters']!,
+          _leftThighCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('right_thigh_circumference_centimeters')) {
+      context.handle(
+        _rightThighCircumferenceCentimetersMeta,
+        rightThighCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['right_thigh_circumference_centimeters']!,
+          _rightThighCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('left_calf_circumference_centimeters')) {
+      context.handle(
+        _leftCalfCircumferenceCentimetersMeta,
+        leftCalfCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['left_calf_circumference_centimeters']!,
+          _leftCalfCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('right_calf_circumference_centimeters')) {
+      context.handle(
+        _rightCalfCircumferenceCentimetersMeta,
+        rightCalfCircumferenceCentimeters.isAcceptableOrUnknown(
+          data['right_calf_circumference_centimeters']!,
+          _rightCalfCircumferenceCentimetersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('body_fat_percentage')) {
+      context.handle(
+        _bodyFatPercentageMeta,
+        bodyFatPercentage.isAcceptableOrUnknown(
+          data['body_fat_percentage']!,
+          _bodyFatPercentageMeta,
+        ),
+      );
     }
     if (data.containsKey('notes')) {
       context.handle(
@@ -5274,6 +5647,82 @@ class $MeasurementRecordsTable extends MeasurementRecords
           data['${effectivePrefix}source'],
         )!,
       ),
+      heightCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}height_centimeters'],
+      ),
+      weightKilograms: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}weight_kilograms'],
+      ),
+      torsoLengthCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}torso_length_centimeters'],
+      ),
+      chestCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}chest_circumference_centimeters'],
+      ),
+      waistCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}waist_circumference_centimeters'],
+      ),
+      hipCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}hip_circumference_centimeters'],
+      ),
+      leftUpperArmCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}left_upper_arm_circumference_centimeters'],
+      ),
+      rightUpperArmCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}right_upper_arm_circumference_centimeters'],
+      ),
+      leftForearmCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}left_forearm_circumference_centimeters'],
+      ),
+      rightForearmCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}right_forearm_circumference_centimeters'],
+      ),
+      leftThighCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}left_thigh_circumference_centimeters'],
+      ),
+      rightThighCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}right_thigh_circumference_centimeters'],
+      ),
+      leftCalfCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}left_calf_circumference_centimeters'],
+      ),
+      rightCalfCircumferenceCentimeters: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}right_calf_circumference_centimeters'],
+      ),
+      bodyFatPercentage: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}body_fat_percentage'],
+      ),
+      bodyMeasurementMethod: $MeasurementRecordsTable
+          .$converterbodyMeasurementMethodn
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}body_measurement_method'],
+            ),
+          ),
+      bodyFatMeasurementMethod: $MeasurementRecordsTable
+          .$converterbodyFatMeasurementMethodn
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}body_fat_measurement_method'],
+            ),
+          ),
       notes: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}notes'],
@@ -5294,6 +5743,24 @@ class $MeasurementRecordsTable extends MeasurementRecords
   $convertersource = const EnumNameConverter<MeasurementSource>(
     MeasurementSource.values,
   );
+  static JsonTypeConverter2<StoredBodyMeasurementMethod, String, String>
+  $converterbodyMeasurementMethod =
+      const EnumNameConverter<StoredBodyMeasurementMethod>(
+        StoredBodyMeasurementMethod.values,
+      );
+  static JsonTypeConverter2<StoredBodyMeasurementMethod?, String?, String?>
+  $converterbodyMeasurementMethodn = JsonTypeConverter2.asNullable(
+    $converterbodyMeasurementMethod,
+  );
+  static JsonTypeConverter2<StoredBodyFatMeasurementMethod, String, String>
+  $converterbodyFatMeasurementMethod =
+      const EnumNameConverter<StoredBodyFatMeasurementMethod>(
+        StoredBodyFatMeasurementMethod.values,
+      );
+  static JsonTypeConverter2<StoredBodyFatMeasurementMethod?, String?, String?>
+  $converterbodyFatMeasurementMethodn = JsonTypeConverter2.asNullable(
+    $converterbodyFatMeasurementMethod,
+  );
 }
 
 class MeasurementRecordRow extends DataClass
@@ -5302,6 +5769,23 @@ class MeasurementRecordRow extends DataClass
   final String profileId;
   final DateTime measuredAt;
   final MeasurementSource source;
+  final double? heightCentimeters;
+  final double? weightKilograms;
+  final double? torsoLengthCentimeters;
+  final double? chestCircumferenceCentimeters;
+  final double? waistCircumferenceCentimeters;
+  final double? hipCircumferenceCentimeters;
+  final double? leftUpperArmCircumferenceCentimeters;
+  final double? rightUpperArmCircumferenceCentimeters;
+  final double? leftForearmCircumferenceCentimeters;
+  final double? rightForearmCircumferenceCentimeters;
+  final double? leftThighCircumferenceCentimeters;
+  final double? rightThighCircumferenceCentimeters;
+  final double? leftCalfCircumferenceCentimeters;
+  final double? rightCalfCircumferenceCentimeters;
+  final double? bodyFatPercentage;
+  final StoredBodyMeasurementMethod? bodyMeasurementMethod;
+  final StoredBodyFatMeasurementMethod? bodyFatMeasurementMethod;
   final String? notes;
   final DateTime createdAt;
   const MeasurementRecordRow({
@@ -5309,6 +5793,23 @@ class MeasurementRecordRow extends DataClass
     required this.profileId,
     required this.measuredAt,
     required this.source,
+    this.heightCentimeters,
+    this.weightKilograms,
+    this.torsoLengthCentimeters,
+    this.chestCircumferenceCentimeters,
+    this.waistCircumferenceCentimeters,
+    this.hipCircumferenceCentimeters,
+    this.leftUpperArmCircumferenceCentimeters,
+    this.rightUpperArmCircumferenceCentimeters,
+    this.leftForearmCircumferenceCentimeters,
+    this.rightForearmCircumferenceCentimeters,
+    this.leftThighCircumferenceCentimeters,
+    this.rightThighCircumferenceCentimeters,
+    this.leftCalfCircumferenceCentimeters,
+    this.rightCalfCircumferenceCentimeters,
+    this.bodyFatPercentage,
+    this.bodyMeasurementMethod,
+    this.bodyFatMeasurementMethod,
     this.notes,
     required this.createdAt,
   });
@@ -5321,6 +5822,89 @@ class MeasurementRecordRow extends DataClass
     {
       map['source'] = Variable<String>(
         $MeasurementRecordsTable.$convertersource.toSql(source),
+      );
+    }
+    if (!nullToAbsent || heightCentimeters != null) {
+      map['height_centimeters'] = Variable<double>(heightCentimeters);
+    }
+    if (!nullToAbsent || weightKilograms != null) {
+      map['weight_kilograms'] = Variable<double>(weightKilograms);
+    }
+    if (!nullToAbsent || torsoLengthCentimeters != null) {
+      map['torso_length_centimeters'] = Variable<double>(
+        torsoLengthCentimeters,
+      );
+    }
+    if (!nullToAbsent || chestCircumferenceCentimeters != null) {
+      map['chest_circumference_centimeters'] = Variable<double>(
+        chestCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || waistCircumferenceCentimeters != null) {
+      map['waist_circumference_centimeters'] = Variable<double>(
+        waistCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || hipCircumferenceCentimeters != null) {
+      map['hip_circumference_centimeters'] = Variable<double>(
+        hipCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || leftUpperArmCircumferenceCentimeters != null) {
+      map['left_upper_arm_circumference_centimeters'] = Variable<double>(
+        leftUpperArmCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || rightUpperArmCircumferenceCentimeters != null) {
+      map['right_upper_arm_circumference_centimeters'] = Variable<double>(
+        rightUpperArmCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || leftForearmCircumferenceCentimeters != null) {
+      map['left_forearm_circumference_centimeters'] = Variable<double>(
+        leftForearmCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || rightForearmCircumferenceCentimeters != null) {
+      map['right_forearm_circumference_centimeters'] = Variable<double>(
+        rightForearmCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || leftThighCircumferenceCentimeters != null) {
+      map['left_thigh_circumference_centimeters'] = Variable<double>(
+        leftThighCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || rightThighCircumferenceCentimeters != null) {
+      map['right_thigh_circumference_centimeters'] = Variable<double>(
+        rightThighCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || leftCalfCircumferenceCentimeters != null) {
+      map['left_calf_circumference_centimeters'] = Variable<double>(
+        leftCalfCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || rightCalfCircumferenceCentimeters != null) {
+      map['right_calf_circumference_centimeters'] = Variable<double>(
+        rightCalfCircumferenceCentimeters,
+      );
+    }
+    if (!nullToAbsent || bodyFatPercentage != null) {
+      map['body_fat_percentage'] = Variable<double>(bodyFatPercentage);
+    }
+    if (!nullToAbsent || bodyMeasurementMethod != null) {
+      map['body_measurement_method'] = Variable<String>(
+        $MeasurementRecordsTable.$converterbodyMeasurementMethodn.toSql(
+          bodyMeasurementMethod,
+        ),
+      );
+    }
+    if (!nullToAbsent || bodyFatMeasurementMethod != null) {
+      map['body_fat_measurement_method'] = Variable<String>(
+        $MeasurementRecordsTable.$converterbodyFatMeasurementMethodn.toSql(
+          bodyFatMeasurementMethod,
+        ),
       );
     }
     if (!nullToAbsent || notes != null) {
@@ -5336,6 +5920,68 @@ class MeasurementRecordRow extends DataClass
       profileId: Value(profileId),
       measuredAt: Value(measuredAt),
       source: Value(source),
+      heightCentimeters: heightCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(heightCentimeters),
+      weightKilograms: weightKilograms == null && nullToAbsent
+          ? const Value.absent()
+          : Value(weightKilograms),
+      torsoLengthCentimeters: torsoLengthCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(torsoLengthCentimeters),
+      chestCircumferenceCentimeters:
+          chestCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(chestCircumferenceCentimeters),
+      waistCircumferenceCentimeters:
+          waistCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(waistCircumferenceCentimeters),
+      hipCircumferenceCentimeters:
+          hipCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hipCircumferenceCentimeters),
+      leftUpperArmCircumferenceCentimeters:
+          leftUpperArmCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(leftUpperArmCircumferenceCentimeters),
+      rightUpperArmCircumferenceCentimeters:
+          rightUpperArmCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rightUpperArmCircumferenceCentimeters),
+      leftForearmCircumferenceCentimeters:
+          leftForearmCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(leftForearmCircumferenceCentimeters),
+      rightForearmCircumferenceCentimeters:
+          rightForearmCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rightForearmCircumferenceCentimeters),
+      leftThighCircumferenceCentimeters:
+          leftThighCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(leftThighCircumferenceCentimeters),
+      rightThighCircumferenceCentimeters:
+          rightThighCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rightThighCircumferenceCentimeters),
+      leftCalfCircumferenceCentimeters:
+          leftCalfCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(leftCalfCircumferenceCentimeters),
+      rightCalfCircumferenceCentimeters:
+          rightCalfCircumferenceCentimeters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rightCalfCircumferenceCentimeters),
+      bodyFatPercentage: bodyFatPercentage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bodyFatPercentage),
+      bodyMeasurementMethod: bodyMeasurementMethod == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bodyMeasurementMethod),
+      bodyFatMeasurementMethod: bodyFatMeasurementMethod == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bodyFatMeasurementMethod),
       notes: notes == null && nullToAbsent
           ? const Value.absent()
           : Value(notes),
@@ -5355,6 +6001,59 @@ class MeasurementRecordRow extends DataClass
       source: $MeasurementRecordsTable.$convertersource.fromJson(
         serializer.fromJson<String>(json['source']),
       ),
+      heightCentimeters: serializer.fromJson<double?>(
+        json['heightCentimeters'],
+      ),
+      weightKilograms: serializer.fromJson<double?>(json['weightKilograms']),
+      torsoLengthCentimeters: serializer.fromJson<double?>(
+        json['torsoLengthCentimeters'],
+      ),
+      chestCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['chestCircumferenceCentimeters'],
+      ),
+      waistCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['waistCircumferenceCentimeters'],
+      ),
+      hipCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['hipCircumferenceCentimeters'],
+      ),
+      leftUpperArmCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['leftUpperArmCircumferenceCentimeters'],
+      ),
+      rightUpperArmCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['rightUpperArmCircumferenceCentimeters'],
+      ),
+      leftForearmCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['leftForearmCircumferenceCentimeters'],
+      ),
+      rightForearmCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['rightForearmCircumferenceCentimeters'],
+      ),
+      leftThighCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['leftThighCircumferenceCentimeters'],
+      ),
+      rightThighCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['rightThighCircumferenceCentimeters'],
+      ),
+      leftCalfCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['leftCalfCircumferenceCentimeters'],
+      ),
+      rightCalfCircumferenceCentimeters: serializer.fromJson<double?>(
+        json['rightCalfCircumferenceCentimeters'],
+      ),
+      bodyFatPercentage: serializer.fromJson<double?>(
+        json['bodyFatPercentage'],
+      ),
+      bodyMeasurementMethod: $MeasurementRecordsTable
+          .$converterbodyMeasurementMethodn
+          .fromJson(
+            serializer.fromJson<String?>(json['bodyMeasurementMethod']),
+          ),
+      bodyFatMeasurementMethod: $MeasurementRecordsTable
+          .$converterbodyFatMeasurementMethodn
+          .fromJson(
+            serializer.fromJson<String?>(json['bodyFatMeasurementMethod']),
+          ),
       notes: serializer.fromJson<String?>(json['notes']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
@@ -5369,6 +6068,55 @@ class MeasurementRecordRow extends DataClass
       'source': serializer.toJson<String>(
         $MeasurementRecordsTable.$convertersource.toJson(source),
       ),
+      'heightCentimeters': serializer.toJson<double?>(heightCentimeters),
+      'weightKilograms': serializer.toJson<double?>(weightKilograms),
+      'torsoLengthCentimeters': serializer.toJson<double?>(
+        torsoLengthCentimeters,
+      ),
+      'chestCircumferenceCentimeters': serializer.toJson<double?>(
+        chestCircumferenceCentimeters,
+      ),
+      'waistCircumferenceCentimeters': serializer.toJson<double?>(
+        waistCircumferenceCentimeters,
+      ),
+      'hipCircumferenceCentimeters': serializer.toJson<double?>(
+        hipCircumferenceCentimeters,
+      ),
+      'leftUpperArmCircumferenceCentimeters': serializer.toJson<double?>(
+        leftUpperArmCircumferenceCentimeters,
+      ),
+      'rightUpperArmCircumferenceCentimeters': serializer.toJson<double?>(
+        rightUpperArmCircumferenceCentimeters,
+      ),
+      'leftForearmCircumferenceCentimeters': serializer.toJson<double?>(
+        leftForearmCircumferenceCentimeters,
+      ),
+      'rightForearmCircumferenceCentimeters': serializer.toJson<double?>(
+        rightForearmCircumferenceCentimeters,
+      ),
+      'leftThighCircumferenceCentimeters': serializer.toJson<double?>(
+        leftThighCircumferenceCentimeters,
+      ),
+      'rightThighCircumferenceCentimeters': serializer.toJson<double?>(
+        rightThighCircumferenceCentimeters,
+      ),
+      'leftCalfCircumferenceCentimeters': serializer.toJson<double?>(
+        leftCalfCircumferenceCentimeters,
+      ),
+      'rightCalfCircumferenceCentimeters': serializer.toJson<double?>(
+        rightCalfCircumferenceCentimeters,
+      ),
+      'bodyFatPercentage': serializer.toJson<double?>(bodyFatPercentage),
+      'bodyMeasurementMethod': serializer.toJson<String?>(
+        $MeasurementRecordsTable.$converterbodyMeasurementMethodn.toJson(
+          bodyMeasurementMethod,
+        ),
+      ),
+      'bodyFatMeasurementMethod': serializer.toJson<String?>(
+        $MeasurementRecordsTable.$converterbodyFatMeasurementMethodn.toJson(
+          bodyFatMeasurementMethod,
+        ),
+      ),
       'notes': serializer.toJson<String?>(notes),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -5379,6 +6127,25 @@ class MeasurementRecordRow extends DataClass
     String? profileId,
     DateTime? measuredAt,
     MeasurementSource? source,
+    Value<double?> heightCentimeters = const Value.absent(),
+    Value<double?> weightKilograms = const Value.absent(),
+    Value<double?> torsoLengthCentimeters = const Value.absent(),
+    Value<double?> chestCircumferenceCentimeters = const Value.absent(),
+    Value<double?> waistCircumferenceCentimeters = const Value.absent(),
+    Value<double?> hipCircumferenceCentimeters = const Value.absent(),
+    Value<double?> leftUpperArmCircumferenceCentimeters = const Value.absent(),
+    Value<double?> rightUpperArmCircumferenceCentimeters = const Value.absent(),
+    Value<double?> leftForearmCircumferenceCentimeters = const Value.absent(),
+    Value<double?> rightForearmCircumferenceCentimeters = const Value.absent(),
+    Value<double?> leftThighCircumferenceCentimeters = const Value.absent(),
+    Value<double?> rightThighCircumferenceCentimeters = const Value.absent(),
+    Value<double?> leftCalfCircumferenceCentimeters = const Value.absent(),
+    Value<double?> rightCalfCircumferenceCentimeters = const Value.absent(),
+    Value<double?> bodyFatPercentage = const Value.absent(),
+    Value<StoredBodyMeasurementMethod?> bodyMeasurementMethod =
+        const Value.absent(),
+    Value<StoredBodyFatMeasurementMethod?> bodyFatMeasurementMethod =
+        const Value.absent(),
     Value<String?> notes = const Value.absent(),
     DateTime? createdAt,
   }) => MeasurementRecordRow(
@@ -5386,6 +6153,62 @@ class MeasurementRecordRow extends DataClass
     profileId: profileId ?? this.profileId,
     measuredAt: measuredAt ?? this.measuredAt,
     source: source ?? this.source,
+    heightCentimeters: heightCentimeters.present
+        ? heightCentimeters.value
+        : this.heightCentimeters,
+    weightKilograms: weightKilograms.present
+        ? weightKilograms.value
+        : this.weightKilograms,
+    torsoLengthCentimeters: torsoLengthCentimeters.present
+        ? torsoLengthCentimeters.value
+        : this.torsoLengthCentimeters,
+    chestCircumferenceCentimeters: chestCircumferenceCentimeters.present
+        ? chestCircumferenceCentimeters.value
+        : this.chestCircumferenceCentimeters,
+    waistCircumferenceCentimeters: waistCircumferenceCentimeters.present
+        ? waistCircumferenceCentimeters.value
+        : this.waistCircumferenceCentimeters,
+    hipCircumferenceCentimeters: hipCircumferenceCentimeters.present
+        ? hipCircumferenceCentimeters.value
+        : this.hipCircumferenceCentimeters,
+    leftUpperArmCircumferenceCentimeters:
+        leftUpperArmCircumferenceCentimeters.present
+        ? leftUpperArmCircumferenceCentimeters.value
+        : this.leftUpperArmCircumferenceCentimeters,
+    rightUpperArmCircumferenceCentimeters:
+        rightUpperArmCircumferenceCentimeters.present
+        ? rightUpperArmCircumferenceCentimeters.value
+        : this.rightUpperArmCircumferenceCentimeters,
+    leftForearmCircumferenceCentimeters:
+        leftForearmCircumferenceCentimeters.present
+        ? leftForearmCircumferenceCentimeters.value
+        : this.leftForearmCircumferenceCentimeters,
+    rightForearmCircumferenceCentimeters:
+        rightForearmCircumferenceCentimeters.present
+        ? rightForearmCircumferenceCentimeters.value
+        : this.rightForearmCircumferenceCentimeters,
+    leftThighCircumferenceCentimeters: leftThighCircumferenceCentimeters.present
+        ? leftThighCircumferenceCentimeters.value
+        : this.leftThighCircumferenceCentimeters,
+    rightThighCircumferenceCentimeters:
+        rightThighCircumferenceCentimeters.present
+        ? rightThighCircumferenceCentimeters.value
+        : this.rightThighCircumferenceCentimeters,
+    leftCalfCircumferenceCentimeters: leftCalfCircumferenceCentimeters.present
+        ? leftCalfCircumferenceCentimeters.value
+        : this.leftCalfCircumferenceCentimeters,
+    rightCalfCircumferenceCentimeters: rightCalfCircumferenceCentimeters.present
+        ? rightCalfCircumferenceCentimeters.value
+        : this.rightCalfCircumferenceCentimeters,
+    bodyFatPercentage: bodyFatPercentage.present
+        ? bodyFatPercentage.value
+        : this.bodyFatPercentage,
+    bodyMeasurementMethod: bodyMeasurementMethod.present
+        ? bodyMeasurementMethod.value
+        : this.bodyMeasurementMethod,
+    bodyFatMeasurementMethod: bodyFatMeasurementMethod.present
+        ? bodyFatMeasurementMethod.value
+        : this.bodyFatMeasurementMethod,
     notes: notes.present ? notes.value : this.notes,
     createdAt: createdAt ?? this.createdAt,
   );
@@ -5397,6 +6220,65 @@ class MeasurementRecordRow extends DataClass
           ? data.measuredAt.value
           : this.measuredAt,
       source: data.source.present ? data.source.value : this.source,
+      heightCentimeters: data.heightCentimeters.present
+          ? data.heightCentimeters.value
+          : this.heightCentimeters,
+      weightKilograms: data.weightKilograms.present
+          ? data.weightKilograms.value
+          : this.weightKilograms,
+      torsoLengthCentimeters: data.torsoLengthCentimeters.present
+          ? data.torsoLengthCentimeters.value
+          : this.torsoLengthCentimeters,
+      chestCircumferenceCentimeters: data.chestCircumferenceCentimeters.present
+          ? data.chestCircumferenceCentimeters.value
+          : this.chestCircumferenceCentimeters,
+      waistCircumferenceCentimeters: data.waistCircumferenceCentimeters.present
+          ? data.waistCircumferenceCentimeters.value
+          : this.waistCircumferenceCentimeters,
+      hipCircumferenceCentimeters: data.hipCircumferenceCentimeters.present
+          ? data.hipCircumferenceCentimeters.value
+          : this.hipCircumferenceCentimeters,
+      leftUpperArmCircumferenceCentimeters:
+          data.leftUpperArmCircumferenceCentimeters.present
+          ? data.leftUpperArmCircumferenceCentimeters.value
+          : this.leftUpperArmCircumferenceCentimeters,
+      rightUpperArmCircumferenceCentimeters:
+          data.rightUpperArmCircumferenceCentimeters.present
+          ? data.rightUpperArmCircumferenceCentimeters.value
+          : this.rightUpperArmCircumferenceCentimeters,
+      leftForearmCircumferenceCentimeters:
+          data.leftForearmCircumferenceCentimeters.present
+          ? data.leftForearmCircumferenceCentimeters.value
+          : this.leftForearmCircumferenceCentimeters,
+      rightForearmCircumferenceCentimeters:
+          data.rightForearmCircumferenceCentimeters.present
+          ? data.rightForearmCircumferenceCentimeters.value
+          : this.rightForearmCircumferenceCentimeters,
+      leftThighCircumferenceCentimeters:
+          data.leftThighCircumferenceCentimeters.present
+          ? data.leftThighCircumferenceCentimeters.value
+          : this.leftThighCircumferenceCentimeters,
+      rightThighCircumferenceCentimeters:
+          data.rightThighCircumferenceCentimeters.present
+          ? data.rightThighCircumferenceCentimeters.value
+          : this.rightThighCircumferenceCentimeters,
+      leftCalfCircumferenceCentimeters:
+          data.leftCalfCircumferenceCentimeters.present
+          ? data.leftCalfCircumferenceCentimeters.value
+          : this.leftCalfCircumferenceCentimeters,
+      rightCalfCircumferenceCentimeters:
+          data.rightCalfCircumferenceCentimeters.present
+          ? data.rightCalfCircumferenceCentimeters.value
+          : this.rightCalfCircumferenceCentimeters,
+      bodyFatPercentage: data.bodyFatPercentage.present
+          ? data.bodyFatPercentage.value
+          : this.bodyFatPercentage,
+      bodyMeasurementMethod: data.bodyMeasurementMethod.present
+          ? data.bodyMeasurementMethod.value
+          : this.bodyMeasurementMethod,
+      bodyFatMeasurementMethod: data.bodyFatMeasurementMethod.present
+          ? data.bodyFatMeasurementMethod.value
+          : this.bodyFatMeasurementMethod,
       notes: data.notes.present ? data.notes.value : this.notes,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -5409,6 +6291,43 @@ class MeasurementRecordRow extends DataClass
           ..write('profileId: $profileId, ')
           ..write('measuredAt: $measuredAt, ')
           ..write('source: $source, ')
+          ..write('heightCentimeters: $heightCentimeters, ')
+          ..write('weightKilograms: $weightKilograms, ')
+          ..write('torsoLengthCentimeters: $torsoLengthCentimeters, ')
+          ..write(
+            'chestCircumferenceCentimeters: $chestCircumferenceCentimeters, ',
+          )
+          ..write(
+            'waistCircumferenceCentimeters: $waistCircumferenceCentimeters, ',
+          )
+          ..write('hipCircumferenceCentimeters: $hipCircumferenceCentimeters, ')
+          ..write(
+            'leftUpperArmCircumferenceCentimeters: $leftUpperArmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightUpperArmCircumferenceCentimeters: $rightUpperArmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'leftForearmCircumferenceCentimeters: $leftForearmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightForearmCircumferenceCentimeters: $rightForearmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'leftThighCircumferenceCentimeters: $leftThighCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightThighCircumferenceCentimeters: $rightThighCircumferenceCentimeters, ',
+          )
+          ..write(
+            'leftCalfCircumferenceCentimeters: $leftCalfCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightCalfCircumferenceCentimeters: $rightCalfCircumferenceCentimeters, ',
+          )
+          ..write('bodyFatPercentage: $bodyFatPercentage, ')
+          ..write('bodyMeasurementMethod: $bodyMeasurementMethod, ')
+          ..write('bodyFatMeasurementMethod: $bodyFatMeasurementMethod, ')
           ..write('notes: $notes, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -5416,8 +6335,31 @@ class MeasurementRecordRow extends DataClass
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, profileId, measuredAt, source, notes, createdAt);
+  int get hashCode => Object.hashAll([
+    id,
+    profileId,
+    measuredAt,
+    source,
+    heightCentimeters,
+    weightKilograms,
+    torsoLengthCentimeters,
+    chestCircumferenceCentimeters,
+    waistCircumferenceCentimeters,
+    hipCircumferenceCentimeters,
+    leftUpperArmCircumferenceCentimeters,
+    rightUpperArmCircumferenceCentimeters,
+    leftForearmCircumferenceCentimeters,
+    rightForearmCircumferenceCentimeters,
+    leftThighCircumferenceCentimeters,
+    rightThighCircumferenceCentimeters,
+    leftCalfCircumferenceCentimeters,
+    rightCalfCircumferenceCentimeters,
+    bodyFatPercentage,
+    bodyMeasurementMethod,
+    bodyFatMeasurementMethod,
+    notes,
+    createdAt,
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -5426,6 +6368,34 @@ class MeasurementRecordRow extends DataClass
           other.profileId == this.profileId &&
           other.measuredAt == this.measuredAt &&
           other.source == this.source &&
+          other.heightCentimeters == this.heightCentimeters &&
+          other.weightKilograms == this.weightKilograms &&
+          other.torsoLengthCentimeters == this.torsoLengthCentimeters &&
+          other.chestCircumferenceCentimeters ==
+              this.chestCircumferenceCentimeters &&
+          other.waistCircumferenceCentimeters ==
+              this.waistCircumferenceCentimeters &&
+          other.hipCircumferenceCentimeters ==
+              this.hipCircumferenceCentimeters &&
+          other.leftUpperArmCircumferenceCentimeters ==
+              this.leftUpperArmCircumferenceCentimeters &&
+          other.rightUpperArmCircumferenceCentimeters ==
+              this.rightUpperArmCircumferenceCentimeters &&
+          other.leftForearmCircumferenceCentimeters ==
+              this.leftForearmCircumferenceCentimeters &&
+          other.rightForearmCircumferenceCentimeters ==
+              this.rightForearmCircumferenceCentimeters &&
+          other.leftThighCircumferenceCentimeters ==
+              this.leftThighCircumferenceCentimeters &&
+          other.rightThighCircumferenceCentimeters ==
+              this.rightThighCircumferenceCentimeters &&
+          other.leftCalfCircumferenceCentimeters ==
+              this.leftCalfCircumferenceCentimeters &&
+          other.rightCalfCircumferenceCentimeters ==
+              this.rightCalfCircumferenceCentimeters &&
+          other.bodyFatPercentage == this.bodyFatPercentage &&
+          other.bodyMeasurementMethod == this.bodyMeasurementMethod &&
+          other.bodyFatMeasurementMethod == this.bodyFatMeasurementMethod &&
           other.notes == this.notes &&
           other.createdAt == this.createdAt);
 }
@@ -5436,6 +6406,23 @@ class MeasurementRecordsCompanion
   final Value<String> profileId;
   final Value<DateTime> measuredAt;
   final Value<MeasurementSource> source;
+  final Value<double?> heightCentimeters;
+  final Value<double?> weightKilograms;
+  final Value<double?> torsoLengthCentimeters;
+  final Value<double?> chestCircumferenceCentimeters;
+  final Value<double?> waistCircumferenceCentimeters;
+  final Value<double?> hipCircumferenceCentimeters;
+  final Value<double?> leftUpperArmCircumferenceCentimeters;
+  final Value<double?> rightUpperArmCircumferenceCentimeters;
+  final Value<double?> leftForearmCircumferenceCentimeters;
+  final Value<double?> rightForearmCircumferenceCentimeters;
+  final Value<double?> leftThighCircumferenceCentimeters;
+  final Value<double?> rightThighCircumferenceCentimeters;
+  final Value<double?> leftCalfCircumferenceCentimeters;
+  final Value<double?> rightCalfCircumferenceCentimeters;
+  final Value<double?> bodyFatPercentage;
+  final Value<StoredBodyMeasurementMethod?> bodyMeasurementMethod;
+  final Value<StoredBodyFatMeasurementMethod?> bodyFatMeasurementMethod;
   final Value<String?> notes;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
@@ -5444,6 +6431,23 @@ class MeasurementRecordsCompanion
     this.profileId = const Value.absent(),
     this.measuredAt = const Value.absent(),
     this.source = const Value.absent(),
+    this.heightCentimeters = const Value.absent(),
+    this.weightKilograms = const Value.absent(),
+    this.torsoLengthCentimeters = const Value.absent(),
+    this.chestCircumferenceCentimeters = const Value.absent(),
+    this.waistCircumferenceCentimeters = const Value.absent(),
+    this.hipCircumferenceCentimeters = const Value.absent(),
+    this.leftUpperArmCircumferenceCentimeters = const Value.absent(),
+    this.rightUpperArmCircumferenceCentimeters = const Value.absent(),
+    this.leftForearmCircumferenceCentimeters = const Value.absent(),
+    this.rightForearmCircumferenceCentimeters = const Value.absent(),
+    this.leftThighCircumferenceCentimeters = const Value.absent(),
+    this.rightThighCircumferenceCentimeters = const Value.absent(),
+    this.leftCalfCircumferenceCentimeters = const Value.absent(),
+    this.rightCalfCircumferenceCentimeters = const Value.absent(),
+    this.bodyFatPercentage = const Value.absent(),
+    this.bodyMeasurementMethod = const Value.absent(),
+    this.bodyFatMeasurementMethod = const Value.absent(),
     this.notes = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -5453,6 +6457,23 @@ class MeasurementRecordsCompanion
     required String profileId,
     required DateTime measuredAt,
     required MeasurementSource source,
+    this.heightCentimeters = const Value.absent(),
+    this.weightKilograms = const Value.absent(),
+    this.torsoLengthCentimeters = const Value.absent(),
+    this.chestCircumferenceCentimeters = const Value.absent(),
+    this.waistCircumferenceCentimeters = const Value.absent(),
+    this.hipCircumferenceCentimeters = const Value.absent(),
+    this.leftUpperArmCircumferenceCentimeters = const Value.absent(),
+    this.rightUpperArmCircumferenceCentimeters = const Value.absent(),
+    this.leftForearmCircumferenceCentimeters = const Value.absent(),
+    this.rightForearmCircumferenceCentimeters = const Value.absent(),
+    this.leftThighCircumferenceCentimeters = const Value.absent(),
+    this.rightThighCircumferenceCentimeters = const Value.absent(),
+    this.leftCalfCircumferenceCentimeters = const Value.absent(),
+    this.rightCalfCircumferenceCentimeters = const Value.absent(),
+    this.bodyFatPercentage = const Value.absent(),
+    this.bodyMeasurementMethod = const Value.absent(),
+    this.bodyFatMeasurementMethod = const Value.absent(),
     this.notes = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -5465,6 +6486,23 @@ class MeasurementRecordsCompanion
     Expression<String>? profileId,
     Expression<DateTime>? measuredAt,
     Expression<String>? source,
+    Expression<double>? heightCentimeters,
+    Expression<double>? weightKilograms,
+    Expression<double>? torsoLengthCentimeters,
+    Expression<double>? chestCircumferenceCentimeters,
+    Expression<double>? waistCircumferenceCentimeters,
+    Expression<double>? hipCircumferenceCentimeters,
+    Expression<double>? leftUpperArmCircumferenceCentimeters,
+    Expression<double>? rightUpperArmCircumferenceCentimeters,
+    Expression<double>? leftForearmCircumferenceCentimeters,
+    Expression<double>? rightForearmCircumferenceCentimeters,
+    Expression<double>? leftThighCircumferenceCentimeters,
+    Expression<double>? rightThighCircumferenceCentimeters,
+    Expression<double>? leftCalfCircumferenceCentimeters,
+    Expression<double>? rightCalfCircumferenceCentimeters,
+    Expression<double>? bodyFatPercentage,
+    Expression<String>? bodyMeasurementMethod,
+    Expression<String>? bodyFatMeasurementMethod,
     Expression<String>? notes,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
@@ -5474,6 +6512,44 @@ class MeasurementRecordsCompanion
       if (profileId != null) 'profile_id': profileId,
       if (measuredAt != null) 'measured_at': measuredAt,
       if (source != null) 'source': source,
+      if (heightCentimeters != null) 'height_centimeters': heightCentimeters,
+      if (weightKilograms != null) 'weight_kilograms': weightKilograms,
+      if (torsoLengthCentimeters != null)
+        'torso_length_centimeters': torsoLengthCentimeters,
+      if (chestCircumferenceCentimeters != null)
+        'chest_circumference_centimeters': chestCircumferenceCentimeters,
+      if (waistCircumferenceCentimeters != null)
+        'waist_circumference_centimeters': waistCircumferenceCentimeters,
+      if (hipCircumferenceCentimeters != null)
+        'hip_circumference_centimeters': hipCircumferenceCentimeters,
+      if (leftUpperArmCircumferenceCentimeters != null)
+        'left_upper_arm_circumference_centimeters':
+            leftUpperArmCircumferenceCentimeters,
+      if (rightUpperArmCircumferenceCentimeters != null)
+        'right_upper_arm_circumference_centimeters':
+            rightUpperArmCircumferenceCentimeters,
+      if (leftForearmCircumferenceCentimeters != null)
+        'left_forearm_circumference_centimeters':
+            leftForearmCircumferenceCentimeters,
+      if (rightForearmCircumferenceCentimeters != null)
+        'right_forearm_circumference_centimeters':
+            rightForearmCircumferenceCentimeters,
+      if (leftThighCircumferenceCentimeters != null)
+        'left_thigh_circumference_centimeters':
+            leftThighCircumferenceCentimeters,
+      if (rightThighCircumferenceCentimeters != null)
+        'right_thigh_circumference_centimeters':
+            rightThighCircumferenceCentimeters,
+      if (leftCalfCircumferenceCentimeters != null)
+        'left_calf_circumference_centimeters': leftCalfCircumferenceCentimeters,
+      if (rightCalfCircumferenceCentimeters != null)
+        'right_calf_circumference_centimeters':
+            rightCalfCircumferenceCentimeters,
+      if (bodyFatPercentage != null) 'body_fat_percentage': bodyFatPercentage,
+      if (bodyMeasurementMethod != null)
+        'body_measurement_method': bodyMeasurementMethod,
+      if (bodyFatMeasurementMethod != null)
+        'body_fat_measurement_method': bodyFatMeasurementMethod,
       if (notes != null) 'notes': notes,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
@@ -5485,6 +6561,23 @@ class MeasurementRecordsCompanion
     Value<String>? profileId,
     Value<DateTime>? measuredAt,
     Value<MeasurementSource>? source,
+    Value<double?>? heightCentimeters,
+    Value<double?>? weightKilograms,
+    Value<double?>? torsoLengthCentimeters,
+    Value<double?>? chestCircumferenceCentimeters,
+    Value<double?>? waistCircumferenceCentimeters,
+    Value<double?>? hipCircumferenceCentimeters,
+    Value<double?>? leftUpperArmCircumferenceCentimeters,
+    Value<double?>? rightUpperArmCircumferenceCentimeters,
+    Value<double?>? leftForearmCircumferenceCentimeters,
+    Value<double?>? rightForearmCircumferenceCentimeters,
+    Value<double?>? leftThighCircumferenceCentimeters,
+    Value<double?>? rightThighCircumferenceCentimeters,
+    Value<double?>? leftCalfCircumferenceCentimeters,
+    Value<double?>? rightCalfCircumferenceCentimeters,
+    Value<double?>? bodyFatPercentage,
+    Value<StoredBodyMeasurementMethod?>? bodyMeasurementMethod,
+    Value<StoredBodyFatMeasurementMethod?>? bodyFatMeasurementMethod,
     Value<String?>? notes,
     Value<DateTime>? createdAt,
     Value<int>? rowid,
@@ -5494,6 +6587,45 @@ class MeasurementRecordsCompanion
       profileId: profileId ?? this.profileId,
       measuredAt: measuredAt ?? this.measuredAt,
       source: source ?? this.source,
+      heightCentimeters: heightCentimeters ?? this.heightCentimeters,
+      weightKilograms: weightKilograms ?? this.weightKilograms,
+      torsoLengthCentimeters:
+          torsoLengthCentimeters ?? this.torsoLengthCentimeters,
+      chestCircumferenceCentimeters:
+          chestCircumferenceCentimeters ?? this.chestCircumferenceCentimeters,
+      waistCircumferenceCentimeters:
+          waistCircumferenceCentimeters ?? this.waistCircumferenceCentimeters,
+      hipCircumferenceCentimeters:
+          hipCircumferenceCentimeters ?? this.hipCircumferenceCentimeters,
+      leftUpperArmCircumferenceCentimeters:
+          leftUpperArmCircumferenceCentimeters ??
+          this.leftUpperArmCircumferenceCentimeters,
+      rightUpperArmCircumferenceCentimeters:
+          rightUpperArmCircumferenceCentimeters ??
+          this.rightUpperArmCircumferenceCentimeters,
+      leftForearmCircumferenceCentimeters:
+          leftForearmCircumferenceCentimeters ??
+          this.leftForearmCircumferenceCentimeters,
+      rightForearmCircumferenceCentimeters:
+          rightForearmCircumferenceCentimeters ??
+          this.rightForearmCircumferenceCentimeters,
+      leftThighCircumferenceCentimeters:
+          leftThighCircumferenceCentimeters ??
+          this.leftThighCircumferenceCentimeters,
+      rightThighCircumferenceCentimeters:
+          rightThighCircumferenceCentimeters ??
+          this.rightThighCircumferenceCentimeters,
+      leftCalfCircumferenceCentimeters:
+          leftCalfCircumferenceCentimeters ??
+          this.leftCalfCircumferenceCentimeters,
+      rightCalfCircumferenceCentimeters:
+          rightCalfCircumferenceCentimeters ??
+          this.rightCalfCircumferenceCentimeters,
+      bodyFatPercentage: bodyFatPercentage ?? this.bodyFatPercentage,
+      bodyMeasurementMethod:
+          bodyMeasurementMethod ?? this.bodyMeasurementMethod,
+      bodyFatMeasurementMethod:
+          bodyFatMeasurementMethod ?? this.bodyFatMeasurementMethod,
       notes: notes ?? this.notes,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
@@ -5517,6 +6649,89 @@ class MeasurementRecordsCompanion
         $MeasurementRecordsTable.$convertersource.toSql(source.value),
       );
     }
+    if (heightCentimeters.present) {
+      map['height_centimeters'] = Variable<double>(heightCentimeters.value);
+    }
+    if (weightKilograms.present) {
+      map['weight_kilograms'] = Variable<double>(weightKilograms.value);
+    }
+    if (torsoLengthCentimeters.present) {
+      map['torso_length_centimeters'] = Variable<double>(
+        torsoLengthCentimeters.value,
+      );
+    }
+    if (chestCircumferenceCentimeters.present) {
+      map['chest_circumference_centimeters'] = Variable<double>(
+        chestCircumferenceCentimeters.value,
+      );
+    }
+    if (waistCircumferenceCentimeters.present) {
+      map['waist_circumference_centimeters'] = Variable<double>(
+        waistCircumferenceCentimeters.value,
+      );
+    }
+    if (hipCircumferenceCentimeters.present) {
+      map['hip_circumference_centimeters'] = Variable<double>(
+        hipCircumferenceCentimeters.value,
+      );
+    }
+    if (leftUpperArmCircumferenceCentimeters.present) {
+      map['left_upper_arm_circumference_centimeters'] = Variable<double>(
+        leftUpperArmCircumferenceCentimeters.value,
+      );
+    }
+    if (rightUpperArmCircumferenceCentimeters.present) {
+      map['right_upper_arm_circumference_centimeters'] = Variable<double>(
+        rightUpperArmCircumferenceCentimeters.value,
+      );
+    }
+    if (leftForearmCircumferenceCentimeters.present) {
+      map['left_forearm_circumference_centimeters'] = Variable<double>(
+        leftForearmCircumferenceCentimeters.value,
+      );
+    }
+    if (rightForearmCircumferenceCentimeters.present) {
+      map['right_forearm_circumference_centimeters'] = Variable<double>(
+        rightForearmCircumferenceCentimeters.value,
+      );
+    }
+    if (leftThighCircumferenceCentimeters.present) {
+      map['left_thigh_circumference_centimeters'] = Variable<double>(
+        leftThighCircumferenceCentimeters.value,
+      );
+    }
+    if (rightThighCircumferenceCentimeters.present) {
+      map['right_thigh_circumference_centimeters'] = Variable<double>(
+        rightThighCircumferenceCentimeters.value,
+      );
+    }
+    if (leftCalfCircumferenceCentimeters.present) {
+      map['left_calf_circumference_centimeters'] = Variable<double>(
+        leftCalfCircumferenceCentimeters.value,
+      );
+    }
+    if (rightCalfCircumferenceCentimeters.present) {
+      map['right_calf_circumference_centimeters'] = Variable<double>(
+        rightCalfCircumferenceCentimeters.value,
+      );
+    }
+    if (bodyFatPercentage.present) {
+      map['body_fat_percentage'] = Variable<double>(bodyFatPercentage.value);
+    }
+    if (bodyMeasurementMethod.present) {
+      map['body_measurement_method'] = Variable<String>(
+        $MeasurementRecordsTable.$converterbodyMeasurementMethodn.toSql(
+          bodyMeasurementMethod.value,
+        ),
+      );
+    }
+    if (bodyFatMeasurementMethod.present) {
+      map['body_fat_measurement_method'] = Variable<String>(
+        $MeasurementRecordsTable.$converterbodyFatMeasurementMethodn.toSql(
+          bodyFatMeasurementMethod.value,
+        ),
+      );
+    }
     if (notes.present) {
       map['notes'] = Variable<String>(notes.value);
     }
@@ -5536,6 +6751,43 @@ class MeasurementRecordsCompanion
           ..write('profileId: $profileId, ')
           ..write('measuredAt: $measuredAt, ')
           ..write('source: $source, ')
+          ..write('heightCentimeters: $heightCentimeters, ')
+          ..write('weightKilograms: $weightKilograms, ')
+          ..write('torsoLengthCentimeters: $torsoLengthCentimeters, ')
+          ..write(
+            'chestCircumferenceCentimeters: $chestCircumferenceCentimeters, ',
+          )
+          ..write(
+            'waistCircumferenceCentimeters: $waistCircumferenceCentimeters, ',
+          )
+          ..write('hipCircumferenceCentimeters: $hipCircumferenceCentimeters, ')
+          ..write(
+            'leftUpperArmCircumferenceCentimeters: $leftUpperArmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightUpperArmCircumferenceCentimeters: $rightUpperArmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'leftForearmCircumferenceCentimeters: $leftForearmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightForearmCircumferenceCentimeters: $rightForearmCircumferenceCentimeters, ',
+          )
+          ..write(
+            'leftThighCircumferenceCentimeters: $leftThighCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightThighCircumferenceCentimeters: $rightThighCircumferenceCentimeters, ',
+          )
+          ..write(
+            'leftCalfCircumferenceCentimeters: $leftCalfCircumferenceCentimeters, ',
+          )
+          ..write(
+            'rightCalfCircumferenceCentimeters: $rightCalfCircumferenceCentimeters, ',
+          )
+          ..write('bodyFatPercentage: $bodyFatPercentage, ')
+          ..write('bodyMeasurementMethod: $bodyMeasurementMethod, ')
+          ..write('bodyFatMeasurementMethod: $bodyFatMeasurementMethod, ')
           ..write('notes: $notes, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
@@ -11526,6 +12778,23 @@ typedef $$MeasurementRecordsTableCreateCompanionBuilder =
       required String profileId,
       required DateTime measuredAt,
       required MeasurementSource source,
+      Value<double?> heightCentimeters,
+      Value<double?> weightKilograms,
+      Value<double?> torsoLengthCentimeters,
+      Value<double?> chestCircumferenceCentimeters,
+      Value<double?> waistCircumferenceCentimeters,
+      Value<double?> hipCircumferenceCentimeters,
+      Value<double?> leftUpperArmCircumferenceCentimeters,
+      Value<double?> rightUpperArmCircumferenceCentimeters,
+      Value<double?> leftForearmCircumferenceCentimeters,
+      Value<double?> rightForearmCircumferenceCentimeters,
+      Value<double?> leftThighCircumferenceCentimeters,
+      Value<double?> rightThighCircumferenceCentimeters,
+      Value<double?> leftCalfCircumferenceCentimeters,
+      Value<double?> rightCalfCircumferenceCentimeters,
+      Value<double?> bodyFatPercentage,
+      Value<StoredBodyMeasurementMethod?> bodyMeasurementMethod,
+      Value<StoredBodyFatMeasurementMethod?> bodyFatMeasurementMethod,
       Value<String?> notes,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -11536,6 +12805,23 @@ typedef $$MeasurementRecordsTableUpdateCompanionBuilder =
       Value<String> profileId,
       Value<DateTime> measuredAt,
       Value<MeasurementSource> source,
+      Value<double?> heightCentimeters,
+      Value<double?> weightKilograms,
+      Value<double?> torsoLengthCentimeters,
+      Value<double?> chestCircumferenceCentimeters,
+      Value<double?> waistCircumferenceCentimeters,
+      Value<double?> hipCircumferenceCentimeters,
+      Value<double?> leftUpperArmCircumferenceCentimeters,
+      Value<double?> rightUpperArmCircumferenceCentimeters,
+      Value<double?> leftForearmCircumferenceCentimeters,
+      Value<double?> rightForearmCircumferenceCentimeters,
+      Value<double?> leftThighCircumferenceCentimeters,
+      Value<double?> rightThighCircumferenceCentimeters,
+      Value<double?> leftCalfCircumferenceCentimeters,
+      Value<double?> rightCalfCircumferenceCentimeters,
+      Value<double?> bodyFatPercentage,
+      Value<StoredBodyMeasurementMethod?> bodyMeasurementMethod,
+      Value<StoredBodyFatMeasurementMethod?> bodyFatMeasurementMethod,
       Value<String?> notes,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -11597,6 +12883,109 @@ class $$MeasurementRecordsTableFilterComposer
     builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
+  ColumnFilters<double> get heightCentimeters => $composableBuilder(
+    column: $table.heightCentimeters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get weightKilograms => $composableBuilder(
+    column: $table.weightKilograms,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get torsoLengthCentimeters => $composableBuilder(
+    column: $table.torsoLengthCentimeters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get chestCircumferenceCentimeters => $composableBuilder(
+    column: $table.chestCircumferenceCentimeters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get waistCircumferenceCentimeters => $composableBuilder(
+    column: $table.waistCircumferenceCentimeters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get hipCircumferenceCentimeters => $composableBuilder(
+    column: $table.hipCircumferenceCentimeters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get leftUpperArmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftUpperArmCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get rightUpperArmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightUpperArmCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get leftForearmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftForearmCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get rightForearmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightForearmCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get leftThighCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftThighCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get rightThighCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightThighCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get leftCalfCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftCalfCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get rightCalfCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightCalfCircumferenceCentimeters,
+        builder: (column) => ColumnFilters(column),
+      );
+
+  ColumnFilters<double> get bodyFatPercentage => $composableBuilder(
+    column: $table.bodyFatPercentage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    StoredBodyMeasurementMethod?,
+    StoredBodyMeasurementMethod,
+    String
+  >
+  get bodyMeasurementMethod => $composableBuilder(
+    column: $table.bodyMeasurementMethod,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    StoredBodyFatMeasurementMethod?,
+    StoredBodyFatMeasurementMethod,
+    String
+  >
+  get bodyFatMeasurementMethod => $composableBuilder(
+    column: $table.bodyFatMeasurementMethod,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
   ColumnFilters<String> get notes => $composableBuilder(
     column: $table.notes,
     builder: (column) => ColumnFilters(column),
@@ -11655,6 +13044,101 @@ class $$MeasurementRecordsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<double> get heightCentimeters => $composableBuilder(
+    column: $table.heightCentimeters,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get weightKilograms => $composableBuilder(
+    column: $table.weightKilograms,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get torsoLengthCentimeters => $composableBuilder(
+    column: $table.torsoLengthCentimeters,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get chestCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.chestCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get waistCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.waistCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get hipCircumferenceCentimeters => $composableBuilder(
+    column: $table.hipCircumferenceCentimeters,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get leftUpperArmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftUpperArmCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get rightUpperArmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightUpperArmCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get leftForearmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftForearmCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get rightForearmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightForearmCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get leftThighCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftThighCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get rightThighCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightThighCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get leftCalfCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftCalfCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get rightCalfCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightCalfCircumferenceCentimeters,
+        builder: (column) => ColumnOrderings(column),
+      );
+
+  ColumnOrderings<double> get bodyFatPercentage => $composableBuilder(
+    column: $table.bodyFatPercentage,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get bodyMeasurementMethod => $composableBuilder(
+    column: $table.bodyMeasurementMethod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get bodyFatMeasurementMethod => $composableBuilder(
+    column: $table.bodyFatMeasurementMethod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get notes => $composableBuilder(
     column: $table.notes,
     builder: (column) => ColumnOrderings(column),
@@ -11708,6 +13192,103 @@ class $$MeasurementRecordsTableAnnotationComposer
 
   GeneratedColumnWithTypeConverter<MeasurementSource, String> get source =>
       $composableBuilder(column: $table.source, builder: (column) => column);
+
+  GeneratedColumn<double> get heightCentimeters => $composableBuilder(
+    column: $table.heightCentimeters,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get weightKilograms => $composableBuilder(
+    column: $table.weightKilograms,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get torsoLengthCentimeters => $composableBuilder(
+    column: $table.torsoLengthCentimeters,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get chestCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.chestCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get waistCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.waistCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get hipCircumferenceCentimeters => $composableBuilder(
+    column: $table.hipCircumferenceCentimeters,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get leftUpperArmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftUpperArmCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get rightUpperArmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightUpperArmCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get leftForearmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftForearmCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get rightForearmCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightForearmCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get leftThighCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftThighCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get rightThighCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightThighCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get leftCalfCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.leftCalfCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get rightCalfCircumferenceCentimeters =>
+      $composableBuilder(
+        column: $table.rightCalfCircumferenceCentimeters,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<double> get bodyFatPercentage => $composableBuilder(
+    column: $table.bodyFatPercentage,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<StoredBodyMeasurementMethod?, String>
+  get bodyMeasurementMethod => $composableBuilder(
+    column: $table.bodyMeasurementMethod,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<StoredBodyFatMeasurementMethod?, String>
+  get bodyFatMeasurementMethod => $composableBuilder(
+    column: $table.bodyFatMeasurementMethod,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get notes =>
       $composableBuilder(column: $table.notes, builder: (column) => column);
@@ -11776,6 +13357,37 @@ class $$MeasurementRecordsTableTableManager
                 Value<String> profileId = const Value.absent(),
                 Value<DateTime> measuredAt = const Value.absent(),
                 Value<MeasurementSource> source = const Value.absent(),
+                Value<double?> heightCentimeters = const Value.absent(),
+                Value<double?> weightKilograms = const Value.absent(),
+                Value<double?> torsoLengthCentimeters = const Value.absent(),
+                Value<double?> chestCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> waistCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> hipCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftUpperArmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightUpperArmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftForearmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightForearmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftThighCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightThighCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftCalfCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightCalfCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> bodyFatPercentage = const Value.absent(),
+                Value<StoredBodyMeasurementMethod?> bodyMeasurementMethod =
+                    const Value.absent(),
+                Value<StoredBodyFatMeasurementMethod?>
+                    bodyFatMeasurementMethod =
+                    const Value.absent(),
                 Value<String?> notes = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -11784,6 +13396,31 @@ class $$MeasurementRecordsTableTableManager
                 profileId: profileId,
                 measuredAt: measuredAt,
                 source: source,
+                heightCentimeters: heightCentimeters,
+                weightKilograms: weightKilograms,
+                torsoLengthCentimeters: torsoLengthCentimeters,
+                chestCircumferenceCentimeters: chestCircumferenceCentimeters,
+                waistCircumferenceCentimeters: waistCircumferenceCentimeters,
+                hipCircumferenceCentimeters: hipCircumferenceCentimeters,
+                leftUpperArmCircumferenceCentimeters:
+                    leftUpperArmCircumferenceCentimeters,
+                rightUpperArmCircumferenceCentimeters:
+                    rightUpperArmCircumferenceCentimeters,
+                leftForearmCircumferenceCentimeters:
+                    leftForearmCircumferenceCentimeters,
+                rightForearmCircumferenceCentimeters:
+                    rightForearmCircumferenceCentimeters,
+                leftThighCircumferenceCentimeters:
+                    leftThighCircumferenceCentimeters,
+                rightThighCircumferenceCentimeters:
+                    rightThighCircumferenceCentimeters,
+                leftCalfCircumferenceCentimeters:
+                    leftCalfCircumferenceCentimeters,
+                rightCalfCircumferenceCentimeters:
+                    rightCalfCircumferenceCentimeters,
+                bodyFatPercentage: bodyFatPercentage,
+                bodyMeasurementMethod: bodyMeasurementMethod,
+                bodyFatMeasurementMethod: bodyFatMeasurementMethod,
                 notes: notes,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -11794,6 +13431,37 @@ class $$MeasurementRecordsTableTableManager
                 required String profileId,
                 required DateTime measuredAt,
                 required MeasurementSource source,
+                Value<double?> heightCentimeters = const Value.absent(),
+                Value<double?> weightKilograms = const Value.absent(),
+                Value<double?> torsoLengthCentimeters = const Value.absent(),
+                Value<double?> chestCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> waistCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> hipCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftUpperArmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightUpperArmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftForearmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightForearmCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftThighCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightThighCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> leftCalfCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> rightCalfCircumferenceCentimeters =
+                    const Value.absent(),
+                Value<double?> bodyFatPercentage = const Value.absent(),
+                Value<StoredBodyMeasurementMethod?> bodyMeasurementMethod =
+                    const Value.absent(),
+                Value<StoredBodyFatMeasurementMethod?>
+                    bodyFatMeasurementMethod =
+                    const Value.absent(),
                 Value<String?> notes = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -11802,6 +13470,31 @@ class $$MeasurementRecordsTableTableManager
                 profileId: profileId,
                 measuredAt: measuredAt,
                 source: source,
+                heightCentimeters: heightCentimeters,
+                weightKilograms: weightKilograms,
+                torsoLengthCentimeters: torsoLengthCentimeters,
+                chestCircumferenceCentimeters: chestCircumferenceCentimeters,
+                waistCircumferenceCentimeters: waistCircumferenceCentimeters,
+                hipCircumferenceCentimeters: hipCircumferenceCentimeters,
+                leftUpperArmCircumferenceCentimeters:
+                    leftUpperArmCircumferenceCentimeters,
+                rightUpperArmCircumferenceCentimeters:
+                    rightUpperArmCircumferenceCentimeters,
+                leftForearmCircumferenceCentimeters:
+                    leftForearmCircumferenceCentimeters,
+                rightForearmCircumferenceCentimeters:
+                    rightForearmCircumferenceCentimeters,
+                leftThighCircumferenceCentimeters:
+                    leftThighCircumferenceCentimeters,
+                rightThighCircumferenceCentimeters:
+                    rightThighCircumferenceCentimeters,
+                leftCalfCircumferenceCentimeters:
+                    leftCalfCircumferenceCentimeters,
+                rightCalfCircumferenceCentimeters:
+                    rightCalfCircumferenceCentimeters,
+                bodyFatPercentage: bodyFatPercentage,
+                bodyMeasurementMethod: bodyMeasurementMethod,
+                bodyFatMeasurementMethod: bodyFatMeasurementMethod,
                 notes: notes,
                 createdAt: createdAt,
                 rowid: rowid,

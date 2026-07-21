@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: P5-15 adaptive-programming beta build complete
+- Status: P6-11 anatomy alpha APK produced
 - Working name: Project Atlas
 - Initial audience: Healthy adults aged 18 and over
 - Initial platform: Android-first, with an iOS-capable shared architecture
@@ -195,6 +195,75 @@ Review what would change, why it was proposed, which data triggered it, and acce
 ### Measurement and Anatomy Review
 
 Enter measurements, inspect historical changes, view a bounded visual estimate, and inspect muscle training heatmaps.
+
+P6-01 adds the first persistent body-measurement fields. A measurement event
+can now store height, weight, torso length, chest, waist, hips, and side-specific
+upper-arm, forearm, thigh, and calf measurements. Values are normalized to
+centimeters and kilograms in storage.
+
+P6-02 adds optional body-fat percentage and method metadata to the same
+measurement event. The app can now distinguish how body measurements were
+captured from how body-fat was estimated, while leaving guidance, validation
+copy, visual morph targets, and trend UI for later Phase 6 work.
+
+P6-03 adds the first measurement guidance contract. Each measurement field now
+has an English and Turkish title, reference point, and capture instruction.
+Saving a new measurement is blocked only when the event has no numeric value,
+contains non-finite values, contains non-positive length or mass values, or has
+body-fat percentage outside the open 0-100 range. Broader range checks, missing
+method metadata, and side-to-side differences are warning-level prompts for
+later UI review.
+
+P6-04 adds the first body-measurement-to-anatomy morph rule. A measurement
+record can now be converted into bounded regional target signals for stature,
+mass-to-height scale, torso length, circumference, and soft-tissue estimate
+channels. These signals are keyed to stable anatomy region IDs and remain
+in-memory only.
+
+P6-05 maps those normalized morph signals into target-specific visual minimum,
+neutral, and maximum multipliers. The clamp layer fails closed when a visual
+range is missing, remains in memory, and does not label the estimate, integrate
+the renderer, or add visual regression tests.
+
+P6-06 labels personalized anatomy output as "Visual estimate, not a medical
+scan" in English and Turkish. The disclosure explains that the anatomy view is
+approximate, derived from saved measurements and training data, and cannot
+diagnose health, injury, disease, or body composition.
+
+P6-07 adds training-derived heatmaps to the Anatomy screen. The user can apply
+trained-muscle, weekly-volume, or fatigue views generated from completed local
+set logs in the trailing seven-day window and the bundled exercise-catalog
+muscle mappings. These heatmaps are visual review aids only; they do not change
+training prescriptions or create medical, recovery, or body-composition
+diagnoses.
+
+P6-08 adds display-only trends to the Progress screen. Measurement trends are
+derived from saved measurement history. Training volume, load, repetition, and
+estimated-strength trends are derived from completed clean set logs using the
+latest revision for each set. Estimated strength is a local training estimate,
+not a true one-repetition max and not an automatic progression decision.
+
+P6-09 adds measurement-history comparison and an explicit report copy on the
+Progress screen. The app compares first and latest usable values for each
+measurement field, shows latest left/right circumference differences, and lets
+the user copy CSV or JSON text with a personal-data warning. It does not write a
+plaintext file, create restore behavior, or replace the later encrypted backup
+export.
+
+P6-10 completes morph-boundary and visual-regression coverage. Tests now lock
+valid minimum and maximum measurement behavior, missing-height fallback
+behavior, conservative visual range interpolation, deterministic clamped morph
+snapshots, and visual-estimate disclosure placement. This does not add renderer
+mesh deformation or new product behavior.
+
+P6-11 packages the personalized anatomy alpha into Build C4, a
+development-only Android debug APK. The checkpoint opens to the Anatomy branch
+and includes measurement storage, body-fat provenance, measurement guidance,
+bounded morph targets, visual range clamps, visual-estimate disclosure,
+training heatmaps, Progress trends, measurement-history comparison, report
+copy, and P6-10 coverage. It is not a signed release and does not add renderer
+mesh deformation, reviewed runtime GLB packaging, encrypted backup restore, or
+account synchronization.
 
 ## Product Policies
 

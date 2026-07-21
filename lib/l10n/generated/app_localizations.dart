@@ -324,6 +324,274 @@ abstract class AppLocalizations {
   /// **'No personal records yet. Complete clean sets with reps or load to start tracking records.'**
   String get progressPersonalRecordsEmpty;
 
+  /// Title for measurement and training trend section
+  ///
+  /// In en, this message translates to:
+  /// **'Trends'**
+  String get progressTrendsTitle;
+
+  /// Description for measurement and training trends
+  ///
+  /// In en, this message translates to:
+  /// **'Derived locally from saved measurements and latest clean set logs. Estimated strength is a display-only training estimate.'**
+  String get progressTrendsDescription;
+
+  /// Title for measurement trends
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get progressMeasurementTrendsTitle;
+
+  /// Title for training trends
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get progressTrainingTrendsTitle;
+
+  /// Title for measurement history comparison and export section
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement history'**
+  String get progressMeasurementHistoryTitle;
+
+  /// Description for measurement history comparison and export section
+  ///
+  /// In en, this message translates to:
+  /// **'Compare saved body measurements and copy a local CSV or JSON export when you explicitly need it.'**
+  String get progressMeasurementHistoryDescription;
+
+  /// Title for first-to-latest measurement comparisons
+  ///
+  /// In en, this message translates to:
+  /// **'First vs latest'**
+  String get progressMeasurementComparisonTitle;
+
+  /// One first-to-latest measurement comparison row
+  ///
+  /// In en, this message translates to:
+  /// **'{metric}: {baseline} -> {latest} ({change})'**
+  String progressMeasurementComparisonLine(
+    String metric,
+    String baseline,
+    String latest,
+    String change,
+  );
+
+  /// Title for latest left/right measurement comparisons
+  ///
+  /// In en, this message translates to:
+  /// **'Latest side comparison'**
+  String get progressMeasurementSideComparisonTitle;
+
+  /// One latest left/right body measurement comparison row
+  ///
+  /// In en, this message translates to:
+  /// **'{pair}: left {left} / right {right} ({difference}, {percent}%)'**
+  String progressMeasurementSideComparisonLine(
+    String pair,
+    String left,
+    String right,
+    String difference,
+    String percent,
+  );
+
+  /// Left/right measurement pair label
+  ///
+  /// In en, this message translates to:
+  /// **'Upper arm'**
+  String get progressMeasurementPairUpperArm;
+
+  /// Left/right measurement pair label
+  ///
+  /// In en, this message translates to:
+  /// **'Forearm'**
+  String get progressMeasurementPairForearm;
+
+  /// Left/right measurement pair label
+  ///
+  /// In en, this message translates to:
+  /// **'Thigh'**
+  String get progressMeasurementPairThigh;
+
+  /// Left/right measurement pair label
+  ///
+  /// In en, this message translates to:
+  /// **'Calf'**
+  String get progressMeasurementPairCalf;
+
+  /// Title for measurement history export actions
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement export'**
+  String get progressMeasurementExportTitle;
+
+  /// Privacy warning for copying measurement export text
+  ///
+  /// In en, this message translates to:
+  /// **'The copied text contains personal measurement data. Store or share it only in a location you trust.'**
+  String get progressMeasurementExportDescription;
+
+  /// Number of measurement records included in export
+  ///
+  /// In en, this message translates to:
+  /// **'{recordCount} measurement records available'**
+  String progressMeasurementExportCount(int recordCount);
+
+  /// Button label for copying measurement history CSV
+  ///
+  /// In en, this message translates to:
+  /// **'Copy CSV'**
+  String get progressMeasurementExportCopyCsv;
+
+  /// Button label for copying measurement history JSON
+  ///
+  /// In en, this message translates to:
+  /// **'Copy JSON'**
+  String get progressMeasurementExportCopyJson;
+
+  /// Snack bar after measurement CSV is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement CSV copied.'**
+  String get progressMeasurementExportCopiedCsv;
+
+  /// Snack bar after measurement JSON is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement JSON copied.'**
+  String get progressMeasurementExportCopiedJson;
+
+  /// One trend summary line
+  ///
+  /// In en, this message translates to:
+  /// **'{metric}: {latest} ({change}, {pointCount} points)'**
+  String progressTrendLine(
+    String metric,
+    String latest,
+    String change,
+    int pointCount,
+  );
+
+  /// Trend change text when latest and first values are equal
+  ///
+  /// In en, this message translates to:
+  /// **'no change'**
+  String get progressTrendNoChange;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get progressTrendHeight;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get progressTrendWeight;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Torso length'**
+  String get progressTrendTorsoLength;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get progressTrendChest;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Waist'**
+  String get progressTrendWaist;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Hips'**
+  String get progressTrendHips;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Left upper arm'**
+  String get progressTrendLeftUpperArm;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Right upper arm'**
+  String get progressTrendRightUpperArm;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Left forearm'**
+  String get progressTrendLeftForearm;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Right forearm'**
+  String get progressTrendRightForearm;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Left thigh'**
+  String get progressTrendLeftThigh;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Right thigh'**
+  String get progressTrendRightThigh;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Left calf'**
+  String get progressTrendLeftCalf;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Right calf'**
+  String get progressTrendRightCalf;
+
+  /// Measurement trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Body fat'**
+  String get progressTrendBodyFat;
+
+  /// Training trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get progressTrendVolume;
+
+  /// Training trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Load'**
+  String get progressTrendLoad;
+
+  /// Training trend metric label
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitions'**
+  String get progressTrendRepetitions;
+
+  /// Training trend metric label for estimated one-repetition strength
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated strength'**
+  String get progressTrendEstimatedStrength;
+
   /// Personal record row for best load
   ///
   /// In en, this message translates to:
@@ -986,6 +1254,30 @@ abstract class AppLocalizations {
   /// **'Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.'**
   String get anatomyInteractionInstructions;
 
+  /// Disclosure title for personalized anatomy estimates
+  ///
+  /// In en, this message translates to:
+  /// **'Visual estimate, not a medical scan'**
+  String get anatomyVisualEstimateLabel;
+
+  /// Disclosure body explaining that anatomy personalization is not diagnostic
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized anatomy output is built from saved measurements and training data. It is approximate and cannot diagnose health, injury, disease, or body composition.'**
+  String get anatomyVisualEstimateDescription;
+
+  /// Disclosure note directing the user to review measurement inputs
+  ///
+  /// In en, this message translates to:
+  /// **'Use it to review training and measurement trends; if it looks wrong, re-check the saved inputs.'**
+  String get anatomyVisualEstimateInputNote;
+
+  /// Accessibility label for the visual estimate disclosure icon
+  ///
+  /// In en, this message translates to:
+  /// **'Visual estimate information'**
+  String get anatomyVisualEstimateIconLabel;
+
   /// Accessibility label passed to the native Android renderer view
   ///
   /// In en, this message translates to:
@@ -1103,6 +1395,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No heatmap applied'**
   String get anatomyRendererHeatmapEmpty;
+
+  /// Title for training-derived anatomy heatmaps
+  ///
+  /// In en, this message translates to:
+  /// **'Training heatmaps'**
+  String get anatomyTrainingHeatmapTitle;
+
+  /// Description for training-derived anatomy heatmaps
+  ///
+  /// In en, this message translates to:
+  /// **'Apply trained-muscle, weekly volume, or fatigue views from completed local sets in the last 7 days.'**
+  String get anatomyTrainingHeatmapDescription;
+
+  /// Button label for the trained-muscle heatmap
+  ///
+  /// In en, this message translates to:
+  /// **'Trained muscles'**
+  String get anatomyTrainingHeatmapTrainedMuscle;
+
+  /// Button label for the weekly-volume heatmap
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly volume'**
+  String get anatomyTrainingHeatmapWeeklyVolume;
+
+  /// Button label for the fatigue heatmap
+  ///
+  /// In en, this message translates to:
+  /// **'Fatigue'**
+  String get anatomyTrainingHeatmapFatigue;
+
+  /// Message shown while training heatmaps are loading
+  ///
+  /// In en, this message translates to:
+  /// **'Training heatmaps loading...'**
+  String get anatomyTrainingHeatmapLoading;
+
+  /// Message shown when training heatmaps fail to load
+  ///
+  /// In en, this message translates to:
+  /// **'Training heatmaps could not load.'**
+  String get anatomyTrainingHeatmapLoadError;
+
+  /// Empty state for training heatmaps
+  ///
+  /// In en, this message translates to:
+  /// **'No completed workout evidence in the last 7 days.'**
+  String get anatomyTrainingHeatmapEmpty;
+
+  /// Summary for the selected training heatmap
+  ///
+  /// In en, this message translates to:
+  /// **'{regionCount} regions - strongest {topRegionId}'**
+  String anatomyTrainingHeatmapSummary(int regionCount, String topRegionId);
 
   /// Title for the exercise catalog screen
   ///

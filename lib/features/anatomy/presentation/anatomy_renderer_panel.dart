@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/core/performance/performance_markers.dart';
 import 'package:project_atlas/features/anatomy/application/anatomy_interaction_controller.dart';
 import 'package:project_atlas/features/anatomy/application/anatomy_performance_policy.dart';
+import 'package:project_atlas/features/anatomy/domain/anatomy_training_heatmaps.dart';
 import 'package:project_atlas/features/anatomy/platform/anatomy_renderer_bridge.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
@@ -15,6 +17,7 @@ class AnatomyRendererPanel extends StatefulWidget {
     super.key,
     this.controller,
     this.rendererOptions,
+    this.trainingHeatmaps,
   });
 
   static const panelKey = Key('anatomy-renderer-panel');
@@ -31,9 +34,28 @@ class AnatomyRendererPanel extends StatefulWidget {
   static const selectedRegionTextKey = Key('anatomy-renderer-selected-region');
   static const cameraStateTextKey = Key('anatomy-renderer-camera-state');
   static const heatmapLegendKey = Key('anatomy-renderer-heatmap-legend');
+  static const visualEstimateDisclosureKey = Key(
+    'anatomy-renderer-visual-estimate-disclosure',
+  );
+  static const trainingHeatmapCardKey = Key(
+    'anatomy-renderer-training-heatmap-card',
+  );
+  static const trainedMuscleHeatmapButtonKey = Key(
+    'anatomy-renderer-trained-muscle-heatmap',
+  );
+  static const weeklyVolumeHeatmapButtonKey = Key(
+    'anatomy-renderer-weekly-volume-heatmap',
+  );
+  static const fatigueHeatmapButtonKey = Key(
+    'anatomy-renderer-fatigue-heatmap',
+  );
+  static const trainingHeatmapStatusKey = Key(
+    'anatomy-renderer-training-heatmap-status',
+  );
 
   final AnatomyInteractionController? controller;
   final AnatomyRendererOptions? rendererOptions;
+  final AsyncValue<AnatomyTrainingHeatmapSet>? trainingHeatmaps;
 
   @override
   State<AnatomyRendererPanel> createState() => _AnatomyRendererPanelState();
@@ -45,6 +67,8 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
   late final bool _ownsController = widget.controller == null;
   late final AnatomyRendererOptions _rendererOptions =
       widget.rendererOptions ?? AnatomyPerformancePolicy.defaultOptions();
+  AnatomyTrainingHeatmapKind _selectedTrainingHeatmapKind =
+      AnatomyTrainingHeatmapKind.trainedMuscle;
   double _lastScale = 1;
 
   @override
@@ -99,6 +123,16 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
                         l10n.anatomyInteractionInstructions,
                         style: theme.textTheme.bodySmall,
                       ),
+                      const SizedBox(height: AppSpacing.md),
+                      const _VisualEstimateDisclosureCard(),
+                      if (widget.trainingHeatmaps != null) ...[
+                        const SizedBox(height: AppSpacing.md),
+                        _TrainingHeatmapCard(
+                          heatmaps: widget.trainingHeatmaps!,
+                          selectedKind: _selectedTrainingHeatmapKind,
+                          onApply: _applyTrainingHeatmap,
+                        ),
+                      ],
                       const SizedBox(height: AppSpacing.lg),
                       SizedBox(
                         height: viewportHeight,
@@ -171,6 +205,16 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
       },
     );
   }
+
+  void _applyTrainingHeatmap(
+    AnatomyTrainingHeatmapKind kind,
+    AnatomyTrainingHeatmapSet heatmaps,
+  ) {
+    setState(() {
+      _selectedTrainingHeatmapKind = kind;
+    });
+    _controller.setHeatmap(heatmaps.heatmapFor(kind).scores);
+  }
 }
 
 double _viewportHeightFor(double availableHeight) {
@@ -178,6 +222,184 @@ double _viewportHeightFor(double availableHeight) {
     return 280;
   }
   return (availableHeight * 0.42).clamp(220.0, 360.0);
+}
+
+class _VisualEstimateDisclosureCard extends StatelessWidget {
+  const _VisualEstimateDisclosureCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Card(
+      key: AnatomyRendererPanel.visualEstimateDisclosureKey,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.info_outline,
+              color: theme.colorScheme.primary,
+              semanticLabel: l10n.anatomyVisualEstimateIconLabel,
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.anatomyVisualEstimateLabel,
+                    style: theme.textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    l10n.anatomyVisualEstimateDescription,
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    l10n.anatomyVisualEstimateInputNote,
+                    style: theme.textTheme.labelMedium,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TrainingHeatmapCard extends StatelessWidget {
+  const _TrainingHeatmapCard({
+    required this.heatmaps,
+    required this.selectedKind,
+    required this.onApply,
+  });
+
+  final AsyncValue<AnatomyTrainingHeatmapSet> heatmaps;
+  final AnatomyTrainingHeatmapKind selectedKind;
+  final void Function(
+    AnatomyTrainingHeatmapKind kind,
+    AnatomyTrainingHeatmapSet heatmaps,
+  )
+  onApply;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Card(
+      key: AnatomyRendererPanel.trainingHeatmapCardKey,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.anatomyTrainingHeatmapTitle,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              l10n.anatomyTrainingHeatmapDescription,
+              style: theme.textTheme.bodySmall,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            heatmaps.when(
+              data: (heatmapSet) => _TrainingHeatmapDataControls(
+                heatmaps: heatmapSet,
+                selectedKind: selectedKind,
+                onApply: onApply,
+              ),
+              loading: () => Text(
+                key: AnatomyRendererPanel.trainingHeatmapStatusKey,
+                l10n.anatomyTrainingHeatmapLoading,
+                style: theme.textTheme.labelMedium,
+              ),
+              error: (_, _) => Text(
+                key: AnatomyRendererPanel.trainingHeatmapStatusKey,
+                l10n.anatomyTrainingHeatmapLoadError,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: theme.colorScheme.error,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TrainingHeatmapDataControls extends StatelessWidget {
+  const _TrainingHeatmapDataControls({
+    required this.heatmaps,
+    required this.selectedKind,
+    required this.onApply,
+  });
+
+  final AnatomyTrainingHeatmapSet heatmaps;
+  final AnatomyTrainingHeatmapKind selectedKind;
+  final void Function(
+    AnatomyTrainingHeatmapKind kind,
+    AnatomyTrainingHeatmapSet heatmaps,
+  )
+  onApply;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final selectedHeatmap = heatmaps.heatmapFor(selectedKind);
+    final strongestRegionId = selectedHeatmap.strongestEntry?.regionId;
+    final previewEntries = selectedHeatmap.entries.take(8);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            for (final kind in AnatomyTrainingHeatmapKind.values)
+              ChoiceChip(
+                key: _trainingHeatmapButtonKey(kind),
+                label: Text(_trainingHeatmapLabel(l10n, kind)),
+                selected: selectedKind == kind,
+                onSelected: (_) => onApply(kind, heatmaps),
+              ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Text(
+          key: AnatomyRendererPanel.trainingHeatmapStatusKey,
+          selectedHeatmap.isEmpty
+              ? l10n.anatomyTrainingHeatmapEmpty
+              : l10n.anatomyTrainingHeatmapSummary(
+                  selectedHeatmap.entries.length,
+                  strongestRegionId ?? '',
+                ),
+          style: theme.textTheme.labelMedium,
+        ),
+        if (previewEntries.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.xs),
+          Wrap(
+            spacing: AppSpacing.xs,
+            runSpacing: AppSpacing.xs,
+            children: [
+              for (final entry in previewEntries)
+                _HeatmapChip(regionId: entry.regionId, score: entry.score),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
 }
 
 class AnatomyRendererPlatformView extends StatelessWidget {
@@ -394,5 +616,29 @@ String _rendererModeLabel(
       l10n.anatomyRendererModeStaticFallback,
     AnatomyRendererMode.interactiveLite =>
       l10n.anatomyRendererModeInteractiveLite,
+  };
+}
+
+Key _trainingHeatmapButtonKey(AnatomyTrainingHeatmapKind kind) {
+  return switch (kind) {
+    AnatomyTrainingHeatmapKind.trainedMuscle =>
+      AnatomyRendererPanel.trainedMuscleHeatmapButtonKey,
+    AnatomyTrainingHeatmapKind.weeklyVolume =>
+      AnatomyRendererPanel.weeklyVolumeHeatmapButtonKey,
+    AnatomyTrainingHeatmapKind.fatigue =>
+      AnatomyRendererPanel.fatigueHeatmapButtonKey,
+  };
+}
+
+String _trainingHeatmapLabel(
+  AppLocalizations l10n,
+  AnatomyTrainingHeatmapKind kind,
+) {
+  return switch (kind) {
+    AnatomyTrainingHeatmapKind.trainedMuscle =>
+      l10n.anatomyTrainingHeatmapTrainedMuscle,
+    AnatomyTrainingHeatmapKind.weeklyVolume =>
+      l10n.anatomyTrainingHeatmapWeeklyVolume,
+    AnatomyTrainingHeatmapKind.fatigue => l10n.anatomyTrainingHeatmapFatigue,
   };
 }

@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: P5-15 adaptive-programming beta build complete
+- Status: P6-11 anatomy alpha build boundary recorded
 - Purpose: Define deterministic, testable, and versioned training decisions
 
 ## Supported Goals
@@ -26,7 +26,67 @@
 - Optional readiness and soreness signals
 - Pain and technique flags
 
-Body measurements are primarily visualization and trend inputs, not direct load-prescription inputs.
+Body measurements are primarily visualization and trend inputs, not direct
+load-prescription inputs.
+
+P6-01 persists height, weight, torso, and side-specific limb measurements for
+future progress and visual-estimate features. These fields do not change
+calibration, scheduling, progression, pain handling, plateau gates, or
+recommendation review rules.
+
+P6-02 persists optional body-fat percentage and measurement-method metadata for
+future progress and visual-estimate features. These fields also do not change
+calibration, scheduling, progression, pain handling, plateau gates, or
+recommendation review rules.
+
+P6-03 persists no new training-rule input. Measurement guidance, reference
+points, and validation protect data quality for future progress and visual
+estimate work, but warning or blocking measurement issues do not change
+calibration, scheduling, progression, pain handling, plateau gates, or
+recommendation review rules.
+
+P6-04 creates in-memory regional morph target signals from measurement records.
+These signals are visualization inputs only. They do not change calibration,
+scheduling, progression, pain handling, plateau gates, recommendation review
+rules, or session success calculation.
+
+P6-05 clamps those morph signals into conservative visual ranges before renderer
+use. These clamped visual multipliers are still visualization inputs only and do
+not change any training prescription, progression, safety, or session-status
+rule.
+
+P6-06 adds non-diagnostic visual-estimate labeling to the anatomy output. The
+label does not add a training signal and does not change calibration,
+scheduling, progression, pain handling, plateau gates, recommendation review
+rules, or session success calculation.
+
+P6-07 derives trained-muscle, weekly-volume, and fatigue heatmaps from completed
+local set logs and exercise-catalog muscle mappings. These maps are anatomy
+visualization read models only. They do not change calibration, scheduling,
+progression, pain handling, plateau gates, recommendation review rules, session
+success calculation, deload decisions, or safety guidance.
+
+P6-08 derives measurement, volume, load, repetition, and estimated-strength
+trends for the Progress screen. Trends are display-only read models. Estimated
+strength uses a bounded Epley-style calculation for review, but it is not a
+true max test, not a progression trigger, and not a replacement for the Phase 5
+qualification, pain, plateau, deload, or recommendation review rules.
+
+P6-09 derives measurement-history first-to-latest comparisons, latest left/right
+circumference differences, and copyable measurement report text for the
+Progress screen. These outputs are review and portability aids only. They do
+not classify health, diagnose symmetry, change progression, create
+recommendations, or override Phase 5 training rules.
+
+P6-10 adds test coverage for morph boundaries and visual regression anchors. It
+does not add a training signal, progression trigger, body-composition
+classification, or session-status rule.
+
+P6-11 defines no new training rule set. Build C4 packages the current Phase 6
+measurement, visual-estimate, heatmap, trend, comparison, and report-copy
+capabilities after local validation. It does not change progression thresholds,
+recommendation semantics, safety guidance, or the requirement for user
+confirmation before applying program changes.
 
 P5-01 captures the first durable profile inputs: primary goal, training
 experience, available equipment, preferred session length, and preferred

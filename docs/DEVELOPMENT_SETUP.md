@@ -172,6 +172,8 @@ the device, reconnect it, and accept the new authorization prompt.
   [the validation record](PHASE_4_VALIDATION.md)
 - Phase 5 Build C3 local validation: Passed on 2026-07-21; see
   [the validation record](PHASE_5_VALIDATION.md)
+- Phase 6 local and CI validation: Passed on 2026-07-21; see
+  [the validation record](PHASE_6_VALIDATION.md)
 
 ## Build C0 Validation
 
@@ -215,6 +217,23 @@ must not be distributed as a release artifact.
   `3D21929DED6D7975AC9D40C54D95B4F178FC7F28BC692E471DFB1970C81BC950`
 - Build source: ASCII `subst` workspace at `P:\`, mapped to the existing
   repository path
+- Result: Local quality gates, APK build, and APK metadata inspection passed.
+
+This is a development-only debug build. It is excluded from source control and
+must not be distributed as a release artifact.
+
+## Build C4 Validation
+
+- Date: 2026-07-21
+- Package: `app.projectatlas.personal`
+- Version: `0.1.0` (`versionCode` 1)
+- Artifact: `build/app/outputs/flutter-apk/app-debug.apk`
+- Size: 198,872,646 bytes
+- SHA-256:
+  `7B7A4EB193CB78A1AA3320199C1DA9547B5637387F799626FDBCE82251731393`
+- Build source: ASCII `subst` workspace at `P:\`, mapped to the existing
+  repository path
+- Build define: `PROJECT_ATLAS_INITIAL_LOCATION=/anatomy`
 - Result: Local quality gates, APK build, and APK metadata inspection passed.
 
 This is a development-only debug build. It is excluded from source control and

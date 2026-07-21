@@ -149,6 +149,159 @@ class AppLocalizationsEn extends AppLocalizations {
       'No personal records yet. Complete clean sets with reps or load to start tracking records.';
 
   @override
+  String get progressTrendsTitle => 'Trends';
+
+  @override
+  String get progressTrendsDescription =>
+      'Derived locally from saved measurements and latest clean set logs. Estimated strength is a display-only training estimate.';
+
+  @override
+  String get progressMeasurementTrendsTitle => 'Measurements';
+
+  @override
+  String get progressTrainingTrendsTitle => 'Training';
+
+  @override
+  String get progressMeasurementHistoryTitle => 'Measurement history';
+
+  @override
+  String get progressMeasurementHistoryDescription =>
+      'Compare saved body measurements and copy a local CSV or JSON export when you explicitly need it.';
+
+  @override
+  String get progressMeasurementComparisonTitle => 'First vs latest';
+
+  @override
+  String progressMeasurementComparisonLine(
+    String metric,
+    String baseline,
+    String latest,
+    String change,
+  ) {
+    return '$metric: $baseline -> $latest ($change)';
+  }
+
+  @override
+  String get progressMeasurementSideComparisonTitle => 'Latest side comparison';
+
+  @override
+  String progressMeasurementSideComparisonLine(
+    String pair,
+    String left,
+    String right,
+    String difference,
+    String percent,
+  ) {
+    return '$pair: left $left / right $right ($difference, $percent%)';
+  }
+
+  @override
+  String get progressMeasurementPairUpperArm => 'Upper arm';
+
+  @override
+  String get progressMeasurementPairForearm => 'Forearm';
+
+  @override
+  String get progressMeasurementPairThigh => 'Thigh';
+
+  @override
+  String get progressMeasurementPairCalf => 'Calf';
+
+  @override
+  String get progressMeasurementExportTitle => 'Measurement export';
+
+  @override
+  String get progressMeasurementExportDescription =>
+      'The copied text contains personal measurement data. Store or share it only in a location you trust.';
+
+  @override
+  String progressMeasurementExportCount(int recordCount) {
+    return '$recordCount measurement records available';
+  }
+
+  @override
+  String get progressMeasurementExportCopyCsv => 'Copy CSV';
+
+  @override
+  String get progressMeasurementExportCopyJson => 'Copy JSON';
+
+  @override
+  String get progressMeasurementExportCopiedCsv => 'Measurement CSV copied.';
+
+  @override
+  String get progressMeasurementExportCopiedJson => 'Measurement JSON copied.';
+
+  @override
+  String progressTrendLine(
+    String metric,
+    String latest,
+    String change,
+    int pointCount,
+  ) {
+    return '$metric: $latest ($change, $pointCount points)';
+  }
+
+  @override
+  String get progressTrendNoChange => 'no change';
+
+  @override
+  String get progressTrendHeight => 'Height';
+
+  @override
+  String get progressTrendWeight => 'Weight';
+
+  @override
+  String get progressTrendTorsoLength => 'Torso length';
+
+  @override
+  String get progressTrendChest => 'Chest';
+
+  @override
+  String get progressTrendWaist => 'Waist';
+
+  @override
+  String get progressTrendHips => 'Hips';
+
+  @override
+  String get progressTrendLeftUpperArm => 'Left upper arm';
+
+  @override
+  String get progressTrendRightUpperArm => 'Right upper arm';
+
+  @override
+  String get progressTrendLeftForearm => 'Left forearm';
+
+  @override
+  String get progressTrendRightForearm => 'Right forearm';
+
+  @override
+  String get progressTrendLeftThigh => 'Left thigh';
+
+  @override
+  String get progressTrendRightThigh => 'Right thigh';
+
+  @override
+  String get progressTrendLeftCalf => 'Left calf';
+
+  @override
+  String get progressTrendRightCalf => 'Right calf';
+
+  @override
+  String get progressTrendBodyFat => 'Body fat';
+
+  @override
+  String get progressTrendVolume => 'Volume';
+
+  @override
+  String get progressTrendLoad => 'Load';
+
+  @override
+  String get progressTrendRepetitions => 'Repetitions';
+
+  @override
+  String get progressTrendEstimatedStrength => 'Estimated strength';
+
+  @override
   String progressBestLoad(String load) {
     return 'Best load: $load';
   }
@@ -557,6 +710,21 @@ class AppLocalizationsEn extends AppLocalizations {
       'Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.';
 
   @override
+  String get anatomyVisualEstimateLabel =>
+      'Visual estimate, not a medical scan';
+
+  @override
+  String get anatomyVisualEstimateDescription =>
+      'Personalized anatomy output is built from saved measurements and training data. It is approximate and cannot diagnose health, injury, disease, or body composition.';
+
+  @override
+  String get anatomyVisualEstimateInputNote =>
+      'Use it to review training and measurement trends; if it looks wrong, re-check the saved inputs.';
+
+  @override
+  String get anatomyVisualEstimateIconLabel => 'Visual estimate information';
+
+  @override
   String get anatomyRendererContentDescription =>
       'Interactive anatomy renderer';
 
@@ -627,6 +795,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anatomyRendererHeatmapEmpty => 'No heatmap applied';
+
+  @override
+  String get anatomyTrainingHeatmapTitle => 'Training heatmaps';
+
+  @override
+  String get anatomyTrainingHeatmapDescription =>
+      'Apply trained-muscle, weekly volume, or fatigue views from completed local sets in the last 7 days.';
+
+  @override
+  String get anatomyTrainingHeatmapTrainedMuscle => 'Trained muscles';
+
+  @override
+  String get anatomyTrainingHeatmapWeeklyVolume => 'Weekly volume';
+
+  @override
+  String get anatomyTrainingHeatmapFatigue => 'Fatigue';
+
+  @override
+  String get anatomyTrainingHeatmapLoading => 'Training heatmaps loading...';
+
+  @override
+  String get anatomyTrainingHeatmapLoadError =>
+      'Training heatmaps could not load.';
+
+  @override
+  String get anatomyTrainingHeatmapEmpty =>
+      'No completed workout evidence in the last 7 days.';
+
+  @override
+  String anatomyTrainingHeatmapSummary(int regionCount, String topRegionId) {
+    return '$regionCount regions - strongest $topRegionId';
+  }
 
   @override
   String get exerciseCatalogTitle => 'Exercise catalog';

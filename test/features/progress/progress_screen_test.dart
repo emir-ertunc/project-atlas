@@ -1,5 +1,6 @@
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/app/navigation/main_navigation_shell.dart';
@@ -7,12 +8,14 @@ import 'package:project_atlas/app/project_atlas_app.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
 import 'package:project_atlas/core/localization/locale_provider.dart';
+import 'package:project_atlas/core/measurements/measurement_guidance.dart';
 import 'package:project_atlas/core/repositories/repository_providers.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
 import 'package:project_atlas/features/program/application/program_draft_persistence.dart';
 import 'package:project_atlas/features/progress/application/workout_history_controller.dart';
+import 'package:project_atlas/features/progress/domain/progress_trends.dart';
 import 'package:project_atlas/features/progress/presentation/progress_screen.dart';
 
 import '../../support/test_exercise_catalog.dart';
@@ -88,6 +91,101 @@ void main() {
     expect(find.text('Best load: 55 kg'), findsOneWidget);
     expect(find.text('Best reps: 8'), findsOneWidget);
     expect(find.text('Best volume: 440 kg reps'), findsOneWidget);
+  });
+
+  testWidgets('shows measurement and training trends', (tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    await _seedTrendData(database, now);
+
+    await _pumpProgressApp(tester, catalog: testCatalog, database: database);
+
+    await tester.tap(_navigationLabel('Progress'));
+    await tester.pump();
+    await _pumpUntilFound(tester, find.byKey(ProgressScreen.trendsSectionKey));
+
+    expect(find.text('Trends'), findsOneWidget);
+    expect(
+      find.byKey(ProgressScreen.measurementTrendsSectionKey),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(
+        ProgressScreen.measurementTrendRowKey(MeasurementTrendMetric.weight),
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Weight: 79 kg (-2 kg, 2 points)'), findsOneWidget);
+    expect(find.text('Body fat: 17.5% (-0.5%, 2 points)'), findsOneWidget);
+
+    expect(find.byKey(ProgressScreen.trainingTrendsSectionKey), findsOneWidget);
+    expect(
+      find.byKey(
+        ProgressScreen.trainingTrendRowKey(
+          'barbell_bench_press',
+          TrainingTrendMetric.volume,
+        ),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.text('Volume: 440 kg reps (+140 kg reps, 2 points)'),
+      findsOneWidget,
+    );
+    expect(find.text('Load: 55 kg (+5 kg, 2 points)'), findsOneWidget);
+    expect(
+      find.text('Repetitions: 8 reps (+2 reps, 2 points)'),
+      findsOneWidget,
+    );
+    expect(
+      find.text('Estimated strength: 69.7 kg (+9.7 kg, 2 points)'),
+      findsOneWidget,
+    );
+
+    expect(
+      find.byKey(ProgressScreen.measurementHistorySectionKey),
+      findsOneWidget,
+    );
+    expect(find.text('Measurement history'), findsOneWidget);
+    expect(
+      find.byKey(
+        ProgressScreen.measurementHistoryComparisonRowKey(
+          BodyMeasurementField.weightKilograms,
+        ),
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Weight: 81 kg -> 79 kg (-2 kg)'), findsOneWidget);
+    expect(find.text('2 measurement records available'), findsOneWidget);
+
+    final clipboardCalls = <MethodCall>[];
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, (call) async {
+          clipboardCalls.add(call);
+          return null;
+        });
+    addTearDown(
+      () => TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(SystemChannels.platform, null),
+    );
+
+    await tester.ensureVisible(
+      find.byKey(ProgressScreen.measurementHistoryExportCsvButtonKey),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(ProgressScreen.measurementHistoryExportCsvButtonKey),
+    );
+    await tester.pump();
+
+    final clipboardCall = clipboardCalls
+        .where((call) => call.method == 'Clipboard.setData')
+        .single;
+    expect(
+      (clipboardCall.arguments as Map<Object?, Object?>)['text'],
+      contains('"weight_kilograms"'),
+    );
+    expect(find.text('Measurement CSV copied.'), findsOneWidget);
   });
 
   testWidgets('saves historical corrections as append-only revisions', (
@@ -330,6 +428,90 @@ Future<void> _seedProgramAndHistory(AppDatabase database, DateTime now) async {
       rir: 1,
       supersedesLogId: 'recent-bench-log-1',
       recordedAt: performedAt.add(const Duration(minutes: 8)),
+    ),
+  );
+}
+
+Future<void> _seedTrendData(AppDatabase database, DateTime now) async {
+  await _seedProgramAndHistory(database, now);
+
+  final container = ProviderContainer(
+    overrides: [appDatabaseProvider.overrideWithValue(database)],
+  );
+  addTearDown(container.dispose);
+
+  final repository = container.read(workoutRepositoryProvider);
+  final olderPerformedAt = now.subtract(const Duration(days: 8));
+  final olderSession = WorkoutSessionRecord(
+    id: 'older-clean-session',
+    profileId: localProgramProfileId,
+    programId: 'program-1',
+    programVersionId: 'version-1',
+    lifecycle: WorkoutLifecycle.completed,
+    scheduledAt: olderPerformedAt,
+    startedAt: olderPerformedAt,
+    endedAt: olderPerformedAt.add(const Duration(hours: 1)),
+    notes: 'Upper A',
+    createdAt: olderPerformedAt,
+    updatedAt: olderPerformedAt.add(const Duration(hours: 1)),
+  );
+  final olderSet = SessionSetRecord(
+    id: 'older-clean-bench-set-0',
+    sessionId: olderSession.id,
+    prescribedSetId: 'upper-bench-0',
+    exerciseId: 'barbell_bench_press',
+    exerciseOrder: 0,
+    setOrder: 0,
+    lifecycle: SetLifecycle.planned,
+    createdAt: olderPerformedAt,
+    updatedAt: olderPerformedAt,
+  );
+
+  await repository.saveSessionPlan(olderSession, [olderSet]);
+  await repository.completeSessionSet(
+    SessionSetRecord(
+      id: olderSet.id,
+      sessionId: olderSet.sessionId,
+      prescribedSetId: olderSet.prescribedSetId,
+      exerciseId: olderSet.exerciseId,
+      exerciseOrder: olderSet.exerciseOrder,
+      setOrder: olderSet.setOrder,
+      lifecycle: SetLifecycle.completed,
+      createdAt: olderSet.createdAt,
+      updatedAt: olderPerformedAt.add(const Duration(minutes: 6)),
+    ),
+    ActualSetLogRecord(
+      id: 'older-clean-bench-log-1',
+      sessionSetId: olderSet.id,
+      revision: 1,
+      repetitions: 6,
+      loadKilograms: 50,
+      rir: 2,
+      recordedAt: olderPerformedAt.add(const Duration(minutes: 6)),
+    ),
+  );
+
+  final measurementRepository = container.read(measurementRepositoryProvider);
+  await measurementRepository.addMeasurement(
+    MeasurementRecord(
+      id: 'measurement-old',
+      profileId: localProgramProfileId,
+      measuredAt: now.subtract(const Duration(days: 30)),
+      origin: MeasurementOrigin.manual,
+      weightKilograms: 81,
+      bodyFatPercentage: 18,
+      createdAt: now.subtract(const Duration(days: 30)),
+    ),
+  );
+  await measurementRepository.addMeasurement(
+    MeasurementRecord(
+      id: 'measurement-new',
+      profileId: localProgramProfileId,
+      measuredAt: now,
+      origin: MeasurementOrigin.manual,
+      weightKilograms: 79,
+      bodyFatPercentage: 17.5,
+      createdAt: now,
     ),
   );
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:project_atlas/core/design_system/components/feature_root_scaffold.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
+import 'package:project_atlas/core/measurements/measurement_guidance.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 import 'package:project_atlas/core/units/measurement_units.dart';
 import 'package:project_atlas/core/units/unit_formatter.dart';
@@ -10,6 +12,8 @@ import 'package:project_atlas/core/units/unit_system_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
 import 'package:project_atlas/features/progress/application/workout_history_controller.dart';
+import 'package:project_atlas/features/progress/domain/measurement_history_export.dart';
+import 'package:project_atlas/features/progress/domain/progress_trends.dart';
 import 'package:project_atlas/features/today/application/workout_status_calculator.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
@@ -21,6 +25,28 @@ class ProgressScreen extends ConsumerStatefulWidget {
   static const screenKey = Key('progress-screen');
   static const emptyStateKey = Key('progress-empty-state');
   static const historySectionKey = Key('progress-history-section');
+  static const trendsSectionKey = Key('progress-trends-section');
+  static const measurementTrendsSectionKey = Key(
+    'progress-measurement-trends-section',
+  );
+  static const trainingTrendsSectionKey = Key(
+    'progress-training-trends-section',
+  );
+  static const measurementHistorySectionKey = Key(
+    'progress-measurement-history-section',
+  );
+  static const measurementHistoryComparisonSectionKey = Key(
+    'progress-measurement-history-comparison-section',
+  );
+  static const measurementHistorySideComparisonSectionKey = Key(
+    'progress-measurement-history-side-comparison-section',
+  );
+  static const measurementHistoryExportCsvButtonKey = Key(
+    'progress-measurement-history-export-csv',
+  );
+  static const measurementHistoryExportJsonButtonKey = Key(
+    'progress-measurement-history-export-json',
+  );
   static const setDetailsSectionKey = Key('progress-set-details-section');
   static const personalRecordsSectionKey = Key(
     'progress-personal-records-section',
@@ -32,6 +58,23 @@ class ProgressScreen extends ConsumerStatefulWidget {
 
   static Key historySetButtonKey(String sessionSetId) =>
       Key('progress-history-set-$sessionSetId');
+
+  static Key measurementTrendRowKey(MeasurementTrendMetric metric) =>
+      Key('progress-measurement-trend-${metric.name}');
+
+  static Key measurementHistoryComparisonRowKey(BodyMeasurementField field) =>
+      Key('progress-measurement-history-comparison-${field.name}');
+
+  static Key measurementHistorySideComparisonRowKey(String pairKey) =>
+      Key('progress-measurement-history-side-comparison-$pairKey');
+
+  static Key trainingTrendCardKey(String exerciseId) =>
+      Key('progress-training-trend-$exerciseId');
+
+  static Key trainingTrendRowKey(
+    String exerciseId,
+    TrainingTrendMetric metric,
+  ) => Key('progress-training-trend-$exerciseId-${metric.name}');
 
   static Key personalRecordCardKey(String exerciseId) =>
       Key('progress-personal-record-$exerciseId');
@@ -139,6 +182,21 @@ class _ProgressContent extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.md),
+          if (!state.trends.isEmpty) ...[
+            _ProgressTrendsSection(
+              trends: state.trends,
+              catalog: catalog,
+              formatter: formatter,
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
+          if (!state.measurementHistory.isEmpty) ...[
+            _MeasurementHistorySection(
+              history: state.measurementHistory,
+              formatter: formatter,
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
           if (state.isEmpty)
             const _ProgressEmptyState()
           else ...[
@@ -222,6 +280,366 @@ class _ProgressErrorState extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProgressTrendsSection extends StatelessWidget {
+  const _ProgressTrendsSection({
+    required this.trends,
+    required this.catalog,
+    required this.formatter,
+  });
+
+  final ProgressTrendSet trends;
+  final ExerciseCatalog? catalog;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Column(
+      key: ProgressScreen.trendsSectionKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.progressTrendsTitle, style: theme.textTheme.titleLarge),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          l10n.progressTrendsDescription,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        if (trends.measurementTrends.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          _MeasurementTrendsCard(
+            trends: trends.measurementTrends,
+            formatter: formatter,
+          ),
+        ],
+        if (trends.trainingTrends.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          _TrainingTrendsCard(
+            trends: trends.trainingTrends,
+            catalog: catalog,
+            formatter: formatter,
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _MeasurementTrendsCard extends StatelessWidget {
+  const _MeasurementTrendsCard({required this.trends, required this.formatter});
+
+  final List<MeasurementProgressTrend> trends;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Card(
+      key: ProgressScreen.measurementTrendsSectionKey,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.progressMeasurementTrendsTitle,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            for (final trend in trends.take(8))
+              Padding(
+                key: ProgressScreen.measurementTrendRowKey(trend.metric),
+                padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+                child: Text(
+                  _trendLine(
+                    context: context,
+                    metricLabel: _measurementTrendLabel(l10n, trend.metric),
+                    unit: trend.unit,
+                    latestValue: trend.latestPoint.value,
+                    delta: trend.delta,
+                    pointCount: trend.points.length,
+                    formatter: formatter,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TrainingTrendsCard extends StatelessWidget {
+  const _TrainingTrendsCard({
+    required this.trends,
+    required this.catalog,
+    required this.formatter,
+  });
+
+  final List<ExerciseProgressTrend> trends;
+  final ExerciseCatalog? catalog;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Card(
+      key: ProgressScreen.trainingTrendsSectionKey,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.progressTrainingTrendsTitle,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            for (final exerciseTrend in trends.take(6))
+              Padding(
+                key: ProgressScreen.trainingTrendCardKey(
+                  exerciseTrend.exerciseId,
+                ),
+                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _exerciseName(context, catalog, exerciseTrend.exerciseId),
+                      style: theme.textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    for (final trend in exerciseTrend.metricTrends)
+                      Padding(
+                        key: ProgressScreen.trainingTrendRowKey(
+                          exerciseTrend.exerciseId,
+                          trend.metric,
+                        ),
+                        padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+                        child: Text(
+                          _trendLine(
+                            context: context,
+                            metricLabel: _trainingTrendLabel(
+                              l10n,
+                              trend.metric,
+                            ),
+                            unit: trend.unit,
+                            latestValue: trend.latestPoint.value,
+                            delta: trend.delta,
+                            pointCount: trend.points.length,
+                            formatter: formatter,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MeasurementHistorySection extends StatelessWidget {
+  const _MeasurementHistorySection({
+    required this.history,
+    required this.formatter,
+  });
+
+  final MeasurementHistoryReadModel history;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Card(
+      key: ProgressScreen.measurementHistorySectionKey,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.progressMeasurementHistoryTitle,
+              style: theme.textTheme.titleLarge,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              l10n.progressMeasurementHistoryDescription,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            if (history.comparisons.isNotEmpty) ...[
+              const SizedBox(height: AppSpacing.sm),
+              _MeasurementHistoryComparisons(
+                comparisons: history.comparisons,
+                formatter: formatter,
+              ),
+            ],
+            if (history.sideComparisons.isNotEmpty) ...[
+              const SizedBox(height: AppSpacing.sm),
+              _MeasurementHistorySideComparisons(
+                comparisons: history.sideComparisons,
+                formatter: formatter,
+              ),
+            ],
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              l10n.progressMeasurementExportTitle,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              l10n.progressMeasurementExportDescription,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(l10n.progressMeasurementExportCount(history.records.length)),
+            const SizedBox(height: AppSpacing.sm),
+            Wrap(
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
+              children: [
+                OutlinedButton.icon(
+                  key: ProgressScreen.measurementHistoryExportCsvButtonKey,
+                  onPressed: () async {
+                    await Clipboard.setData(
+                      ClipboardData(text: history.toCsv()),
+                    );
+                    if (!context.mounted) {
+                      return;
+                    }
+                    _showSnackBar(
+                      context,
+                      l10n.progressMeasurementExportCopiedCsv,
+                    );
+                  },
+                  icon: const Icon(Icons.table_chart_outlined),
+                  label: Text(l10n.progressMeasurementExportCopyCsv),
+                ),
+                OutlinedButton.icon(
+                  key: ProgressScreen.measurementHistoryExportJsonButtonKey,
+                  onPressed: () async {
+                    await Clipboard.setData(
+                      ClipboardData(text: history.toJson()),
+                    );
+                    if (!context.mounted) {
+                      return;
+                    }
+                    _showSnackBar(
+                      context,
+                      l10n.progressMeasurementExportCopiedJson,
+                    );
+                  },
+                  icon: const Icon(Icons.data_object_outlined),
+                  label: Text(l10n.progressMeasurementExportCopyJson),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MeasurementHistoryComparisons extends StatelessWidget {
+  const _MeasurementHistoryComparisons({
+    required this.comparisons,
+    required this.formatter,
+  });
+
+  final List<MeasurementHistoryComparison> comparisons;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Column(
+      key: ProgressScreen.measurementHistoryComparisonSectionKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.progressMeasurementComparisonTitle,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        for (final comparison in comparisons.take(10))
+          Padding(
+            key: ProgressScreen.measurementHistoryComparisonRowKey(
+              comparison.field,
+            ),
+            padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+            child: Text(
+              _measurementComparisonLine(
+                context: context,
+                comparison: comparison,
+                formatter: formatter,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _MeasurementHistorySideComparisons extends StatelessWidget {
+  const _MeasurementHistorySideComparisons({
+    required this.comparisons,
+    required this.formatter,
+  });
+
+  final List<MeasurementHistorySideComparison> comparisons;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Column(
+      key: ProgressScreen.measurementHistorySideComparisonSectionKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.progressMeasurementSideComparisonTitle,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        for (final comparison in comparisons)
+          Padding(
+            key: ProgressScreen.measurementHistorySideComparisonRowKey(
+              comparison.pairKey,
+            ),
+            padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+            child: Text(
+              _measurementSideComparisonLine(
+                context: context,
+                comparison: comparison,
+                formatter: formatter,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
@@ -835,6 +1253,55 @@ class _PersonalRecordsSection extends StatelessWidget {
   }
 }
 
+String _measurementComparisonLine({
+  required BuildContext context,
+  required MeasurementHistoryComparison comparison,
+  required UnitFormatter formatter,
+}) {
+  final l10n = AppLocalizations.of(context);
+  return l10n.progressMeasurementComparisonLine(
+    _measurementFieldLabel(l10n, comparison.field),
+    _formatMeasurementHistoryValue(
+      context,
+      formatter,
+      comparison.valueKind,
+      comparison.baselineValue,
+    ),
+    _formatMeasurementHistoryValue(
+      context,
+      formatter,
+      comparison.valueKind,
+      comparison.latestValue,
+    ),
+    _formatMeasurementHistoryDelta(
+      context,
+      formatter,
+      comparison.valueKind,
+      comparison.delta,
+    ),
+  );
+}
+
+String _measurementSideComparisonLine({
+  required BuildContext context,
+  required MeasurementHistorySideComparison comparison,
+  required UnitFormatter formatter,
+}) {
+  final l10n = AppLocalizations.of(context);
+  return l10n.progressMeasurementSideComparisonLine(
+    _measurementPairLabel(l10n, comparison.pairKey),
+    _formatLengthValue(formatter, comparison.leftValue),
+    _formatLengthValue(formatter, comparison.rightValue),
+    _formatMeasurementHistoryDelta(
+      context,
+      formatter,
+      MeasurementValueKind.lengthCentimeters,
+      comparison.delta,
+    ),
+    _formatDecimal(context, comparison.absoluteDeltaPercent, 1),
+  );
+}
+
 String _exerciseName(
   BuildContext context,
   ExerciseCatalog? catalog,
@@ -850,6 +1317,37 @@ String _formatDateTime(BuildContext context, DateTime value) {
   final material = MaterialLocalizations.of(context);
   return '${material.formatShortDate(local)} '
       '${material.formatTimeOfDay(TimeOfDay.fromDateTime(local))}';
+}
+
+String _formatMeasurementHistoryValue(
+  BuildContext context,
+  UnitFormatter formatter,
+  MeasurementValueKind valueKind,
+  double value,
+) {
+  return switch (valueKind) {
+    MeasurementValueKind.lengthCentimeters => _formatLengthValue(
+      formatter,
+      value,
+    ),
+    MeasurementValueKind.massKilograms => _formatMassValue(formatter, value),
+    MeasurementValueKind.percentage =>
+      '${_formatDecimal(context, value, _fractionDigits(value))}%',
+  };
+}
+
+String _formatMeasurementHistoryDelta(
+  BuildContext context,
+  UnitFormatter formatter,
+  MeasurementValueKind valueKind,
+  double delta,
+) {
+  if (delta.abs() < 0.0001) {
+    return AppLocalizations.of(context).progressTrendNoChange;
+  }
+
+  final sign = delta > 0 ? '+' : '-';
+  return '$sign${_formatMeasurementHistoryValue(context, formatter, valueKind, delta.abs())}';
 }
 
 String _prescriptionSummary(
@@ -933,11 +1431,181 @@ String _formatVolumeValue(
   return '$formatted ${unit.symbol} reps';
 }
 
+String _trendLine({
+  required BuildContext context,
+  required String metricLabel,
+  required ProgressTrendValueUnit unit,
+  required double latestValue,
+  required double delta,
+  required int pointCount,
+  required UnitFormatter formatter,
+}) {
+  final l10n = AppLocalizations.of(context);
+  return l10n.progressTrendLine(
+    metricLabel,
+    _formatTrendValue(context, formatter, unit, latestValue),
+    _formatTrendDelta(context, formatter, unit, delta),
+    pointCount,
+  );
+}
+
+String _formatTrendDelta(
+  BuildContext context,
+  UnitFormatter formatter,
+  ProgressTrendValueUnit unit,
+  double delta,
+) {
+  if (delta.abs() < 0.0001) {
+    return AppLocalizations.of(context).progressTrendNoChange;
+  }
+
+  final sign = delta > 0 ? '+' : '-';
+  return '$sign${_formatTrendValue(context, formatter, unit, delta.abs())}';
+}
+
+String _formatTrendValue(
+  BuildContext context,
+  UnitFormatter formatter,
+  ProgressTrendValueUnit unit,
+  double value,
+) {
+  return switch (unit) {
+    ProgressTrendValueUnit.kilograms => _formatMassValue(formatter, value),
+    ProgressTrendValueUnit.centimeters => _formatLengthValue(formatter, value),
+    ProgressTrendValueUnit.percentage =>
+      '${_formatDecimal(context, value, _fractionDigits(value))}%',
+    ProgressTrendValueUnit.repetitions => AppLocalizations.of(
+      context,
+    ).todayFixedRepetitions(value.round()),
+    ProgressTrendValueUnit.kilogramRepetitions => _formatKilogramRepetitions(
+      context,
+      formatter,
+      value,
+    ),
+  };
+}
+
+String _formatLengthValue(UnitFormatter formatter, double centimeters) {
+  return formatter.formatLength(
+    Length.centimeters(centimeters),
+    fractionDigits: _lengthFractionDigits(formatter, centimeters),
+  );
+}
+
+String _formatKilogramRepetitions(
+  BuildContext context,
+  UnitFormatter formatter,
+  double kilogramRepetitions,
+) {
+  final unit = formatter.unitSystem.massUnit;
+  final displayValue = switch (unit) {
+    MassUnit.kilogram => kilogramRepetitions,
+    MassUnit.pound => kilogramRepetitions / Mass.kilogramsPerPound,
+  };
+  return '${_formatDecimal(context, displayValue, _fractionDigits(displayValue))} '
+      '${unit.symbol} reps';
+}
+
+String _formatDecimal(BuildContext context, double value, int fractionDigits) {
+  return NumberFormat.decimalPatternDigits(
+    locale: Localizations.localeOf(context).toLanguageTag(),
+    decimalDigits: fractionDigits,
+  ).format(value);
+}
+
 int _massFractionDigits(UnitFormatter formatter, double kilograms) {
   final displayValue = Mass.kilograms(
     kilograms,
   ).inUnit(formatter.unitSystem.massUnit);
   return displayValue == displayValue.roundToDouble() ? 0 : 1;
+}
+
+int _lengthFractionDigits(UnitFormatter formatter, double centimeters) {
+  final displayValue = Length.centimeters(
+    centimeters,
+  ).inUnit(formatter.unitSystem.lengthUnit);
+  return _fractionDigits(displayValue);
+}
+
+int _fractionDigits(double value) {
+  return value == value.roundToDouble() ? 0 : 1;
+}
+
+String _measurementTrendLabel(
+  AppLocalizations l10n,
+  MeasurementTrendMetric metric,
+) {
+  return switch (metric) {
+    MeasurementTrendMetric.height => l10n.progressTrendHeight,
+    MeasurementTrendMetric.weight => l10n.progressTrendWeight,
+    MeasurementTrendMetric.torsoLength => l10n.progressTrendTorsoLength,
+    MeasurementTrendMetric.chest => l10n.progressTrendChest,
+    MeasurementTrendMetric.waist => l10n.progressTrendWaist,
+    MeasurementTrendMetric.hips => l10n.progressTrendHips,
+    MeasurementTrendMetric.leftUpperArm => l10n.progressTrendLeftUpperArm,
+    MeasurementTrendMetric.rightUpperArm => l10n.progressTrendRightUpperArm,
+    MeasurementTrendMetric.leftForearm => l10n.progressTrendLeftForearm,
+    MeasurementTrendMetric.rightForearm => l10n.progressTrendRightForearm,
+    MeasurementTrendMetric.leftThigh => l10n.progressTrendLeftThigh,
+    MeasurementTrendMetric.rightThigh => l10n.progressTrendRightThigh,
+    MeasurementTrendMetric.leftCalf => l10n.progressTrendLeftCalf,
+    MeasurementTrendMetric.rightCalf => l10n.progressTrendRightCalf,
+    MeasurementTrendMetric.bodyFat => l10n.progressTrendBodyFat,
+  };
+}
+
+String _measurementFieldLabel(
+  AppLocalizations l10n,
+  BodyMeasurementField field,
+) {
+  return switch (field) {
+    BodyMeasurementField.heightCentimeters => l10n.progressTrendHeight,
+    BodyMeasurementField.weightKilograms => l10n.progressTrendWeight,
+    BodyMeasurementField.torsoLengthCentimeters =>
+      l10n.progressTrendTorsoLength,
+    BodyMeasurementField.chestCircumferenceCentimeters =>
+      l10n.progressTrendChest,
+    BodyMeasurementField.waistCircumferenceCentimeters =>
+      l10n.progressTrendWaist,
+    BodyMeasurementField.hipCircumferenceCentimeters => l10n.progressTrendHips,
+    BodyMeasurementField.leftUpperArmCircumferenceCentimeters =>
+      l10n.progressTrendLeftUpperArm,
+    BodyMeasurementField.rightUpperArmCircumferenceCentimeters =>
+      l10n.progressTrendRightUpperArm,
+    BodyMeasurementField.leftForearmCircumferenceCentimeters =>
+      l10n.progressTrendLeftForearm,
+    BodyMeasurementField.rightForearmCircumferenceCentimeters =>
+      l10n.progressTrendRightForearm,
+    BodyMeasurementField.leftThighCircumferenceCentimeters =>
+      l10n.progressTrendLeftThigh,
+    BodyMeasurementField.rightThighCircumferenceCentimeters =>
+      l10n.progressTrendRightThigh,
+    BodyMeasurementField.leftCalfCircumferenceCentimeters =>
+      l10n.progressTrendLeftCalf,
+    BodyMeasurementField.rightCalfCircumferenceCentimeters =>
+      l10n.progressTrendRightCalf,
+    BodyMeasurementField.bodyFatPercentage => l10n.progressTrendBodyFat,
+  };
+}
+
+String _measurementPairLabel(AppLocalizations l10n, String pairKey) {
+  return switch (pairKey) {
+    'upper_arm' => l10n.progressMeasurementPairUpperArm,
+    'forearm' => l10n.progressMeasurementPairForearm,
+    'thigh' => l10n.progressMeasurementPairThigh,
+    'calf' => l10n.progressMeasurementPairCalf,
+    _ => humanizeCatalogIdentifier(pairKey),
+  };
+}
+
+String _trainingTrendLabel(AppLocalizations l10n, TrainingTrendMetric metric) {
+  return switch (metric) {
+    TrainingTrendMetric.volume => l10n.progressTrendVolume,
+    TrainingTrendMetric.load => l10n.progressTrendLoad,
+    TrainingTrendMetric.repetitions => l10n.progressTrendRepetitions,
+    TrainingTrendMetric.estimatedStrength =>
+      l10n.progressTrendEstimatedStrength,
+  };
 }
 
 String _setStatusText(AppLocalizations l10n, TodaySetStatus status) {

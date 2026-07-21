@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_atlas/features/anatomy/application/anatomy_interaction_controller.dart';
+import 'package:project_atlas/features/anatomy/domain/anatomy_training_heatmaps.dart';
 import 'package:project_atlas/features/anatomy/presentation/anatomy_renderer_panel.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
@@ -69,6 +72,76 @@ void main() {
     }
   });
 
+  testWidgets('labels personalized anatomy as a visual estimate', (
+    tester,
+  ) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+
+    try {
+      await tester.pumpWidget(
+        const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(body: AnatomyRendererPanel()),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byKey(AnatomyRendererPanel.visualEstimateDisclosureKey),
+        findsOneWidget,
+      );
+      expect(find.text('Visual estimate, not a medical scan'), findsOneWidget);
+      expect(find.textContaining('cannot diagnose health'), findsOneWidget);
+      expect(find.textContaining('body composition'), findsOneWidget);
+    } finally {
+      debugDefaultTargetPlatformOverride = null;
+    }
+  });
+
+  testWidgets('keeps visual-estimate disclosure above the fallback viewport', (
+    tester,
+  ) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+    tester.view.physicalSize = const Size(430, 932);
+    tester.view.devicePixelRatio = 1;
+
+    try {
+      await tester.pumpWidget(
+        const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(body: AnatomyRendererPanel()),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final disclosure = find.byKey(
+        AnatomyRendererPanel.visualEstimateDisclosureKey,
+      );
+      final viewport = find.byKey(AnatomyRendererPanel.viewportGestureKey);
+      final fallback = find.byKey(AnatomyRendererPanel.fallbackKey);
+
+      expect(disclosure, findsOneWidget);
+      expect(viewport, findsOneWidget);
+      expect(fallback, findsOneWidget);
+      expect(
+        tester.getTopLeft(disclosure).dy,
+        lessThan(tester.getTopLeft(viewport).dy),
+      );
+      expect(tester.getSize(disclosure).width, greaterThan(350));
+      expect(find.text('Visual estimate, not a medical scan'), findsOneWidget);
+      expect(
+        find.textContaining('native Filament renderer', findRichText: true),
+        findsOneWidget,
+      );
+    } finally {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+      debugDefaultTargetPlatformOverride = null;
+    }
+  });
+
   testWidgets('applies preview heatmap and selects a semantic region', (
     tester,
   ) async {
@@ -86,6 +159,10 @@ void main() {
 
       expect(find.text('No heatmap applied'), findsOneWidget);
 
+      await tester.ensureVisible(
+        find.byKey(AnatomyRendererPanel.heatmapPreviewButtonKey),
+      );
+      await tester.pumpAndSettle();
       await tester.tap(
         find.byKey(AnatomyRendererPanel.heatmapPreviewButtonKey),
       );
@@ -94,6 +171,10 @@ void main() {
       expect(find.text('Active heatmap regions'), findsOneWidget);
       expect(find.textContaining('pectoralis_major_right'), findsOneWidget);
 
+      await tester.ensureVisible(
+        find.byKey(AnatomyRendererPanel.viewportGestureKey),
+      );
+      await tester.pumpAndSettle();
       await tester.tapAt(
         tester.getCenter(find.byKey(AnatomyRendererPanel.viewportGestureKey)),
       );
@@ -107,6 +188,109 @@ void main() {
       debugDefaultTargetPlatformOverride = null;
     }
   });
+
+  testWidgets(
+    'applies trained, volume, and fatigue heatmaps from workout data',
+    (tester) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+      final controller = AnatomyInteractionController();
+      final now = DateTime.utc(2026, 7, 21, 12);
+      final heatmaps = AnatomyTrainingHeatmapSet(
+        ruleSetVersion: anatomyTrainingHeatmapRuleSetVersion,
+        generatedAt: now,
+        windowStart: now.subtract(defaultAnatomyTrainingHeatmapWindow),
+        windowEnd: now,
+        evidenceSetCount: 2,
+        heatmaps: {
+          AnatomyTrainingHeatmapKind.trainedMuscle: AnatomyTrainingHeatmap(
+            kind: AnatomyTrainingHeatmapKind.trainedMuscle,
+            entries: const [
+              AnatomyTrainingHeatmapEntry(
+                regionId: 'pectoralis_major_right',
+                score: 0.9,
+                rawValue: 3,
+              ),
+            ],
+          ),
+          AnatomyTrainingHeatmapKind.weeklyVolume: AnatomyTrainingHeatmap(
+            kind: AnatomyTrainingHeatmapKind.weeklyVolume,
+            entries: const [
+              AnatomyTrainingHeatmapEntry(
+                regionId: 'quadriceps_right',
+                score: 1,
+                rawValue: 2400,
+              ),
+            ],
+          ),
+          AnatomyTrainingHeatmapKind.fatigue: AnatomyTrainingHeatmap(
+            kind: AnatomyTrainingHeatmapKind.fatigue,
+            entries: const [
+              AnatomyTrainingHeatmapEntry(
+                regionId: 'hamstrings_right',
+                score: 0.7,
+                rawValue: 1.4,
+              ),
+            ],
+          ),
+        },
+      );
+
+      try {
+        await tester.pumpWidget(
+          MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: AnatomyRendererPanel(
+                controller: controller,
+                trainingHeatmaps: AsyncData(heatmaps),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byKey(AnatomyRendererPanel.trainingHeatmapCardKey),
+          findsOneWidget,
+        );
+        expect(find.text('Training heatmaps'), findsOneWidget);
+        expect(
+          find.textContaining('strongest pectoralis_major_right'),
+          findsOneWidget,
+        );
+
+        await tester.ensureVisible(
+          find.byKey(AnatomyRendererPanel.weeklyVolumeHeatmapButtonKey),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(AnatomyRendererPanel.weeklyVolumeHeatmapButtonKey),
+        );
+        await tester.pump();
+
+        expect(controller.heatmap, {'quadriceps_right': 1.0});
+        expect(
+          find.textContaining('strongest quadriceps_right'),
+          findsOneWidget,
+        );
+
+        await tester.tap(
+          find.byKey(AnatomyRendererPanel.fatigueHeatmapButtonKey),
+        );
+        await tester.pump();
+
+        expect(controller.heatmap, {'hamstrings_right': 0.7});
+        expect(
+          find.textContaining('strongest hamstrings_right'),
+          findsOneWidget,
+        );
+      } finally {
+        controller.dispose();
+        debugDefaultTargetPlatformOverride = null;
+      }
+    },
+  );
 
   testWidgets('dragging the viewport changes the camera summary', (
     tester,
