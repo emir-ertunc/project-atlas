@@ -104,7 +104,7 @@
 - [x] P5-13 Add accept, reject, edit, and undo flows for recommendations.
 - [x] P5-14 Complete golden-persona and twelve-week simulation tests.
 - [x] P5-15 Produce the adaptive-programming beta APK. **Build C3**
-- [ ] P5-16 Commit, push, open the pull request, and verify CI.
+- [x] P5-16 Commit, push, open the pull request, and verify CI.
 - Phase 5 validation record:
   [`docs/PHASE_5_VALIDATION.md`](PHASE_5_VALIDATION.md)
 

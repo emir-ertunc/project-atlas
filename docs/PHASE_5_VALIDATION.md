@@ -9,11 +9,12 @@
   proposals, interruption filtering, pain progression guard, plateau and deload
   data gate, recommendation explanations, recommendation review actions,
   golden-persona simulations, and Build C3 APK production
-- Pull request: Pending P5-16
-- Result: Passed for the P5-15 local build checkpoint
-- Remaining Phase 5 checklist items: P5-16
+- Pull request:
+  [#6 Complete Phase 5 adaptive programming and availability](https://github.com/emir-ertunc/project-atlas/pull/6)
+- Result: Passed
+- Remaining Phase 5 checklist items: None
 
-P5-16 owns the commit, push, pull request, and CI verification for the Phase 5
+The Phase 5 branch is published as a stacked pull request on top of the Phase 4
 branch.
 
 ## Build C3 Artifact
@@ -70,6 +71,14 @@ hash check, and metadata inspection passed.
 | P5-15 Markdown structure scan | Passed |
 | P5-15 attribution scan | Passed |
 | P5-15 secret scan | Passed |
+
+## Publication and CI
+
+- Pull request:
+  [#6 Complete Phase 5 adaptive programming and availability](https://github.com/emir-ertunc/project-atlas/pull/6)
+- CI workflow: `CI / Quality and Android debug build`
+- Push CI result: Passed
+- Pull request CI result: Passed
 
 ## Build C3 Product Boundary
 
