@@ -8,11 +8,13 @@
   clamps, visual-estimate disclosure, training-derived anatomy heatmaps,
   Progress trends, measurement-history comparison and report copy,
   morph-boundary and visual-regression coverage, and Build C4 APK production
-- Result: Local Build C4 validation passed
-- Remaining Phase 6 checklist items: P6-12 commit, push, pull request, and CI
-  verification
+- Pull request:
+  [#7 Complete Phase 6 measurements and personalized anatomy](https://github.com/emir-ertunc/project-atlas/pull/7)
+- Result: Passed
+- Remaining Phase 6 checklist items: None
 
-Publication and remote CI verification are intentionally left to P6-12.
+The Phase 6 branch is published as a stacked pull request on top of the Phase 5
+branch.
 
 ## Build C4 Artifact
 
@@ -66,6 +68,19 @@ the native renderer override.
 | P6-11 Markdown structure scan | Passed |
 | P6-11 attribution scan | Passed |
 | P6-11 secret scan | Passed |
+| `git push -u origin <phase-6-branch>` | Passed |
+| `gh pr create --draft --base <phase-5-branch> --head <phase-6-branch>` | Passed |
+| `gh pr checks 7` | Passed |
+
+## Publication and CI
+
+- Pull request:
+  [#7 Complete Phase 6 measurements and personalized anatomy](https://github.com/emir-ertunc/project-atlas/pull/7)
+- Base: Phase 5 branch
+- Head: Phase 6 branch
+- CI workflow: `CI / Quality and Android debug build`
+- Push CI result: Passed
+- Pull request CI result: Passed
 
 ## Build C4 Product Boundary
 

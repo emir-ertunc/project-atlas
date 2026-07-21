@@ -121,8 +121,8 @@
 - [x] P6-09 Add comparison and export for measurement history.
 - [x] P6-10 Complete morph-boundary and visual-regression tests.
 - [x] P6-11 Produce the anatomy alpha APK. **Build C4**
-- [ ] P6-12 Commit, push, open the pull request, and verify CI.
-- Phase 6 local validation record:
+- [x] P6-12 Commit, push, open the pull request, and verify CI.
+- Phase 6 validation record:
   [`docs/PHASE_6_VALIDATION.md`](PHASE_6_VALIDATION.md)
 
 ## Phase 7 — Content Quality, Notifications, and Personal Release

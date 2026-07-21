@@ -172,7 +172,7 @@ the device, reconnect it, and accept the new authorization prompt.
   [the validation record](PHASE_4_VALIDATION.md)
 - Phase 5 Build C3 local validation: Passed on 2026-07-21; see
   [the validation record](PHASE_5_VALIDATION.md)
-- Phase 6 Build C4 local validation: Passed on 2026-07-21; see
+- Phase 6 local and CI validation: Passed on 2026-07-21; see
   [the validation record](PHASE_6_VALIDATION.md)
 
 ## Build C0 Validation
