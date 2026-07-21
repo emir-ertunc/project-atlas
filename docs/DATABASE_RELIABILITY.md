@@ -6,11 +6,14 @@ Every persisted schema change increments `schemaVersion` and adds an explicit
 upgrade path. Migrations preserve existing user records, add required indexes,
 and leave foreign key enforcement enabled when the database opens.
 
-The migration test suite covers both supported foundation origins:
+The migration test suite covers supported schema origins:
 
 - Version 1, which contains no application tables
 - Version 2, which contains profiles, programs, workout sessions, session sets,
   and measurement history
+- Version 3, which predates immutable training-day snapshots
+- Version 4, which predates onboarding preferences
+- Version 5, which predates weekly availability windows
 
 Each path is opened through the production migration strategy and compared with
 a newly created current database. The comparison covers tables, columns,

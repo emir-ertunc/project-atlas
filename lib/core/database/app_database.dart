@@ -1,7 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:project_atlas/core/database/tables/actual_set_logs.dart';
+import 'package:project_atlas/core/database/tables/availability_windows.dart';
 import 'package:project_atlas/core/database/tables/measurement_records.dart';
+import 'package:project_atlas/core/database/tables/onboarding_preferences.dart';
 import 'package:project_atlas/core/database/tables/prescribed_sets.dart';
 import 'package:project_atlas/core/database/tables/profiles.dart';
 import 'package:project_atlas/core/database/tables/program_version_training_days.dart';
@@ -15,6 +17,7 @@ part 'app_database.g.dart';
 @DriftDatabase(
   tables: [
     Profiles,
+    AvailabilityWindows,
     Programs,
     ProgramVersions,
     ProgramVersionTrainingDays,
@@ -23,6 +26,7 @@ part 'app_database.g.dart';
     SessionSets,
     ActualSetLogs,
     MeasurementRecords,
+    OnboardingPreferences,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -31,7 +35,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -83,6 +87,16 @@ class AppDatabase extends _$AppDatabase {
         await customStatement(
           'CREATE INDEX program_version_training_days_version_idx '
           'ON program_version_training_days (program_version_id)',
+        );
+      }
+      if (from < 5) {
+        await migrator.createTable(onboardingPreferences);
+      }
+      if (from < 6) {
+        await migrator.createTable(availabilityWindows);
+        await customStatement(
+          'CREATE INDEX availability_windows_profile_weekday_idx '
+          'ON availability_windows (profile_id, weekday)',
         );
       }
     },

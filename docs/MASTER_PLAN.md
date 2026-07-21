@@ -89,22 +89,24 @@
 
 ## Phase 5 — Adaptive Programming and Availability Engine
 
-- [ ] P5-01 Build onboarding for goals, experience, equipment, session length, and day preferences.
-- [ ] P5-02 Add a conservative two-to-four-week calibration block.
-- [ ] P5-03 Implement weekly availability windows with fixed and flexible periods.
-- [ ] P5-04 Generate programs from volume, recovery, equipment, and schedule constraints.
-- [ ] P5-05 Propose a safe replacement window for a missed session.
-- [ ] P5-06 Implement bounded increase, hold, and decrease rules.
-- [ ] P5-07 Propose the smallest available load increase after two qualifying exposures.
-- [ ] P5-08 Hold after an isolated miss and reduce only after repeated performance misses.
-- [ ] P5-09 Keep time and equipment interruptions out of performance failure streaks.
-- [ ] P5-10 Stop progression and show safety guidance when pain is reported.
-- [ ] P5-11 Require sufficient data before plateau or deload recommendations.
-- [ ] P5-12 Explain what changed, why, which data triggered it, and how to undo it.
-- [ ] P5-13 Add accept, reject, edit, and undo flows for recommendations.
-- [ ] P5-14 Complete golden-persona and twelve-week simulation tests.
-- [ ] P5-15 Produce the adaptive-programming beta APK. **Build C3**
+- [x] P5-01 Build onboarding for goals, experience, equipment, session length, and day preferences.
+- [x] P5-02 Add a conservative two-to-four-week calibration block.
+- [x] P5-03 Implement weekly availability windows with fixed and flexible periods.
+- [x] P5-04 Generate programs from volume, recovery, equipment, and schedule constraints.
+- [x] P5-05 Propose a safe replacement window for a missed session.
+- [x] P5-06 Implement bounded increase, hold, and decrease rules.
+- [x] P5-07 Propose the smallest available load increase after two qualifying exposures.
+- [x] P5-08 Hold after an isolated miss and reduce only after repeated performance misses.
+- [x] P5-09 Keep time and equipment interruptions out of performance failure streaks.
+- [x] P5-10 Stop progression and show safety guidance when pain is reported.
+- [x] P5-11 Require sufficient data before plateau or deload recommendations.
+- [x] P5-12 Explain what changed, why, which data triggered it, and how to undo it.
+- [x] P5-13 Add accept, reject, edit, and undo flows for recommendations.
+- [x] P5-14 Complete golden-persona and twelve-week simulation tests.
+- [x] P5-15 Produce the adaptive-programming beta APK. **Build C3**
 - [ ] P5-16 Commit, push, open the pull request, and verify CI.
+- Phase 5 validation record:
+  [`docs/PHASE_5_VALIDATION.md`](PHASE_5_VALIDATION.md)
 
 ## Phase 6 — Measurements, Personalized Anatomy, and Progress
 

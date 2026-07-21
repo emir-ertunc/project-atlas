@@ -2,11 +2,12 @@
 
 ## Scope
 
-Schema version 4 establishes the local relational foundation for profiles,
-programs, immutable program versions, version-scoped training-day snapshots,
-prescribed sets, workout sessions, actual set revisions, and measurement
-history. The Drift database is the source of truth for the personal release,
-and SQLite foreign key enforcement is enabled whenever the database opens.
+Schema version 6 establishes the local relational foundation for profiles,
+onboarding preferences, weekly availability windows, programs, immutable
+program versions, version-scoped training-day snapshots, prescribed sets,
+workout sessions, actual set revisions, and measurement history. The Drift
+database is the source of truth for the personal release, and SQLite foreign
+key enforcement is enabled whenever the database opens.
 
 Individual body-measurement fields remain Phase 6 extensions. The current
 measurement table provides the stable event identity, timestamp, source, and
@@ -30,6 +31,98 @@ history relationship needed for those additions.
 Stores the local owner identity and preferences. The unit system is either
 `metric` or `imperial`; an optional locale supports the Turkish and English
 interface baseline.
+
+### `onboarding_preferences`
+
+Stores the P5-01 adaptive onboarding inputs for one profile: primary training
+goal, self-reported training experience, available equipment identifiers,
+preferred session length in minutes, and preferred weekdays. The profile ID is
+the primary key, so saving preferences replaces the one local preference row for
+that profile. The row is deleted when its profile is deleted.
+
+The session-length value is constrained to 20-180 minutes. Equipment and
+weekday selections are stored as comma-separated enum names and validated at
+the repository boundary to be non-empty and unique. These values are inputs for
+later calibration, availability, and generator work; they do not create a
+program or progression decision in P5-01.
+
+P5-02 does not add schema. The conservative calibration block is a deterministic
+read model derived from `onboarding_preferences`; it is not stored separately
+and does not create program, session, or prescription rows.
+
+### `availability_windows`
+
+Stores P5-03 recurring weekly availability for one profile. Each row has a
+weekday, `fixed` or `flexible` period type, start minute, and end minute.
+Minutes are counted from the beginning of the local day, with `0` representing
+00:00 and `1440` representing 24:00.
+
+Fixed periods represent hard appointment-like training availability. Flexible
+periods represent ranges where a later schedule solver may place the session.
+The table rejects empty or reversed windows and is deleted with the owning
+profile. Exact duplicate windows for the same profile, weekday, type, and time
+range are not allowed.
+
+P5-04 does not add schema. The program planner composes
+`onboarding_preferences`, `availability_windows`, and bundled exercise catalog
+metadata into an editable in-memory `ProgramDraft`. Existing `programs`,
+`program_versions`, `program_version_training_days`, and `prescribed_sets`
+rows are created only if the user later saves or publishes from the Program
+screen.
+
+P5-05 does not add schema. Missed-session replacement proposals are calculated
+in memory from the generated program preview and `availability_windows`. The
+feature does not create workout sessions, recommendation rows, availability
+edits, or program-version snapshots.
+
+P5-06 does not add schema. Bounded progression decisions are calculated in
+memory from an existing loaded exercise prescription and a local load policy.
+The feature does not create recommendation rows, update `prescribed_sets`, or
+write program-version snapshots.
+
+P5-07 does not add schema. Smallest-load-increase proposals are calculated in
+memory from exercise exposure summaries and the existing prescription. The
+feature does not add exposure tables, recommendation rows, or program-version
+mutation.
+
+P5-08 does not add schema. Isolated-miss holds and repeated-miss decrease
+candidates are calculated in memory from pre-classified exposure signals and
+the existing prescription. The feature does not add streak tables,
+recommendation rows, or program-version mutation.
+
+P5-09 does not add schema. Progression signal classification is calculated in
+memory from raw exposure evidence and the existing prescription. The feature
+does not add streak tables, interruption tables, recommendation rows, or
+program-version mutation.
+
+P5-10 does not add schema. Pain progression guard decisions are calculated in
+memory from raw exposure evidence and the existing prescription. The feature
+does not add safety tables, recommendation rows, or program-version mutation.
+
+P5-11 does not add schema. Plateau and deload data-gate decisions are
+calculated in memory from classified exposure signals and the existing
+prescription. The feature does not add plateau tables, deload tables,
+recommendation rows, or program-version mutation.
+
+P5-12 does not add schema. Recommendation explanation envelopes are calculated
+in memory from existing recommendation candidates and triggering evidence IDs.
+The feature does not add explanation tables, undo tables, recommendation rows,
+or program-version mutation.
+
+P5-13 does not add schema. Recommendation review state is calculated in memory
+from an explanation envelope and the current prescription. The feature does not
+add review tables, recommendation rows, undo tables, or program-version
+mutation.
+
+P5-14 does not add schema. Golden-persona and twelve-week simulation coverage
+uses synthetic in-memory test fixtures only. The feature does not add
+simulation tables, fixture tables, recommendation rows, or program-version
+mutation.
+
+P5-15 does not add schema. Build C3 packages the existing Phase 5 adaptive
+programming slice into a development-only Android debug APK. The build does not
+add recommendation tables, persistence state, sample personal data, or
+program-version mutation.
 
 ### `programs`
 
@@ -149,6 +242,8 @@ body-fat metadata, and regional measurements are added in Phase 6.
 
 ```text
 profiles
+  |-- onboarding_preferences
+  |-- availability_windows
   |-- programs
   |     `-- program_versions
   |           |-- program_version_training_days
@@ -171,6 +266,8 @@ sets and actual logs.
 ## Indexes
 
 - Programs by profile and status
+- Onboarding preferences by profile primary key
+- Availability windows by profile and weekday
 - Program versions by program and status
 - Program-version training days by version and day order
 - Prescribed sets by version and training day

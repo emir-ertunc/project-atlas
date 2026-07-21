@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: P4-11 workout MVP APK complete
+- Status: P5-15 adaptive-programming beta build complete
 - Architecture style: Offline-first, layered, and feature-oriented
 
 ## Technology Baseline
@@ -60,7 +60,7 @@ Drift tables, data access objects, repository implementations, migrations, expor
 
 - App shell and navigation
 - Design system and localization
-- Profile and settings
+- Profile, onboarding, and settings
 - Exercise catalog
 - Program builder
 - Active workout and history
@@ -90,9 +90,10 @@ Drift tables, data access objects, repository implementations, migrations, expor
 
 ## Core Relational Schema
 
-- Schema version 4 contains profiles, programs, immutable program versions,
-  version-scoped training-day snapshots, prescribed sets, workout sessions,
-  session sets, append-only actual set logs, and measurement records.
+- Schema version 6 contains profiles, onboarding preferences, weekly
+  availability windows, programs, immutable program versions, version-scoped
+  training-day snapshots, prescribed sets, workout sessions, session sets,
+  append-only actual set logs, and measurement records.
 - Foreign keys are enabled on every database open.
 - Profile-owned records use cascade deletion. Deleting a program preserves
   workout history by setting the optional session reference to null.
@@ -134,6 +135,8 @@ Drift tables, data access objects, repository implementations, migrations, expor
 ## Main Interfaces
 
 - `ExerciseRepository`
+- `OnboardingRepository`
+- `AvailabilityRepository`
 - `ProgramRepository`
 - `WorkoutRepository`
 - `MeasurementRepository`
@@ -143,9 +146,128 @@ Drift tables, data access objects, repository implementations, migrations, expor
 - `AnatomyRenderer`
 - `ExportService`
 
-Profile, program, workout, measurement, and exercise repository signatures are
-defined in the foundation. The exercise catalog implementation begins in Phase
-3; service interfaces are defined by their first consuming features.
+Profile, onboarding, availability, program, workout, measurement, and exercise
+repository signatures are defined in the foundation. The exercise catalog
+implementation begins in Phase 3; service interfaces are defined by their first
+consuming features.
+
+## Adaptive Onboarding
+
+- P5-01 adds a profile-scoped onboarding preference boundary before program
+  generation begins.
+- Settings captures primary goal, training experience, available equipment,
+  preferred session length, and preferred training weekdays.
+- Preferences are saved through `OnboardingRepository` into local SQLite and
+  can be watched by later planning, availability, and recommendation features.
+- Saving onboarding creates the local profile when it does not exist yet.
+- P5-02 adds a pure domain calibration planner that derives a conservative
+  two-to-four-week block from saved onboarding preferences.
+- The calibration block caps sessions per week by experience, applies reduced
+  week-by-week volume, holds load progression off, and lists exit requirements
+  for leaving calibration.
+- P5-03 adds a profile-scoped weekly availability boundary with fixed and
+  flexible period types, start and end minutes, and weekday ownership.
+- Settings initializes availability drafts from onboarding preferred weekdays
+  and saves them through `AvailabilityRepository`.
+- P5-04 adds a deterministic program planner in
+  `features/adaptive_programming/domain`. It combines onboarding preferences,
+  the conservative calibration block, saved availability windows, and the local
+  exercise catalog to produce an editable `ProgramDraft`.
+- The planner caps weekly sessions through the calibration session limit,
+  constrains exercise count by the shortest selected window and preferred
+  session length, spaces selected windows across the week, and filters exercise
+  candidates by broad equipment capability.
+- Applying a planner result replaces only the in-memory local Program builder
+  draft after confirmation when another draft exists. It does not save,
+  publish, activate, reschedule missed sessions, or change progression rules.
+- P5-05 adds a deterministic missed-session replacement rule in
+  `features/adaptive_programming/domain`. It evaluates the generated program
+  plan and saved weekly availability to find the earliest spare window that
+  keeps goal-specific recovery spacing around the remaining planned sessions.
+- The replacement preview is displayed in Settings and remains non-mutating:
+  it does not move a session, create a workout, update the active program, or
+  apply progression.
+- P5-06 adds the first deterministic bounded progression rule in
+  `features/adaptive_programming/domain`. It takes an explicit increase, hold,
+  or decrease request against a loaded exercise prescription, rounds load
+  changes to the available equipment increment, caps increases and decreases by
+  configured percentages, and protects a minimum load floor.
+- Bounded progression decisions remain local domain proposals. They do not read
+  workout history, infer exposure qualification, save recommendations, or mutate
+  program versions until later Phase 5 review flows are implemented.
+- P5-07 adds a deterministic smallest-load-increase rule in the same domain
+  boundary. It evaluates ordered exercise exposure summaries, requires the two
+  most recent matching exposures to qualify, and delegates the actual one-step
+  increase to the P5-06 bounded progression rule.
+- The P5-07 rule consumes value objects only and remains free of repository
+  writes, database queries, recommendation persistence, program-version
+  mutation, and user-review state.
+- P5-08 adds a deterministic performance-miss response rule in the same domain
+  boundary. It consumes pre-classified exposure signals, holds after no data,
+  non-miss latest evidence, or an isolated miss, and proposes a bounded
+  decrease only after the two most recent matching exposures are both
+  performance misses.
+- The P5-08 rule intentionally does not classify raw workout outcomes. Outcome
+  filtering, pain handling, persistence, explanations, and review actions stay
+  assigned to later Phase 5 rules.
+- P5-09 adds a deterministic progression signal classifier in the same domain
+  boundary. It converts raw set outcome and numeric evidence into the
+  pre-classified signals consumed by P5-08 while keeping time, equipment, and
+  external interruptions out of performance-failure streaks.
+- The classifier remains a pure value-object rule. It does not query
+  repositories, persist streak state, mutate prescriptions, or implement pain
+  safety messaging.
+- P5-10 adds a deterministic pain progression guard in the same domain
+  boundary. It evaluates raw set outcome evidence for the matching exercise,
+  blocks loaded progression when pain is reported, and returns typed safety
+  guidance for the presentation layer.
+- The guard delegates the unchanged-load result to the P5-06 bounded
+  progression rule as a hold decision. It remains a pure value-object rule and
+  does not query repositories, persist safety state, mutate prescriptions, or
+  create recommendation-review records.
+- P5-11 adds a deterministic plateau and deload data gate in the same domain
+  boundary. It evaluates classified matching exercise exposures and allows
+  future plateau or deload checks only when enough comparable evidence exists
+  across a minimum observation span.
+- The gate treats target-met and performance-miss signals as comparable data.
+  Not-comparable signals such as pain, interruptions, or missing evidence are
+  excluded, and a latest not-comparable exposure blocks the future check. The
+  gate does not diagnose a plateau, recommend a deload, persist state, mutate
+  prescriptions, or create review records.
+- P5-12 adds a deterministic recommendation explanation envelope in the same
+  domain boundary. It converts existing load-increase, load-decrease, and pain
+  progression-stop candidates into typed change summaries, reason codes,
+  triggering evidence references, and undo metadata.
+- Explanation objects remain presentation-ready value objects. They do not
+  localize copy, apply changes, restore previous prescriptions, persist
+  recommendation state, or implement accept, reject, edit, and undo flows.
+- P5-13 adds a deterministic recommendation review flow in the same domain
+  boundary. It opens an explained recommendation candidate, supports accept,
+  reject, load edit, and undo actions, and returns copied prescription state for
+  the review surface.
+- Accepted load recommendations apply the proposed or edited load to a copied
+  prescription. Rejected recommendations keep the original prescription. Undo
+  restores the previous load only after an accepted load change. Pain
+  progression-stop reviews can be accepted without mutating prescription load.
+- The review flow remains a pure value-object state machine. It does not write
+  recommendation rows, publish program versions, mutate repositories, localize
+  UI copy, or perform cross-exercise batch updates.
+- P5-14 adds golden-persona simulation tests over the Phase 5 domain rules.
+  The simulations run synthetic twelve-week histories through progression
+  qualification, miss response, interruption filtering, pain guarding,
+  explanation, review, and data-gate logic.
+- The simulation suite is test-only. It does not add runtime engines,
+  repositories, persistence, UI routes, build artifacts, or personal training
+  data fixtures.
+- P5-15 produces Build C3, a development-only Android debug APK for the
+  adaptive-programming beta slice. The build packages P5-01 through P5-14:
+  onboarding preferences, calibration, weekly availability, generated program
+  drafts, missed-session replacement previews, bounded progression rules,
+  recommendation explanation and review value objects, and golden-persona
+  acceptance coverage.
+- Build C3 does not add a new schema, persistence boundary, runtime service,
+  release signing setup, or recommendation-publication workflow. P5-16 owns
+  branch publication, pull request creation, and CI verification.
 
 ## Exercise Catalog Identity and Categories
 
@@ -374,6 +496,10 @@ defined in the foundation. The exercise catalog implementation begins in Phase
   resulting local state.
 - Aggregate writes use transactions so a program version or session plan cannot
   become partially visible.
+- Onboarding preference writes are profile-scoped, replace the one local
+  preference row for that profile, and stay available without connectivity.
+- Availability window writes are profile-scoped and replace the local recurring
+  weekly windows for that profile.
 - Actual set corrections append revisions instead of replacing earlier results.
 - Riverpod provides interface-typed repositories from one lifecycle-managed
   database instance.

@@ -7,6 +7,14 @@ final profileRepositoryProvider = Provider<ProfileRepository>(
   (ref) => DriftProfileRepository(ref.watch(appDatabaseProvider)),
 );
 
+final onboardingRepositoryProvider = Provider<OnboardingRepository>(
+  (ref) => DriftOnboardingRepository(ref.watch(appDatabaseProvider)),
+);
+
+final availabilityRepositoryProvider = Provider<AvailabilityRepository>(
+  (ref) => DriftAvailabilityRepository(ref.watch(appDatabaseProvider)),
+);
+
 final programRepositoryProvider = Provider<ProgramRepository>(
   (ref) => DriftProgramRepository(ref.watch(appDatabaseProvider)),
 );

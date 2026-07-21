@@ -4,6 +4,8 @@ import 'package:drift/drift.dart' hide isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/core/database/app_database.dart';
+import 'package:project_atlas/core/database/tables/availability_windows.dart';
+import 'package:project_atlas/core/database/tables/onboarding_preferences.dart';
 import 'package:project_atlas/core/database/tables/profiles.dart';
 import 'package:project_atlas/core/database/tables/program_versions.dart';
 import 'package:project_atlas/core/database/tables/session_sets.dart';
@@ -58,6 +60,8 @@ void main() {
         'session_sets',
         'actual_set_logs',
         'measurement_records',
+        'onboarding_preferences',
+        'availability_windows',
       }),
     );
   });
@@ -144,6 +148,65 @@ void main() {
       expect(days.single.name, 'Upper A');
     },
   );
+
+  test(
+    'migrates version 4 databases by adding onboarding preferences',
+    () async {
+      await _createVersion4Database(databaseFile);
+
+      final database = _openDatabase(databaseFile);
+      addTearDown(database.close);
+      await database.customSelect('SELECT 1').getSingle();
+
+      await _expectCurrentSchema(database, temporaryDirectory);
+      expect(await _userVersion(database), database.schemaVersion);
+      await database
+          .into(database.onboardingPreferences)
+          .insert(
+            OnboardingPreferencesCompanion.insert(
+              profileId: 'profile-v4',
+              goal: StoredTrainingGoal.bodyRecomposition,
+              experienceLevel: StoredTrainingExperienceLevel.beginner,
+              equipmentIds: 'bodyweight,dumbbells',
+              preferredSessionLengthMinutes: 45,
+              preferredWeekdays: 'tuesday,thursday,saturday',
+            ),
+          );
+      final preferences = await database
+          .select(database.onboardingPreferences)
+          .getSingle();
+      expect(preferences.goal, StoredTrainingGoal.bodyRecomposition);
+      expect(preferences.preferredSessionLengthMinutes, 45);
+    },
+  );
+
+  test('migrates version 5 databases by adding availability windows', () async {
+    await _createVersion5Database(databaseFile);
+
+    final database = _openDatabase(databaseFile);
+    addTearDown(database.close);
+    await database.customSelect('SELECT 1').getSingle();
+
+    await _expectCurrentSchema(database, temporaryDirectory);
+    expect(await _userVersion(database), database.schemaVersion);
+    await database
+        .into(database.availabilityWindows)
+        .insert(
+          AvailabilityWindowsCompanion.insert(
+            id: 'availability-after-v5-migration',
+            profileId: 'profile-v5',
+            weekday: StoredTrainingWeekday.saturday,
+            windowType: StoredAvailabilityWindowType.flexible,
+            startMinute: 9 * 60,
+            endMinute: 12 * 60,
+          ),
+        );
+    final window = await database
+        .select(database.availabilityWindows)
+        .getSingle();
+    expect(window.weekday, StoredTrainingWeekday.saturday);
+    expect(window.windowType, StoredAvailabilityWindowType.flexible);
+  });
 
   test(
     'restores committed workout state and rolls back interrupted work',
@@ -319,6 +382,8 @@ Future<void> _createVersion2Database(File file) async {
   legacy.execute('DROP TABLE prescribed_sets');
   legacy.execute('DROP TABLE program_version_training_days');
   legacy.execute('DROP TABLE program_versions');
+  legacy.execute('DROP TABLE availability_windows');
+  legacy.execute('DROP TABLE onboarding_preferences');
   legacy.userVersion = 2;
 
   legacy.execute(
@@ -378,7 +443,48 @@ Future<void> _createVersion3Database(File file) async {
   final legacy = sqlite.sqlite3.open(file.path);
   legacy.execute('DROP INDEX program_version_training_days_version_idx');
   legacy.execute('DROP TABLE program_version_training_days');
+  legacy.execute('DROP TABLE availability_windows');
+  legacy.execute('DROP TABLE onboarding_preferences');
   legacy.userVersion = 3;
+  legacy.close();
+}
+
+Future<void> _createVersion4Database(File file) async {
+  final current = _openDatabase(file);
+  await current.customSelect('SELECT 1').getSingle();
+  await current
+      .into(current.profiles)
+      .insert(
+        ProfilesCompanion.insert(
+          id: 'profile-v4',
+          unitSystem: UnitSystemPreference.metric,
+        ),
+      );
+  await current.close();
+
+  final legacy = sqlite.sqlite3.open(file.path);
+  legacy.execute('DROP TABLE availability_windows');
+  legacy.execute('DROP TABLE onboarding_preferences');
+  legacy.userVersion = 4;
+  legacy.close();
+}
+
+Future<void> _createVersion5Database(File file) async {
+  final current = _openDatabase(file);
+  await current.customSelect('SELECT 1').getSingle();
+  await current
+      .into(current.profiles)
+      .insert(
+        ProfilesCompanion.insert(
+          id: 'profile-v5',
+          unitSystem: UnitSystemPreference.metric,
+        ),
+      );
+  await current.close();
+
+  final legacy = sqlite.sqlite3.open(file.path);
+  legacy.execute('DROP TABLE availability_windows');
+  legacy.userVersion = 5;
   legacy.close();
 }
 

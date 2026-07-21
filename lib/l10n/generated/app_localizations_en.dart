@@ -167,6 +167,385 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsNavigationLabel => 'Settings';
 
   @override
+  String get onboardingTitle => 'Adaptive onboarding';
+
+  @override
+  String get onboardingDescription =>
+      'Set the inputs the planner will use before generating recommendations. These choices stay local to this device.';
+
+  @override
+  String get onboardingGoalLabel => 'Primary goal';
+
+  @override
+  String get onboardingExperienceLabel => 'Training experience';
+
+  @override
+  String get onboardingEquipmentLabel => 'Available equipment';
+
+  @override
+  String get onboardingSessionLengthLabel => 'Preferred session length';
+
+  @override
+  String get onboardingWeekdaysLabel => 'Preferred training days';
+
+  @override
+  String get onboardingSaveButton => 'Save onboarding';
+
+  @override
+  String get onboardingSavedMessage => 'Onboarding preferences saved.';
+
+  @override
+  String get onboardingSaveFailed =>
+      'Onboarding preferences could not be saved.';
+
+  @override
+  String get onboardingLoadError => 'Onboarding preferences could not load.';
+
+  @override
+  String onboardingSessionLengthValue(int minutes) {
+    return '$minutes minutes';
+  }
+
+  @override
+  String onboardingSavedSummary(
+    String goal,
+    String experience,
+    int minutes,
+    String weekdays,
+    String equipment,
+  ) {
+    return 'Saved: $goal, $experience, $minutes minutes, $weekdays. Equipment: $equipment.';
+  }
+
+  @override
+  String get onboardingGoalGeneralFitness => 'General fitness';
+
+  @override
+  String get onboardingGoalHypertrophy => 'Hypertrophy';
+
+  @override
+  String get onboardingGoalMaximumStrength => 'Maximum strength';
+
+  @override
+  String get onboardingGoalBodyRecomposition => 'Body recomposition';
+
+  @override
+  String get onboardingGoalMuscularEndurance => 'Muscular endurance';
+
+  @override
+  String get onboardingGoalAthleticPerformance => 'Athletic performance';
+
+  @override
+  String get onboardingGoalMaintenance => 'Maintenance';
+
+  @override
+  String get onboardingExperienceNewToTraining => 'New to training';
+
+  @override
+  String get onboardingExperienceBeginner => 'Beginner';
+
+  @override
+  String get onboardingExperienceIntermediate => 'Intermediate';
+
+  @override
+  String get onboardingExperienceAdvanced => 'Advanced';
+
+  @override
+  String get onboardingEquipmentBodyweight => 'Bodyweight';
+
+  @override
+  String get onboardingEquipmentDumbbells => 'Dumbbells';
+
+  @override
+  String get onboardingEquipmentBarbell => 'Barbell';
+
+  @override
+  String get onboardingEquipmentMachines => 'Machines';
+
+  @override
+  String get onboardingEquipmentCableStation => 'Cable station';
+
+  @override
+  String get onboardingEquipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get onboardingEquipmentResistanceBands => 'Resistance bands';
+
+  @override
+  String get onboardingEquipmentCardio => 'Cardio equipment';
+
+  @override
+  String get onboardingWeekdayMonday => 'Monday';
+
+  @override
+  String get onboardingWeekdayTuesday => 'Tuesday';
+
+  @override
+  String get onboardingWeekdayWednesday => 'Wednesday';
+
+  @override
+  String get onboardingWeekdayThursday => 'Thursday';
+
+  @override
+  String get onboardingWeekdayFriday => 'Friday';
+
+  @override
+  String get onboardingWeekdaySaturday => 'Saturday';
+
+  @override
+  String get onboardingWeekdaySunday => 'Sunday';
+
+  @override
+  String get calibrationBlockTitle => 'Conservative calibration block';
+
+  @override
+  String get calibrationBlockDescription =>
+      'Use this first block to find repeatable starting loads before recommendations change future training.';
+
+  @override
+  String calibrationBlockSummary(
+    int weeks,
+    int sessionsPerWeek,
+    int minimumRir,
+  ) {
+    return '$weeks weeks - $sessionsPerWeek sessions/week - keep at least RIR $minimumRir';
+  }
+
+  @override
+  String calibrationBlockSessionTarget(int minutes, String weekdays) {
+    return '$minutes minute target sessions on $weekdays';
+  }
+
+  @override
+  String get calibrationBlockNoProgression =>
+      'No load increases during calibration; collect clean set evidence first.';
+
+  @override
+  String calibrationWeekSummary(
+    int weekNumber,
+    String focus,
+    int volumePercent,
+    int minimumRir,
+  ) {
+    return 'Week $weekNumber: $focus - $volumePercent% planned volume - RIR $minimumRir+';
+  }
+
+  @override
+  String calibrationExitRequirements(String requirements) {
+    return 'Advance only after: $requirements.';
+  }
+
+  @override
+  String get calibrationFocusTechniqueBaseline => 'technique baseline';
+
+  @override
+  String get calibrationFocusRepeatableExecution => 'repeatable execution';
+
+  @override
+  String get calibrationFocusStableExposure => 'stable exposure';
+
+  @override
+  String get calibrationFocusPrescriptionPreview => 'prescription preview';
+
+  @override
+  String get calibrationExitPlannedWeeksCompleted =>
+      'planned weeks are completed';
+
+  @override
+  String get calibrationExitNoPainReports => 'no pain reports';
+
+  @override
+  String get calibrationExitNoRepeatedPerformanceMisses =>
+      'no repeated performance misses';
+
+  @override
+  String get calibrationExitStableRirEvidence => 'RIR evidence is stable';
+
+  @override
+  String get availabilityTitle => 'Weekly availability';
+
+  @override
+  String get availabilityDescription =>
+      'Choose when training can fit each week. Fixed periods are hard appointments; flexible periods give the planner room to place a session inside the window.';
+
+  @override
+  String get availabilityFixedPeriod => 'Fixed';
+
+  @override
+  String get availabilityFlexiblePeriod => 'Flexible';
+
+  @override
+  String get availabilityStartTimeLabel => 'Start';
+
+  @override
+  String get availabilityEndTimeLabel => 'End';
+
+  @override
+  String availabilityWindowSummary(
+    String type,
+    String startTime,
+    String endTime,
+  ) {
+    return '$type window from $startTime to $endTime';
+  }
+
+  @override
+  String get availabilitySaveButton => 'Save availability';
+
+  @override
+  String get availabilitySavedMessage => 'Weekly availability saved.';
+
+  @override
+  String get availabilitySaveFailed =>
+      'Weekly availability could not be saved.';
+
+  @override
+  String get availabilityLoadError => 'Weekly availability could not load.';
+
+  @override
+  String get availabilityLoading => 'Weekly availability loading...';
+
+  @override
+  String get generatedProgramTitle => 'Program draft planner';
+
+  @override
+  String get generatedProgramDescription =>
+      'Build an editable local draft from onboarding, weekly availability, equipment, recovery spacing, and conservative volume rules.';
+
+  @override
+  String get generatedProgramAvailabilityRequired =>
+      'Save weekly availability before building a program draft.';
+
+  @override
+  String get generatedProgramCatalogLoadError =>
+      'The exercise catalog could not load, so the program draft cannot be built.';
+
+  @override
+  String get generatedProgramNoPlan =>
+      'No matching program could be built from the saved equipment. Add more equipment or update availability.';
+
+  @override
+  String generatedProgramSummary(
+    int sessionsPerWeek,
+    int weeklySetTarget,
+    int maxExercisesPerSession,
+    int minimumRir,
+  ) {
+    return '$sessionsPerWeek sessions/week - $weeklySetTarget working sets - up to $maxExercisesPerSession exercises/session - RIR $minimumRir+';
+  }
+
+  @override
+  String generatedProgramDaySummary(
+    String weekday,
+    String windowType,
+    String startTime,
+    String endTime,
+    int exerciseCount,
+    int setCount,
+  ) {
+    return '$weekday - $windowType $startTime-$endTime - $exerciseCount exercises - $setCount sets';
+  }
+
+  @override
+  String generatedProgramExerciseSummary(
+    int setCount,
+    int minimumRepetitions,
+    int maximumRepetitions,
+    int targetRir,
+    int restSeconds,
+  ) {
+    return '$setCount sets - $minimumRepetitions-$maximumRepetitions reps - RIR $targetRir - $restSeconds sec rest';
+  }
+
+  @override
+  String get generatedProgramApplyDraft => 'Apply as local draft';
+
+  @override
+  String get generatedProgramAppliedMessage =>
+      'Program draft applied locally. Open Program to edit, save, or publish it.';
+
+  @override
+  String get generatedProgramReplaceDraftTitle => 'Replace local draft?';
+
+  @override
+  String get generatedProgramReplaceDraftMessage =>
+      'Applying this plan replaces the current unsaved Program draft. Saved versions stay unchanged.';
+
+  @override
+  String get generatedProgramReplaceDraftCancel => 'Keep current draft';
+
+  @override
+  String get generatedProgramReplaceDraftConfirm => 'Replace draft';
+
+  @override
+  String generatedProgramDraftName(String goal) {
+    return '$goal draft';
+  }
+
+  @override
+  String get generatedProgramFocusFullBody => 'Full body';
+
+  @override
+  String get generatedProgramFocusUpperEmphasis => 'Upper emphasis';
+
+  @override
+  String get generatedProgramFocusLowerEmphasis => 'Lower emphasis';
+
+  @override
+  String get generatedProgramFocusPosteriorChain => 'Posterior chain';
+
+  @override
+  String get generatedProgramFocusConditioningSupport => 'Conditioning support';
+
+  @override
+  String get missedSessionReplacementTitle => 'Missed-session replacement';
+
+  @override
+  String get missedSessionReplacementDescription =>
+      'Choose a missed planned day to preview the safest available replacement window. This does not move or publish any workout.';
+
+  @override
+  String get missedSessionReplacementAvailabilityRequired =>
+      'Save weekly availability before previewing a replacement window.';
+
+  @override
+  String get missedSessionReplacementMissedDayLabel => 'Missed planned day';
+
+  @override
+  String missedSessionReplacementDayOption(String dayName, String weekday) {
+    return '$dayName - $weekday';
+  }
+
+  @override
+  String missedSessionReplacementProposalSummary(
+    String weekday,
+    String windowType,
+    String startTime,
+    String endTime,
+    int dayOffset,
+    int recoveryHours,
+  ) {
+    return 'Suggested: $weekday, $windowType $startTime-$endTime. This is $dayOffset days after the missed session and keeps at least $recoveryHours hours between planned sessions.';
+  }
+
+  @override
+  String get missedSessionReplacementNoSafeWindow =>
+      'No safe replacement window is available from the saved weekly availability.';
+
+  @override
+  String get missedSessionReplacementNoSafeWindowWithDuration =>
+      'No safe replacement window is available with enough time for the planned session.';
+
+  @override
+  String missedSessionReplacementNoSafeWindowWithRecovery(int recoveryHours) {
+    return 'No safe replacement window keeps the required $recoveryHours hours of recovery around remaining planned sessions.';
+  }
+
+  @override
+  String get missedSessionReplacementMissingDay =>
+      'The selected planned day is no longer available. Rebuild the program preview and try again.';
+
+  @override
   String get anatomyRendererTitle => '3D anatomy renderer';
 
   @override

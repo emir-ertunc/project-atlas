@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
+import 'package:project_atlas/core/database/tables/availability_windows.dart';
 import 'package:project_atlas/core/database/tables/measurement_records.dart';
+import 'package:project_atlas/core/database/tables/onboarding_preferences.dart';
 import 'package:project_atlas/core/database/tables/profiles.dart';
 import 'package:project_atlas/core/database/tables/programs.dart';
 import 'package:project_atlas/core/database/tables/session_sets.dart';
@@ -34,7 +36,7 @@ void main() {
         .customSelect('PRAGMA foreign_keys')
         .getSingle();
 
-    expect(database.schemaVersion, 4);
+    expect(database.schemaVersion, 6);
     expect(
       schemaNames,
       containsAll(<String>{
@@ -46,6 +48,9 @@ void main() {
         'program_versions',
         'program_version_training_days',
         'prescribed_sets',
+        'onboarding_preferences',
+        'availability_windows',
+        'availability_windows_profile_weekday_idx',
         'programs_profile_status_idx',
         'program_versions_program_status_idx',
         'program_version_training_days_version_idx',
@@ -63,6 +68,8 @@ void main() {
     final measuredAt = DateTime.utc(2026, 7, 7, 9);
 
     await _insertProfile(database);
+    await _insertOnboardingPreferences(database);
+    await _insertAvailabilityWindow(database);
     await _insertProgram(database);
     await _insertSession(database);
     await _insertSet(database);
@@ -97,12 +104,32 @@ void main() {
     final measurement = await database
         .select(database.measurementRecords)
         .getSingle();
+    final preferences = await database
+        .select(database.onboardingPreferences)
+        .getSingle();
     expect(measurement.source, MeasurementSource.manual);
     expect(measurement.measuredAt.toUtc(), measuredAt);
+    expect(preferences.goal, StoredTrainingGoal.hypertrophy);
+    expect(
+      preferences.experienceLevel,
+      StoredTrainingExperienceLevel.intermediate,
+    );
+    expect(preferences.equipmentIds, 'bodyweight,dumbbells,barbell');
+    expect(preferences.preferredSessionLengthMinutes, 60);
+    expect(preferences.preferredWeekdays, 'monday,wednesday,friday');
+    final availabilityWindow = await database
+        .select(database.availabilityWindows)
+        .getSingle();
+    expect(availabilityWindow.weekday, StoredTrainingWeekday.monday);
+    expect(availabilityWindow.windowType, StoredAvailabilityWindowType.fixed);
+    expect(availabilityWindow.startMinute, 18 * 60);
+    expect(availabilityWindow.endMinute, 19 * 60);
   });
 
   test('deleting a profile cascades through its owned records', () async {
     await _insertProfile(database);
+    await _insertOnboardingPreferences(database);
+    await _insertAvailabilityWindow(database);
     await _insertProgram(database);
     await _insertSession(database);
     await _insertSet(database);
@@ -125,6 +152,11 @@ void main() {
     expect(await database.select(database.workoutSessions).get(), isEmpty);
     expect(await database.select(database.sessionSets).get(), isEmpty);
     expect(await database.select(database.measurementRecords).get(), isEmpty);
+    expect(
+      await database.select(database.onboardingPreferences).get(),
+      isEmpty,
+    );
+    expect(await database.select(database.availabilityWindows).get(), isEmpty);
   });
 
   test(
@@ -208,6 +240,36 @@ Future<void> _insertProgram(AppDatabase database) {
           profileId: 'profile-1',
           name: 'Foundation',
           status: ProgramStatus.active,
+        ),
+      );
+}
+
+Future<void> _insertOnboardingPreferences(AppDatabase database) {
+  return database
+      .into(database.onboardingPreferences)
+      .insert(
+        OnboardingPreferencesCompanion.insert(
+          profileId: 'profile-1',
+          goal: StoredTrainingGoal.hypertrophy,
+          experienceLevel: StoredTrainingExperienceLevel.intermediate,
+          equipmentIds: 'bodyweight,dumbbells,barbell',
+          preferredSessionLengthMinutes: 60,
+          preferredWeekdays: 'monday,wednesday,friday',
+        ),
+      );
+}
+
+Future<void> _insertAvailabilityWindow(AppDatabase database) {
+  return database
+      .into(database.availabilityWindows)
+      .insert(
+        AvailabilityWindowsCompanion.insert(
+          id: 'availability-1',
+          profileId: 'profile-1',
+          weekday: StoredTrainingWeekday.monday,
+          windowType: StoredAvailabilityWindowType.fixed,
+          startMinute: 18 * 60,
+          endMinute: 19 * 60,
         ),
       );
 }

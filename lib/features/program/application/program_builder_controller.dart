@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_atlas/features/program/application/program_draft_persistence.dart';
 import 'package:project_atlas/features/program/domain/program_builder.dart';
@@ -27,6 +29,28 @@ class ProgramBuilderController extends Notifier<ProgramBuilderState> {
         selectedDayId: firstDay.id,
       ),
       nextDayNumber: 2,
+    );
+  }
+
+  void replaceDraft(ProgramDraft draft) {
+    if (draft.trainingDays.isEmpty) {
+      return;
+    }
+
+    final selectedDayId = _hasDay(draft, draft.selectedDayId)
+        ? draft.selectedDayId
+        : draft.trainingDays.first.id;
+
+    state = ProgramBuilderState(
+      draft: draft.copyWith(
+        selectedDayId: selectedDayId,
+        lifecycle: ProgramDraftLifecycle.local,
+        clearProgramId: true,
+        clearLatestVersionId: true,
+        latestVersionNumber: 0,
+        clearLastPersistedAt: true,
+      ),
+      nextDayNumber: _nextDayNumberAfter(draft),
     );
   }
 
@@ -552,4 +576,17 @@ int _clampInt(int value, int minimum, int maximum) {
     return maximum;
   }
   return value;
+}
+
+int _nextDayNumberAfter(ProgramDraft draft) {
+  var highestDayNumber = 0;
+  for (final day in draft.trainingDays) {
+    final match = RegExp(r'^day_(\d+)$').firstMatch(day.id);
+    final parsed = match == null ? null : int.tryParse(match.group(1)!);
+    if (parsed != null && parsed > highestDayNumber) {
+      highestDayNumber = parsed;
+    }
+  }
+
+  return math.max(highestDayNumber + 1, draft.trainingDays.length + 1);
 }

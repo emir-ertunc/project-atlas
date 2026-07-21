@@ -36,6 +36,57 @@ void main() {
     expect(state.nextDayNumber, 2);
   });
 
+  test('replaces the current state with an editable local draft', () {
+    final controller = container.read(
+      programBuilderControllerProvider.notifier,
+    );
+
+    controller.replaceDraft(
+      const ProgramDraft(
+        name: 'Planner draft',
+        selectedDayId: 'missing_day',
+        lifecycle: ProgramDraftLifecycle.published,
+        programId: 'persisted-program',
+        latestVersionId: 'persisted-version',
+        latestVersionNumber: 4,
+        lastPersistedAt: null,
+        trainingDays: [
+          ProgramTrainingDay(
+            id: 'day_1',
+            name: 'Day 1',
+            exercisePrescriptions: [
+              ProgramExercisePrescription(
+                exerciseId: 'push_up',
+                setCount: 2,
+                minimumRepetitions: 8,
+                maximumRepetitions: 10,
+                targetRir: 3,
+                loadKilograms: null,
+                restSeconds: 90,
+              ),
+            ],
+          ),
+          ProgramTrainingDay(
+            id: 'day_3',
+            name: 'Day 3',
+            exercisePrescriptions: [],
+          ),
+        ],
+      ),
+    );
+
+    final state = container.read(programBuilderControllerProvider);
+    final draft = state.draft!;
+
+    expect(draft.name, 'Planner draft');
+    expect(draft.lifecycle, ProgramDraftLifecycle.local);
+    expect(draft.programId, isNull);
+    expect(draft.latestVersionId, isNull);
+    expect(draft.latestVersionNumber, 0);
+    expect(draft.selectedDayId, 'day_1');
+    expect(state.nextDayNumber, 4);
+  });
+
   test('edits training days and keeps selection valid after deletion', () {
     final controller = container.read(
       programBuilderControllerProvider.notifier,
