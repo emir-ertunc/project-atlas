@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_atlas/core/design_system/components/app_dashboard_card.dart';
+import 'package:project_atlas/core/design_system/components/app_status_chip.dart';
 import 'package:project_atlas/core/design_system/components/feature_root_scaffold.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
+import 'package:project_atlas/features/exercise_catalog/presentation/exercise_add_to_program_action.dart';
 import 'package:project_atlas/features/exercise_catalog/presentation/exercise_detail_screen.dart';
 import 'package:project_atlas/features/exercise_catalog/presentation/exercise_thumbnail.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
@@ -12,8 +15,16 @@ import 'package:project_atlas/l10n/generated/app_localizations.dart';
 class ExerciseCatalogScreen extends ConsumerStatefulWidget {
   const ExerciseCatalogScreen({this.useScaffold = true, super.key});
 
+  static const pathSegment = 'catalog';
+  static const path = '/program/$pathSegment';
+  static const routeName = 'exercise-catalog';
+  static const screenKey = Key('exercise-catalog-screen');
   static const searchFieldKey = Key('exercise-catalog-search-field');
   static const resultsSummaryKey = Key('exercise-catalog-results-summary');
+  static const filterSheetButtonKey = Key(
+    'exercise-catalog-filter-sheet-button',
+  );
+  static const compactFilterBarKey = Key('exercise-catalog-compact-filter-bar');
 
   final bool useScaffold;
 
@@ -25,6 +36,9 @@ class ExerciseCatalogScreen extends ConsumerStatefulWidget {
 
   static Key animationBadgeKey(String exerciseId) =>
       ExerciseThumbnail.animationBadgeKey(exerciseId);
+
+  static Key addToProgramButtonKey(String exerciseId) =>
+      Key('exercise-catalog-add-to-program-$exerciseId');
 
   static Key filterChipKey(ExerciseCatalogFacet facet, String id) =>
       Key('exercise-catalog-filter-${facet.name}-$id');
@@ -57,15 +71,19 @@ class _ExerciseCatalogScreenState extends ConsumerState<ExerciseCatalogScreen> {
         searchController: _searchController,
         filters: _filters,
         onSearchChanged: (_) => setState(() {}),
-        onToggleFilter: (facet, id) {
-          setState(() => _filters = _filters.toggle(facet, id));
-        },
+        onOpenFilters: () => _showFilterSheet(catalog),
         onClear: () {
           setState(() {
             _searchController.clear();
             _filters = const ExerciseCatalogFilters();
           });
         },
+        onAddToProgram: (exercise, localeCode) => addExerciseToProgramDraft(
+          context: context,
+          ref: ref,
+          exercise: exercise,
+          localeCode: localeCode,
+        ),
       ),
     );
 
@@ -74,9 +92,34 @@ class _ExerciseCatalogScreenState extends ConsumerState<ExerciseCatalogScreen> {
     }
 
     return FeatureRootScaffold(
+      key: ExerciseCatalogScreen.screenKey,
       title: l10n.exerciseCatalogTitle,
       icon: Icons.fitness_center_outlined,
       child: child,
+    );
+  }
+
+  Future<void> _showFilterSheet(ExerciseCatalog catalog) {
+    final localeCode = Localizations.localeOf(context).languageCode;
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (sheetContext) => StatefulBuilder(
+        builder: (context, setSheetState) => _FilterSheet(
+          catalog: catalog,
+          filters: _filters,
+          localeCode: localeCode,
+          onToggle: (facet, id) {
+            setState(() => _filters = _filters.toggle(facet, id));
+            setSheetState(() {});
+          },
+          onClear: () {
+            setState(() => _filters = const ExerciseCatalogFilters());
+            setSheetState(() {});
+          },
+        ),
+      ),
     );
   }
 }
@@ -87,16 +130,19 @@ class _CatalogContent extends StatelessWidget {
     required this.searchController,
     required this.filters,
     required this.onSearchChanged,
-    required this.onToggleFilter,
+    required this.onOpenFilters,
     required this.onClear,
+    required this.onAddToProgram,
   });
 
   final ExerciseCatalog catalog;
   final TextEditingController searchController;
   final ExerciseCatalogFilters filters;
   final ValueChanged<String> onSearchChanged;
-  final void Function(ExerciseCatalogFacet facet, String id) onToggleFilter;
+  final VoidCallback onOpenFilters;
   final VoidCallback onClear;
+  final void Function(ExerciseCatalogEntry exercise, String localeCode)
+  onAddToProgram;
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +154,11 @@ class _CatalogContent extends StatelessWidget {
       filters: filters,
     );
     final canClear = searchController.text.isNotEmpty || !filters.isEmpty;
+    final activeFilterLabels = _selectedFilterLabels(
+      catalog: catalog,
+      filters: filters,
+      localeCode: localeCode,
+    );
 
     return CustomScrollView(
       restorationId: 'exercise-catalog-scroll',
@@ -119,67 +170,37 @@ class _CatalogContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextField(
-                  key: ExerciseCatalogScreen.searchFieldKey,
-                  controller: searchController,
-                  textInputAction: TextInputAction.search,
-                  decoration: InputDecoration(
-                    labelText: l10n.exerciseCatalogSearchLabel,
-                    hintText: l10n.exerciseCatalogSearchHint,
-                    prefixIcon: const Icon(Icons.search),
+                AppDashboardCard(
+                  title: l10n.exerciseCatalogTitle,
+                  subtitle: l10n.exerciseCatalogSubtitle,
+                  leadingIcon: Icons.manage_search_outlined,
+                  metric: results.length.toString(),
+                  trend: l10n.exerciseCatalogResultsTrend(
+                    catalog.exercises.length,
                   ),
-                  onChanged: onSearchChanged,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                _FilterHeader(canClear: canClear, onClear: onClear),
-                const SizedBox(height: AppSpacing.sm),
-                _FilterSection(
-                  label: l10n.exerciseCatalogMovementFilter,
-                  facet: ExerciseCatalogFacet.movementPattern,
-                  options: catalog.movementPatterns,
-                  filters: filters,
-                  localeCode: localeCode,
-                  onToggle: onToggleFilter,
-                ),
-                _FilterSection(
-                  label: l10n.exerciseCatalogMuscleFilter,
-                  facet: ExerciseCatalogFacet.muscleRegion,
-                  options: catalog.muscleRegionCategories,
-                  filters: filters,
-                  localeCode: localeCode,
-                  onToggle: onToggleFilter,
-                ),
-                _FilterSection(
-                  label: l10n.exerciseCatalogEquipmentFilter,
-                  facet: ExerciseCatalogFacet.equipment,
-                  options: catalog.equipment,
-                  filters: filters,
-                  localeCode: localeCode,
-                  onToggle: onToggleFilter,
-                ),
-                _FilterSection(
-                  label: l10n.exerciseCatalogLevelFilter,
-                  facet: ExerciseCatalogFacet.level,
-                  options: catalog.levels,
-                  filters: filters,
-                  localeCode: localeCode,
-                  onToggle: onToggleFilter,
-                ),
-                _FilterSection(
-                  label: l10n.exerciseCatalogLateralityFilter,
-                  facet: ExerciseCatalogFacet.laterality,
-                  options: catalog.lateralities,
-                  filters: filters,
-                  localeCode: localeCode,
-                  onToggle: onToggleFilter,
-                ),
-                _FilterSection(
-                  label: l10n.exerciseCatalogTypeFilter,
-                  facet: ExerciseCatalogFacet.exerciseType,
-                  options: catalog.exerciseTypes,
-                  filters: filters,
-                  localeCode: localeCode,
-                  onToggle: onToggleFilter,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextField(
+                        key: ExerciseCatalogScreen.searchFieldKey,
+                        controller: searchController,
+                        textInputAction: TextInputAction.search,
+                        decoration: InputDecoration(
+                          labelText: l10n.exerciseCatalogSearchLabel,
+                          hintText: l10n.exerciseCatalogSearchHint,
+                          prefixIcon: const Icon(Icons.search),
+                        ),
+                        onChanged: onSearchChanged,
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      _CompactFilterBar(
+                        activeFilterLabels: activeFilterLabels,
+                        canClear: canClear,
+                        onOpenFilters: onOpenFilters,
+                        onClear: onClear,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
@@ -216,6 +237,7 @@ class _CatalogContent extends StatelessWidget {
                 return _ExerciseCard(
                   exercise: exercise,
                   localeCode: localeCode,
+                  onAddToProgram: () => onAddToProgram(exercise, localeCode),
                 );
               },
               separatorBuilder: (context, index) =>
@@ -228,31 +250,179 @@ class _CatalogContent extends StatelessWidget {
   }
 }
 
-class _FilterHeader extends StatelessWidget {
-  const _FilterHeader({required this.canClear, required this.onClear});
+class _CompactFilterBar extends StatelessWidget {
+  const _CompactFilterBar({
+    required this.activeFilterLabels,
+    required this.canClear,
+    required this.onOpenFilters,
+    required this.onClear,
+  });
 
+  final List<String> activeFilterLabels;
   final bool canClear;
+  final VoidCallback onOpenFilters;
   final VoidCallback onClear;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Row(
+    return Column(
+      key: ExerciseCatalogScreen.compactFilterBarKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Semantics(
-            header: true,
-            child: Text(
-              l10n.exerciseCatalogFiltersTitle,
-              style: Theme.of(context).textTheme.titleMedium,
+        Row(
+          children: [
+            Expanded(
+              child: FilledButton.tonalIcon(
+                key: ExerciseCatalogScreen.filterSheetButtonKey,
+                onPressed: onOpenFilters,
+                icon: const Icon(Icons.tune_outlined),
+                label: Text(
+                  activeFilterLabels.isEmpty
+                      ? l10n.exerciseCatalogFilterButton
+                      : l10n.exerciseCatalogActiveFilterCount(
+                          activeFilterLabels.length,
+                        ),
+                ),
+              ),
             ),
+            const SizedBox(width: AppSpacing.sm),
+            TextButton(
+              onPressed: canClear ? onClear : null,
+              child: Text(l10n.exerciseCatalogClearFilters),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: activeFilterLabels.isEmpty
+                ? [
+                    AppStatusChip(
+                      label: l10n.exerciseCatalogNoActiveFilters,
+                      icon: Icons.filter_alt_off_outlined,
+                      tone: AppStatusTone.neutral,
+                    ),
+                  ]
+                : [
+                    for (final label in activeFilterLabels) ...[
+                      AppStatusChip(
+                        label: label,
+                        icon: Icons.check,
+                        tone: AppStatusTone.information,
+                      ),
+                      const SizedBox(width: AppSpacing.xs),
+                    ],
+                  ],
           ),
         ),
-        TextButton(
-          onPressed: canClear ? onClear : null,
-          child: Text(l10n.exerciseCatalogClearFilters),
-        ),
       ],
+    );
+  }
+}
+
+class _FilterSheet extends StatelessWidget {
+  const _FilterSheet({
+    required this.catalog,
+    required this.filters,
+    required this.localeCode,
+    required this.onToggle,
+    required this.onClear,
+  });
+
+  final ExerciseCatalog catalog;
+  final ExerciseCatalogFilters filters;
+  final String localeCode;
+  final void Function(ExerciseCatalogFacet facet, String id) onToggle;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.86,
+      minChildSize: 0.48,
+      maxChildSize: 0.94,
+      builder: (context, scrollController) => ListView(
+        controller: scrollController,
+        padding: const EdgeInsets.all(AppSpacing.md),
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    l10n.exerciseCatalogFilterSheetTitle,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: filters.isEmpty ? null : onClear,
+                child: Text(l10n.exerciseCatalogClearFilters),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          _FilterSection(
+            label: l10n.exerciseCatalogMovementFilter,
+            facet: ExerciseCatalogFacet.movementPattern,
+            options: catalog.movementPatterns,
+            filters: filters,
+            localeCode: localeCode,
+            onToggle: onToggle,
+          ),
+          _FilterSection(
+            label: l10n.exerciseCatalogMuscleFilter,
+            facet: ExerciseCatalogFacet.muscleRegion,
+            options: catalog.muscleRegionCategories,
+            filters: filters,
+            localeCode: localeCode,
+            onToggle: onToggle,
+          ),
+          _FilterSection(
+            label: l10n.exerciseCatalogEquipmentFilter,
+            facet: ExerciseCatalogFacet.equipment,
+            options: catalog.equipment,
+            filters: filters,
+            localeCode: localeCode,
+            onToggle: onToggle,
+          ),
+          _FilterSection(
+            label: l10n.exerciseCatalogLevelFilter,
+            facet: ExerciseCatalogFacet.level,
+            options: catalog.levels,
+            filters: filters,
+            localeCode: localeCode,
+            onToggle: onToggle,
+          ),
+          _FilterSection(
+            label: l10n.exerciseCatalogLateralityFilter,
+            facet: ExerciseCatalogFacet.laterality,
+            options: catalog.lateralities,
+            filters: filters,
+            localeCode: localeCode,
+            onToggle: onToggle,
+          ),
+          _FilterSection(
+            label: l10n.exerciseCatalogTypeFilter,
+            facet: ExerciseCatalogFacet.exerciseType,
+            options: catalog.exerciseTypes,
+            filters: filters,
+            localeCode: localeCode,
+            onToggle: onToggle,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.exerciseCatalogApplyFilters),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -305,14 +475,47 @@ class _FilterSection extends StatelessWidget {
   }
 }
 
+List<String> _selectedFilterLabels({
+  required ExerciseCatalog catalog,
+  required ExerciseCatalogFilters filters,
+  required String localeCode,
+}) {
+  Iterable<String> namesFor(
+    Iterable<CatalogOption> options,
+    Set<String> selectedIds,
+  ) {
+    return options
+        .where((option) => selectedIds.contains(option.id))
+        .map((option) => option.name(localeCode));
+  }
+
+  return [
+    ...namesFor(catalog.movementPatterns, filters.movementPatternIds),
+    ...namesFor(
+      catalog.muscleRegionCategories,
+      filters.muscleRegionCategoryIds,
+    ),
+    ...namesFor(catalog.equipment, filters.equipmentIds),
+    ...namesFor(catalog.levels, filters.levelIds),
+    ...namesFor(catalog.lateralities, filters.lateralityIds),
+    ...namesFor(catalog.exerciseTypes, filters.exerciseTypeIds),
+  ];
+}
+
 class _ExerciseCard extends StatelessWidget {
-  const _ExerciseCard({required this.exercise, required this.localeCode});
+  const _ExerciseCard({
+    required this.exercise,
+    required this.localeCode,
+    required this.onAddToProgram,
+  });
 
   final ExerciseCatalogEntry exercise;
   final String localeCode;
+  final VoidCallback onAddToProgram;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final muscleNames = exercise.muscleRegionCategories
         .map((option) => option.name(localeCode))
         .join(', ');
@@ -323,7 +526,11 @@ class _ExerciseCard extends StatelessWidget {
     return Card(
       key: ExerciseCatalogScreen.exerciseCardKey(exercise.id),
       child: ListTile(
-        leading: ExerciseThumbnail(exercise: exercise, localeCode: localeCode),
+        leading: ExerciseThumbnail(
+          exercise: exercise,
+          localeCode: localeCode,
+          size: 88,
+        ),
         title: Text(exercise.name(localeCode)),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: AppSpacing.xs),
@@ -338,7 +545,12 @@ class _ExerciseCard extends StatelessWidget {
             ],
           ),
         ),
-        trailing: const Icon(Icons.chevron_right),
+        trailing: IconButton(
+          key: ExerciseCatalogScreen.addToProgramButtonKey(exercise.id),
+          tooltip: l10n.exerciseCatalogAddToProgram,
+          onPressed: onAddToProgram,
+          icon: const Icon(Icons.playlist_add_outlined),
+        ),
         onTap: () => context.goNamed(
           ExerciseDetailScreen.routeName,
           pathParameters: {ExerciseDetailScreen.exerciseIdParam: exercise.id},

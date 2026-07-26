@@ -2,14 +2,16 @@
 
 ## Document Status
 
-- Status: P6-11 anatomy alpha APK produced
+- Status: P7 modern UX redesign planned after P6 review
 - Working name: Project Atlas
 - Initial audience: Healthy adults aged 18 and over
 - Initial platform: Android-first, with an iOS-capable shared architecture
 
 ## Product Goal
 
-Provide an offline-first training system that combines workout planning, set-level tracking, adaptive scheduling, progress analysis, and an interactive anatomical visualization.
+Provide an offline-first training system that combines workout planning,
+set-level tracking, adaptive scheduling, progress analysis, and an interactive
+anatomical visualization through a compact daily coaching experience.
 
 ## Core Outcomes
 
@@ -22,11 +24,15 @@ Provide an offline-first training system that combines workout planning, set-lev
 
 ## Primary Navigation
 
-- Today
-- Program
-- Anatomy
-- Progress
-- Settings
+- Today: daily coach, next workout, streak, quick start, and pending review
+- Program: active-plan hub, training days, recommendations, builder, and catalog
+- Anatomy: visual estimate, trained-muscle heatmaps, and muscle inspection
+- Progress: streaks, milestones, records, trends, and measurement comparison
+- Profile: setup, equipment, availability, units, safety, privacy, and export
+
+Root destinations are dashboards. Long setup, editing, review, and detail tasks
+must open focused routes, sheets, or step flows rather than stacking every
+section on the root page.
 
 ## Initial Goals
 
@@ -48,6 +54,61 @@ Provide an offline-first training system that combines workout planning, set-lev
 - Accounts, remote storage, and multi-device synchronization
 
 ## Core User Flows
+
+### Modern UX Reset
+
+Phase 7 rebuilds the experience after P6 feedback. The completed local engine
+stays intact, but the interface must become compact, modern, and easier to
+understand. The target is serious strength-training coaching with lightweight
+gamified progress loops: daily missions, streaks, milestones, progress paths,
+and concise action cards.
+
+The redesign rules are:
+
+- no root tab should become a long menu or long form;
+- each screen should expose one primary action;
+- advanced details should be one tap away, not always visible;
+- onboarding, program editing, measurements, and settings should use focused
+  subroutes or guided flows;
+- workout logging should be one-handed and set-by-set;
+- progress feedback should be motivating without changing conservative training
+  and safety rules.
+
+The detailed contract is recorded in
+[the modern UX redesign plan](UX_REDESIGN_PLAN.md) and
+[the modern UX quality bar](UX_QUALITY_BAR.md).
+
+P7-03 converts the main navigation into dashboard roots with focused child
+routes. The existing workout, Program builder, catalog, exercise detail,
+Progress history, and setup functionality remains available, but heavy editing
+and review surfaces no longer live directly on the root tab destinations.
+
+P7-04 rebuilds setup as a guided wizard. Goal, experience, equipment,
+availability, measurement preference, and review are handled as short focused
+steps, then saved through the existing local onboarding and availability
+repositories. Measurement preference is a UI preference for the upcoming
+measurement flow in this step; no measurement value, new schema, progression
+rule, or generated-plan mutation is added.
+
+P7-05 rebuilds Today as the daily coach dashboard. The root view now shows the
+next workout mission, one primary Start or Resume action, a local workout
+streak, weekly consistency, and a compact review queue state. These summaries
+are derived locally from completed workout sessions and the active program. The
+detailed active-workout logger remains in the focused `/today/workout` route.
+
+P7-06 rebuilds `/today/workout` for active sessions as a set-by-set execution
+surface. The screen shows one current set with the prescription, compact
+previous performance, quick load/repetition/RIR edits, one complete-set action,
+and a visible rest timer state after completion. Other session sets remain
+available only as compact status chips so the route does not become another
+long program page.
+
+P7-07 rebuilds Program as an active-plan hub. The root reads the current active
+program and version, summarizes training-day count, exercise count, and set
+count, shows compact training-day cards, and exposes separate route entries for
+builder editing, catalog search, and the recommendation inbox. It does not
+publish versions, mutate prescriptions, or implement the guided builder; those
+remain focused child-route responsibilities.
 
 ### Onboarding
 
@@ -74,6 +135,12 @@ start and end time. Fixed periods represent hard appointment-like availability;
 flexible periods give the later schedule solver a range in which it may place a
 session. The feature stores weekly windows locally and does not yet solve
 schedule conflicts, propose missed-session replacements, or generate programs.
+
+P7-04 moves the onboarding and availability inputs into one short guided setup
+wizard. The user completes one decision group per step, reviews the full setup,
+and saves onboarding preferences plus weekly availability together. The setup
+route no longer embeds calibration guidance, generated program previews, or
+missed-session replacement previews in a single long page.
 
 P5-04 adds a program draft planner after availability is saved. The planner
 uses goal, experience, available equipment, preferred session length, saved
@@ -161,6 +228,19 @@ silently publish adaptive recommendations into active program versions.
 
 Search or filter exercises, add them to training days, and define sets, repetition targets, optional RIR, load, and rest.
 
+P7-08 presents manual creation as a guided builder instead of one long editor:
+setup, training days, catalog search and ordering, prescription targets, and
+publish review are separate step groups. Publishing now requires a visible review
+and confirmation while saving a draft remains available for iteration.
+
+P7-09 presents catalog search as a compact add-to-program surface. The catalog
+keeps local search and all filter facets, but moves filters into a sheet with
+active chips on the main page. Result cards emphasize procedural media,
+primary muscle categories, equipment, level, animation status, and a direct
+add action. Exercise detail pages lead with media, primary muscle chips,
+substitutions, compact metadata, and the same add action before longer coaching
+sections.
+
 ### Active Workout
 
 Start a session, log every set, record non-performance interruptions separately, finish or partially complete the session, and review results.
@@ -187,6 +267,25 @@ corrections, and personal-record recalculation. P4-11 packages these local
 workout capabilities into the Build C2 development APK. Explicit session-finish
 or cancel actions and process-restored rest-timer replay remain future backlog
 items outside Build C2.
+
+P7-05 keeps the P4 workout logger intact but moves daily decision-making to the
+Today root. If an active session exists, Today resumes it. If an active program
+exists, Today quick-starts the currently selected training day. If no active
+program exists, Today offers one path to Program creation. Streak,
+consistency, and review queue cards are motivational and informational only;
+they cannot override safety, pain handling, progression, or confirmation rules.
+
+P7-06 changes only the active-workout presentation. Once a session is active,
+the `/today/workout` route no longer shows the training-day selector, program
+overview, or start button. It focuses the first incomplete set unless a rest
+timer is active, in which case the just-completed rest source remains in focus
+until the user dismisses the timer. Set logging, outcome rules, volatile rest
+timers, and local repository writes remain the existing P4 behavior.
+
+P7-07 changes only the Program root presentation. It loads active program data
+from existing local repositories, keeps recommendations schema-free with a
+clear inbox state, and routes edits to the existing builder. Training-day cards
+are navigation and summary surfaces, not inline editors.
 
 ### Recommendation Review
 
@@ -273,6 +372,10 @@ account synchronization.
 - Measurement data is not the primary driver of load progression.
 - Pain reports stop progression and trigger safety guidance.
 - All personal-release functionality remains usable without a network connection.
+- Motivation features are local and non-social; they cannot override safety,
+  pain, progression, or user-confirmation rules.
+- Root screens must stay compact and action-oriented. Complex editing belongs
+  in focused routes, sheets, or guided flows.
 
 ## Acceptance Criteria Index
 

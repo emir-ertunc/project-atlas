@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_atlas/core/design_system/components/app_dashboard_card.dart';
+import 'package:project_atlas/core/design_system/components/app_progress_ring.dart';
+import 'package:project_atlas/core/design_system/components/app_status_chip.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/core/units/measurement_units.dart';
 import 'package:project_atlas/core/units/unit_system_provider.dart';
@@ -10,7 +13,7 @@ import 'package:project_atlas/features/program/domain/program_builder.dart';
 import 'package:project_atlas/features/today/application/today_workout_controller.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
-class ProgramBuilderScreen extends ConsumerWidget {
+class ProgramBuilderScreen extends ConsumerStatefulWidget {
   const ProgramBuilderScreen({super.key});
 
   static const screenKey = Key('program-builder-screen');
@@ -48,6 +51,20 @@ class ProgramBuilderScreen extends ConsumerWidget {
     'program-builder-exercise-picker-search-field',
   );
   static const emptyDayKey = Key('program-builder-empty-day');
+  static const guidedProgressKey = Key('program-builder-guided-progress');
+  static const setupStepKey = Key('program-builder-step-setup');
+  static const daysStepKey = Key('program-builder-step-days');
+  static const exercisesStepKey = Key('program-builder-step-exercises');
+  static const prescriptionStepKey = Key('program-builder-step-prescription');
+  static const reviewStepKey = Key('program-builder-step-review');
+  static const backStepButtonKey = Key('program-builder-step-back-button');
+  static const continueStepButtonKey = Key(
+    'program-builder-step-continue-button',
+  );
+  static const publishReviewKey = Key('program-builder-publish-review');
+  static const publishConfirmButtonKey = Key(
+    'program-builder-publish-confirm-button',
+  );
 
   static Key trainingDayChipKey(String dayId) =>
       Key('program-builder-training-day-$dayId');
@@ -101,17 +118,30 @@ class ProgramBuilderScreen extends ConsumerWidget {
       Key('program-builder-rest-seconds-$exerciseId');
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProgramBuilderScreen> createState() =>
+      _ProgramBuilderScreenState();
+}
+
+enum _BuilderStep { setup, days, exercises, prescription, review }
+
+class _ProgramBuilderScreenState extends ConsumerState<ProgramBuilderScreen> {
+  var _currentStep = _BuilderStep.setup;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(programBuilderControllerProvider);
     final controller = ref.read(programBuilderControllerProvider.notifier);
 
     if (!state.hasDraft) {
       return _BuilderEmptyState(
-        onCreate: () => controller.createProgram(
-          programName: l10n.programBuilderDefaultProgramName,
-          firstDayName: l10n.programBuilderDefaultDayName(1),
-        ),
+        onCreate: () {
+          controller.createProgram(
+            programName: l10n.programBuilderDefaultProgramName,
+            firstDayName: l10n.programBuilderDefaultDayName(1),
+          );
+          setState(() => _currentStep = _BuilderStep.setup);
+        },
       );
     }
 
@@ -125,98 +155,175 @@ class ProgramBuilderScreen extends ConsumerWidget {
     final localeCode = Localizations.localeOf(context).languageCode;
 
     return SingleChildScrollView(
-      key: screenKey,
+      key: ProgramBuilderScreen.screenKey,
       restorationId: 'program-builder-scroll',
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ScopeCard(draft: draft),
-          const SizedBox(height: AppSpacing.md),
-          _ProgramLifecycleActions(
+          _GuidedBuilderHeader(
             draft: draft,
-            onSaveDraft: () => _runLifecycleAction(
-              context: context,
-              ref: ref,
-              action: controller.saveDraftSnapshot,
-              successMessage: l10n.programBuilderDraftSaved,
-            ),
-            onPublishVersion: () => _runLifecycleAction(
-              context: context,
-              ref: ref,
-              action: controller.publishImmutableVersion,
-              successMessage: l10n.programBuilderVersionPublished,
-            ),
-            onCopyProgram: () {
-              controller.copyDraft(
-                l10n.programBuilderCopiedProgramName(draft.name),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.programBuilderProgramCopied)),
-              );
-            },
-            onArchiveProgram: draft.isPersisted && !draft.isArchived
-                ? () => _runLifecycleAction(
-                    context: context,
-                    ref: ref,
-                    action: controller.archiveProgram,
-                    successMessage: l10n.programBuilderProgramArchived,
-                  )
-                : null,
+            currentStep: _currentStep,
+            onStepSelected: _selectStep,
           ),
           const SizedBox(height: AppSpacing.md),
-          TextFormField(
-            key: programNameFieldKey,
-            initialValue: draft.name,
-            decoration: InputDecoration(
-              labelText: l10n.programBuilderProgramNameLabel,
-              prefixIcon: const Icon(Icons.edit_outlined),
-            ),
-            textInputAction: TextInputAction.done,
-            onChanged: controller.renameProgram,
+          _StepNavigationBar(
+            currentStep: _currentStep,
+            onBack: _currentStep == _BuilderStep.setup ? null : _previousStep,
+            onContinue: _currentStep == _BuilderStep.review ? null : _nextStep,
           ),
-          const SizedBox(height: AppSpacing.lg),
-          _TrainingDayEditor(
-            state: state,
-            draft: draft,
-            selectedDay: selectedDay,
-            onAddDay: () => controller.addTrainingDay(
-              l10n.programBuilderDefaultDayName(state.nextDayNumber),
+          const SizedBox(height: AppSpacing.md),
+          _GuidedStepSection(
+            key: ProgramBuilderScreen.setupStepKey,
+            step: _BuilderStep.setup,
+            currentStep: _currentStep,
+            title: l10n.programBuilderSetupStepTitle,
+            subtitle: l10n.programBuilderSetupStepSubtitle,
+            icon: Icons.tune_outlined,
+            isComplete: draft.name.trim().isNotEmpty,
+            onSelected: _selectStep,
+            child: TextFormField(
+              key: ProgramBuilderScreen.programNameFieldKey,
+              initialValue: draft.name,
+              decoration: InputDecoration(
+                labelText: l10n.programBuilderProgramNameLabel,
+                prefixIcon: const Icon(Icons.edit_outlined),
+              ),
+              textInputAction: TextInputAction.done,
+              onChanged: controller.renameProgram,
             ),
-            onSelectDay: controller.selectTrainingDay,
-            onRenameDay: () => _showRenameDayDialog(
-              context: context,
-              ref: ref,
-              day: selectedDay,
-            ),
-            onDeleteDay: draft.trainingDays.length <= 1
-                ? null
-                : () => controller.deleteTrainingDay(selectedDay.id),
           ),
-          const SizedBox(height: AppSpacing.lg),
-          _SelectedDayExercises(
-            catalog: catalog,
-            selectedDay: selectedDay,
-            localeCode: localeCode,
-            onAddExercise: catalog == null
-                ? null
-                : () => _showExercisePicker(
-                    context: context,
-                    ref: ref,
-                    catalog: catalog,
-                    selectedDay: selectedDay,
-                    localeCode: localeCode,
-                  ),
+          const SizedBox(height: AppSpacing.md),
+          _GuidedStepSection(
+            key: ProgramBuilderScreen.daysStepKey,
+            step: _BuilderStep.days,
+            currentStep: _currentStep,
+            title: l10n.programBuilderDaysStepTitle,
+            subtitle: l10n.programBuilderDaysStepSubtitle,
+            icon: Icons.calendar_month_outlined,
+            isComplete: draft.trainingDays.isNotEmpty,
+            onSelected: _selectStep,
+            child: _TrainingDayEditor(
+              state: state,
+              draft: draft,
+              selectedDay: selectedDay,
+              onAddDay: () => controller.addTrainingDay(
+                l10n.programBuilderDefaultDayName(state.nextDayNumber),
+              ),
+              onSelectDay: controller.selectTrainingDay,
+              onRenameDay: () =>
+                  _showRenameDayDialog(context: context, day: selectedDay),
+              onDeleteDay: draft.trainingDays.length <= 1
+                  ? null
+                  : () => controller.deleteTrainingDay(selectedDay.id),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _GuidedStepSection(
+            key: ProgramBuilderScreen.exercisesStepKey,
+            step: _BuilderStep.exercises,
+            currentStep: _currentStep,
+            title: l10n.programBuilderExercisesStepTitle,
+            subtitle: l10n.programBuilderExercisesStepSubtitle,
+            icon: Icons.search_outlined,
+            isComplete: draft.exerciseCount > 0,
+            onSelected: _selectStep,
+            child: _SelectedDayExercises(
+              catalog: catalog,
+              selectedDay: selectedDay,
+              localeCode: localeCode,
+              onAddExercise: catalog == null
+                  ? null
+                  : () => _showExercisePicker(
+                      context: context,
+                      catalog: catalog,
+                      selectedDay: selectedDay,
+                      localeCode: localeCode,
+                    ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _GuidedStepSection(
+            key: ProgramBuilderScreen.prescriptionStepKey,
+            step: _BuilderStep.prescription,
+            currentStep: _currentStep,
+            title: l10n.programBuilderPrescriptionStepTitle,
+            subtitle: l10n.programBuilderPrescriptionStepSubtitle,
+            icon: Icons.edit_note_outlined,
+            isComplete: draft.exerciseCount > 0,
+            onSelected: _selectStep,
+            child: _PrescriptionStepSummary(
+              selectedDay: selectedDay,
+              exerciseCount: draft.exerciseCount,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _GuidedStepSection(
+            key: ProgramBuilderScreen.reviewStepKey,
+            step: _BuilderStep.review,
+            currentStep: _currentStep,
+            title: l10n.programBuilderReviewStepTitle,
+            subtitle: l10n.programBuilderReviewStepSubtitle,
+            icon: Icons.verified_outlined,
+            isComplete: draft.exerciseCount > 0 && draft.name.trim().isNotEmpty,
+            onSelected: _selectStep,
+            child: _PublishReviewCard(
+              draft: draft,
+              onSaveDraft: () => _runLifecycleAction(
+                context: context,
+                action: controller.saveDraftSnapshot,
+                successMessage: l10n.programBuilderDraftSaved,
+              ),
+              onPublishVersion: () => _confirmPublishVersion(
+                context: context,
+                controller: controller,
+              ),
+              onCopyProgram: () {
+                controller.copyDraft(
+                  l10n.programBuilderCopiedProgramName(draft.name),
+                );
+                setState(() => _currentStep = _BuilderStep.setup);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.programBuilderProgramCopied)),
+                );
+              },
+              onArchiveProgram: draft.isPersisted && !draft.isArchived
+                  ? () => _runLifecycleAction(
+                      context: context,
+                      action: controller.archiveProgram,
+                      successMessage: l10n.programBuilderProgramArchived,
+                    )
+                  : null,
+            ),
           ),
         ],
       ),
     );
   }
 
+  void _selectStep(_BuilderStep step) {
+    setState(() => _currentStep = step);
+  }
+
+  void _previousStep() {
+    final index = _BuilderStep.values.indexOf(_currentStep);
+    if (index <= 0) {
+      return;
+    }
+    setState(() => _currentStep = _BuilderStep.values[index - 1]);
+  }
+
+  void _nextStep() {
+    final index = _BuilderStep.values.indexOf(_currentStep);
+    if (index >= _BuilderStep.values.length - 1) {
+      return;
+    }
+    setState(() => _currentStep = _BuilderStep.values[index + 1]);
+  }
+
   Future<void> _showRenameDayDialog({
     required BuildContext context,
-    required WidgetRef ref,
     required ProgramTrainingDay day,
   }) async {
     final l10n = AppLocalizations.of(context);
@@ -227,7 +334,7 @@ class ProgramBuilderScreen extends ConsumerWidget {
       builder: (dialogContext) => AlertDialog(
         title: Text(l10n.programBuilderRenameDayTitle),
         content: TextFormField(
-          key: renameDayFieldKey,
+          key: ProgramBuilderScreen.renameDayFieldKey,
           initialValue: day.name,
           autofocus: true,
           decoration: InputDecoration(
@@ -263,7 +370,6 @@ class ProgramBuilderScreen extends ConsumerWidget {
 
   Future<void> _showExercisePicker({
     required BuildContext context,
-    required WidgetRef ref,
     required ExerciseCatalog catalog,
     required ProgramTrainingDay selectedDay,
     required String localeCode,
@@ -286,9 +392,43 @@ class ProgramBuilderScreen extends ConsumerWidget {
     );
   }
 
+  Future<void> _confirmPublishVersion({
+    required BuildContext context,
+    required ProgramBuilderController controller,
+  }) async {
+    final l10n = AppLocalizations.of(context);
+    final shouldPublish = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.programBuilderPublishConfirmTitle),
+        content: Text(l10n.programBuilderPublishConfirmMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l10n.programBuilderCancel),
+          ),
+          FilledButton(
+            key: ProgramBuilderScreen.publishConfirmButtonKey,
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l10n.programBuilderPublishConfirmAction),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldPublish != true || !context.mounted) {
+      return;
+    }
+
+    await _runLifecycleAction(
+      context: context,
+      action: controller.publishImmutableVersion,
+      successMessage: l10n.programBuilderVersionPublished,
+    );
+  }
+
   Future<void> _runLifecycleAction({
     required BuildContext context,
-    required WidgetRef ref,
     required Future<void> Function() action,
     required String successMessage,
   }) async {
@@ -366,59 +506,301 @@ class _BuilderEmptyState extends StatelessWidget {
   }
 }
 
-class _ScopeCard extends StatelessWidget {
-  const _ScopeCard({required this.draft});
+class _GuidedBuilderHeader extends StatelessWidget {
+  const _GuidedBuilderHeader({
+    required this.draft,
+    required this.currentStep,
+    required this.onStepSelected,
+  });
 
   final ProgramDraft draft;
+  final _BuilderStep currentStep;
+  final ValueChanged<_BuilderStep> onStepSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final currentStepNumber = _BuilderStep.values.indexOf(currentStep) + 1;
+    final totalSteps = _BuilderStep.values.length;
+    final progress = _builderProgress(draft);
+
+    return AppDashboardCard(
+      title: l10n.programBuilderTitle,
+      subtitle: l10n.programBuilderGuidedSubtitle,
+      leadingIcon: Icons.route_outlined,
+      trailing: AppProgressRing(
+        key: ProgramBuilderScreen.guidedProgressKey,
+        progress: progress,
+        semanticLabel: l10n.programBuilderStepProgress(
+          currentStepNumber,
+          totalSteps,
+        ),
+        center: Text(
+          '${(progress * 100).round()}%',
+          style: theme.textTheme.labelSmall,
+        ),
+      ),
+      isProminent: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.programBuilderSummary(
+              draft.trainingDays.length,
+              draft.exerciseCount,
+            ),
+            key: ProgramBuilderScreen.summaryKey,
+            style: theme.textTheme.titleMedium,
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            _lifecycleStatus(l10n, draft),
+            key: ProgramBuilderScreen.lifecycleStatusKey,
+            style: theme.textTheme.labelMedium,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (final step in _BuilderStep.values) ...[
+                  ChoiceChip(
+                    label: Text(_stepTitle(l10n, step)),
+                    selected: step == currentStep,
+                    onSelected: (_) => onStepSelected(step),
+                  ),
+                  const SizedBox(width: AppSpacing.xs),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StepNavigationBar extends StatelessWidget {
+  const _StepNavigationBar({
+    required this.currentStep,
+    required this.onBack,
+    required this.onContinue,
+  });
+
+  final _BuilderStep currentStep;
+  final VoidCallback? onBack;
+  final VoidCallback? onContinue;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final index = _BuilderStep.values.indexOf(currentStep) + 1;
+    final total = _BuilderStep.values.length;
+
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            l10n.programBuilderStepProgress(index, total),
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+        ),
+        OutlinedButton(
+          key: ProgramBuilderScreen.backStepButtonKey,
+          onPressed: onBack,
+          child: Text(l10n.programBuilderBackStep),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        FilledButton(
+          key: ProgramBuilderScreen.continueStepButtonKey,
+          onPressed: onContinue,
+          child: Text(l10n.programBuilderContinueStep),
+        ),
+      ],
+    );
+  }
+}
+
+class _GuidedStepSection extends StatelessWidget {
+  const _GuidedStepSection({
+    required this.step,
+    required this.currentStep,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.isComplete,
+    required this.onSelected,
+    required this.child,
+    super.key,
+  });
+
+  final _BuilderStep step;
+  final _BuilderStep currentStep;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final bool isComplete;
+  final ValueChanged<_BuilderStep> onSelected;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final isCurrent = step == currentStep;
+
+    return AppDashboardCard(
+      title: title,
+      subtitle: subtitle,
+      leadingIcon: icon,
+      isProminent: isCurrent,
+      trailing: AppStatusChip(
+        label: isComplete
+            ? l10n.programBuilderStepComplete
+            : l10n.programBuilderStepOpen,
+        icon: isComplete ? Icons.check : Icons.radio_button_unchecked,
+        tone: isComplete ? AppStatusTone.success : AppStatusTone.information,
+        onTap: () => onSelected(step),
+      ),
+      child: child,
+    );
+  }
+}
+
+class _PrescriptionStepSummary extends StatelessWidget {
+  const _PrescriptionStepSummary({
+    required this.selectedDay,
+    required this.exerciseCount,
+  });
+
+  final ProgramTrainingDay selectedDay;
+  final int exerciseCount;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    if (exerciseCount == 0) {
+      return Text(
+        l10n.programBuilderPrescriptionEmpty,
+        style: theme.textTheme.bodyMedium,
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.programBuilderPrescriptionInlineHint,
+          style: theme.textTheme.bodyMedium,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.xs,
           children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.edit_calendar_outlined,
-                  color: theme.colorScheme.primary,
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                Expanded(
-                  child: Text(
-                    l10n.programBuilderLocalDraftLabel,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                ),
-              ],
+            AppStatusChip(
+              label: selectedDay.name,
+              icon: Icons.calendar_today_outlined,
+              tone: AppStatusTone.neutral,
             ),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              l10n.programBuilderSummary(
-                draft.trainingDays.length,
-                draft.exerciseCount,
+            AppStatusChip(
+              label: l10n.programBuilderPrescriptionReady(
+                selectedDay.exerciseIds.length,
               ),
-              key: ProgramBuilderScreen.summaryKey,
-              style: theme.textTheme.labelLarge,
+              icon: Icons.edit_note_outlined,
+              tone: AppStatusTone.success,
             ),
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              _lifecycleStatus(l10n, draft),
-              key: ProgramBuilderScreen.lifecycleStatusKey,
-              style: theme.textTheme.labelMedium,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Text(l10n.programBuilderScopeNote),
           ],
         ),
-      ),
+      ],
     );
   }
+}
+
+class _PublishReviewCard extends StatelessWidget {
+  const _PublishReviewCard({
+    required this.draft,
+    required this.onSaveDraft,
+    required this.onPublishVersion,
+    required this.onCopyProgram,
+    required this.onArchiveProgram,
+  });
+
+  final ProgramDraft draft;
+  final VoidCallback onSaveDraft;
+  final VoidCallback onPublishVersion;
+  final VoidCallback onCopyProgram;
+  final VoidCallback? onArchiveProgram;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final hasName = draft.name.trim().isNotEmpty;
+    final hasExercises = draft.exerciseCount > 0;
+
+    return Column(
+      key: ProgramBuilderScreen.publishReviewKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.programBuilderPublishReviewMessage),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.xs,
+          children: [
+            AppStatusChip(
+              label: hasName
+                  ? l10n.programBuilderReviewNameReady
+                  : l10n.programBuilderReviewNameMissing,
+              icon: hasName ? Icons.check : Icons.warning_amber_outlined,
+              tone: hasName ? AppStatusTone.success : AppStatusTone.warning,
+            ),
+            AppStatusChip(
+              label: hasExercises
+                  ? l10n.programBuilderReviewExercisesReady(draft.exerciseCount)
+                  : l10n.programBuilderReviewExercisesMissing,
+              icon: hasExercises ? Icons.check : Icons.warning_amber_outlined,
+              tone: hasExercises
+                  ? AppStatusTone.success
+                  : AppStatusTone.warning,
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _ProgramLifecycleActions(
+          draft: draft,
+          onSaveDraft: onSaveDraft,
+          onPublishVersion: onPublishVersion,
+          onCopyProgram: onCopyProgram,
+          onArchiveProgram: onArchiveProgram,
+        ),
+      ],
+    );
+  }
+}
+
+double _builderProgress(ProgramDraft draft) {
+  final completedSteps = [
+    draft.name.trim().isNotEmpty,
+    draft.trainingDays.isNotEmpty,
+    draft.exerciseCount > 0,
+    draft.exerciseCount > 0,
+    draft.name.trim().isNotEmpty && draft.exerciseCount > 0,
+  ].where((isComplete) => isComplete).length;
+
+  return completedSteps / _BuilderStep.values.length;
+}
+
+String _stepTitle(AppLocalizations l10n, _BuilderStep step) {
+  return switch (step) {
+    _BuilderStep.setup => l10n.programBuilderSetupStepTitle,
+    _BuilderStep.days => l10n.programBuilderDaysStepTitle,
+    _BuilderStep.exercises => l10n.programBuilderExercisesStepTitle,
+    _BuilderStep.prescription => l10n.programBuilderPrescriptionStepTitle,
+    _BuilderStep.review => l10n.programBuilderReviewStepTitle,
+  };
 }
 
 class _ProgramLifecycleActions extends StatelessWidget {

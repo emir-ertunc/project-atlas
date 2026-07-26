@@ -20,19 +20,161 @@
   "@progressNavigationLabel": {
     "description": "Label for the Progress primary navigation destination"
   },
-  "progressScreenSubtitle": "Review workout history, inspect set results, and track personal records.",
+  "progressScreenSubtitle": "Track streaks, records, trends, and body changes.",
   "@progressScreenSubtitle": {
     "description": "Subtitle for the Progress screen"
+  },
+  "progressDashboardPathTitle": "Progress path",
+  "@progressDashboardPathTitle": {
+    "description": "Title for the compact Progress dashboard path card"
+  },
+  "progressDashboardPathDescription": "Train, log, compare, repeat.",
+  "@progressDashboardPathDescription": {
+    "description": "Description for the compact Progress dashboard path card"
+  },
+  "progressDashboardStreakValue": "{dayCount}d",
+  "@progressDashboardStreakValue": {
+    "description": "Compact completed-workout streak value",
+    "placeholders": {
+      "dayCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressDashboardStreakEmpty": "Start streak",
+  "@progressDashboardStreakEmpty": {
+    "description": "Status chip shown when there is no local workout streak"
+  },
+  "progressDashboardStreakStatus": "Streak {streakValue}",
+  "@progressDashboardStreakStatus": {
+    "description": "Status chip for a current local workout streak",
+    "placeholders": {
+      "streakValue": {
+        "type": "String"
+      }
+    }
+  },
+  "progressDashboardWeekStatus": "Week {completedCount}/7d",
+  "@progressDashboardWeekStatus": {
+    "description": "Status chip for completed workout days in the last seven days",
+    "placeholders": {
+      "completedCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressDashboardLocalFeedbackStart": "Start the loop",
+  "@progressDashboardLocalFeedbackStart": {
+    "description": "Local non-social achievement feedback when no workout streak exists"
+  },
+  "progressDashboardLocalFeedbackStreak": "Local momentum",
+  "@progressDashboardLocalFeedbackStreak": {
+    "description": "Local non-social achievement feedback when a workout streak is active"
+  },
+  "progressDashboardLocalFeedbackWeek": "Week on track",
+  "@progressDashboardLocalFeedbackWeek": {
+    "description": "Local non-social achievement feedback when the current seven-day rhythm milestone is active"
+  },
+  "progressDashboardLocalFeedbackComplete": "Milestones complete",
+  "@progressDashboardLocalFeedbackComplete": {
+    "description": "Local non-social achievement feedback when every local milestone is complete"
+  },
+  "progressDashboardLocalFeedbackNext": "Next: {milestoneLabel}",
+  "@progressDashboardLocalFeedbackNext": {
+    "description": "Local non-social achievement feedback pointing to the next incomplete milestone",
+    "placeholders": {
+      "milestoneLabel": {
+        "type": "String"
+      }
+    }
+  },
+  "progressDashboardMilestoneSummary": "{completedCount}/{totalCount} milestones",
+  "@progressDashboardMilestoneSummary": {
+    "description": "Compact completed milestone count for the Progress dashboard",
+    "placeholders": {
+      "completedCount": {
+        "type": "int"
+      },
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressDashboardMilestonesTitle": "Milestones",
+  "@progressDashboardMilestonesTitle": {
+    "description": "Title for the compact Progress dashboard milestone card"
+  },
+  "progressDashboardMilestoneFirstWorkout": "First workout",
+  "@progressDashboardMilestoneFirstWorkout": {
+    "description": "Milestone label for completing the first workout"
+  },
+  "progressDashboardMilestoneWeekRhythm": "2 days this week",
+  "@progressDashboardMilestoneWeekRhythm": {
+    "description": "Milestone label for completing two workout days in the current seven-day window"
+  },
+  "progressDashboardMilestoneFirstRecord": "First record",
+  "@progressDashboardMilestoneFirstRecord": {
+    "description": "Milestone label for earning the first personal record"
+  },
+  "progressDashboardMilestoneBodyComparison": "Body comparison",
+  "@progressDashboardMilestoneBodyComparison": {
+    "description": "Milestone label for having enough measurements to compare body changes"
+  },
+  "progressDashboardRecordBoardTitle": "Top records",
+  "@progressDashboardRecordBoardTitle": {
+    "description": "Title for the compact Progress dashboard personal-record preview"
+  },
+  "progressDashboardRecordBoardSummary": "{recordCount} tracked",
+  "@progressDashboardRecordBoardSummary": {
+    "description": "Compact personal-record count for the Progress dashboard",
+    "placeholders": {
+      "recordCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressDashboardRecordBoardEmpty": "Log clean sets to build records.",
+  "@progressDashboardRecordBoardEmpty": {
+    "description": "Empty helper text for the Progress dashboard record preview"
+  },
+  "progressDashboardTrendEmpty": "Log two data points to show a trend.",
+  "@progressDashboardTrendEmpty": {
+    "description": "Empty helper text for the Progress dashboard trend preview"
+  },
+  "progressDashboardMeasurementEmpty": "Save two measurements to compare.",
+  "@progressDashboardMeasurementEmpty": {
+    "description": "Empty helper text for the Progress dashboard measurement comparison preview"
+  },
+  "progressDashboardMeasurementComparisonCount": "{comparisonCount} comparisons",
+  "@progressDashboardMeasurementComparisonCount": {
+    "description": "Compact measurement comparison count for the Progress dashboard",
+    "placeholders": {
+      "comparisonCount": {
+        "type": "int"
+      }
+    }
+  },
+  "progressDashboardOpenRecords": "Records",
+  "@progressDashboardOpenRecords": {
+    "description": "Button label for opening Progress history and records"
+  },
+  "progressDashboardOpenTrends": "Trends",
+  "@progressDashboardOpenTrends": {
+    "description": "Button label for opening Progress trends"
+  },
+  "progressDashboardOpenMeasurements": "Compare",
+  "@progressDashboardOpenMeasurements": {
+    "description": "Button label for opening Progress measurement comparison"
   },
   "progressHistoryTitle": "Workout history",
   "@progressHistoryTitle": {
     "description": "Title for workout history section"
   },
-  "progressHistoryEmptyTitle": "No workout history yet",
+  "progressHistoryEmptyTitle": "No history yet",
   "@progressHistoryEmptyTitle": {
     "description": "Title shown when there are no workout sessions"
   },
-  "progressHistoryEmptyMessage": "Complete sets from the Today tab to build your local history.",
+  "progressHistoryEmptyMessage": "Complete a set from Today to start history.",
   "@progressHistoryEmptyMessage": {
     "description": "Message shown when there are no workout sessions"
   },
@@ -75,7 +217,7 @@
   "@progressSetDetailsTitle": {
     "description": "Title for selected set details"
   },
-  "progressSetDetailsEmpty": "Select a set from workout history to inspect its result.",
+  "progressSetDetailsEmpty": "Select a history set to inspect results.",
   "@progressSetDetailsEmpty": {
     "description": "Empty state for selected set details"
   },
@@ -160,11 +302,11 @@
   "@progressCorrectionTitle": {
     "description": "Title for the historical set correction form"
   },
-  "progressCorrectionDescription": "Saving a correction adds a new revision. Earlier logs stay preserved.",
+  "progressCorrectionDescription": "Save a correction as a new revision; earlier logs stay preserved.",
   "@progressCorrectionDescription": {
     "description": "Explanation that historical corrections are append-only"
   },
-  "progressCorrectionUnavailable": "Only completed sets with a logged result can be corrected.",
+  "progressCorrectionUnavailable": "Only completed logged sets can be corrected.",
   "@progressCorrectionUnavailable": {
     "description": "Message shown when a selected set cannot receive a correction"
   },
@@ -204,7 +346,7 @@
   "@progressPersonalRecordsTitle": {
     "description": "Title for personal records section"
   },
-  "progressPersonalRecordsEmpty": "No personal records yet. Complete clean sets with reps or load to start tracking records.",
+  "progressPersonalRecordsEmpty": "Log clean sets with reps or load to start records.",
   "@progressPersonalRecordsEmpty": {
     "description": "Empty state for personal records"
   },
@@ -212,7 +354,7 @@
   "@progressTrendsTitle": {
     "description": "Title for measurement and training trend section"
   },
-  "progressTrendsDescription": "Derived locally from saved measurements and latest clean set logs. Estimated strength is a display-only training estimate.",
+  "progressTrendsDescription": "Built locally from measurements and clean set logs. Strength is an estimate.",
   "@progressTrendsDescription": {
     "description": "Description for measurement and training trends"
   },
@@ -224,11 +366,11 @@
   "@progressTrainingTrendsTitle": {
     "description": "Title for training trends"
   },
-  "progressMeasurementHistoryTitle": "Measurement history",
+  "progressMeasurementHistoryTitle": "Measurements",
   "@progressMeasurementHistoryTitle": {
     "description": "Title for measurement history comparison and export section"
   },
-  "progressMeasurementHistoryDescription": "Compare saved body measurements and copy a local CSV or JSON export when you explicitly need it.",
+  "progressMeasurementHistoryDescription": "Compare saved measurements or copy an export when needed.",
   "@progressMeasurementHistoryDescription": {
     "description": "Description for measurement history comparison and export section"
   },
@@ -299,7 +441,7 @@
   "@progressMeasurementExportTitle": {
     "description": "Title for measurement history export actions"
   },
-  "progressMeasurementExportDescription": "The copied text contains personal measurement data. Store or share it only in a location you trust.",
+  "progressMeasurementExportDescription": "Exports contain personal measurement data. Store them only where you trust.",
   "@progressMeasurementExportDescription": {
     "description": "Privacy warning for copying measurement export text"
   },
@@ -453,51 +595,51 @@
       }
     }
   },
-  "settingsNavigationLabel": "Settings",
+  "settingsNavigationLabel": "Profile",
   "@settingsNavigationLabel": {
     "description": "Label for the Settings primary navigation destination"
   },
-  "onboardingTitle": "Adaptive onboarding",
+  "onboardingTitle": "Planner setup",
   "@onboardingTitle": {
     "description": "Title for the adaptive programming onboarding section"
   },
-  "onboardingDescription": "Set the inputs the planner will use before generating recommendations. These choices stay local to this device.",
+  "onboardingDescription": "Save local inputs before plan recommendations.",
   "@onboardingDescription": {
     "description": "Description for the adaptive programming onboarding section"
   },
-  "onboardingGoalLabel": "Primary goal",
+  "onboardingGoalLabel": "Goal",
   "@onboardingGoalLabel": {
     "description": "Label for selecting the primary training goal"
   },
-  "onboardingExperienceLabel": "Training experience",
+  "onboardingExperienceLabel": "Experience",
   "@onboardingExperienceLabel": {
     "description": "Label for selecting training experience"
   },
-  "onboardingEquipmentLabel": "Available equipment",
+  "onboardingEquipmentLabel": "Equipment",
   "@onboardingEquipmentLabel": {
     "description": "Label for selecting available equipment"
   },
-  "onboardingSessionLengthLabel": "Preferred session length",
+  "onboardingSessionLengthLabel": "Session length",
   "@onboardingSessionLengthLabel": {
     "description": "Label for selecting preferred workout duration"
   },
-  "onboardingWeekdaysLabel": "Preferred training days",
+  "onboardingWeekdaysLabel": "Training days",
   "@onboardingWeekdaysLabel": {
     "description": "Label for selecting preferred training weekdays"
   },
-  "onboardingSaveButton": "Save onboarding",
+  "onboardingSaveButton": "Save",
   "@onboardingSaveButton": {
     "description": "Button label for saving onboarding preferences"
   },
-  "onboardingSavedMessage": "Onboarding preferences saved.",
+  "onboardingSavedMessage": "Setup saved.",
   "@onboardingSavedMessage": {
     "description": "Snack bar shown after onboarding preferences are saved"
   },
-  "onboardingSaveFailed": "Onboarding preferences could not be saved.",
+  "onboardingSaveFailed": "Setup could not be saved.",
   "@onboardingSaveFailed": {
     "description": "Snack bar shown when onboarding preferences fail to save"
   },
-  "onboardingLoadError": "Onboarding preferences could not load.",
+  "onboardingLoadError": "Setup could not load.",
   "@onboardingLoadError": {
     "description": "Message shown when onboarding preferences fail to load"
   },
@@ -530,6 +672,174 @@
         "type": "String"
       }
     }
+  },
+  "setupWizardTitle": "Setup",
+  "@setupWizardTitle": {
+    "description": "Title for the compact guided setup wizard"
+  },
+  "setupWizardDescription": "Answer five quick steps for local planning.",
+  "@setupWizardDescription": {
+    "description": "Description for the compact guided setup wizard"
+  },
+  "setupWizardStepCounter": "{current} of {total}",
+  "@setupWizardStepCounter": {
+    "description": "Current setup wizard step count",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "setupWizardBackButton": "Back",
+  "@setupWizardBackButton": {
+    "description": "Button label for returning to the previous setup wizard step"
+  },
+  "setupWizardNextButton": "Continue",
+  "@setupWizardNextButton": {
+    "description": "Button label for continuing to the next setup wizard step"
+  },
+  "setupWizardReviewButton": "Review",
+  "@setupWizardReviewButton": {
+    "description": "Button label for opening the setup wizard review step"
+  },
+  "setupWizardSaveButton": "Save",
+  "@setupWizardSaveButton": {
+    "description": "Button label for saving the guided setup wizard"
+  },
+  "setupWizardSavedMessage": "Setup saved.",
+  "@setupWizardSavedMessage": {
+    "description": "Snack bar shown after the guided setup wizard is saved"
+  },
+  "setupWizardSavedStatus": "Saved",
+  "@setupWizardSavedStatus": {
+    "description": "Status title shown after setup is saved"
+  },
+  "setupWizardSavedDescription": "Goal, gear, days, and availability stay local.",
+  "@setupWizardSavedDescription": {
+    "description": "Description shown after setup is saved"
+  },
+  "setupWizardSelectedStatus": "Selected",
+  "@setupWizardSelectedStatus": {
+    "description": "Status label for the selected setup wizard option"
+  },
+  "setupWizardGoalStepTitle": "Pick goal",
+  "@setupWizardGoalStepTitle": {
+    "description": "Title for the goal step in setup wizard"
+  },
+  "setupWizardGoalStepShort": "Goal",
+  "@setupWizardGoalStepShort": {
+    "description": "Short label for the goal step in setup wizard"
+  },
+  "setupWizardGoalStepDescription": "Set the first planning bias; change it later.",
+  "@setupWizardGoalStepDescription": {
+    "description": "Description for the goal step in setup wizard"
+  },
+  "setupWizardExperienceStepTitle": "Pick level",
+  "@setupWizardExperienceStepTitle": {
+    "description": "Title for the experience step in setup wizard"
+  },
+  "setupWizardExperienceStepShort": "Level",
+  "@setupWizardExperienceStepShort": {
+    "description": "Short label for the experience step in setup wizard"
+  },
+  "setupWizardExperienceStepDescription": "Level sets the conservative starting volume.",
+  "@setupWizardExperienceStepDescription": {
+    "description": "Description for the experience step in setup wizard"
+  },
+  "setupWizardEquipmentStepTitle": "Pick gear",
+  "@setupWizardEquipmentStepTitle": {
+    "description": "Title for the equipment step in setup wizard"
+  },
+  "setupWizardEquipmentStepShort": "Gear",
+  "@setupWizardEquipmentStepShort": {
+    "description": "Short label for the equipment step in setup wizard"
+  },
+  "setupWizardEquipmentStepDescription": "Choose gear you can use most weeks.",
+  "@setupWizardEquipmentStepDescription": {
+    "description": "Description for the equipment step in setup wizard"
+  },
+  "setupWizardAvailabilityStepTitle": "Pick training days",
+  "@setupWizardAvailabilityStepTitle": {
+    "description": "Title for the availability step in setup wizard"
+  },
+  "setupWizardAvailabilityStepShort": "Days",
+  "@setupWizardAvailabilityStepShort": {
+    "description": "Short label for the availability step in setup wizard"
+  },
+  "setupWizardAvailabilityStepDescription": "Pick days, then mark each window fixed or flexible.",
+  "@setupWizardAvailabilityStepDescription": {
+    "description": "Description for the availability step in setup wizard"
+  },
+  "setupWizardAvailabilityWindowHint": "Flexible gives room; fixed protects appointments.",
+  "@setupWizardAvailabilityWindowHint": {
+    "description": "Helper text for availability window type selection"
+  },
+  "setupWizardAvailabilityReview": "{dayCount} days, {minutes} min default",
+  "@setupWizardAvailabilityReview": {
+    "description": "Availability summary in setup wizard review",
+    "placeholders": {
+      "dayCount": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "setupWizardMeasurementsStepTitle": "Pick measurement flow",
+  "@setupWizardMeasurementsStepTitle": {
+    "description": "Title for the measurement preference step in setup wizard"
+  },
+  "setupWizardMeasurementsStepShort": "Measure",
+  "@setupWizardMeasurementsStepShort": {
+    "description": "Short label for the measurement preference step in setup wizard"
+  },
+  "setupWizardMeasurementsStepDescription": "Choose how much guidance you want first.",
+  "@setupWizardMeasurementsStepDescription": {
+    "description": "Description for the measurement preference step in setup wizard"
+  },
+  "setupWizardMeasurementGuidedTitle": "Guided entry",
+  "@setupWizardMeasurementGuidedTitle": {
+    "description": "Measurement preference option title"
+  },
+  "setupWizardMeasurementGuidedDescription": "Use body-area steps for the best estimate.",
+  "@setupWizardMeasurementGuidedDescription": {
+    "description": "Measurement preference option description"
+  },
+  "setupWizardMeasurementEssentialsTitle": "Essentials first",
+  "@setupWizardMeasurementEssentialsTitle": {
+    "description": "Measurement preference option title"
+  },
+  "setupWizardMeasurementEssentialsDescription": "Start with height, weight, and key circumferences.",
+  "@setupWizardMeasurementEssentialsDescription": {
+    "description": "Measurement preference option description"
+  },
+  "setupWizardMeasurementLaterTitle": "Later",
+  "@setupWizardMeasurementLaterTitle": {
+    "description": "Measurement preference option title"
+  },
+  "setupWizardMeasurementLaterDescription": "Skip prompts for now and keep the estimate generic.",
+  "@setupWizardMeasurementLaterDescription": {
+    "description": "Measurement preference option description"
+  },
+  "setupWizardMeasurementPrivacyNote": "No measurement value is saved in this step.",
+  "@setupWizardMeasurementPrivacyNote": {
+    "description": "Privacy note for measurement preference setup step"
+  },
+  "setupWizardReviewStepTitle": "Review",
+  "@setupWizardReviewStepTitle": {
+    "description": "Title for setup wizard review step"
+  },
+  "setupWizardReviewStepShort": "Review",
+  "@setupWizardReviewStepShort": {
+    "description": "Short label for setup wizard review step"
+  },
+  "setupWizardReviewStepDescription": "Confirm inputs before planning.",
+  "@setupWizardReviewStepDescription": {
+    "description": "Description for setup wizard review step"
   },
   "onboardingGoalGeneralFitness": "General fitness",
   "@onboardingGoalGeneralFitness": {
@@ -792,27 +1102,27 @@
   "@availabilityLoading": {
     "description": "Message shown while weekly availability is loading"
   },
-  "generatedProgramTitle": "Program draft planner",
+  "generatedProgramTitle": "Draft planner",
   "@generatedProgramTitle": {
     "description": "Title for the generated editable program draft preview"
   },
-  "generatedProgramDescription": "Build an editable local draft from onboarding, weekly availability, equipment, recovery spacing, and conservative volume rules.",
+  "generatedProgramDescription": "Build an editable draft from setup, availability, gear, recovery, and volume rules.",
   "@generatedProgramDescription": {
     "description": "Description of the program draft planner"
   },
-  "generatedProgramAvailabilityRequired": "Save weekly availability before building a program draft.",
+  "generatedProgramAvailabilityRequired": "Save availability before building a draft.",
   "@generatedProgramAvailabilityRequired": {
     "description": "Message shown when no saved availability windows exist"
   },
-  "generatedProgramCatalogLoadError": "The exercise catalog could not load, so the program draft cannot be built.",
+  "generatedProgramCatalogLoadError": "Catalog could not load, so the draft cannot build.",
   "@generatedProgramCatalogLoadError": {
     "description": "Message shown when the exercise catalog cannot be loaded for program planning"
   },
-  "generatedProgramNoPlan": "No matching program could be built from the saved equipment. Add more equipment or update availability.",
+  "generatedProgramNoPlan": "No plan matches saved gear. Add equipment or update availability.",
   "@generatedProgramNoPlan": {
     "description": "Message shown when no exercises can be selected for a generated program"
   },
-  "generatedProgramSummary": "{sessionsPerWeek} sessions/week - {weeklySetTarget} working sets - up to {maxExercisesPerSession} exercises/session - RIR {minimumRir}+",
+  "generatedProgramSummary": "{sessionsPerWeek}/wk · {weeklySetTarget} sets · max {maxExercisesPerSession}/session · RIR {minimumRir}+",
   "@generatedProgramSummary": {
     "description": "Summary for a generated program plan",
     "placeholders": {
@@ -830,7 +1140,7 @@
       }
     }
   },
-  "generatedProgramDaySummary": "{weekday} - {windowType} {startTime}-{endTime} - {exerciseCount} exercises - {setCount} sets",
+  "generatedProgramDaySummary": "{weekday} · {windowType} {startTime}-{endTime} · {exerciseCount} exercises · {setCount} sets",
   "@generatedProgramDaySummary": {
     "description": "Summary for one generated program day",
     "placeholders": {
@@ -854,7 +1164,7 @@
       }
     }
   },
-  "generatedProgramExerciseSummary": "{setCount} sets - {minimumRepetitions}-{maximumRepetitions} reps - RIR {targetRir} - {restSeconds} sec rest",
+  "generatedProgramExerciseSummary": "{setCount} sets · {minimumRepetitions}-{maximumRepetitions} reps · RIR {targetRir} · {restSeconds} sec",
   "@generatedProgramExerciseSummary": {
     "description": "Prescription summary for one generated exercise",
     "placeholders": {
@@ -875,23 +1185,23 @@
       }
     }
   },
-  "generatedProgramApplyDraft": "Apply as local draft",
+  "generatedProgramApplyDraft": "Use draft",
   "@generatedProgramApplyDraft": {
     "description": "Button label for applying the generated plan to the editable local program draft"
   },
-  "generatedProgramAppliedMessage": "Program draft applied locally. Open Program to edit, save, or publish it.",
+  "generatedProgramAppliedMessage": "Draft applied. Open Program to edit, save, or publish.",
   "@generatedProgramAppliedMessage": {
     "description": "Snack bar shown after applying a generated plan to the local draft"
   },
-  "generatedProgramReplaceDraftTitle": "Replace local draft?",
+  "generatedProgramReplaceDraftTitle": "Replace draft?",
   "@generatedProgramReplaceDraftTitle": {
     "description": "Confirmation dialog title before replacing an existing local program draft"
   },
-  "generatedProgramReplaceDraftMessage": "Applying this plan replaces the current unsaved Program draft. Saved versions stay unchanged.",
+  "generatedProgramReplaceDraftMessage": "This replaces the unsaved Program draft. Saved versions stay unchanged.",
   "@generatedProgramReplaceDraftMessage": {
     "description": "Confirmation dialog body before replacing an existing local program draft"
   },
-  "generatedProgramReplaceDraftCancel": "Keep current draft",
+  "generatedProgramReplaceDraftCancel": "Keep draft",
   "@generatedProgramReplaceDraftCancel": {
     "description": "Cancel button for generated program draft replacement"
   },
@@ -1001,27 +1311,47 @@
   "@missedSessionReplacementMissingDay": {
     "description": "Message when a selected missed day cannot be found"
   },
-  "anatomyRendererTitle": "3D anatomy renderer",
+  "anatomyRendererTitle": "Anatomy viewer",
   "@anatomyRendererTitle": {
     "description": "Title for the anatomy renderer panel"
   },
-  "anatomyRendererDescription": "Android builds use a native Filament surface. GLB anatomy assets remain external until the bundling checkpoint.",
+  "anatomyRendererDescription": "Android builds use the native viewer; assets ship at the bundling checkpoint.",
   "@anatomyRendererDescription": {
     "description": "Short explanation of the current anatomy renderer state"
   },
-  "anatomyInteractionInstructions": "Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.",
+  "anatomyInteractionInstructions": "Drag, pinch, or tap a region. Heatmaps use muscle IDs until GLB ships.",
   "@anatomyInteractionInstructions": {
     "description": "Interaction help text shown above the anatomy renderer"
+  },
+  "anatomyOverlayVisualEstimate": "Visual estimate",
+  "@anatomyOverlayVisualEstimate": {
+    "description": "Compact anatomy viewport overlay chip reminding that the body view is an estimate"
+  },
+  "anatomyOverlayTapToInspect": "Tap a region",
+  "@anatomyOverlayTapToInspect": {
+    "description": "Compact anatomy viewport overlay chip explaining the tap-to-inspect interaction"
+  },
+  "anatomyMeasurementPromptTitle": "Add measurements",
+  "@anatomyMeasurementPromptTitle": {
+    "description": "Compact Anatomy prompt title shown when no body measurements are saved"
+  },
+  "anatomyMeasurementPromptDescription": "Add guided measurements before relying on shape changes.",
+  "@anatomyMeasurementPromptDescription": {
+    "description": "Compact Anatomy prompt body shown when no body measurements are saved"
+  },
+  "anatomyMeasurementPromptAction": "Guide",
+  "@anatomyMeasurementPromptAction": {
+    "description": "Button label for opening visual-estimate or measurement guidance from Anatomy"
   },
   "anatomyVisualEstimateLabel": "Visual estimate, not a medical scan",
   "@anatomyVisualEstimateLabel": {
     "description": "Disclosure title for personalized anatomy estimates"
   },
-  "anatomyVisualEstimateDescription": "Personalized anatomy output is built from saved measurements and training data. It is approximate and cannot diagnose health, injury, disease, or body composition.",
+  "anatomyVisualEstimateDescription": "Built from saved measurements and training data. It cannot diagnose health, injury, disease, or body composition.",
   "@anatomyVisualEstimateDescription": {
     "description": "Disclosure body explaining that anatomy personalization is not diagnostic"
   },
-  "anatomyVisualEstimateInputNote": "Use it to review training and measurement trends; if it looks wrong, re-check the saved inputs.",
+  "anatomyVisualEstimateInputNote": "Use it for trends; re-check saved inputs if it looks wrong.",
   "@anatomyVisualEstimateInputNote": {
     "description": "Disclosure note directing the user to review measurement inputs"
   },
@@ -1033,15 +1363,15 @@
   "@anatomyRendererContentDescription": {
     "description": "Accessibility label passed to the native Android renderer view"
   },
-  "anatomyRendererAndroidOnly": "The native Filament renderer is available on Android builds. This environment shows a safe fallback.",
+  "anatomyRendererAndroidOnly": "The native viewer runs on Android builds. This environment shows a safe fallback.",
   "@anatomyRendererAndroidOnly": {
     "description": "Fallback message shown outside Android"
   },
-  "anatomyRendererPerformanceFallback": "Performance-safe semantic preview is active. The native renderer stays off until bundled assets and mid-range device metrics meet the threshold.",
+  "anatomyRendererPerformanceFallback": "Safe preview is active until assets and device metrics pass.",
   "@anatomyRendererPerformanceFallback": {
     "description": "Fallback message shown when the native anatomy renderer is disabled by the performance policy"
   },
-  "anatomyRendererStatusLoading": "Checking renderer bridge...",
+  "anatomyRendererStatusLoading": "Checking viewer...",
   "@anatomyRendererStatusLoading": {
     "description": "Status shown while renderer capabilities are loading"
   },
@@ -1096,7 +1426,7 @@
   "@anatomyRendererModeInteractiveLite": {
     "description": "Renderer mode label for the low-detail native renderer"
   },
-  "anatomyRendererResetCamera": "Reset camera",
+  "anatomyRendererResetCamera": "Reset view",
   "@anatomyRendererResetCamera": {
     "description": "Button label for resetting the anatomy renderer camera"
   },
@@ -1104,7 +1434,7 @@
   "@anatomyRendererPreviewHeatmap": {
     "description": "Button label for applying a sample anatomy heatmap"
   },
-  "anatomyRendererNoRegionSelected": "No muscle region selected",
+  "anatomyRendererNoRegionSelected": "Tap a muscle region",
   "@anatomyRendererNoRegionSelected": {
     "description": "Status text when no anatomy muscle region is selected"
   },
@@ -1140,11 +1470,11 @@
   "@anatomyRendererHeatmapEmpty": {
     "description": "Label shown when no anatomy heatmap is active"
   },
-  "anatomyTrainingHeatmapTitle": "Training heatmaps",
+  "anatomyTrainingHeatmapTitle": "Muscle heatmaps",
   "@anatomyTrainingHeatmapTitle": {
     "description": "Title for training-derived anatomy heatmaps"
   },
-  "anatomyTrainingHeatmapDescription": "Apply trained-muscle, weekly volume, or fatigue views from completed local sets in the last 7 days.",
+  "anatomyTrainingHeatmapDescription": "Review trained muscles, volume, or fatigue from the last 7 days.",
   "@anatomyTrainingHeatmapDescription": {
     "description": "Description for training-derived anatomy heatmaps"
   },
@@ -1160,15 +1490,15 @@
   "@anatomyTrainingHeatmapFatigue": {
     "description": "Button label for the fatigue heatmap"
   },
-  "anatomyTrainingHeatmapLoading": "Training heatmaps loading...",
+  "anatomyTrainingHeatmapLoading": "Loading heatmaps...",
   "@anatomyTrainingHeatmapLoading": {
     "description": "Message shown while training heatmaps are loading"
   },
-  "anatomyTrainingHeatmapLoadError": "Training heatmaps could not load.",
+  "anatomyTrainingHeatmapLoadError": "Heatmaps could not load.",
   "@anatomyTrainingHeatmapLoadError": {
     "description": "Message shown when training heatmaps fail to load"
   },
-  "anatomyTrainingHeatmapEmpty": "No completed workout evidence in the last 7 days.",
+  "anatomyTrainingHeatmapEmpty": "Complete workouts to show 7-day heatmaps.",
   "@anatomyTrainingHeatmapEmpty": {
     "description": "Empty state for training heatmaps"
   },
@@ -1188,11 +1518,15 @@
   "@exerciseCatalogTitle": {
     "description": "Title for the exercise catalog screen"
   },
+  "exerciseCatalogSubtitle": "Search, filter, and add to your draft.",
+  "@exerciseCatalogSubtitle": {
+    "description": "Subtitle for the redesigned exercise catalog search header"
+  },
   "exerciseCatalogSearchLabel": "Search exercises",
   "@exerciseCatalogSearchLabel": {
     "description": "Label for the exercise catalog search field"
   },
-  "exerciseCatalogSearchHint": "Search by exercise, muscle, equipment, or cue",
+  "exerciseCatalogSearchHint": "Name, muscle, gear, or cue",
   "@exerciseCatalogSearchHint": {
     "description": "Hint for the exercise catalog search field"
   },
@@ -1204,7 +1538,89 @@
   "@exerciseCatalogClearFilters": {
     "description": "Button label for clearing exercise catalog search and filters"
   },
-  "exerciseCatalogResultsSummary": "Showing {visibleCount} of {totalCount} exercises",
+  "exerciseCatalogFilterButton": "Filters",
+  "@exerciseCatalogFilterButton": {
+    "description": "Button label for opening compact exercise catalog filters"
+  },
+  "exerciseCatalogFilterSheetTitle": "Filter exercises",
+  "@exerciseCatalogFilterSheetTitle": {
+    "description": "Title for the exercise catalog filter bottom sheet"
+  },
+  "exerciseCatalogApplyFilters": "Show results",
+  "@exerciseCatalogApplyFilters": {
+    "description": "Button label for closing the filter sheet after selecting filters"
+  },
+  "exerciseCatalogNoActiveFilters": "No filters",
+  "@exerciseCatalogNoActiveFilters": {
+    "description": "Status chip label when no catalog filters are active"
+  },
+  "exerciseCatalogActiveFilterCount": "{filterCount} filters",
+  "@exerciseCatalogActiveFilterCount": {
+    "description": "Button label showing active exercise catalog filter count",
+    "placeholders": {
+      "filterCount": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseCatalogResultsTrend": "of {totalCount}",
+  "@exerciseCatalogResultsTrend": {
+    "description": "Small trend text below the visible exercise count",
+    "placeholders": {
+      "totalCount": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseCatalogAddToProgram": "Add to program",
+  "@exerciseCatalogAddToProgram": {
+    "description": "Button label for adding a catalog exercise to the current program draft"
+  },
+  "exerciseCatalogAddedToProgram": "Added {exerciseName} to {dayName}.",
+  "@exerciseCatalogAddedToProgram": {
+    "description": "Snack bar shown after adding an exercise to an existing draft",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "dayName": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseCatalogCreatedDraftAndAdded": "Draft created. Added {exerciseName} to {dayName}.",
+  "@exerciseCatalogCreatedDraftAndAdded": {
+    "description": "Snack bar shown after creating a draft from the catalog add action",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "dayName": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseCatalogAlreadyInProgram": "{exerciseName} is already on {dayName}.",
+  "@exerciseCatalogAlreadyInProgram": {
+    "description": "Snack bar shown when the selected exercise already exists in the selected day",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "dayName": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseCatalogAnimationAvailable": "Animation ready",
+  "@exerciseCatalogAnimationAvailable": {
+    "description": "Media status shown when an exercise has a local animation binding"
+  },
+  "exerciseCatalogThumbnailOnly": "Image guide",
+  "@exerciseCatalogThumbnailOnly": {
+    "description": "Media status shown when an exercise has only a procedural thumbnail"
+  },
+  "exerciseCatalogResultsSummary": "{visibleCount}/{totalCount} exercises",
   "@exerciseCatalogResultsSummary": {
     "description": "Summary of visible exercise catalog results",
     "placeholders": {
@@ -1216,19 +1632,19 @@
       }
     }
   },
-  "exerciseCatalogLoading": "Loading exercise catalog...",
+  "exerciseCatalogLoading": "Loading catalog...",
   "@exerciseCatalogLoading": {
     "description": "Status shown while the exercise catalog is loading"
   },
-  "exerciseCatalogLoadError": "Exercise catalog could not be loaded.",
+  "exerciseCatalogLoadError": "Catalog could not load.",
   "@exerciseCatalogLoadError": {
     "description": "Error shown when the exercise catalog cannot load"
   },
-  "exerciseCatalogEmptyTitle": "No exercises match",
+  "exerciseCatalogEmptyTitle": "No matches",
   "@exerciseCatalogEmptyTitle": {
     "description": "Title shown when catalog filters produce no results"
   },
-  "exerciseCatalogEmptyMessage": "Adjust search or filters to see exercises.",
+  "exerciseCatalogEmptyMessage": "Change search or filters.",
   "@exerciseCatalogEmptyMessage": {
     "description": "Helper text shown when catalog filters produce no results"
   },
@@ -1248,7 +1664,7 @@
   "@exerciseCatalogLevelFilter": {
     "description": "Filter group label for difficulty level"
   },
-  "exerciseCatalogLateralityFilter": "Laterality",
+  "exerciseCatalogLateralityFilter": "Side",
   "@exerciseCatalogLateralityFilter": {
     "description": "Filter group label for unilateral or bilateral designation"
   },
@@ -1272,7 +1688,7 @@
   "@exerciseDetailFormCues": {
     "description": "Exercise detail section label for form cues"
   },
-  "exerciseDetailCommonErrors": "Common errors",
+  "exerciseDetailCommonErrors": "Avoid",
   "@exerciseDetailCommonErrors": {
     "description": "Exercise detail section label for common errors"
   },
@@ -1284,11 +1700,11 @@
   "@exerciseDetailRegressions": {
     "description": "Exercise detail section label for regression exercises"
   },
-  "exerciseDetailPrimaryMuscles": "Primary muscles",
+  "exerciseDetailPrimaryMuscles": "Primary",
   "@exerciseDetailPrimaryMuscles": {
     "description": "Exercise detail section label for primary muscle regions"
   },
-  "exerciseDetailSecondaryMuscles": "Secondary muscles",
+  "exerciseDetailSecondaryMuscles": "Secondary",
   "@exerciseDetailSecondaryMuscles": {
     "description": "Exercise detail section label for secondary muscle regions"
   },
@@ -1316,9 +1732,110 @@
   "@exerciseDetailNotFoundTitle": {
     "description": "Title shown when an exercise detail route references an unknown exercise"
   },
-  "exerciseDetailNotFoundMessage": "This exercise is not available in the local catalog.",
+  "exerciseDetailNotFoundMessage": "This exercise is not in the local catalog.",
   "@exerciseDetailNotFoundMessage": {
     "description": "Body shown when an exercise detail route references an unknown exercise"
+  },
+  "programHubSubtitle": "Review the plan. Open focused routes to edit.",
+  "@programHubSubtitle": {
+    "description": "Subtitle for the modern Program hub"
+  },
+  "programHubNoActiveProgramTitle": "No active plan",
+  "@programHubNoActiveProgramTitle": {
+    "description": "Title for the Program hub empty state when no active program exists"
+  },
+  "programHubNoActiveProgramMessage": "Create or publish a plan before workouts can use it.",
+  "@programHubNoActiveProgramMessage": {
+    "description": "Message for the Program hub empty state when no active program exists"
+  },
+  "programHubCreateDraft": "Create draft",
+  "@programHubCreateDraft": {
+    "description": "Primary action in the Program hub empty state"
+  },
+  "programHubActiveVersionSummary": "Version {versionNumber} · {dayCount} days",
+  "@programHubActiveVersionSummary": {
+    "description": "Summary for the active program overview card",
+    "placeholders": {
+      "versionNumber": {
+        "type": "int"
+      },
+      "dayCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programHubPlanMetric": "{dayCount}d · {setCount} sets",
+  "@programHubPlanMetric": {
+    "description": "Metric for the active program overview card",
+    "placeholders": {
+      "dayCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programHubActiveStatus": "Active",
+  "@programHubActiveStatus": {
+    "description": "Status chip label for an active program"
+  },
+  "programHubBuilderDescription": "Edit days, order, targets, and publish state.",
+  "@programHubBuilderDescription": {
+    "description": "Description for the Program hub builder route card"
+  },
+  "programHubCatalogDescription": "Find exercises and add them without crowding the hub.",
+  "@programHubCatalogDescription": {
+    "description": "Description for the Program hub catalog route card"
+  },
+  "programHubRecommendationInboxTitle": "Review queue",
+  "@programHubRecommendationInboxTitle": {
+    "description": "Title for the Program recommendation inbox entry"
+  },
+  "programHubRecommendationClearDescription": "No recommendations need review.",
+  "@programHubRecommendationClearDescription": {
+    "description": "Description when the Program recommendation inbox has no pending items"
+  },
+  "programHubRecommendationClearCount": "0 pending",
+  "@programHubRecommendationClearCount": {
+    "description": "Metric when the Program recommendation inbox has no pending items"
+  },
+  "programHubRecommendationClearStatus": "Clear",
+  "@programHubRecommendationClearStatus": {
+    "description": "Status when the Program recommendation inbox has no pending items"
+  },
+  "programHubTrainingDaysTitle": "Training days",
+  "@programHubTrainingDaysTitle": {
+    "description": "Section title for active program training-day cards"
+  },
+  "programHubTrainingDaysDescription": "Tap a day to edit in Builder.",
+  "@programHubTrainingDaysDescription": {
+    "description": "Helper text for active program training-day cards"
+  },
+  "programHubTrainingDaySummary": "{exerciseCount} exercises · {setCount} sets",
+  "@programHubTrainingDaySummary": {
+    "description": "Summary for one active program training day",
+    "placeholders": {
+      "exerciseCount": {
+        "type": "int"
+      },
+      "setCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programHubMoreExercises": "+{exerciseCount} more",
+  "@programHubMoreExercises": {
+    "description": "Overflow label when a Program hub training-day card has more exercises than the preview shows",
+    "placeholders": {
+      "exerciseCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programHubLoadError": "Program hub could not be loaded.",
+  "@programHubLoadError": {
+    "description": "Error message when the Program hub read model cannot load"
   },
   "programWorkspaceBuilderTab": "Builder",
   "@programWorkspaceBuilderTab": {
@@ -1328,19 +1845,19 @@
   "@programWorkspaceCatalogTab": {
     "description": "Tab label for the exercise catalog inside the Program branch"
   },
-  "programBuilderTitle": "Program builder",
+  "programBuilderTitle": "Builder",
   "@programBuilderTitle": {
     "description": "Title shown inside the manual program builder"
   },
-  "programBuilderEmptyTitle": "Create a program draft",
+  "programBuilderEmptyTitle": "Start a draft",
   "@programBuilderEmptyTitle": {
     "description": "Empty state title before a local program draft exists"
   },
-  "programBuilderEmptyMessage": "Start with a name and one training day, then add exercises and prescription targets.",
+  "programBuilderEmptyMessage": "Name it, add a day, then add exercises.",
   "@programBuilderEmptyMessage": {
     "description": "Empty state body before a local program draft exists"
   },
-  "programBuilderCreateProgram": "Create program",
+  "programBuilderCreateProgram": "Create",
   "@programBuilderCreateProgram": {
     "description": "Button label for creating a local program draft"
   },
@@ -1361,15 +1878,141 @@
   "@programBuilderProgramNameLabel": {
     "description": "Text field label for the program draft name"
   },
+  "programBuilderGuidedSubtitle": "Setup, days, catalog, targets, review.",
+  "@programBuilderGuidedSubtitle": {
+    "description": "Subtitle for the guided program builder header"
+  },
+  "programBuilderStepProgress": "Step {currentStep}/{totalSteps}",
+  "@programBuilderStepProgress": {
+    "description": "Step progress label for the guided program builder",
+    "placeholders": {
+      "currentStep": {
+        "type": "int"
+      },
+      "totalSteps": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderBackStep": "Back",
+  "@programBuilderBackStep": {
+    "description": "Back button label for guided program builder steps"
+  },
+  "programBuilderContinueStep": "Continue",
+  "@programBuilderContinueStep": {
+    "description": "Continue button label for guided program builder steps"
+  },
+  "programBuilderStepComplete": "Done",
+  "@programBuilderStepComplete": {
+    "description": "Status chip label for a completed guided builder step"
+  },
+  "programBuilderStepOpen": "Open",
+  "@programBuilderStepOpen": {
+    "description": "Status chip label for an open guided builder step"
+  },
+  "programBuilderSetupStepTitle": "Setup",
+  "@programBuilderSetupStepTitle": {
+    "description": "Guided builder setup step title"
+  },
+  "programBuilderSetupStepSubtitle": "Name the draft first.",
+  "@programBuilderSetupStepSubtitle": {
+    "description": "Guided builder setup step subtitle"
+  },
+  "programBuilderDaysStepTitle": "Days",
+  "@programBuilderDaysStepTitle": {
+    "description": "Guided builder training-day step title"
+  },
+  "programBuilderDaysStepSubtitle": "Add, select, rename, or remove days.",
+  "@programBuilderDaysStepSubtitle": {
+    "description": "Guided builder training-day step subtitle"
+  },
+  "programBuilderExercisesStepTitle": "Exercises",
+  "@programBuilderExercisesStepTitle": {
+    "description": "Guided builder exercise catalog and ordering step title"
+  },
+  "programBuilderExercisesStepSubtitle": "Search, add, and order this day.",
+  "@programBuilderExercisesStepSubtitle": {
+    "description": "Guided builder exercise catalog and ordering step subtitle"
+  },
+  "programBuilderPrescriptionStepTitle": "Targets",
+  "@programBuilderPrescriptionStepTitle": {
+    "description": "Guided builder prescription step title"
+  },
+  "programBuilderPrescriptionStepSubtitle": "Edit sets, reps, RIR, load, and rest.",
+  "@programBuilderPrescriptionStepSubtitle": {
+    "description": "Guided builder prescription step subtitle"
+  },
+  "programBuilderReviewStepTitle": "Review",
+  "@programBuilderReviewStepTitle": {
+    "description": "Guided builder review step title"
+  },
+  "programBuilderReviewStepSubtitle": "Check the draft before saving or publishing.",
+  "@programBuilderReviewStepSubtitle": {
+    "description": "Guided builder review step subtitle"
+  },
+  "programBuilderPrescriptionEmpty": "Add an exercise before editing targets.",
+  "@programBuilderPrescriptionEmpty": {
+    "description": "Empty state for the guided builder prescription step"
+  },
+  "programBuilderPrescriptionInlineHint": "Targets stay on each exercise card.",
+  "@programBuilderPrescriptionInlineHint": {
+    "description": "Hint explaining where prescription fields are edited"
+  },
+  "programBuilderPrescriptionReady": "{exerciseCount} targets",
+  "@programBuilderPrescriptionReady": {
+    "description": "Status chip for prescription target readiness",
+    "placeholders": {
+      "exerciseCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderPublishReviewMessage": "Publish to make this the active workout version. Save draft to keep editing.",
+  "@programBuilderPublishReviewMessage": {
+    "description": "Review copy before saving or publishing a program"
+  },
+  "programBuilderReviewNameReady": "Name ready",
+  "@programBuilderReviewNameReady": {
+    "description": "Review checklist item when the program name is present"
+  },
+  "programBuilderReviewNameMissing": "Name missing",
+  "@programBuilderReviewNameMissing": {
+    "description": "Review checklist item when the program name is missing"
+  },
+  "programBuilderReviewExercisesReady": "{exerciseCount} exercises ready",
+  "@programBuilderReviewExercisesReady": {
+    "description": "Review checklist item when exercises exist",
+    "placeholders": {
+      "exerciseCount": {
+        "type": "int"
+      }
+    }
+  },
+  "programBuilderReviewExercisesMissing": "Add exercises",
+  "@programBuilderReviewExercisesMissing": {
+    "description": "Review checklist item when no exercises exist"
+  },
+  "programBuilderPublishConfirmTitle": "Publish version?",
+  "@programBuilderPublishConfirmTitle": {
+    "description": "Confirmation dialog title before publishing a program version"
+  },
+  "programBuilderPublishConfirmMessage": "Make this draft the active workout version.",
+  "@programBuilderPublishConfirmMessage": {
+    "description": "Confirmation dialog body before publishing a program version"
+  },
+  "programBuilderPublishConfirmAction": "Publish",
+  "@programBuilderPublishConfirmAction": {
+    "description": "Confirmation dialog action for publishing a program version"
+  },
   "programBuilderLocalDraftLabel": "Local draft",
   "@programBuilderLocalDraftLabel": {
     "description": "Label for the local-only program draft status"
   },
-  "programBuilderScopeNote": "This draft keeps days, exercise order, and local prescription targets. Persistence and versioning are later checklist items.",
+  "programBuilderScopeNote": "Save keeps the draft. Publish creates the active workout version.",
   "@programBuilderScopeNote": {
     "description": "Scope note shown in the P3-07 builder"
   },
-  "programBuilderSummary": "{dayCount} days · {exerciseCount} exercises",
+  "programBuilderSummary": "{dayCount}d · {exerciseCount} exercises",
   "@programBuilderSummary": {
     "description": "Program builder summary for days and exercises",
     "placeholders": {
@@ -1429,11 +2072,11 @@
   "@programBuilderExercisePickerSearchLabel": {
     "description": "Search field label inside the program-builder exercise picker"
   },
-  "programBuilderExercisePickerSearchHint": "Search by exercise, muscle, equipment, or cue",
+  "programBuilderExercisePickerSearchHint": "Name, muscle, gear, or cue",
   "@programBuilderExercisePickerSearchHint": {
     "description": "Search hint inside the program-builder exercise picker"
   },
-  "programBuilderExercisePickerEmpty": "No exercises match this search.",
+  "programBuilderExercisePickerEmpty": "No exercises match.",
   "@programBuilderExercisePickerEmpty": {
     "description": "Empty state inside the exercise picker"
   },
@@ -1445,7 +2088,7 @@
   "@programBuilderEmptyDayTitle": {
     "description": "Title shown when the selected training day has no exercises"
   },
-  "programBuilderEmptyDayMessage": "Add catalog exercises, then order them for this training day.",
+  "programBuilderEmptyDayMessage": "Add exercises, then order this day.",
   "@programBuilderEmptyDayMessage": {
     "description": "Body shown when the selected training day has no exercises"
   },
@@ -1489,7 +2132,7 @@
   "@programBuilderTargetRirEnabled": {
     "description": "Switch label for enabling target repetitions in reserve"
   },
-  "programBuilderTargetRirDescription": "RIR is optional and independent from fixed or ranged repetitions.",
+  "programBuilderTargetRirDescription": "RIR is optional and independent from reps.",
   "@programBuilderTargetRirDescription": {
     "description": "Helper text explaining that RIR can be toggled separately from repetition mode"
   },
@@ -1572,23 +2215,23 @@
   "@programBuilderSaveDraft": {
     "description": "Button label for saving a program draft snapshot"
   },
-  "programBuilderPublishVersion": "Publish version",
+  "programBuilderPublishVersion": "Publish",
   "@programBuilderPublishVersion": {
     "description": "Button label for publishing an immutable active program version"
   },
-  "programBuilderCopyProgram": "Copy program",
+  "programBuilderCopyProgram": "Copy",
   "@programBuilderCopyProgram": {
     "description": "Button label for copying the current program into a new local draft"
   },
-  "programBuilderArchiveProgram": "Archive program",
+  "programBuilderArchiveProgram": "Archive",
   "@programBuilderArchiveProgram": {
     "description": "Button label for archiving the current persisted program"
   },
-  "programBuilderLifecycleStatusLocal": "Local draft · not saved yet",
+  "programBuilderLifecycleStatusLocal": "Draft · unsaved",
   "@programBuilderLifecycleStatusLocal": {
     "description": "Status text for an unsaved local program draft"
   },
-  "programBuilderLifecycleStatusSaved": "Saved draft · version {versionNumber}",
+  "programBuilderLifecycleStatusSaved": "Draft v{versionNumber}",
   "@programBuilderLifecycleStatusSaved": {
     "description": "Status text for a saved draft snapshot",
     "placeholders": {
@@ -1597,7 +2240,7 @@
       }
     }
   },
-  "programBuilderLifecycleStatusPublished": "Published · active version {versionNumber}",
+  "programBuilderLifecycleStatusPublished": "Active v{versionNumber}",
   "@programBuilderLifecycleStatusPublished": {
     "description": "Status text for a published active program version",
     "placeholders": {
@@ -1606,7 +2249,7 @@
       }
     }
   },
-  "programBuilderLifecycleStatusArchived": "Archived · last version {versionNumber}",
+  "programBuilderLifecycleStatusArchived": "Archived v{versionNumber}",
   "@programBuilderLifecycleStatusArchived": {
     "description": "Status text for an archived program",
     "placeholders": {
@@ -1619,11 +2262,11 @@
   "@programBuilderDraftSaved": {
     "description": "Snack bar message after saving a draft snapshot"
   },
-  "programBuilderVersionPublished": "Immutable program version published.",
+  "programBuilderVersionPublished": "Program version published.",
   "@programBuilderVersionPublished": {
     "description": "Snack bar message after publishing a program version"
   },
-  "programBuilderProgramCopied": "Program copied as a new local draft.",
+  "programBuilderProgramCopied": "Program copied to a new draft.",
   "@programBuilderProgramCopied": {
     "description": "Snack bar message after copying the current program"
   },
@@ -1631,7 +2274,7 @@
   "@programBuilderProgramArchived": {
     "description": "Snack bar message after archiving a program"
   },
-  "programBuilderPersistenceFailed": "Program could not be saved. Check the local draft and try again.",
+  "programBuilderPersistenceFailed": "Program could not be saved. Check the draft and retry.",
   "@programBuilderPersistenceFailed": {
     "description": "Generic persistence failure message in the program builder"
   },
@@ -1644,15 +2287,155 @@
       }
     }
   },
-  "todayScreenSubtitle": "Start the next local workout from your active program.",
+  "todayScreenSubtitle": "Start the next workout from your active plan.",
   "@todayScreenSubtitle": {
     "description": "Subtitle for the Today screen active workout entry point"
   },
-  "todayNoActiveProgramTitle": "No active program yet",
+  "todayActiveWorkoutSubtitle": "Log the current set first.",
+  "@todayActiveWorkoutSubtitle": {
+    "description": "Subtitle for the focused active workout route"
+  },
+  "todayCoachDashboardSubtitle": "Next session, streak, and review queue.",
+  "@todayCoachDashboardSubtitle": {
+    "description": "Subtitle for the modern Today coach dashboard"
+  },
+  "todayCoachResumeTitle": "Workout active",
+  "@todayCoachResumeTitle": {
+    "description": "Title for the Today dashboard hero when a workout is in progress"
+  },
+  "todayCoachNextWorkoutTitle": "Next: {dayName}",
+  "@todayCoachNextWorkoutTitle": {
+    "description": "Title for the next workout mission on Today",
+    "placeholders": {
+      "dayName": {
+        "type": "String"
+      }
+    }
+  },
+  "todayCoachNextWorkoutDescription": "Start now or change the day.",
+  "@todayCoachNextWorkoutDescription": {
+    "description": "Description for the next workout mission on Today"
+  },
+  "todayCoachNoProgramTrend": "Plan needed",
+  "@todayCoachNoProgramTrend": {
+    "description": "Trend text when Today has no active program"
+  },
+  "todayCoachReadyStatus": "Ready",
+  "@todayCoachReadyStatus": {
+    "description": "Status chip for a Today dashboard that can start a workout"
+  },
+  "todayCoachSetupStatus": "Setup first",
+  "@todayCoachSetupStatus": {
+    "description": "Status chip when Today needs a program first"
+  },
+  "todayResumeWorkout": "Resume",
+  "@todayResumeWorkout": {
+    "description": "Primary action for resuming an active workout from Today"
+  },
+  "todayQuickStartWorkout": "Start",
+  "@todayQuickStartWorkout": {
+    "description": "Primary action for starting the selected workout from Today"
+  },
+  "todayCreateProgram": "Create plan",
+  "@todayCreateProgram": {
+    "description": "Primary action for opening Program when Today has no active plan"
+  },
+  "todayOpenWorkoutDetails": "Details",
+  "@todayOpenWorkoutDetails": {
+    "description": "Secondary action for opening the focused Today workout route"
+  },
+  "todayStreakTitle": "Streak",
+  "@todayStreakTitle": {
+    "description": "Title for the local workout streak card on Today"
+  },
+  "todayStreakValue": "{dayCount} day streak",
+  "@todayStreakValue": {
+    "description": "Workout streak metric on Today",
+    "placeholders": {
+      "dayCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todayStreakEmptyDescription": "Complete a workout to start a streak.",
+  "@todayStreakEmptyDescription": {
+    "description": "Streak card helper when there is no current streak"
+  },
+  "todayStreakActiveDescription": "Built from completed workout days.",
+  "@todayStreakActiveDescription": {
+    "description": "Streak card helper when a current streak exists"
+  },
+  "todayWeeklyConsistencyTitle": "Weekly consistency",
+  "@todayWeeklyConsistencyTitle": {
+    "description": "Title for weekly consistency on Today"
+  },
+  "todayWeeklyConsistencyPercent": "{percent}%",
+  "@todayWeeklyConsistencyPercent": {
+    "description": "Weekly consistency percentage on Today",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "todayWeeklyConsistencyValue": "{completedCount} of {targetCount} sessions",
+  "@todayWeeklyConsistencyValue": {
+    "description": "Completed workouts compared to weekly target",
+    "placeholders": {
+      "completedCount": {
+        "type": "int"
+      },
+      "targetCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todayWeeklyConsistencyNoTarget": "Create a plan to set the weekly target.",
+  "@todayWeeklyConsistencyNoTarget": {
+    "description": "Weekly consistency helper when no active program exists"
+  },
+  "todayPendingRecommendationTitle": "Review queue",
+  "@todayPendingRecommendationTitle": {
+    "description": "Title for the pending recommendation card on Today"
+  },
+  "todayPendingRecommendationActiveDescription": "Review this status before future load changes.",
+  "@todayPendingRecommendationActiveDescription": {
+    "description": "Pending recommendation card text when a workout needs review"
+  },
+  "todayPendingRecommendationNoProgramDescription": "Create a plan before recommendations appear.",
+  "@todayPendingRecommendationNoProgramDescription": {
+    "description": "Pending recommendation card text when no active program exists"
+  },
+  "todayPendingRecommendationClearDescription": "No recommendation needs review.",
+  "@todayPendingRecommendationClearDescription": {
+    "description": "Pending recommendation card text when there is no review"
+  },
+  "todayPendingRecommendationPendingCount": "{pendingCount} pending",
+  "@todayPendingRecommendationPendingCount": {
+    "description": "Count of pending recommendation reviews",
+    "placeholders": {
+      "pendingCount": {
+        "type": "int"
+      }
+    }
+  },
+  "todayPendingRecommendationClearCount": "0 pending",
+  "@todayPendingRecommendationClearCount": {
+    "description": "Pending recommendation metric when queue is clear"
+  },
+  "todayPendingRecommendationClearStatus": "Clear",
+  "@todayPendingRecommendationClearStatus": {
+    "description": "Status chip when recommendation queue is clear"
+  },
+  "todaySessionRestoredStatus": "Restored",
+  "@todaySessionRestoredStatus": {
+    "description": "Status chip when an active workout was restored locally"
+  },
+  "todayNoActiveProgramTitle": "No active plan",
   "@todayNoActiveProgramTitle": {
     "description": "Title shown when Today has no active published program"
   },
-  "todayNoActiveProgramMessage": "Publish a program version in the Program tab before starting a workout.",
+  "todayNoActiveProgramMessage": "Publish a plan in Program before starting.",
   "@todayNoActiveProgramMessage": {
     "description": "Message shown when Today has no active published program"
   },
@@ -1660,7 +2443,7 @@
   "@todayOpenProgramBuilder": {
     "description": "Button that opens the Program branch from Today"
   },
-  "todayActiveProgramSummary": "Active version {versionNumber} · {dayCount} training days",
+  "todayActiveProgramSummary": "Version {versionNumber} · {dayCount} days",
   "@todayActiveProgramSummary": {
     "description": "Summary for the active program shown on Today",
     "placeholders": {
@@ -1672,11 +2455,11 @@
       }
     }
   },
-  "todayChooseTrainingDay": "Choose training day",
+  "todayChooseTrainingDay": "Pick day",
   "@todayChooseTrainingDay": {
     "description": "Section title for selecting a training day on Today"
   },
-  "todayTrainingDaySummary": "{exerciseCount} exercises · {setCount} planned sets",
+  "todayTrainingDaySummary": "{exerciseCount} exercises · {setCount} sets",
   "@todayTrainingDaySummary": {
     "description": "Summary for a selected training day plan",
     "placeholders": {
@@ -1688,11 +2471,11 @@
       }
     }
   },
-  "todayStartWorkout": "Start workout",
+  "todayStartWorkout": "Start",
   "@todayStartWorkout": {
     "description": "Button label for starting the selected workout session"
   },
-  "todaySessionStarted": "Workout session started.",
+  "todaySessionStarted": "Workout started.",
   "@todaySessionStarted": {
     "description": "Snack bar shown after creating a workout session plan"
   },
@@ -1750,19 +2533,19 @@
       }
     }
   },
-  "todayNoExercisesTitle": "No exercises on this day",
+  "todayNoExercisesTitle": "No exercises yet",
   "@todayNoExercisesTitle": {
     "description": "Title shown when the selected active training day has no exercises"
   },
-  "todayNoExercisesMessage": "Add exercises to this training day before starting a session.",
+  "todayNoExercisesMessage": "Add exercises before starting.",
   "@todayNoExercisesMessage": {
     "description": "Message shown when the selected active training day has no exercises"
   },
-  "todaySessionInProgressTitle": "Session in progress",
+  "todaySessionInProgressTitle": "Workout active",
   "@todaySessionInProgressTitle": {
     "description": "Title for an already active workout session on Today"
   },
-  "todaySessionInProgressSummary": "{exerciseCount} exercises · {setCount} planned sets",
+  "todaySessionInProgressSummary": "{exerciseCount} exercises · {setCount} sets",
   "@todaySessionInProgressSummary": {
     "description": "Summary for the active workout session on Today",
     "placeholders": {
@@ -1774,15 +2557,58 @@
       }
     }
   },
-  "todaySessionInProgressMessage": "Record each set as you finish it. Completed sets are saved locally with their actual result.",
+  "todaySessionInProgressMessage": "Log each set as you finish.",
   "@todaySessionInProgressMessage": {
     "description": "Instructional message for logging sets during an active workout"
   },
-  "todaySessionRestoredMessage": "This in-progress workout was restored from local storage.",
+  "todayCurrentSetTitle": "Current set",
+  "@todayCurrentSetTitle": {
+    "description": "Title for the focused current set card in the active workout route"
+  },
+  "todayCurrentSetSubtitle": "{exerciseName} · set {setNumber}",
+  "@todayCurrentSetSubtitle": {
+    "description": "Subtitle for the focused current set card",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "setNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "todayWorkoutQueueTitle": "Up next",
+  "@todayWorkoutQueueTitle": {
+    "description": "Title for the compact remaining and completed set queue in the active workout route"
+  },
+  "todayWorkoutQueueSetLabel": "{exerciseName} · set {setNumber} · {status}",
+  "@todayWorkoutQueueSetLabel": {
+    "description": "Compact label for a non-focused set in the active workout queue",
+    "placeholders": {
+      "exerciseName": {
+        "type": "String"
+      },
+      "setNumber": {
+        "type": "int"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "todayWorkoutCompleteTitle": "Workout logged",
+  "@todayWorkoutCompleteTitle": {
+    "description": "Title shown when every set in the active workout has a logged result"
+  },
+  "todayWorkoutCompleteMessage": "All planned sets have results. Review before leaving.",
+  "@todayWorkoutCompleteMessage": {
+    "description": "Message shown when every set in the active workout has a logged result"
+  },
+  "todaySessionRestoredMessage": "Workout restored from local storage.",
   "@todaySessionRestoredMessage": {
     "description": "Message shown when an active workout is restored after the app process restarts"
   },
-  "todaySessionStatusLabel": "Session status: {status}",
+  "todaySessionStatusLabel": "Session: {status}",
   "@todaySessionStatusLabel": {
     "description": "Session-level calculated status on Today",
     "placeholders": {
@@ -1791,7 +2617,7 @@
       }
     }
   },
-  "todayExerciseStatusLabel": "Exercise status: {status}",
+  "todayExerciseStatusLabel": "Exercise: {status}",
   "@todayExerciseStatusLabel": {
     "description": "Exercise-level calculated status on Today",
     "placeholders": {
@@ -1800,7 +2626,7 @@
       }
     }
   },
-  "todaySetStatusLabel": "Set status: {status}",
+  "todaySetStatusLabel": "Set: {status}",
   "@todaySetStatusLabel": {
     "description": "Set-level calculated status on Today",
     "placeholders": {
@@ -1821,11 +2647,11 @@
   "@todayStatusInProgress": {
     "description": "Calculated status for partially logged workout work"
   },
-  "todayStatusSuccessful": "Successful",
+  "todayStatusSuccessful": "Done",
   "@todayStatusSuccessful": {
     "description": "Calculated status when all comparable targets are met"
   },
-  "todayStatusTargetMet": "Target met",
+  "todayStatusTargetMet": "Hit target",
   "@todayStatusTargetMet": {
     "description": "Calculated status for a logged set that met its prescription"
   },
@@ -1833,7 +2659,7 @@
   "@todayStatusNeedsReview": {
     "description": "Calculated status when one or more performance misses exist"
   },
-  "todayStatusPerformanceMiss": "Performance miss",
+  "todayStatusPerformanceMiss": "Missed target",
   "@todayStatusPerformanceMiss": {
     "description": "Calculated status for a set that missed reps, load, strength, or technique target"
   },
@@ -1845,11 +2671,11 @@
   "@todayStatusPainReported": {
     "description": "Calculated status when pain was reported"
   },
-  "todayStatusNotComparable": "Logged, not comparable",
+  "todayStatusNotComparable": "Logged only",
   "@todayStatusNotComparable": {
     "description": "Calculated status when a log cannot be compared to a prescription"
   },
-  "todaySetProgressSummary": "{completedSetCount} of {setCount} sets completed",
+  "todaySetProgressSummary": "{completedSetCount}/{setCount} sets",
   "@todaySetProgressSummary": {
     "description": "Progress summary for completed sets during an active workout",
     "placeholders": {
@@ -1879,15 +2705,15 @@
       }
     }
   },
-  "todayActualRepetitionsLabel": "Actual reps",
+  "todayActualRepetitionsLabel": "Reps",
   "@todayActualRepetitionsLabel": {
     "description": "Input label for the completed repetition count"
   },
-  "todayActualLoadLabel": "Actual load",
+  "todayActualLoadLabel": "Load",
   "@todayActualLoadLabel": {
     "description": "Input label for the completed load value"
   },
-  "todayActualRirLabel": "Actual RIR",
+  "todayActualRirLabel": "RIR",
   "@todayActualRirLabel": {
     "description": "Input label for the completed reps-in-reserve value"
   },
@@ -1895,15 +2721,15 @@
   "@todayOutcomeLabel": {
     "description": "Input label for the set outcome selector"
   },
-  "todayOutcomeNone": "No limitation",
+  "todayOutcomeNone": "No limit",
   "@todayOutcomeNone": {
     "description": "Outcome selector option when no limitation or interruption occurred"
   },
-  "todayOutcomeStrengthLimitation": "Strength limitation",
+  "todayOutcomeStrengthLimitation": "Strength",
   "@todayOutcomeStrengthLimitation": {
     "description": "Outcome selector option for strength-limited sets"
   },
-  "todayOutcomeTechniqueLimitation": "Technique limitation",
+  "todayOutcomeTechniqueLimitation": "Technique",
   "@todayOutcomeTechniqueLimitation": {
     "description": "Outcome selector option for technique-limited sets"
   },
@@ -1911,15 +2737,15 @@
   "@todayOutcomePain": {
     "description": "Outcome selector option for pain reports"
   },
-  "todayOutcomeTimeLimitation": "Time limitation",
+  "todayOutcomeTimeLimitation": "Time",
   "@todayOutcomeTimeLimitation": {
     "description": "Outcome selector option for time-limited sets"
   },
-  "todayOutcomeEquipmentLimitation": "Equipment limitation",
+  "todayOutcomeEquipmentLimitation": "Equipment",
   "@todayOutcomeEquipmentLimitation": {
     "description": "Outcome selector option for equipment-limited sets"
   },
-  "todayOutcomeExternalInterruption": "External interruption",
+  "todayOutcomeExternalInterruption": "Interrupted",
   "@todayOutcomeExternalInterruption": {
     "description": "Outcome selector option for externally interrupted sets"
   },
@@ -1942,7 +2768,7 @@
       }
     }
   },
-  "todaySetPrescriptionUnavailable": "Target unavailable",
+  "todaySetPrescriptionUnavailable": "No target",
   "@todaySetPrescriptionUnavailable": {
     "description": "Fallback text when a session set no longer has its original prescription"
   },
@@ -1964,7 +2790,7 @@
       }
     }
   },
-  "todayPreviousPerformanceUnavailable": "Previous: no logged set yet",
+  "todayPreviousPerformanceUnavailable": "Previous: none yet",
   "@todayPreviousPerformanceUnavailable": {
     "description": "Fallback text when there is no previous set result for the current set slot"
   },
@@ -1994,7 +2820,7 @@
   "@todaySetLogSaved": {
     "description": "Snack bar shown after a set is completed and logged"
   },
-  "todaySetLogFailed": "Set could not be logged.",
+  "todaySetLogFailed": "Set could not save.",
   "@todaySetLogFailed": {
     "description": "Snack bar shown when set logging fails"
   },
@@ -2002,15 +2828,15 @@
   "@todaySetLogInvalid": {
     "description": "Snack bar shown when set logging inputs are invalid"
   },
-  "todayQuickLoadDecrease": "Decrease load",
+  "todayQuickLoadDecrease": "Load down",
   "@todayQuickLoadDecrease": {
     "description": "Tooltip for decreasing the active set load by one quick step"
   },
-  "todayQuickLoadIncrease": "Increase load",
+  "todayQuickLoadIncrease": "Load up",
   "@todayQuickLoadIncrease": {
     "description": "Tooltip for increasing the active set load by one quick step"
   },
-  "todayRestTimerTitle": "Rest timer",
+  "todayRestTimerTitle": "Rest",
   "@todayRestTimerTitle": {
     "description": "Title for the active workout rest timer panel"
   },
@@ -2029,11 +2855,11 @@
       }
     }
   },
-  "todayRestTimerComplete": "Rest complete. Start the next set when ready.",
+  "todayRestTimerComplete": "Rest complete. Start the next set.",
   "@todayRestTimerComplete": {
     "description": "Message shown when the active rest timer reaches zero"
   },
-  "todayRestTimerDismiss": "Dismiss",
+  "todayRestTimerDismiss": "Close",
   "@todayRestTimerDismiss": {
     "description": "Button label for dismissing or cancelling the active rest timer"
   },
@@ -2041,7 +2867,7 @@
   "@todayRestTimerNotificationTitle": {
     "description": "Android notification title for completed rest timers"
   },
-  "todayRestTimerNotificationBody": "Time for your next set.",
+  "todayRestTimerNotificationBody": "Start the next set.",
   "@todayRestTimerNotificationBody": {
     "description": "Android notification body for completed rest timers"
   },

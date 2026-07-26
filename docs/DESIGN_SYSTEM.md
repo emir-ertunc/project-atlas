@@ -8,6 +8,12 @@
 - Base layout spacing on four logical pixels.
 - Keep interactive controls at least 48 logical pixels in both dimensions.
 - Support light and dark appearance from the same token structure.
+- Keep root screens compact and card-based; avoid long stacked menus.
+- Use progress rings, streak dots, status chips, and concise cards to show
+  state without heavy explanatory text.
+- Use focused routes, sheets, and step flows for complex setup and editing.
+- Apply motion only when it clarifies state changes or completion; workout
+  logging must remain fast.
 
 ## Color Roles
 
@@ -82,6 +88,82 @@ reserved for pills and circular controls.
 Buttons, icon buttons, cards, fields, chips, dividers, app bars, and navigation
 bars consume these tokens through `AppTheme`. Feature code should read colors
 and text styles from `Theme.of(context)` and use spacing/component constants.
+
+## Modern Component Foundation
+
+P7-02 adds the reusable component layer that later Phase 7 screens must use
+before creating feature-specific alternatives.
+
+| Component | File | Intended use |
+| --- | --- | --- |
+| Dashboard card | `AppDashboardCard` | Root dashboard cards with one state, one metric, and optional tap action |
+| Status chip | `AppStatusChip` | Compact state labels for workout, recommendation, estimate, fatigue, and review states |
+| Progress ring | `AppProgressRing` | Consistency, setup progress, completion, and compact metric progress |
+| Dense form section | `AppDenseFormSection` | Short grouped edit surfaces in focused routes, sheets, and guided steps |
+| Dense text field | `AppDenseTextField` | Numeric and short text inputs that stay compact but touch-safe |
+
+### Compact Component Tokens
+
+| Token | Value | Use |
+| --- | ---: | --- |
+| `denseControlHeight` | 48 | Minimum height for dense inputs and compact controls |
+| `compactCardMinHeight` | 88 | Small summary cards in dense layouts |
+| `dashboardCardMinHeight` | 116 | Root dashboard and hub cards |
+| `statusChipHeight` | 32 | Non-interactive compact status chips |
+| `interactiveStatusChipHeight` | 48 | Tappable status chips |
+| `progressRingStroke` | 6 | Default ring stroke |
+| `compactProgressRingSize` | 48 | Inline progress rings |
+| `standardProgressRingSize` | 72 | Dashboard progress rings |
+
+Dense does not mean smaller than an accessible target. Interactive controls
+stay at or above 48 logical pixels; only non-interactive status display may use
+the smaller chip height.
+
+### Motion Tokens
+
+| Token | Duration | Use |
+| --- | ---: | --- |
+| `micro` | 90 ms | Small pressed, chip, and value-change feedback |
+| `fast` | 150 ms | Lightweight visibility and selection changes |
+| `standard` | 250 ms | Progress ring and card state transitions |
+| `route` | 300 ms | Focused route and sheet transitions |
+| `emphasized` | 400 ms | Larger layout state changes |
+| `completion` | 520 ms | Set completion, streak continuation, and milestone feedback |
+
+Use `standardCurve` for ordinary state changes, `emphasizedCurve` for layout
+changes, and `completionCurve` only for positive completion feedback. Safety,
+pain, and body-estimate messages must not use celebratory motion.
+
+### Usage Rules
+
+- Root tabs should compose dashboard cards, status chips, and progress rings
+  instead of stacked text sections.
+- Complex edits should use dense form sections inside focused routes, sheets,
+  or guided steps.
+- Status chips are state indicators first. If tapping changes state or opens a
+  review surface, use the interactive 48-pixel height.
+- Progress rings must expose a semantic label and value. Decorative center text
+  must not duplicate the semantics tree.
+- Feature-specific widgets may wrap these components, but should not duplicate
+  their spacing, shape, touch-target, or motion constants.
+
+## Phase 7 Visual Direction
+
+Phase 7 introduces a modern compact visual system on top of the foundation
+tokens:
+
+- dashboard cards for Today, Program, Anatomy, Progress, and Profile;
+- metric cards with one primary number, one trend, and one action;
+- status chips for workout state, fatigue, recommendation state, and estimate
+  confidence;
+- progress rings and streak paths for consistency;
+- bottom sheets for quick edits, filters, interruptions, and confirmation;
+- guided step screens for onboarding, measurement entry, and program creation;
+- compact empty states with one next action.
+
+The redesign should feel premium and disciplined rather than playful for its
+own sake. Completion feedback may be celebratory, but pain, safety,
+body-estimate, and progression messages stay serious and conservative.
 
 ## Accessibility Foundation
 

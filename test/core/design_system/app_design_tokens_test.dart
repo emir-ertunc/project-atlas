@@ -33,6 +33,22 @@ void main() {
         AppComponentTokens.controlHeight,
         greaterThanOrEqualTo(AppComponentTokens.minimumTouchTarget),
       );
+      expect(
+        AppComponentTokens.denseControlHeight,
+        greaterThanOrEqualTo(AppComponentTokens.minimumTouchTarget),
+      );
+      expect(
+        AppComponentTokens.interactiveStatusChipHeight,
+        greaterThanOrEqualTo(AppComponentTokens.minimumTouchTarget),
+      );
+      expect(
+        AppComponentTokens.dashboardCardMinHeight,
+        greaterThan(AppComponentTokens.denseControlHeight),
+      );
+      expect(
+        AppComponentTokens.standardProgressRingSize,
+        greaterThan(AppComponentTokens.compactProgressRingSize),
+      );
 
       final filledButtonSize = AppTheme
           .light
@@ -84,6 +100,8 @@ void main() {
       expect(AppRadii.lg, lessThan(AppRadii.xl));
       expect(AppMotion.fast, lessThan(AppMotion.standard));
       expect(AppMotion.standard, lessThan(AppMotion.emphasized));
+      expect(AppMotion.route, greaterThanOrEqualTo(AppMotion.standard));
+      expect(AppMotion.completion, greaterThan(AppMotion.route));
       expect(AppElevation.none, lessThan(AppElevation.low));
       expect(AppElevation.low, lessThan(AppElevation.medium));
       expect(AppElevation.medium, lessThan(AppElevation.high));

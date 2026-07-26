@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_atlas/core/design_system/components/app_status_chip.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/core/performance/performance_markers.dart';
 import 'package:project_atlas/features/anatomy/application/anatomy_interaction_controller.dart';
@@ -18,6 +19,7 @@ class AnatomyRendererPanel extends StatefulWidget {
     this.controller,
     this.rendererOptions,
     this.trainingHeatmaps,
+    this.compactMeasurementPrompt,
   });
 
   static const panelKey = Key('anatomy-renderer-panel');
@@ -52,10 +54,22 @@ class AnatomyRendererPanel extends StatefulWidget {
   static const trainingHeatmapStatusKey = Key(
     'anatomy-renderer-training-heatmap-status',
   );
+  static const visualFirstStageKey = Key('anatomy-renderer-visual-first-stage');
+  static const overlayControlsKey = Key('anatomy-renderer-overlay-controls');
+  static const overlayTrainedMuscleHeatmapButtonKey = Key(
+    'anatomy-renderer-overlay-trained-muscle-heatmap',
+  );
+  static const overlayWeeklyVolumeHeatmapButtonKey = Key(
+    'anatomy-renderer-overlay-weekly-volume-heatmap',
+  );
+  static const overlayFatigueHeatmapButtonKey = Key(
+    'anatomy-renderer-overlay-fatigue-heatmap',
+  );
 
   final AnatomyInteractionController? controller;
   final AnatomyRendererOptions? rendererOptions;
   final AsyncValue<AnatomyTrainingHeatmapSet>? trainingHeatmaps;
+  final Widget? compactMeasurementPrompt;
 
   @override
   State<AnatomyRendererPanel> createState() => _AnatomyRendererPanelState();
@@ -90,9 +104,6 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
@@ -109,20 +120,39 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        l10n.anatomyRendererTitle,
-                        style: theme.textTheme.headlineSmall,
+                      _VisualFirstStage(
+                        height: viewportHeight,
+                        controller: _controller,
+                        rendererOptions: _rendererOptions,
+                        trainingHeatmaps: widget.trainingHeatmaps,
+                        selectedKind: _selectedTrainingHeatmapKind,
+                        onApply: _applyTrainingHeatmap,
+                        onScaleStart: () {
+                          _lastScale = 1;
+                        },
+                        onScaleUpdate: (details) {
+                          if (details.scale != 1) {
+                            final scaleDelta = details.scale / _lastScale;
+                            _lastScale = details.scale;
+                            _controller.zoomByScale(scaleDelta);
+                          }
+
+                          if (details.pointerCount <= 1) {
+                            _controller.rotateByDragDelta(
+                              details.focalPointDelta,
+                            );
+                          }
+                        },
+                        onScaleEnd: () {
+                          _lastScale = 1;
+                        },
                       ),
-                      const SizedBox(height: AppSpacing.sm),
-                      Text(
-                        l10n.anatomyRendererDescription,
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      Text(
-                        l10n.anatomyInteractionInstructions,
-                        style: theme.textTheme.bodySmall,
-                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      _RendererInteractionSummary(controller: _controller),
+                      if (widget.compactMeasurementPrompt != null) ...[
+                        const SizedBox(height: AppSpacing.md),
+                        widget.compactMeasurementPrompt!,
+                      ],
                       const SizedBox(height: AppSpacing.md),
                       const _VisualEstimateDisclosureCard(),
                       if (widget.trainingHeatmaps != null) ...[
@@ -133,64 +163,6 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
                           onApply: _applyTrainingHeatmap,
                         ),
                       ],
-                      const SizedBox(height: AppSpacing.lg),
-                      SizedBox(
-                        height: viewportHeight,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(AppSpacing.md),
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.surfaceContainerHighest,
-                            ),
-                            child: LayoutBuilder(
-                              builder: (context, constraints) {
-                                final viewportSize = Size(
-                                  constraints.maxWidth,
-                                  constraints.maxHeight,
-                                );
-                                return GestureDetector(
-                                  key: AnatomyRendererPanel.viewportGestureKey,
-                                  behavior: HitTestBehavior.opaque,
-                                  onTapUp: (details) {
-                                    unawaited(
-                                      _controller.pickAt(
-                                        details.localPosition,
-                                        viewportSize,
-                                      ),
-                                    );
-                                  },
-                                  onScaleStart: (_) {
-                                    _lastScale = 1;
-                                  },
-                                  onScaleUpdate: (details) {
-                                    if (details.scale != 1) {
-                                      final scaleDelta =
-                                          details.scale / _lastScale;
-                                      _lastScale = details.scale;
-                                      _controller.zoomByScale(scaleDelta);
-                                    }
-
-                                    if (details.pointerCount <= 1) {
-                                      _controller.rotateByDragDelta(
-                                        details.focalPointDelta,
-                                      );
-                                    }
-                                  },
-                                  onScaleEnd: (_) {
-                                    _lastScale = 1;
-                                  },
-                                  child: AnatomyRendererPlatformView(
-                                    controller: _controller,
-                                    rendererOptions: _rendererOptions,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      _RendererInteractionSummary(controller: _controller),
                       const SizedBox(height: AppSpacing.md),
                       _RendererCapabilitySummary(
                         rendererOptions: _rendererOptions,
@@ -219,9 +191,176 @@ class _AnatomyRendererPanelState extends State<AnatomyRendererPanel> {
 
 double _viewportHeightFor(double availableHeight) {
   if (!availableHeight.isFinite) {
-    return 280;
+    return 420;
   }
-  return (availableHeight * 0.42).clamp(220.0, 360.0);
+  return (availableHeight * 0.58).clamp(360.0, 560.0);
+}
+
+class _VisualFirstStage extends StatelessWidget {
+  const _VisualFirstStage({
+    required this.height,
+    required this.controller,
+    required this.rendererOptions,
+    required this.trainingHeatmaps,
+    required this.selectedKind,
+    required this.onApply,
+    required this.onScaleStart,
+    required this.onScaleUpdate,
+    required this.onScaleEnd,
+  });
+
+  final double height;
+  final AnatomyInteractionController controller;
+  final AnatomyRendererOptions rendererOptions;
+  final AsyncValue<AnatomyTrainingHeatmapSet>? trainingHeatmaps;
+  final AnatomyTrainingHeatmapKind selectedKind;
+  final void Function(
+    AnatomyTrainingHeatmapKind kind,
+    AnatomyTrainingHeatmapSet heatmaps,
+  )
+  onApply;
+  final VoidCallback onScaleStart;
+  final ValueChanged<ScaleUpdateDetails> onScaleUpdate;
+  final VoidCallback onScaleEnd;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return SizedBox(
+      key: AnatomyRendererPanel.visualFirstStageKey,
+      height: height,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppSpacing.md),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surfaceContainerHighest,
+          ),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final viewportSize = Size(
+                      constraints.maxWidth,
+                      constraints.maxHeight,
+                    );
+                    return GestureDetector(
+                      key: AnatomyRendererPanel.viewportGestureKey,
+                      behavior: HitTestBehavior.opaque,
+                      onTapUp: (details) {
+                        unawaited(
+                          controller.pickAt(
+                            details.localPosition,
+                            viewportSize,
+                          ),
+                        );
+                      },
+                      onScaleStart: (_) => onScaleStart(),
+                      onScaleUpdate: onScaleUpdate,
+                      onScaleEnd: (_) => onScaleEnd(),
+                      child: AnatomyRendererPlatformView(
+                        controller: controller,
+                        rendererOptions: rendererOptions,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Positioned(
+                left: AppSpacing.sm,
+                right: AppSpacing.sm,
+                top: AppSpacing.sm,
+                child: _ViewportOverlayControls(
+                  heatmaps: trainingHeatmaps,
+                  selectedKind: selectedKind,
+                  onApply: onApply,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ViewportOverlayControls extends StatelessWidget {
+  const _ViewportOverlayControls({
+    required this.heatmaps,
+    required this.selectedKind,
+    required this.onApply,
+  });
+
+  final AsyncValue<AnatomyTrainingHeatmapSet>? heatmaps;
+  final AnatomyTrainingHeatmapKind selectedKind;
+  final void Function(
+    AnatomyTrainingHeatmapKind kind,
+    AnatomyTrainingHeatmapSet heatmaps,
+  )
+  onApply;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return DecoratedBox(
+      key: AnatomyRendererPanel.overlayControlsKey,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface.withValues(alpha: 0.86),
+        borderRadius: AppRadii.large,
+        border: Border.all(color: theme.colorScheme.outlineVariant),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.xs),
+        child: Wrap(
+          spacing: AppSpacing.xs,
+          runSpacing: AppSpacing.xs,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            AppStatusChip(
+              label: l10n.anatomyOverlayVisualEstimate,
+              icon: Icons.info_outline,
+              tone: AppStatusTone.information,
+            ),
+            if (heatmaps == null)
+              AppStatusChip(
+                label: l10n.anatomyOverlayTapToInspect,
+                icon: Icons.touch_app_outlined,
+                tone: AppStatusTone.neutral,
+              )
+            else
+              heatmaps!.when(
+                data: (heatmapSet) => Wrap(
+                  spacing: AppSpacing.xs,
+                  runSpacing: AppSpacing.xs,
+                  children: [
+                    for (final kind in AnatomyTrainingHeatmapKind.values)
+                      ChoiceChip(
+                        key: _overlayHeatmapButtonKey(kind),
+                        label: Text(_trainingHeatmapLabel(l10n, kind)),
+                        selected: selectedKind == kind,
+                        onSelected: (_) => onApply(kind, heatmapSet),
+                      ),
+                  ],
+                ),
+                loading: () => AppStatusChip(
+                  label: l10n.anatomyTrainingHeatmapLoading,
+                  icon: Icons.hourglass_empty,
+                  tone: AppStatusTone.neutral,
+                ),
+                error: (_, _) => AppStatusChip(
+                  label: l10n.anatomyTrainingHeatmapLoadError,
+                  icon: Icons.error_outline,
+                  tone: AppStatusTone.danger,
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _VisualEstimateDisclosureCard extends StatelessWidget {
@@ -627,6 +766,17 @@ Key _trainingHeatmapButtonKey(AnatomyTrainingHeatmapKind kind) {
       AnatomyRendererPanel.weeklyVolumeHeatmapButtonKey,
     AnatomyTrainingHeatmapKind.fatigue =>
       AnatomyRendererPanel.fatigueHeatmapButtonKey,
+  };
+}
+
+Key _overlayHeatmapButtonKey(AnatomyTrainingHeatmapKind kind) {
+  return switch (kind) {
+    AnatomyTrainingHeatmapKind.trainedMuscle =>
+      AnatomyRendererPanel.overlayTrainedMuscleHeatmapButtonKey,
+    AnatomyTrainingHeatmapKind.weeklyVolume =>
+      AnatomyRendererPanel.overlayWeeklyVolumeHeatmapButtonKey,
+    AnatomyTrainingHeatmapKind.fatigue =>
+      AnatomyRendererPanel.overlayFatigueHeatmapButtonKey,
   };
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_atlas/core/design_system/app_theme.dart';
 import 'package:project_atlas/features/anatomy/application/anatomy_interaction_controller.dart';
 import 'package:project_atlas/features/anatomy/domain/anatomy_training_heatmaps.dart';
 import 'package:project_atlas/features/anatomy/presentation/anatomy_renderer_panel.dart';
@@ -15,11 +16,7 @@ void main() {
 
     try {
       await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(body: AnatomyRendererPanel()),
-        ),
+        _panelTestHost(child: const AnatomyRendererPanel()),
       );
       await tester.pumpAndSettle();
 
@@ -30,10 +27,7 @@ void main() {
       );
       expect(find.byKey(AnatomyRendererPanel.fallbackKey), findsOneWidget);
       expect(find.byKey(AnatomyRendererPanel.platformViewKey), findsNothing);
-      expect(
-        find.textContaining('Performance-safe semantic preview'),
-        findsWidgets,
-      );
+      expect(find.textContaining('Safe preview'), findsWidgets);
       expect(find.textContaining('LOD: lod2'), findsOneWidget);
     } finally {
       debugDefaultTargetPlatformOverride = null;
@@ -45,11 +39,7 @@ void main() {
 
     try {
       await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(body: AnatomyRendererPanel()),
-        ),
+        _panelTestHost(child: const AnatomyRendererPanel()),
       );
       await tester.pumpAndSettle();
 
@@ -64,7 +54,7 @@ void main() {
         findsOneWidget,
       );
       expect(
-        find.textContaining('native Filament renderer', findRichText: true),
+        find.textContaining('native viewer', findRichText: true),
         findsOneWidget,
       );
     } finally {
@@ -79,11 +69,7 @@ void main() {
 
     try {
       await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(body: AnatomyRendererPanel()),
-        ),
+        _panelTestHost(child: const AnatomyRendererPanel()),
       );
       await tester.pumpAndSettle();
 
@@ -99,48 +85,51 @@ void main() {
     }
   });
 
-  testWidgets('keeps visual-estimate disclosure above the fallback viewport', (
-    tester,
-  ) async {
-    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
-    tester.view.physicalSize = const Size(430, 932);
-    tester.view.devicePixelRatio = 1;
+  testWidgets(
+    'keeps the fallback viewport visual-first with disclosure below',
+    (tester) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+      tester.view.physicalSize = const Size(430, 932);
+      tester.view.devicePixelRatio = 1;
 
-    try {
-      await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(body: AnatomyRendererPanel()),
-        ),
-      );
-      await tester.pumpAndSettle();
+      try {
+        await tester.pumpWidget(
+          _panelTestHost(child: const AnatomyRendererPanel()),
+        );
+        await tester.pumpAndSettle();
 
-      final disclosure = find.byKey(
-        AnatomyRendererPanel.visualEstimateDisclosureKey,
-      );
-      final viewport = find.byKey(AnatomyRendererPanel.viewportGestureKey);
-      final fallback = find.byKey(AnatomyRendererPanel.fallbackKey);
+        final disclosure = find.byKey(
+          AnatomyRendererPanel.visualEstimateDisclosureKey,
+        );
+        final stage = find.byKey(AnatomyRendererPanel.visualFirstStageKey);
+        final viewport = find.byKey(AnatomyRendererPanel.viewportGestureKey);
+        final fallback = find.byKey(AnatomyRendererPanel.fallbackKey);
 
-      expect(disclosure, findsOneWidget);
-      expect(viewport, findsOneWidget);
-      expect(fallback, findsOneWidget);
-      expect(
-        tester.getTopLeft(disclosure).dy,
-        lessThan(tester.getTopLeft(viewport).dy),
-      );
-      expect(tester.getSize(disclosure).width, greaterThan(350));
-      expect(find.text('Visual estimate, not a medical scan'), findsOneWidget);
-      expect(
-        find.textContaining('native Filament renderer', findRichText: true),
-        findsOneWidget,
-      );
-    } finally {
-      tester.view.resetPhysicalSize();
-      tester.view.resetDevicePixelRatio();
-      debugDefaultTargetPlatformOverride = null;
-    }
-  });
+        expect(disclosure, findsOneWidget);
+        expect(stage, findsOneWidget);
+        expect(viewport, findsOneWidget);
+        expect(fallback, findsOneWidget);
+        expect(
+          tester.getTopLeft(stage).dy,
+          lessThan(tester.getTopLeft(disclosure).dy),
+        );
+        expect(tester.getSize(stage).height, greaterThanOrEqualTo(360));
+        expect(tester.getSize(stage).width, greaterThan(350));
+        expect(
+          find.text('Visual estimate, not a medical scan'),
+          findsOneWidget,
+        );
+        expect(
+          find.textContaining('native viewer', findRichText: true),
+          findsOneWidget,
+        );
+      } finally {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+        debugDefaultTargetPlatformOverride = null;
+      }
+    },
+  );
 
   testWidgets('applies preview heatmap and selects a semantic region', (
     tester,
@@ -149,11 +138,7 @@ void main() {
 
     try {
       await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(body: AnatomyRendererPanel()),
-        ),
+        _panelTestHost(child: const AnatomyRendererPanel()),
       );
       await tester.pumpAndSettle();
 
@@ -237,14 +222,10 @@ void main() {
 
       try {
         await tester.pumpWidget(
-          MaterialApp(
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            home: Scaffold(
-              body: AnatomyRendererPanel(
-                controller: controller,
-                trainingHeatmaps: AsyncData(heatmaps),
-              ),
+          _panelTestHost(
+            child: AnatomyRendererPanel(
+              controller: controller,
+              trainingHeatmaps: AsyncData(heatmaps),
             ),
           ),
         );
@@ -254,18 +235,23 @@ void main() {
           find.byKey(AnatomyRendererPanel.trainingHeatmapCardKey),
           findsOneWidget,
         );
-        expect(find.text('Training heatmaps'), findsOneWidget);
+        expect(find.text('Muscle heatmaps'), findsOneWidget);
         expect(
           find.textContaining('strongest pectoralis_major_right'),
           findsOneWidget,
         );
-
-        await tester.ensureVisible(
-          find.byKey(AnatomyRendererPanel.weeklyVolumeHeatmapButtonKey),
+        expect(
+          find.byKey(AnatomyRendererPanel.overlayControlsKey),
+          findsOneWidget,
         );
-        await tester.pumpAndSettle();
+        expect(find.text('Visual estimate'), findsOneWidget);
+        expect(
+          find.byKey(AnatomyRendererPanel.overlayWeeklyVolumeHeatmapButtonKey),
+          findsOneWidget,
+        );
+
         await tester.tap(
-          find.byKey(AnatomyRendererPanel.weeklyVolumeHeatmapButtonKey),
+          find.byKey(AnatomyRendererPanel.overlayWeeklyVolumeHeatmapButtonKey),
         );
         await tester.pump();
 
@@ -275,6 +261,25 @@ void main() {
           findsOneWidget,
         );
 
+        await tester.ensureVisible(
+          find.byKey(AnatomyRendererPanel.trainedMuscleHeatmapButtonKey),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(AnatomyRendererPanel.trainedMuscleHeatmapButtonKey),
+        );
+        await tester.pump();
+
+        expect(controller.heatmap, {'pectoralis_major_right': 0.9});
+        expect(
+          find.textContaining('strongest pectoralis_major_right'),
+          findsOneWidget,
+        );
+
+        await tester.ensureVisible(
+          find.byKey(AnatomyRendererPanel.fatigueHeatmapButtonKey),
+        );
+        await tester.pumpAndSettle();
         await tester.tap(
           find.byKey(AnatomyRendererPanel.fatigueHeatmapButtonKey),
         );
@@ -299,11 +304,7 @@ void main() {
 
     try {
       await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(body: AnatomyRendererPanel()),
-        ),
+        _panelTestHost(child: const AnatomyRendererPanel()),
       );
       await tester.pumpAndSettle();
 
@@ -326,4 +327,14 @@ void main() {
       debugDefaultTargetPlatformOverride = null;
     }
   });
+}
+
+Widget _panelTestHost({required Widget child}) {
+  return MaterialApp(
+    theme: AppTheme.light,
+    darkTheme: AppTheme.dark,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    home: Scaffold(body: child),
+  );
 }

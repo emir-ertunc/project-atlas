@@ -28,7 +28,7 @@ void main() {
       await _openCatalog(tester);
 
       expect(find.byKey(ExerciseCatalogScreen.searchFieldKey), findsOneWidget);
-      expect(find.text('Showing 120 of 120 exercises'), findsOneWidget);
+      expect(find.text('120/120 exercises'), findsOneWidget);
 
       await tester.enterText(
         find.byKey(ExerciseCatalogScreen.searchFieldKey),
@@ -194,6 +194,9 @@ Future<void> _openCatalog(WidgetTester tester) async {
 
 Future<void> _openProgramBuilder(WidgetTester tester) async {
   await tester.tap(_navigationLabel('Program'));
+  await tester.pump();
+  await _pumpUntilFound(tester, find.byKey(ProgramScreen.builderTabKey));
+  await tester.tap(find.byKey(ProgramScreen.builderTabKey));
   await tester.pump();
   await _pumpUntilFound(
     tester,

@@ -2,6 +2,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_atlas/app/project_atlas_app.dart';
 import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
@@ -44,13 +45,100 @@ void main() {
 
     await _pumpUntilFound(tester, find.byKey(TodayScreen.emptyStateKey));
 
-    expect(find.text('No active program yet'), findsOneWidget);
+    expect(find.text('No active plan'), findsWidgets);
 
     await tester.tap(find.text('Open Program'));
     await tester.pumpAndSettle();
 
     expect(find.byKey(ProgramScreen.screenKey), findsOneWidget);
     expect(await database.select(database.workoutSessions).get(), isEmpty);
+  });
+
+  testWidgets('shows the daily coach dashboard and quick-starts next workout', (
+    tester,
+  ) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    await _seedActiveProgram(database, now);
+    await _seedCompletedSession(
+      database,
+      now,
+      id: 'completed-today',
+      notes: 'Upper A',
+    );
+    await _seedCompletedSession(
+      database,
+      now.subtract(const Duration(days: 1)),
+      id: 'completed-yesterday',
+      notes: 'Lower A',
+    );
+
+    await _pumpTodayApp(
+      tester,
+      catalog: testCatalog,
+      now: now,
+      database: database,
+      openWorkoutRoute: false,
+    );
+    await _pumpUntilFound(tester, find.byKey(TodayScreen.coachHeroCardKey));
+
+    expect(find.text('Next: Upper A'), findsOneWidget);
+    expect(find.byKey(TodayScreen.quickStartButtonKey), findsOneWidget);
+    expect(find.byKey(TodayScreen.streakCardKey), findsOneWidget);
+    expect(find.text('2 day streak'), findsOneWidget);
+    expect(find.byKey(TodayScreen.weeklyConsistencyCardKey), findsOneWidget);
+    expect(find.text('100%'), findsWidgets);
+    expect(
+      find.byKey(TodayScreen.pendingRecommendationCardKey),
+      findsOneWidget,
+    );
+    expect(find.text('0 pending'), findsOneWidget);
+
+    await tester.tap(find.byKey(TodayScreen.quickStartButtonKey));
+    await tester.pump();
+    await _pumpUntilFound(tester, find.byKey(TodayWorkoutScreen.screenKey));
+
+    final sessions = await database.select(database.workoutSessions).get();
+    final activeSession = sessions.singleWhere(
+      (session) => session.status == WorkoutSessionStatus.inProgress,
+    );
+    final sessionSets = await database.select(database.sessionSets).get();
+
+    expect(activeSession.notes, 'Upper A');
+    expect(
+      sessionSets.where((set) => set.sessionId == activeSession.id),
+      hasLength(3),
+    );
+  });
+
+  testWidgets('surfaces pending review from an active workout on Today root', (
+    tester,
+  ) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    await _seedActiveProgram(database, now);
+    await _seedRestorableActiveWorkout(database, now);
+
+    await _pumpTodayApp(
+      tester,
+      catalog: testCatalog,
+      now: now,
+      database: database,
+      openWorkoutRoute: false,
+    );
+    await _pumpUntilFound(
+      tester,
+      find.byKey(TodayScreen.pendingRecommendationCardKey),
+    );
+
+    expect(find.text('Resume'), findsOneWidget);
+    expect(find.text('1 pending'), findsOneWidget);
+    expect(find.text('Needs review'), findsWidgets);
+
+    await tester.tap(find.byKey(TodayScreen.quickStartButtonKey));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(TodayWorkoutScreen.screenKey), findsOneWidget);
   });
 
   testWidgets(
@@ -72,7 +160,7 @@ void main() {
         find.byKey(TodayScreen.activeProgramCardKey),
       );
 
-      expect(find.text('Strength Base'), findsOneWidget);
+      expect(find.text('Strength Base'), findsWidgets);
       expect(find.text('Upper A'), findsWidgets);
       expect(find.text('Lower A'), findsOneWidget);
 
@@ -113,12 +201,23 @@ void main() {
         isTrue,
       );
 
-      final startButton = tester.widget<FilledButton>(
-        find.byKey(TodayScreen.startSessionButtonKey),
-      );
-      expect(startButton.onPressed, isNull);
+      expect(find.byKey(TodayScreen.startSessionButtonKey), findsNothing);
 
       final firstSetId = sessionSets.singleWhere((set) => set.setOrder == 0).id;
+      final secondSetId = sessionSets
+          .singleWhere((set) => set.setOrder == 1)
+          .id;
+      expect(find.text('Current set'), findsOneWidget);
+      expect(find.byKey(TodayScreen.activeWorkoutQueueCardKey), findsOneWidget);
+      expect(
+        find.byKey(TodayScreen.actualRepetitionsFieldKey(secondSetId)),
+        findsNothing,
+      );
+      expect(
+        find.byKey(TodayScreen.completeSetButtonKey(secondSetId)),
+        findsNothing,
+      );
+
       await tester.ensureVisible(
         find.byKey(TodayScreen.actualRepetitionsFieldKey(firstSetId)),
       );
@@ -145,7 +244,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(TodayScreen.outcomeFieldKey(firstSetId)));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Technique limitation').last);
+      await tester.tap(find.text('Technique').last);
       await tester.pumpAndSettle();
       FocusManager.instance.primaryFocus?.unfocus();
       await tester.ensureVisible(
@@ -178,10 +277,10 @@ void main() {
       expect(logs.single.loadKilograms, 52.5);
       expect(logs.single.rir, 1);
       expect(logs.single.outcome?.name, SetResult.techniqueLimitation.name);
-      expect(find.text('Session status: Needs review'), findsOneWidget);
-      expect(find.text('Exercise status: Needs review'), findsOneWidget);
-      expect(find.text('Set status: Performance miss'), findsOneWidget);
-      expect(find.text('Rest timer'), findsOneWidget);
+      expect(find.text('Session: Needs review'), findsOneWidget);
+      expect(find.text('Exercise: Needs review'), findsOneWidget);
+      expect(find.text('Set: Missed target'), findsOneWidget);
+      expect(find.text('Rest'), findsOneWidget);
       expect(find.textContaining('3:00'), findsOneWidget);
     },
   );
@@ -199,6 +298,7 @@ void main() {
       catalog: testCatalog,
       now: now,
       database: database,
+      restNotificationScheduler: _FakeRestNotificationScheduler(),
     );
     await _pumpUntilFound(
       tester,
@@ -206,40 +306,30 @@ void main() {
     );
 
     expect(find.byKey(TodayScreen.activeSessionCardKey), findsOneWidget);
+    expect(find.text('Workout restored from local storage.'), findsOneWidget);
+    expect(find.text('1/2 sets'), findsWidgets);
+    expect(find.text('Session: Needs review'), findsOneWidget);
+    expect(find.text('Exercise: Needs review'), findsOneWidget);
+    expect(find.byKey(TodayScreen.trainingDayChipKey(0)), findsNothing);
+    expect(find.byKey(TodayScreen.trainingDayChipKey(1)), findsNothing);
+    expect(find.byKey(TodayScreen.startSessionButtonKey), findsNothing);
     expect(
-      find.text('This in-progress workout was restored from local storage.'),
+      find.byKey(TodayScreen.actualRepetitionsFieldKey('restored-set-1')),
       findsOneWidget,
     );
-    expect(find.text('1 of 2 sets completed'), findsOneWidget);
-    expect(find.text('Session status: Needs review'), findsOneWidget);
-    expect(find.text('Exercise status: Needs review'), findsOneWidget);
     expect(
-      tester
-          .widget<ChoiceChip>(find.byKey(TodayScreen.trainingDayChipKey(0)))
-          .selected,
-      isFalse,
-    );
-    expect(
-      tester
-          .widget<ChoiceChip>(find.byKey(TodayScreen.trainingDayChipKey(1)))
-          .selected,
-      isTrue,
-    );
-    expect(
-      tester
-          .widget<FilledButton>(find.byKey(TodayScreen.startSessionButtonKey))
-          .onPressed,
-      isNull,
+      find.byKey(TodayScreen.actualRepetitionsFieldKey('restored-set-0')),
+      findsNothing,
     );
 
     await tester.ensureVisible(
-      find.byKey(TodayScreen.completedSetStatusKey('restored-set-0')),
+      find.byKey(TodayScreen.setStatusKey('restored-set-0')),
     );
     await tester.pumpAndSettle();
 
     expect(
       find.byKey(TodayScreen.completedSetStatusKey('restored-set-0')),
-      findsOneWidget,
+      findsNothing,
     );
     expect(
       find.byKey(TodayScreen.setStatusKey('restored-set-0')),
@@ -259,6 +349,7 @@ void main() {
       catalog: testCatalog,
       now: now,
       database: database,
+      restNotificationScheduler: _FakeRestNotificationScheduler(),
     );
     await _pumpUntilFound(tester, find.byKey(TodayScreen.activeProgramCardKey));
 
@@ -292,7 +383,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(TodayScreen.outcomeFieldKey(firstSetId)));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('External interruption').last);
+    await tester.tap(find.text('Interrupted').last);
     await tester.pumpAndSettle();
     FocusManager.instance.primaryFocus?.unfocus();
     await tester.ensureVisible(
@@ -314,9 +405,7 @@ void main() {
     expect(logs.single.rir, isNull);
     expect(logs.single.outcome?.name, SetResult.externalInterruption.name);
     expect(
-      find.text(
-        'Logged: reps not recorded · no load · RIR off · External interruption',
-      ),
+      find.text('Logged: reps not recorded · no load · RIR off · Interrupted'),
       findsOneWidget,
     );
   });
@@ -365,7 +454,7 @@ void main() {
 
       expect(find.text('Target: 6-8 reps · RIR 2 · 50 kg'), findsWidgets);
       expect(
-        find.text('Previous: 8 reps · 55 kg · RIR 1 · No limitation'),
+        find.text('Previous: 8 reps · 55 kg · RIR 1 · No limit'),
         findsOneWidget,
       );
     },
@@ -378,6 +467,7 @@ Future<AppDatabase> _pumpTodayApp(
   required DateTime now,
   AppDatabase? database,
   RestNotificationScheduler? restNotificationScheduler,
+  bool openWorkoutRoute = true,
 }) async {
   final appDatabase =
       database ?? AppDatabase.forTesting(NativeDatabase.memory());
@@ -406,6 +496,12 @@ Future<AppDatabase> _pumpTodayApp(
     ),
   );
   await tester.pump();
+  if (openWorkoutRoute) {
+    GoRouter.of(
+      tester.element(find.byKey(TodayScreen.screenKey)),
+    ).go(TodayWorkoutScreen.path);
+    await tester.pump();
+  }
 
   return appDatabase;
 }
@@ -602,6 +698,37 @@ Future<void> _seedRestorableActiveWorkout(
       recordedAt: now.add(const Duration(minutes: 5)),
     ),
   );
+}
+
+Future<void> _seedCompletedSession(
+  AppDatabase database,
+  DateTime completedAt, {
+  required String id,
+  required String notes,
+}) async {
+  final container = ProviderContainer(
+    overrides: [appDatabaseProvider.overrideWithValue(database)],
+  );
+  addTearDown(container.dispose);
+
+  await container
+      .read(workoutRepositoryProvider)
+      .saveSessionPlan(
+        WorkoutSessionRecord(
+          id: id,
+          profileId: localProgramProfileId,
+          programId: 'program-1',
+          programVersionId: 'version-1',
+          lifecycle: WorkoutLifecycle.completed,
+          scheduledAt: completedAt,
+          startedAt: completedAt,
+          endedAt: completedAt.add(const Duration(hours: 1)),
+          notes: notes,
+          createdAt: completedAt,
+          updatedAt: completedAt.add(const Duration(hours: 1)),
+        ),
+        const [],
+      );
 }
 
 ProgramTrainingDayRecord _trainingDay(

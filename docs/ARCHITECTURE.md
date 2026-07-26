@@ -2,7 +2,7 @@
 
 ## Document Status
 
-- Status: P6-11 anatomy alpha APK produced
+- Status: P7 modern UX redesign planned after P6 review
 - Architecture style: Offline-first, layered, and feature-oriented
 
 ## Technology Baseline
@@ -138,6 +138,12 @@ Drift tables, data access objects, repository implementations, migrations, expor
 - Typography uses the platform system font and a documented role scale.
 - Layout uses a four-logical-pixel spacing scale and 48-pixel minimum controls.
 - Normal-size text color pairs are protected by automated 4.5:1 contrast tests.
+- P7-02 extends the component system with compact dashboard cards, status
+  chips, progress rings, dense form sections, dense text fields, and motion
+  tokens. These are the default building blocks for the P7 dashboard, focused
+  route, sheet, and guided-step rebuilds recorded in
+  [the modern UX redesign plan](UX_REDESIGN_PLAN.md) and
+  [the modern UX quality bar](UX_QUALITY_BAR.md).
 
 ## Main Navigation
 
@@ -148,6 +154,75 @@ Drift tables, data access objects, repository implementations, migrations, expor
 - Selecting the active destination again returns that branch to its initial location.
 - Router, shell, and branch restoration scopes are stable and explicit.
 - Destination labels are compiled from the Turkish and English localization catalogs.
+- P7 keeps root destinations as dashboards and moves complex tasks into nested
+  routes, step flows, or bottom sheets. Root screens must not become long
+  vertical menus.
+- P7-03 implements the first focused route split:
+  `/today/workout`, `/program/builder`, `/program/catalog`,
+  `/program/recommendations`, `/program/exercise/:exerciseId`,
+  `/anatomy/estimate`, `/progress/history`, `/progress/trends`,
+  `/progress/measurements`, `/settings/setup`, `/settings/units`, and
+  `/settings/privacy`.
+- Existing functional screens remain available under the child routes while
+  root branches become compact dashboard entry surfaces.
+- Settings evolves into a Profile hub for setup, equipment, availability,
+  units, privacy, and export. Existing settings data ownership remains local.
+
+## Modern UX Redesign
+
+P7 is an experience reset over the completed local engine. It may refactor
+presentation widgets, GoRouter routes, screen controllers, localized copy, and
+non-persisted UI state to make the product compact and easier to use. It must
+preserve repository contracts and completed progression, workout, measurement,
+and safety rules unless a later checklist item explicitly introduces a schema
+or domain change.
+
+The redesign prioritizes:
+
+- action-first root dashboards;
+- focused subroutes instead of long forms;
+- one-handed active workout logging;
+- guided onboarding and program creation;
+- visual-first anatomy review;
+- compact progress and achievement summaries;
+- local streaks and milestones that never override safety or progression
+  rules.
+
+P7-02 is presentation-only. It adds reusable widgets and visual tokens without
+changing repository contracts, navigation paths, database schema, training
+progression rules, measurement rules, or renderer behavior.
+
+P7-03 is navigation-only. It changes route placement and root dashboard
+composition without changing persistence, repository contracts, workout
+logging, program-builder behavior, catalog data, measurement export, adaptive
+programming rules, or renderer behavior.
+
+P7-04 is a focused Settings/Profile setup presentation rebuild. It replaces the
+previous long setup page with a six-step wizard for goal, experience,
+equipment, availability, measurement preference, and review. Saving the wizard
+continues to write only onboarding preferences and weekly availability windows
+through the existing repositories. Measurement preference remains non-persisted
+UI state in this step, and generated program or missed-session review surfaces
+are no longer embedded in the setup route.
+
+P7-05 rebuilds the Today root as a daily coach dashboard. The controller now
+adds a display-only coach summary that derives the current local workout
+streak and weekly consistency from completed local workout sessions and the
+active program's training-day count. The root can start or resume the selected
+workout, but it does not change program selection rules, set logging,
+progression decisions, recommendation persistence, or the active-workout route.
+
+P7-06 rebuilds the `/today/workout` presentation for active sessions as a
+focused set-by-set route. The controller and repositories stay unchanged: the
+screen selects the current focus set from the existing session summary, keeps
+the just-completed set focused while an in-memory rest timer exists, and renders
+other sets as compact status chips instead of editable rows.
+
+P7-07 rebuilds the Program root as a repository-backed hub. The root listens to
+profile-owned programs, resolves the active program version, reads training
+days and prescriptions, and builds a presentation-only summary of active plan,
+training-day cards, and the recommendation inbox. Builder, catalog, and
+recommendation review remain child routes; the hub performs no program writes.
 
 ## Main Interfaces
 
@@ -186,6 +261,12 @@ consuming features.
   flexible period types, start and end minutes, and weekday ownership.
 - Settings initializes availability drafts from onboarding preferred weekdays
   and saves them through `AvailabilityRepository`.
+- P7-04 moves the same onboarding and availability inputs into a compact guided
+  setup wizard. The wizard saves both preference groups together through the
+  existing `OnboardingController` and `AvailabilityController`, keeps
+  measurement preference as non-persisted setup UI state, and removes
+  calibration, generated-program, and missed-session preview cards from the
+  setup route.
 - P5-04 adds a deterministic program planner in
   `features/adaptive_programming/domain`. It combines onboarding preferences,
   the conservative calibration block, saved availability windows, and the local
@@ -323,6 +404,14 @@ consuming features.
 - Catalog list cards and detail screens render thumbnails through a local
   Flutter painter. Exercises with available source-level animations display an
   animation badge.
+- P7-09 keeps the catalog data model and bundled metadata immutable while
+  rebuilding the presentation around compact search, a filter sheet, active
+  filter chips, media-led result cards, muscle chips, substitution chips, and
+  direct add-to-program actions.
+- Add-to-program from catalog or detail writes only to the existing in-memory
+  `ProgramBuilderController`; if no editable draft exists, the action creates a
+  local draft with the existing default program and day names before adding the
+  exercise to the selected day.
 - P3-11 verifies catalog loading, search, thumbnail display, and animation-badge
   display while Dart network client creation is blocked.
 - P3-12 records the Phase 3 branch publication, pull request, local validation,
@@ -362,6 +451,12 @@ consuming features.
   version, training days, and prescribed sets transactionally.
 - P3-11 verifies manual draft creation and catalog exercise selection while
   Dart network client creation is blocked.
+- P7-08 keeps the same in-memory draft controller and repository contracts while
+  rebuilding the builder presentation as a guided five-step flow: setup,
+  training days, catalog search and ordering, prescription target review, and
+  publish review.
+- The publish action now passes through a presentation-layer confirmation dialog
+  before calling the existing immutable-version persistence path.
 
 ## Active Workout Entry
 
@@ -434,6 +529,21 @@ consuming features.
   local durability of active sessions, completed sets, actual-log revisions,
   and latest-revision history read models. P4-12 owns branch publication and CI
   verification.
+- P7-05 moves the Today root from a route-entry card to a daily coach
+  dashboard. It keeps the P4 active-workout implementation under
+  `/today/workout`, adds root-level quick start or resume, and derives local
+  streak and weekly consistency without writing analytics rows or altering
+  progression logic.
+- P7-06 changes the `/today/workout` active-session layout from a full program
+  and all-sets view into a current-set execution surface. Program selection,
+  day planning, and the start button are hidden while a session is in progress;
+  one set logger remains editable, rest state is shown above it, and the rest
+  of the session is summarized as status chips.
+- P7-07 changes the Program root from route-only cards into a read-only active
+  plan hub. It derives active plan, day, exercise, and set counts from the
+  existing `ProgramRepository`; training-day cards route to the builder instead
+  of embedding inline editing, and the recommendation inbox remains a
+  schema-free clear state until durable recommendation persistence exists.
 
 ## Anatomy Muscle Ontology
 
@@ -603,5 +713,5 @@ Shared code owns domain decisions and screen behavior. Platform adapters own 3D 
   authenticated container; plaintext export is forbidden.
 - Restore authenticates before parsing, validates a separate database, and uses
   confirmed atomic replacement with rollback.
-- Detailed controls and the P7-10 implementation contract are recorded in
+- Detailed controls and the P8-10 implementation contract are recorded in
   [backup and encrypted export security](SECURITY_AND_EXPORT.md).

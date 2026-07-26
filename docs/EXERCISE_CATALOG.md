@@ -190,7 +190,7 @@ The P3-05 verification is structural and contract-level:
 - P2 animation prototype primary and secondary regions remain represented
 - all 28 P2 semantic muscle groups are exercised somewhere in the catalog
 
-This is not a qualified trainer review. P7-03 still owns external content and
+This is not a qualified trainer review. P8-03 still owns external content and
 movement-form review before a broader release.
 
 ## P3-06 Catalog Screen Scope
@@ -225,6 +225,36 @@ The user interface includes:
 
 P3-06 intentionally does not add thumbnail or animation media. Those assets
 remain owned by P3-10 and later media-review checkpoints.
+
+## P7-09 Modern Catalog Presentation Scope
+
+P7-09 rebuilds the application-facing catalog and exercise detail screens
+without changing the canonical P3 contracts. The catalog still searches the same
+local immutable metadata and uses the same movement, muscle, equipment, level,
+laterality, and type filters.
+
+The redesigned catalog UI contains:
+
+- a compact search hero with result count;
+- a bottom-sheet filter editor with active filter chips on the main page;
+- media-led result cards using the existing procedural thumbnail painter and
+  animation badge;
+- muscle, equipment, level, and media-status summaries;
+- direct add-to-program actions backed by the existing local program builder
+  draft controller.
+
+The redesigned detail UI contains:
+
+- a large media hero before instruction text;
+- primary muscle chips before setup and execution sections;
+- compact metadata chips for level, type, equipment, and laterality;
+- substitution and regression chips that keep the existing detail-route
+  navigation;
+- the same add-to-program action as the catalog result cards.
+
+P7-09 does not add new exercise records, licensed media files, runtime GLB
+animations, trainer-reviewed movement changes, schema changes, or progression
+rules.
 
 ## P3-07 Manual Program Builder Scope
 
@@ -349,7 +379,7 @@ screens render thumbnails through a procedural Flutter painter, so the app has
 visible catalog thumbnails without committing external image assets. Exercises
 with available P3-10 animations show a play badge on the thumbnail.
 
-P3-10 does not claim final artist-reviewed animation quality. P7-01 and P7-02
+P3-10 does not claim final artist-reviewed animation quality. P8-01 and P8-02
 still own complete 120-exercise runtime animation coverage, start/end pose
 review, equipment-contact review, and any final binary runtime exports.
 

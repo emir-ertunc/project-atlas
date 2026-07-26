@@ -41,7 +41,7 @@
 ## Phase 2 — Anatomy and Asset Technical Spike
 
 - [x] P2-01 Select redistributable skeleton and muscle source assets.
-- [x] P2-02 Reduce the source anatomy into 40–80 meaningful left/right muscle regions.
+- [x] P2-02 Reduce the source anatomy into 40-80 meaningful left/right muscle regions.
 - [x] P2-03 Define stable semantic muscle identifiers and Turkish/English names.
 - [x] P2-04 Create the Blender cleanup, retopology, LOD, and GLB export pipeline.
 - [x] P2-05 Create the Android Filament renderer and Flutter platform bridge.
@@ -125,36 +125,63 @@
 - Phase 6 validation record:
   [`docs/PHASE_6_VALIDATION.md`](PHASE_6_VALIDATION.md)
 
-## Phase 7 — Content Quality, Notifications, and Personal Release
+## Phase 7 — Modern UX Redesign and Simplicity Reset
 
-- [ ] P7-01 Complete short 3D animations for all 120 foundational exercises.
-- [ ] P7-02 Verify start/end poses and equipment contact for every animation.
-- [ ] P7-03 Prepare muscle mappings and movement form for qualified trainer review.
-- [ ] P7-04 Add workout reminders and time-zone handling.
-- [ ] P7-05 Add user-approved calendar insertion without broad calendar access.
-- [ ] P7-06 Request notification permission only after the first program is created.
-- [ ] P7-07 Complete screen-reader, large-text, keyboard, and touch-target testing.
-- [ ] P7-08 Complete Turkish/English overflow and unit-conversion testing.
-- [ ] P7-09 Complete startup, runtime, and 3D memory optimization.
-- [ ] P7-10 Add encrypted backup export and restore.
-- [ ] P7-11 Finalize the product name, repository name, and permanent application identifier.
-- [ ] P7-12 Produce a signed release-candidate APK and AAB. **Build C5**
-- [ ] P7-13 Commit, push, open the pull request, tag, and publish the release.
+P6 review showed that the app is functional but too primitive, too long, and
+too hard to understand. Phase 7 keeps the completed local engine and rebuilds
+the experience around compact, modern, high-quality task flows.
 
-## Phase 8 — Consumer Expansion: Explicit Cost Gate
+- [x] P7-01 Define the modern UX quality bar, app map, and screen-by-screen redesign acceptance criteria.
+- [x] P7-02 Upgrade the design system to compact premium cards, status chips, progress rings, motion tokens, and dense form components.
+- [x] P7-03 Refactor app navigation so root tabs are dashboards and complex tasks open focused routes, sheets, or step flows.
+- [x] P7-04 Rebuild onboarding and setup as a short guided wizard for goal, experience, equipment, availability, and measurement preferences.
+- [x] P7-05 Rebuild Today as a daily coach dashboard with next workout, streak, weekly consistency, pending recommendation, and quick start.
+- [x] P7-06 Rebuild the active workout screen as a focused set-by-set flow with one primary action, compact previous performance, quick edits, and rest state.
+- [x] P7-07 Rebuild Program as a hub with active-plan overview, training-day cards, recommendation inbox, and separate edit routes.
+- [x] P7-08 Rebuild program creation as a guided builder with catalog search, day editing, exercise ordering, prescription editing, and clear publish review.
+- [x] P7-09 Rebuild the exercise catalog and detail screens with compact filters, strong media hierarchy, muscle chips, substitutions, and add-to-program actions.
+- [x] P7-10 Rebuild Anatomy as a visual-first screen with overlay heatmap controls, tap-to-inspect regions, compact measurement prompts, and visible estimate disclosure.
+- [x] P7-11 Rebuild Progress as a compact progress path with streaks, milestones, personal records, trends, and measurement comparison cards.
+- [x] P7-12 Add local consistency streaks, milestones, and non-social achievement feedback without changing training progression rules.
+- [x] P7-13 Rewrite core Turkish and English microcopy for shorter labels, clearer empty states, and action-first coaching language.
+- [x] P7-14 Complete UX golden tests, large-text checks, touch-target checks, and screenshot review for the redesigned primary flows.
+- [x] P7-15 Produce the modern UX preview APK. **Build C4.5**
+- [ ] P7-16 Commit, push, open the pull request, and verify CI.
+- Phase 7 UX review record:
+  [`docs/PHASE_7_UX_REVIEW.md`](PHASE_7_UX_REVIEW.md)
+- Phase 7 validation record:
+  [`docs/PHASE_7_VALIDATION.md`](PHASE_7_VALIDATION.md)
+
+## Phase 8 — Content Quality, Notifications, and Personal Release
+
+- [ ] P8-01 Complete short 3D animations for all 120 foundational exercises.
+- [ ] P8-02 Verify start/end poses and equipment contact for every animation.
+- [ ] P8-03 Prepare muscle mappings and movement form for qualified trainer review.
+- [ ] P8-04 Add workout reminders and time-zone handling.
+- [ ] P8-05 Add user-approved calendar insertion without broad calendar access.
+- [ ] P8-06 Request notification permission only after the first program is created.
+- [ ] P8-07 Complete screen-reader, large-text, keyboard, and touch-target testing.
+- [ ] P8-08 Complete Turkish/English overflow and unit-conversion testing.
+- [ ] P8-09 Complete startup, runtime, and 3D memory optimization.
+- [ ] P8-10 Add encrypted backup export and restore.
+- [ ] P8-11 Finalize the product name, repository name, and permanent application identifier.
+- [ ] P8-12 Produce a signed release-candidate APK and AAB. **Build C5**
+- [ ] P8-13 Commit, push, open the pull request, tag, and publish the release.
+
+## Phase 9 — Consumer Expansion: Explicit Cost Gate
 
 This phase is outside the zero-cost personal release and requires a new approval before work begins.
 
-- [ ] P8-01 Define privacy policy, data deletion, export, and account lifecycle requirements.
-- [ ] P8-02 Re-evaluate backend provider, operating cost, and service limits.
-- [ ] P8-03 Add accounts and multi-device synchronization through an outbox model.
-- [ ] P8-04 Complete conflict, tombstone, idempotency, and two-device tests.
-- [ ] P8-05 Add optional Health Connect integration.
-- [ ] P8-06 Add optional busy/free calendar access with explicit consent.
-- [ ] P8-07 Add production crash and ANR monitoring and a store testing track.
-- [ ] P8-08 Complete qualified training and health-safety review.
-- [ ] P8-09 Produce the store release AAB. **Build C6**
-- [ ] P8-10 Commit, push, open the pull request, tag, and publish the release.
+- [ ] P9-01 Define privacy policy, data deletion, export, and account lifecycle requirements.
+- [ ] P9-02 Re-evaluate backend provider, operating cost, and service limits.
+- [ ] P9-03 Add accounts and multi-device synchronization through an outbox model.
+- [ ] P9-04 Complete conflict, tombstone, idempotency, and two-device tests.
+- [ ] P9-05 Add optional Health Connect integration.
+- [ ] P9-06 Add optional busy/free calendar access with explicit consent.
+- [ ] P9-07 Add production crash and ANR monitoring and a store testing track.
+- [ ] P9-08 Complete qualified training and health-safety review.
+- [ ] P9-09 Produce the store release AAB. **Build C6**
+- [ ] P9-10 Commit, push, open the pull request, tag, and publish the release.
 
 ## Build Checkpoints
 
@@ -165,5 +192,6 @@ This phase is outside the zero-cost personal release and requires a new approval
 | C2 | Offline workout MVP APK | 4 |
 | C3 | Adaptive-programming beta APK | 5 |
 | C4 | Personalized anatomy alpha APK | 6 |
-| C5 | Signed personal release APK/AAB | 7 |
-| C6 | Consumer store release AAB | 8 |
+| C4.5 | Modern UX preview APK | 7 |
+| C5 | Signed personal release APK/AAB | 8 |
+| C6 | Consumer store release AAB | 9 |

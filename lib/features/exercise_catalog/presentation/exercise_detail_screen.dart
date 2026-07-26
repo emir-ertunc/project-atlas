@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_atlas/core/design_system/components/app_dashboard_card.dart';
+import 'package:project_atlas/core/design_system/components/app_status_chip.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
+import 'package:project_atlas/features/exercise_catalog/presentation/exercise_add_to_program_action.dart';
 import 'package:project_atlas/features/exercise_catalog/presentation/exercise_thumbnail.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
@@ -13,8 +16,15 @@ class ExerciseDetailScreen extends ConsumerWidget {
   static const routeName = 'exercise-detail';
   static const exerciseIdParam = 'exerciseId';
   static const screenKey = Key('exercise-detail-screen');
+  static const mediaHeroKey = Key('exercise-detail-media-hero');
 
   static Key sectionKey(String id) => Key('exercise-detail-section-$id');
+  static Key addToProgramButtonKey(String exerciseId) =>
+      Key('exercise-detail-add-to-program-$exerciseId');
+  static Key primaryMuscleChipKey(String regionId) =>
+      Key('exercise-detail-primary-muscle-$regionId');
+  static Key substitutionChipKey(String exerciseId) =>
+      Key('exercise-detail-substitution-$exerciseId');
 
   final String exerciseId;
 
@@ -51,6 +61,12 @@ class ExerciseDetailScreen extends ConsumerWidget {
             catalog: catalog,
             exercise: exercise,
             localeCode: localeCode,
+            onAddToProgram: () => addExerciseToProgramDraft(
+              context: context,
+              ref: ref,
+              exercise: exercise,
+              localeCode: localeCode,
+            ),
           ),
         );
       },
@@ -79,11 +95,13 @@ class _ExerciseDetailContent extends StatelessWidget {
     required this.catalog,
     required this.exercise,
     required this.localeCode,
+    required this.onAddToProgram,
   });
 
   final ExerciseCatalog catalog;
   final ExerciseCatalogEntry exercise;
   final String localeCode;
+  final VoidCallback onAddToProgram;
 
   @override
   Widget build(BuildContext context) {
@@ -99,25 +117,21 @@ class _ExerciseDetailContent extends StatelessWidget {
       restorationId: 'exercise-detail-scroll-${exercise.id}',
       padding: const EdgeInsets.all(AppSpacing.md),
       children: [
-        Semantics(
-          header: true,
-          child: Text(
-            exercise.name(localeCode),
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: ExerciseThumbnail(
-            exercise: exercise,
-            localeCode: localeCode,
-            size: 96,
-          ),
+        _MediaHeroCard(
+          exercise: exercise,
+          localeCode: localeCode,
+          onAddToProgram: onAddToProgram,
         ),
         const SizedBox(height: AppSpacing.md),
         _MetadataCard(exercise: exercise, localeCode: localeCode),
         const SizedBox(height: AppSpacing.md),
+        _MuscleSection(
+          title: l10n.exerciseDetailPrimaryMuscles,
+          regionIds: exercise.muscleMapping.primaryRegionIds,
+          catalog: catalog,
+          localeCode: localeCode,
+          isPrimary: true,
+        ),
         _TextSection(
           id: 'setup',
           title: l10n.exerciseDetailSetup,
@@ -142,31 +156,104 @@ class _ExerciseDetailContent extends StatelessWidget {
           title: l10n.exerciseDetailSubstitutions,
           exercises: substitutions,
           localeCode: localeCode,
+          isSubstitution: true,
         ),
         _ExerciseLinkSection(
           title: l10n.exerciseDetailRegressions,
           exercises: regressions,
           localeCode: localeCode,
-        ),
-        _MuscleSection(
-          title: l10n.exerciseDetailPrimaryMuscles,
-          regionIds: exercise.muscleMapping.primaryRegionIds,
-          catalog: catalog,
-          localeCode: localeCode,
+          isSubstitution: false,
         ),
         _MuscleSection(
           title: l10n.exerciseDetailSecondaryMuscles,
           regionIds: exercise.muscleMapping.secondaryRegionIds,
           catalog: catalog,
           localeCode: localeCode,
+          isPrimary: false,
         ),
         _MuscleSection(
           title: l10n.exerciseDetailStabilizerMuscles,
           regionIds: exercise.muscleMapping.stabilizerRegionIds,
           catalog: catalog,
           localeCode: localeCode,
+          isPrimary: false,
         ),
       ],
+    );
+  }
+}
+
+class _MediaHeroCard extends StatelessWidget {
+  const _MediaHeroCard({
+    required this.exercise,
+    required this.localeCode,
+    required this.onAddToProgram,
+  });
+
+  final ExerciseCatalogEntry exercise;
+  final String localeCode;
+  final VoidCallback onAddToProgram;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return AppDashboardCard(
+      key: ExerciseDetailScreen.mediaHeroKey,
+      title: exercise.name(localeCode),
+      subtitle: exercise.movementPattern.name(localeCode),
+      leadingIcon: Icons.fitness_center_outlined,
+      isProminent: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: ExerciseThumbnail(
+              exercise: exercise,
+              localeCode: localeCode,
+              size: 180,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Wrap(
+            spacing: AppSpacing.xs,
+            runSpacing: AppSpacing.xs,
+            children: [
+              AppStatusChip(
+                label: exercise.media.hasAnimation
+                    ? l10n.exerciseCatalogAnimationAvailable
+                    : l10n.exerciseCatalogThumbnailOnly,
+                icon: exercise.media.hasAnimation
+                    ? Icons.play_arrow_rounded
+                    : Icons.image_outlined,
+                tone: exercise.media.hasAnimation
+                    ? AppStatusTone.success
+                    : AppStatusTone.neutral,
+              ),
+              AppStatusChip(
+                label: exercise.level.name(localeCode),
+                icon: Icons.signal_cellular_alt_outlined,
+                tone: AppStatusTone.neutral,
+              ),
+              AppStatusChip(
+                label: exercise.exerciseType.name(localeCode),
+                icon: Icons.category_outlined,
+                tone: AppStatusTone.neutral,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              key: ExerciseDetailScreen.addToProgramButtonKey(exercise.id),
+              onPressed: onAddToProgram,
+              icon: const Icon(Icons.playlist_add_outlined),
+              label: Text(l10n.exerciseCatalogAddToProgram),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -314,11 +401,13 @@ class _ExerciseLinkSection extends StatelessWidget {
     required this.title,
     required this.exercises,
     required this.localeCode,
+    required this.isSubstitution,
   });
 
   final String title;
   final List<ExerciseCatalogEntry> exercises;
   final String localeCode;
+  final bool isSubstitution;
 
   @override
   Widget build(BuildContext context) {
@@ -330,6 +419,14 @@ class _ExerciseLinkSection extends StatelessWidget {
         children: [
           for (final exercise in exercises)
             ActionChip(
+              key: isSubstitution
+                  ? ExerciseDetailScreen.substitutionChipKey(exercise.id)
+                  : null,
+              avatar: Icon(
+                isSubstitution
+                    ? Icons.swap_horiz_outlined
+                    : Icons.trending_down_outlined,
+              ),
               label: Text(exercise.name(localeCode)),
               onPressed: () => context.goNamed(
                 ExerciseDetailScreen.routeName,
@@ -350,12 +447,14 @@ class _MuscleSection extends StatelessWidget {
     required this.regionIds,
     required this.catalog,
     required this.localeCode,
+    required this.isPrimary,
   });
 
   final String title;
   final List<String> regionIds;
   final ExerciseCatalog catalog;
   final String localeCode;
+  final bool isPrimary;
 
   @override
   Widget build(BuildContext context) {
@@ -366,7 +465,16 @@ class _MuscleSection extends StatelessWidget {
         runSpacing: AppSpacing.xs,
         children: [
           for (final regionId in regionIds)
-            Chip(label: Text(catalog.muscleRegionName(regionId, localeCode))),
+            AppStatusChip(
+              key: isPrimary
+                  ? ExerciseDetailScreen.primaryMuscleChipKey(regionId)
+                  : null,
+              label: catalog.muscleRegionName(regionId, localeCode),
+              icon: Icons.accessibility_new_outlined,
+              tone: isPrimary
+                  ? AppStatusTone.information
+                  : AppStatusTone.neutral,
+            ),
         ],
       ),
     );
