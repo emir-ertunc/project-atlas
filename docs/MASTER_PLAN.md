@@ -146,7 +146,7 @@ the experience around compact, modern, high-quality task flows.
 - [x] P7-13 Rewrite core Turkish and English microcopy for shorter labels, clearer empty states, and action-first coaching language.
 - [x] P7-14 Complete UX golden tests, large-text checks, touch-target checks, and screenshot review for the redesigned primary flows.
 - [x] P7-15 Produce the modern UX preview APK. **Build C4.5**
-- [ ] P7-16 Commit, push, open the pull request, and verify CI.
+- [x] P7-16 Commit, push, open the pull request, and verify CI.
 - Phase 7 UX review record:
   [`docs/PHASE_7_UX_REVIEW.md`](PHASE_7_UX_REVIEW.md)
 - Phase 7 validation record:

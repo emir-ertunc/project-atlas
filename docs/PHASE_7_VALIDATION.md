@@ -3,14 +3,35 @@
 ## Result
 
 - Date: 2026-07-27
-- Scope: Phase 7 modern UX redesign through P7-15, including compact
+- Scope: Phase 7 modern UX redesign through P7-16, including compact
   dashboard roots, focused child routes, guided setup and program creation,
   daily coach dashboard, active workout focus flow, modern Program, Catalog,
   Anatomy, Progress, and Profile surfaces, local achievement feedback,
   concise Turkish and English microcopy, UX golden coverage, accessibility
-  checks, and Build C4.5 APK production.
-- Result: Local validation passed
-- Remaining Phase 7 checklist items: P7-16 commit, push, pull request, and CI
+  checks, Build C4.5 APK production, pull request publication, and CI
+  verification.
+- Result: Publication and CI validation passed
+- Remaining Phase 7 checklist items: None
+
+## Publication
+
+- Branch: `codex/phase-7-modern-ux`
+- Pull request: `https://github.com/emir-ertunc/project-atlas/pull/8`
+- Base branch: `codex/phase-6-measurements-progress`
+- Head commit after CI fix:
+  `1993847bda9f5fe7837bb4a6a07b0a8070cd6bdd`
+- CI workflow: `Quality and Android debug build`
+- CI result:
+  - Pull request event:
+    `https://github.com/emir-ertunc/project-atlas/actions/runs/30222938514`
+  - Push event:
+    `https://github.com/emir-ertunc/project-atlas/actions/runs/30222937199`
+
+The initial CI run exposed cross-platform golden-image rasterization drift on
+Linux after the Windows-generated P7 baselines were committed. The P7 golden
+suite now uses a 1% precision tolerance for this test file only. The observed
+runner diffs were below that tolerance, while larger visual regressions still
+produce the normal golden failure artifacts.
 
 ## Build C4.5 Artifact
 
@@ -46,6 +67,9 @@ installation.
 - Verified APK package metadata with `aapt dump badging`.
 - Checked patch whitespace.
 - Scanned changed text/code files for prohibited attribution phrases.
+- Published the Phase 7 branch.
+- Opened the Phase 7 pull request.
+- Verified pull request and push CI workflow runs.
 
 ## Commands
 
@@ -60,6 +84,14 @@ installation.
 | `git diff --check` | Passed |
 | P7-15 attribution scan | Passed |
 | P7-15 sensitive-material scan | Passed |
+| P7-16 `dart analyze` | Passed |
+| `flutter test --concurrency=1 --reporter compact test/app/project_atlas_ux_golden_test.dart` | Passed, 10 tests |
+| P7-16 `flutter test --concurrency=1 --reporter compact` | Passed, 273 tests |
+| P7-16 attribution scan | Passed |
+| P7-16 sensitive-material scan | Passed |
+| `git push -u origin codex/phase-7-modern-ux` | Passed |
+| `gh pr create --draft --base codex/phase-6-measurements-progress --head codex/phase-7-modern-ux` | Passed |
+| `gh pr checks 8 --watch --interval 10` | Passed |
 
 ## Build C4.5 Product Boundary
 
