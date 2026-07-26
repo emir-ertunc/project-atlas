@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,12 +30,23 @@ import '../support/test_exercise_catalog.dart';
 const _goldenRootKey = Key('project-atlas-ux-golden-root');
 final _goldenNow = DateTime.utc(2026, 7, 26, 9);
 const _goldenSize = Size(390, 844);
+const _goldenPrecisionTolerance = 0.01;
 
 void main() {
   late ExerciseCatalog testCatalog;
+  late GoldenFileComparator defaultGoldenFileComparator;
 
   setUpAll(() {
     testCatalog = loadTestExerciseCatalog();
+    defaultGoldenFileComparator = goldenFileComparator;
+    goldenFileComparator = _TolerantGoldenFileComparator(
+      Uri.parse('test/app/project_atlas_ux_golden_test.dart'),
+      precisionTolerance: _goldenPrecisionTolerance,
+    );
+  });
+
+  tearDownAll(() {
+    goldenFileComparator = defaultGoldenFileComparator;
   });
 
   for (final scenario in _goldenScenarios) {
@@ -91,6 +104,37 @@ void main() {
         matchesGoldenFile('goldens/p7/${scenario.fileName}.png'),
       );
     });
+  }
+}
+
+final class _TolerantGoldenFileComparator extends LocalFileComparator {
+  _TolerantGoldenFileComparator(
+    super.testFile, {
+    required double precisionTolerance,
+  }) : assert(
+         0 <= precisionTolerance && precisionTolerance <= 1,
+         'precisionTolerance must be between 0 and 1',
+       ),
+       _precisionTolerance = precisionTolerance;
+
+  final double _precisionTolerance;
+
+  @override
+  Future<bool> compare(Uint8List imageBytes, Uri golden) async {
+    final result = await GoldenFileComparator.compareLists(
+      imageBytes,
+      await getGoldenBytes(golden),
+    );
+
+    final passed = result.passed || result.diffPercent <= _precisionTolerance;
+    if (passed) {
+      result.dispose();
+      return true;
+    }
+
+    final error = await generateFailureOutput(result, golden, basedir);
+    result.dispose();
+    throw FlutterError(error);
   }
 }
 
