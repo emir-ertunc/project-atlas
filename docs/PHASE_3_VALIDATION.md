@@ -52,7 +52,7 @@ branch and the pull request.
 ## Deferred Work
 
 - Complete runtime animation export coverage for all 120 foundational exercises
-  in P7-01 and P7-02.
+  in P8-01 and P8-02.
 - Complete qualified trainer review of muscle mappings and movement form in
-  P7-03.
+  P8-03.
 - Build active workout execution and history flows in Phase 4.

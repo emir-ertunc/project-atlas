@@ -25,17 +25,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressScreenSubtitle =>
-      'Review workout history, inspect set results, and track personal records.';
+      'Track streaks, records, trends, and body changes.';
+
+  @override
+  String get progressDashboardPathTitle => 'Progress path';
+
+  @override
+  String get progressDashboardPathDescription => 'Train, log, compare, repeat.';
+
+  @override
+  String progressDashboardStreakValue(int dayCount) {
+    return '${dayCount}d';
+  }
+
+  @override
+  String get progressDashboardStreakEmpty => 'Start streak';
+
+  @override
+  String progressDashboardStreakStatus(String streakValue) {
+    return 'Streak $streakValue';
+  }
+
+  @override
+  String progressDashboardWeekStatus(int completedCount) {
+    return 'Week $completedCount/7d';
+  }
+
+  @override
+  String get progressDashboardLocalFeedbackStart => 'Start the loop';
+
+  @override
+  String get progressDashboardLocalFeedbackStreak => 'Local momentum';
+
+  @override
+  String get progressDashboardLocalFeedbackWeek => 'Week on track';
+
+  @override
+  String get progressDashboardLocalFeedbackComplete => 'Milestones complete';
+
+  @override
+  String progressDashboardLocalFeedbackNext(String milestoneLabel) {
+    return 'Next: $milestoneLabel';
+  }
+
+  @override
+  String progressDashboardMilestoneSummary(int completedCount, int totalCount) {
+    return '$completedCount/$totalCount milestones';
+  }
+
+  @override
+  String get progressDashboardMilestonesTitle => 'Milestones';
+
+  @override
+  String get progressDashboardMilestoneFirstWorkout => 'First workout';
+
+  @override
+  String get progressDashboardMilestoneWeekRhythm => '2 days this week';
+
+  @override
+  String get progressDashboardMilestoneFirstRecord => 'First record';
+
+  @override
+  String get progressDashboardMilestoneBodyComparison => 'Body comparison';
+
+  @override
+  String get progressDashboardRecordBoardTitle => 'Top records';
+
+  @override
+  String progressDashboardRecordBoardSummary(int recordCount) {
+    return '$recordCount tracked';
+  }
+
+  @override
+  String get progressDashboardRecordBoardEmpty =>
+      'Log clean sets to build records.';
+
+  @override
+  String get progressDashboardTrendEmpty =>
+      'Log two data points to show a trend.';
+
+  @override
+  String get progressDashboardMeasurementEmpty =>
+      'Save two measurements to compare.';
+
+  @override
+  String progressDashboardMeasurementComparisonCount(int comparisonCount) {
+    return '$comparisonCount comparisons';
+  }
+
+  @override
+  String get progressDashboardOpenRecords => 'Records';
+
+  @override
+  String get progressDashboardOpenTrends => 'Trends';
+
+  @override
+  String get progressDashboardOpenMeasurements => 'Compare';
 
   @override
   String get progressHistoryTitle => 'Workout history';
 
   @override
-  String get progressHistoryEmptyTitle => 'No workout history yet';
+  String get progressHistoryEmptyTitle => 'No history yet';
 
   @override
   String get progressHistoryEmptyMessage =>
-      'Complete sets from the Today tab to build your local history.';
+      'Complete a set from Today to start history.';
 
   @override
   String get progressHistoryLoadError => 'Workout history could not load.';
@@ -62,7 +157,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressSetDetailsEmpty =>
-      'Select a set from workout history to inspect its result.';
+      'Select a history set to inspect results.';
 
   @override
   String progressSetDetailSession(String sessionName, String dateTime) {
@@ -110,11 +205,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressCorrectionDescription =>
-      'Saving a correction adds a new revision. Earlier logs stay preserved.';
+      'Save a correction as a new revision; earlier logs stay preserved.';
 
   @override
   String get progressCorrectionUnavailable =>
-      'Only completed sets with a logged result can be corrected.';
+      'Only completed logged sets can be corrected.';
 
   @override
   String get progressCorrectionRepetitionsLabel => 'Corrected reps';
@@ -146,14 +241,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressPersonalRecordsEmpty =>
-      'No personal records yet. Complete clean sets with reps or load to start tracking records.';
+      'Log clean sets with reps or load to start records.';
 
   @override
   String get progressTrendsTitle => 'Trends';
 
   @override
   String get progressTrendsDescription =>
-      'Derived locally from saved measurements and latest clean set logs. Estimated strength is a display-only training estimate.';
+      'Built locally from measurements and clean set logs. Strength is an estimate.';
 
   @override
   String get progressMeasurementTrendsTitle => 'Measurements';
@@ -162,11 +257,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get progressTrainingTrendsTitle => 'Training';
 
   @override
-  String get progressMeasurementHistoryTitle => 'Measurement history';
+  String get progressMeasurementHistoryTitle => 'Measurements';
 
   @override
   String get progressMeasurementHistoryDescription =>
-      'Compare saved body measurements and copy a local CSV or JSON export when you explicitly need it.';
+      'Compare saved measurements or copy an export when needed.';
 
   @override
   String get progressMeasurementComparisonTitle => 'First vs latest';
@@ -212,7 +307,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressMeasurementExportDescription =>
-      'The copied text contains personal measurement data. Store or share it only in a location you trust.';
+      'Exports contain personal measurement data. Store them only where you trust.';
 
   @override
   String progressMeasurementExportCount(int recordCount) {
@@ -317,42 +412,41 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsNavigationLabel => 'Settings';
+  String get settingsNavigationLabel => 'Profile';
 
   @override
-  String get onboardingTitle => 'Adaptive onboarding';
+  String get onboardingTitle => 'Planner setup';
 
   @override
   String get onboardingDescription =>
-      'Set the inputs the planner will use before generating recommendations. These choices stay local to this device.';
+      'Save local inputs before plan recommendations.';
 
   @override
-  String get onboardingGoalLabel => 'Primary goal';
+  String get onboardingGoalLabel => 'Goal';
 
   @override
-  String get onboardingExperienceLabel => 'Training experience';
+  String get onboardingExperienceLabel => 'Experience';
 
   @override
-  String get onboardingEquipmentLabel => 'Available equipment';
+  String get onboardingEquipmentLabel => 'Equipment';
 
   @override
-  String get onboardingSessionLengthLabel => 'Preferred session length';
+  String get onboardingSessionLengthLabel => 'Session length';
 
   @override
-  String get onboardingWeekdaysLabel => 'Preferred training days';
+  String get onboardingWeekdaysLabel => 'Training days';
 
   @override
-  String get onboardingSaveButton => 'Save onboarding';
+  String get onboardingSaveButton => 'Save';
 
   @override
-  String get onboardingSavedMessage => 'Onboarding preferences saved.';
+  String get onboardingSavedMessage => 'Setup saved.';
 
   @override
-  String get onboardingSaveFailed =>
-      'Onboarding preferences could not be saved.';
+  String get onboardingSaveFailed => 'Setup could not be saved.';
 
   @override
-  String get onboardingLoadError => 'Onboarding preferences could not load.';
+  String get onboardingLoadError => 'Setup could not load.';
 
   @override
   String onboardingSessionLengthValue(int minutes) {
@@ -369,6 +463,137 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return 'Saved: $goal, $experience, $minutes minutes, $weekdays. Equipment: $equipment.';
   }
+
+  @override
+  String get setupWizardTitle => 'Setup';
+
+  @override
+  String get setupWizardDescription =>
+      'Answer five quick steps for local planning.';
+
+  @override
+  String setupWizardStepCounter(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get setupWizardBackButton => 'Back';
+
+  @override
+  String get setupWizardNextButton => 'Continue';
+
+  @override
+  String get setupWizardReviewButton => 'Review';
+
+  @override
+  String get setupWizardSaveButton => 'Save';
+
+  @override
+  String get setupWizardSavedMessage => 'Setup saved.';
+
+  @override
+  String get setupWizardSavedStatus => 'Saved';
+
+  @override
+  String get setupWizardSavedDescription =>
+      'Goal, gear, days, and availability stay local.';
+
+  @override
+  String get setupWizardSelectedStatus => 'Selected';
+
+  @override
+  String get setupWizardGoalStepTitle => 'Pick goal';
+
+  @override
+  String get setupWizardGoalStepShort => 'Goal';
+
+  @override
+  String get setupWizardGoalStepDescription =>
+      'Set the first planning bias; change it later.';
+
+  @override
+  String get setupWizardExperienceStepTitle => 'Pick level';
+
+  @override
+  String get setupWizardExperienceStepShort => 'Level';
+
+  @override
+  String get setupWizardExperienceStepDescription =>
+      'Level sets the conservative starting volume.';
+
+  @override
+  String get setupWizardEquipmentStepTitle => 'Pick gear';
+
+  @override
+  String get setupWizardEquipmentStepShort => 'Gear';
+
+  @override
+  String get setupWizardEquipmentStepDescription =>
+      'Choose gear you can use most weeks.';
+
+  @override
+  String get setupWizardAvailabilityStepTitle => 'Pick training days';
+
+  @override
+  String get setupWizardAvailabilityStepShort => 'Days';
+
+  @override
+  String get setupWizardAvailabilityStepDescription =>
+      'Pick days, then mark each window fixed or flexible.';
+
+  @override
+  String get setupWizardAvailabilityWindowHint =>
+      'Flexible gives room; fixed protects appointments.';
+
+  @override
+  String setupWizardAvailabilityReview(int dayCount, int minutes) {
+    return '$dayCount days, $minutes min default';
+  }
+
+  @override
+  String get setupWizardMeasurementsStepTitle => 'Pick measurement flow';
+
+  @override
+  String get setupWizardMeasurementsStepShort => 'Measure';
+
+  @override
+  String get setupWizardMeasurementsStepDescription =>
+      'Choose how much guidance you want first.';
+
+  @override
+  String get setupWizardMeasurementGuidedTitle => 'Guided entry';
+
+  @override
+  String get setupWizardMeasurementGuidedDescription =>
+      'Use body-area steps for the best estimate.';
+
+  @override
+  String get setupWizardMeasurementEssentialsTitle => 'Essentials first';
+
+  @override
+  String get setupWizardMeasurementEssentialsDescription =>
+      'Start with height, weight, and key circumferences.';
+
+  @override
+  String get setupWizardMeasurementLaterTitle => 'Later';
+
+  @override
+  String get setupWizardMeasurementLaterDescription =>
+      'Skip prompts for now and keep the estimate generic.';
+
+  @override
+  String get setupWizardMeasurementPrivacyNote =>
+      'No measurement value is saved in this step.';
+
+  @override
+  String get setupWizardReviewStepTitle => 'Review';
+
+  @override
+  String get setupWizardReviewStepShort => 'Review';
+
+  @override
+  String get setupWizardReviewStepDescription =>
+      'Confirm inputs before planning.';
 
   @override
   String get onboardingGoalGeneralFitness => 'General fitness';
@@ -559,23 +784,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get availabilityLoading => 'Weekly availability loading...';
 
   @override
-  String get generatedProgramTitle => 'Program draft planner';
+  String get generatedProgramTitle => 'Draft planner';
 
   @override
   String get generatedProgramDescription =>
-      'Build an editable local draft from onboarding, weekly availability, equipment, recovery spacing, and conservative volume rules.';
+      'Build an editable draft from setup, availability, gear, recovery, and volume rules.';
 
   @override
   String get generatedProgramAvailabilityRequired =>
-      'Save weekly availability before building a program draft.';
+      'Save availability before building a draft.';
 
   @override
   String get generatedProgramCatalogLoadError =>
-      'The exercise catalog could not load, so the program draft cannot be built.';
+      'Catalog could not load, so the draft cannot build.';
 
   @override
   String get generatedProgramNoPlan =>
-      'No matching program could be built from the saved equipment. Add more equipment or update availability.';
+      'No plan matches saved gear. Add equipment or update availability.';
 
   @override
   String generatedProgramSummary(
@@ -584,7 +809,7 @@ class AppLocalizationsEn extends AppLocalizations {
     int maxExercisesPerSession,
     int minimumRir,
   ) {
-    return '$sessionsPerWeek sessions/week - $weeklySetTarget working sets - up to $maxExercisesPerSession exercises/session - RIR $minimumRir+';
+    return '$sessionsPerWeek/wk · $weeklySetTarget sets · max $maxExercisesPerSession/session · RIR $minimumRir+';
   }
 
   @override
@@ -596,7 +821,7 @@ class AppLocalizationsEn extends AppLocalizations {
     int exerciseCount,
     int setCount,
   ) {
-    return '$weekday - $windowType $startTime-$endTime - $exerciseCount exercises - $setCount sets';
+    return '$weekday · $windowType $startTime-$endTime · $exerciseCount exercises · $setCount sets';
   }
 
   @override
@@ -607,25 +832,25 @@ class AppLocalizationsEn extends AppLocalizations {
     int targetRir,
     int restSeconds,
   ) {
-    return '$setCount sets - $minimumRepetitions-$maximumRepetitions reps - RIR $targetRir - $restSeconds sec rest';
+    return '$setCount sets · $minimumRepetitions-$maximumRepetitions reps · RIR $targetRir · $restSeconds sec';
   }
 
   @override
-  String get generatedProgramApplyDraft => 'Apply as local draft';
+  String get generatedProgramApplyDraft => 'Use draft';
 
   @override
   String get generatedProgramAppliedMessage =>
-      'Program draft applied locally. Open Program to edit, save, or publish it.';
+      'Draft applied. Open Program to edit, save, or publish.';
 
   @override
-  String get generatedProgramReplaceDraftTitle => 'Replace local draft?';
+  String get generatedProgramReplaceDraftTitle => 'Replace draft?';
 
   @override
   String get generatedProgramReplaceDraftMessage =>
-      'Applying this plan replaces the current unsaved Program draft. Saved versions stay unchanged.';
+      'This replaces the unsaved Program draft. Saved versions stay unchanged.';
 
   @override
-  String get generatedProgramReplaceDraftCancel => 'Keep current draft';
+  String get generatedProgramReplaceDraftCancel => 'Keep draft';
 
   @override
   String get generatedProgramReplaceDraftConfirm => 'Replace draft';
@@ -699,15 +924,31 @@ class AppLocalizationsEn extends AppLocalizations {
       'The selected planned day is no longer available. Rebuild the program preview and try again.';
 
   @override
-  String get anatomyRendererTitle => '3D anatomy renderer';
+  String get anatomyRendererTitle => 'Anatomy viewer';
 
   @override
   String get anatomyRendererDescription =>
-      'Android builds use a native Filament surface. GLB anatomy assets remain external until the bundling checkpoint.';
+      'Android builds use the native viewer; assets ship at the bundling checkpoint.';
 
   @override
   String get anatomyInteractionInstructions =>
-      'Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.';
+      'Drag, pinch, or tap a region. Heatmaps use muscle IDs until GLB ships.';
+
+  @override
+  String get anatomyOverlayVisualEstimate => 'Visual estimate';
+
+  @override
+  String get anatomyOverlayTapToInspect => 'Tap a region';
+
+  @override
+  String get anatomyMeasurementPromptTitle => 'Add measurements';
+
+  @override
+  String get anatomyMeasurementPromptDescription =>
+      'Add guided measurements before relying on shape changes.';
+
+  @override
+  String get anatomyMeasurementPromptAction => 'Guide';
 
   @override
   String get anatomyVisualEstimateLabel =>
@@ -715,11 +956,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anatomyVisualEstimateDescription =>
-      'Personalized anatomy output is built from saved measurements and training data. It is approximate and cannot diagnose health, injury, disease, or body composition.';
+      'Built from saved measurements and training data. It cannot diagnose health, injury, disease, or body composition.';
 
   @override
   String get anatomyVisualEstimateInputNote =>
-      'Use it to review training and measurement trends; if it looks wrong, re-check the saved inputs.';
+      'Use it for trends; re-check saved inputs if it looks wrong.';
 
   @override
   String get anatomyVisualEstimateIconLabel => 'Visual estimate information';
@@ -730,14 +971,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anatomyRendererAndroidOnly =>
-      'The native Filament renderer is available on Android builds. This environment shows a safe fallback.';
+      'The native viewer runs on Android builds. This environment shows a safe fallback.';
 
   @override
   String get anatomyRendererPerformanceFallback =>
-      'Performance-safe semantic preview is active. The native renderer stays off until bundled assets and mid-range device metrics meet the threshold.';
+      'Safe preview is active until assets and device metrics pass.';
 
   @override
-  String get anatomyRendererStatusLoading => 'Checking renderer bridge...';
+  String get anatomyRendererStatusLoading => 'Checking viewer...';
 
   @override
   String anatomyRendererStatus(
@@ -772,13 +1013,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get anatomyRendererModeInteractiveLite => 'interactive lite';
 
   @override
-  String get anatomyRendererResetCamera => 'Reset camera';
+  String get anatomyRendererResetCamera => 'Reset view';
 
   @override
   String get anatomyRendererPreviewHeatmap => 'Preview heatmap';
 
   @override
-  String get anatomyRendererNoRegionSelected => 'No muscle region selected';
+  String get anatomyRendererNoRegionSelected => 'Tap a muscle region';
 
   @override
   String anatomyRendererSelectedRegion(String regionId) {
@@ -797,11 +1038,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get anatomyRendererHeatmapEmpty => 'No heatmap applied';
 
   @override
-  String get anatomyTrainingHeatmapTitle => 'Training heatmaps';
+  String get anatomyTrainingHeatmapTitle => 'Muscle heatmaps';
 
   @override
   String get anatomyTrainingHeatmapDescription =>
-      'Apply trained-muscle, weekly volume, or fatigue views from completed local sets in the last 7 days.';
+      'Review trained muscles, volume, or fatigue from the last 7 days.';
 
   @override
   String get anatomyTrainingHeatmapTrainedMuscle => 'Trained muscles';
@@ -813,15 +1054,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get anatomyTrainingHeatmapFatigue => 'Fatigue';
 
   @override
-  String get anatomyTrainingHeatmapLoading => 'Training heatmaps loading...';
+  String get anatomyTrainingHeatmapLoading => 'Loading heatmaps...';
 
   @override
-  String get anatomyTrainingHeatmapLoadError =>
-      'Training heatmaps could not load.';
+  String get anatomyTrainingHeatmapLoadError => 'Heatmaps could not load.';
 
   @override
   String get anatomyTrainingHeatmapEmpty =>
-      'No completed workout evidence in the last 7 days.';
+      'Complete workouts to show 7-day heatmaps.';
 
   @override
   String anatomyTrainingHeatmapSummary(int regionCount, String topRegionId) {
@@ -832,11 +1072,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseCatalogTitle => 'Exercise catalog';
 
   @override
+  String get exerciseCatalogSubtitle =>
+      'Search, filter, and add to your draft.';
+
+  @override
   String get exerciseCatalogSearchLabel => 'Search exercises';
 
   @override
-  String get exerciseCatalogSearchHint =>
-      'Search by exercise, muscle, equipment, or cue';
+  String get exerciseCatalogSearchHint => 'Name, muscle, gear, or cue';
 
   @override
   String get exerciseCatalogFiltersTitle => 'Filters';
@@ -845,23 +1088,70 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseCatalogClearFilters => 'Clear';
 
   @override
-  String exerciseCatalogResultsSummary(int visibleCount, int totalCount) {
-    return 'Showing $visibleCount of $totalCount exercises';
+  String get exerciseCatalogFilterButton => 'Filters';
+
+  @override
+  String get exerciseCatalogFilterSheetTitle => 'Filter exercises';
+
+  @override
+  String get exerciseCatalogApplyFilters => 'Show results';
+
+  @override
+  String get exerciseCatalogNoActiveFilters => 'No filters';
+
+  @override
+  String exerciseCatalogActiveFilterCount(int filterCount) {
+    return '$filterCount filters';
   }
 
   @override
-  String get exerciseCatalogLoading => 'Loading exercise catalog...';
+  String exerciseCatalogResultsTrend(int totalCount) {
+    return 'of $totalCount';
+  }
 
   @override
-  String get exerciseCatalogLoadError =>
-      'Exercise catalog could not be loaded.';
+  String get exerciseCatalogAddToProgram => 'Add to program';
 
   @override
-  String get exerciseCatalogEmptyTitle => 'No exercises match';
+  String exerciseCatalogAddedToProgram(String exerciseName, String dayName) {
+    return 'Added $exerciseName to $dayName.';
+  }
 
   @override
-  String get exerciseCatalogEmptyMessage =>
-      'Adjust search or filters to see exercises.';
+  String exerciseCatalogCreatedDraftAndAdded(
+    String exerciseName,
+    String dayName,
+  ) {
+    return 'Draft created. Added $exerciseName to $dayName.';
+  }
+
+  @override
+  String exerciseCatalogAlreadyInProgram(String exerciseName, String dayName) {
+    return '$exerciseName is already on $dayName.';
+  }
+
+  @override
+  String get exerciseCatalogAnimationAvailable => 'Animation ready';
+
+  @override
+  String get exerciseCatalogThumbnailOnly => 'Image guide';
+
+  @override
+  String exerciseCatalogResultsSummary(int visibleCount, int totalCount) {
+    return '$visibleCount/$totalCount exercises';
+  }
+
+  @override
+  String get exerciseCatalogLoading => 'Loading catalog...';
+
+  @override
+  String get exerciseCatalogLoadError => 'Catalog could not load.';
+
+  @override
+  String get exerciseCatalogEmptyTitle => 'No matches';
+
+  @override
+  String get exerciseCatalogEmptyMessage => 'Change search or filters.';
 
   @override
   String get exerciseCatalogMovementFilter => 'Movement';
@@ -876,7 +1166,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseCatalogLevelFilter => 'Level';
 
   @override
-  String get exerciseCatalogLateralityFilter => 'Laterality';
+  String get exerciseCatalogLateralityFilter => 'Side';
 
   @override
   String get exerciseCatalogTypeFilter => 'Type';
@@ -894,7 +1184,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseDetailFormCues => 'Form cues';
 
   @override
-  String get exerciseDetailCommonErrors => 'Common errors';
+  String get exerciseDetailCommonErrors => 'Avoid';
 
   @override
   String get exerciseDetailSubstitutions => 'Substitutions';
@@ -903,10 +1193,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseDetailRegressions => 'Regressions';
 
   @override
-  String get exerciseDetailPrimaryMuscles => 'Primary muscles';
+  String get exerciseDetailPrimaryMuscles => 'Primary';
 
   @override
-  String get exerciseDetailSecondaryMuscles => 'Secondary muscles';
+  String get exerciseDetailSecondaryMuscles => 'Secondary';
 
   @override
   String get exerciseDetailStabilizerMuscles => 'Stabilizers';
@@ -928,7 +1218,75 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exerciseDetailNotFoundMessage =>
-      'This exercise is not available in the local catalog.';
+      'This exercise is not in the local catalog.';
+
+  @override
+  String get programHubSubtitle =>
+      'Review the plan. Open focused routes to edit.';
+
+  @override
+  String get programHubNoActiveProgramTitle => 'No active plan';
+
+  @override
+  String get programHubNoActiveProgramMessage =>
+      'Create or publish a plan before workouts can use it.';
+
+  @override
+  String get programHubCreateDraft => 'Create draft';
+
+  @override
+  String programHubActiveVersionSummary(int versionNumber, int dayCount) {
+    return 'Version $versionNumber · $dayCount days';
+  }
+
+  @override
+  String programHubPlanMetric(int dayCount, int setCount) {
+    return '${dayCount}d · $setCount sets';
+  }
+
+  @override
+  String get programHubActiveStatus => 'Active';
+
+  @override
+  String get programHubBuilderDescription =>
+      'Edit days, order, targets, and publish state.';
+
+  @override
+  String get programHubCatalogDescription =>
+      'Find exercises and add them without crowding the hub.';
+
+  @override
+  String get programHubRecommendationInboxTitle => 'Review queue';
+
+  @override
+  String get programHubRecommendationClearDescription =>
+      'No recommendations need review.';
+
+  @override
+  String get programHubRecommendationClearCount => '0 pending';
+
+  @override
+  String get programHubRecommendationClearStatus => 'Clear';
+
+  @override
+  String get programHubTrainingDaysTitle => 'Training days';
+
+  @override
+  String get programHubTrainingDaysDescription =>
+      'Tap a day to edit in Builder.';
+
+  @override
+  String programHubTrainingDaySummary(int exerciseCount, int setCount) {
+    return '$exerciseCount exercises · $setCount sets';
+  }
+
+  @override
+  String programHubMoreExercises(int exerciseCount) {
+    return '+$exerciseCount more';
+  }
+
+  @override
+  String get programHubLoadError => 'Program hub could not be loaded.';
 
   @override
   String get programWorkspaceBuilderTab => 'Builder';
@@ -937,17 +1295,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get programWorkspaceCatalogTab => 'Catalog';
 
   @override
-  String get programBuilderTitle => 'Program builder';
+  String get programBuilderTitle => 'Builder';
 
   @override
-  String get programBuilderEmptyTitle => 'Create a program draft';
+  String get programBuilderEmptyTitle => 'Start a draft';
 
   @override
   String get programBuilderEmptyMessage =>
-      'Start with a name and one training day, then add exercises and prescription targets.';
+      'Name it, add a day, then add exercises.';
 
   @override
-  String get programBuilderCreateProgram => 'Create program';
+  String get programBuilderCreateProgram => 'Create';
 
   @override
   String get programBuilderDefaultProgramName => 'New program';
@@ -961,15 +1319,111 @@ class AppLocalizationsEn extends AppLocalizations {
   String get programBuilderProgramNameLabel => 'Program name';
 
   @override
+  String get programBuilderGuidedSubtitle =>
+      'Setup, days, catalog, targets, review.';
+
+  @override
+  String programBuilderStepProgress(int currentStep, int totalSteps) {
+    return 'Step $currentStep/$totalSteps';
+  }
+
+  @override
+  String get programBuilderBackStep => 'Back';
+
+  @override
+  String get programBuilderContinueStep => 'Continue';
+
+  @override
+  String get programBuilderStepComplete => 'Done';
+
+  @override
+  String get programBuilderStepOpen => 'Open';
+
+  @override
+  String get programBuilderSetupStepTitle => 'Setup';
+
+  @override
+  String get programBuilderSetupStepSubtitle => 'Name the draft first.';
+
+  @override
+  String get programBuilderDaysStepTitle => 'Days';
+
+  @override
+  String get programBuilderDaysStepSubtitle =>
+      'Add, select, rename, or remove days.';
+
+  @override
+  String get programBuilderExercisesStepTitle => 'Exercises';
+
+  @override
+  String get programBuilderExercisesStepSubtitle =>
+      'Search, add, and order this day.';
+
+  @override
+  String get programBuilderPrescriptionStepTitle => 'Targets';
+
+  @override
+  String get programBuilderPrescriptionStepSubtitle =>
+      'Edit sets, reps, RIR, load, and rest.';
+
+  @override
+  String get programBuilderReviewStepTitle => 'Review';
+
+  @override
+  String get programBuilderReviewStepSubtitle =>
+      'Check the draft before saving or publishing.';
+
+  @override
+  String get programBuilderPrescriptionEmpty =>
+      'Add an exercise before editing targets.';
+
+  @override
+  String get programBuilderPrescriptionInlineHint =>
+      'Targets stay on each exercise card.';
+
+  @override
+  String programBuilderPrescriptionReady(int exerciseCount) {
+    return '$exerciseCount targets';
+  }
+
+  @override
+  String get programBuilderPublishReviewMessage =>
+      'Publish to make this the active workout version. Save draft to keep editing.';
+
+  @override
+  String get programBuilderReviewNameReady => 'Name ready';
+
+  @override
+  String get programBuilderReviewNameMissing => 'Name missing';
+
+  @override
+  String programBuilderReviewExercisesReady(int exerciseCount) {
+    return '$exerciseCount exercises ready';
+  }
+
+  @override
+  String get programBuilderReviewExercisesMissing => 'Add exercises';
+
+  @override
+  String get programBuilderPublishConfirmTitle => 'Publish version?';
+
+  @override
+  String get programBuilderPublishConfirmMessage =>
+      'Make this draft the active workout version.';
+
+  @override
+  String get programBuilderPublishConfirmAction => 'Publish';
+
+  @override
   String get programBuilderLocalDraftLabel => 'Local draft';
 
   @override
   String get programBuilderScopeNote =>
-      'This draft keeps days, exercise order, and local prescription targets. Persistence and versioning are later checklist items.';
+      'Save keeps the draft. Publish creates the active workout version.';
 
   @override
   String programBuilderSummary(int dayCount, int exerciseCount) {
-    return '$dayCount days · $exerciseCount exercises';
+    return '${dayCount}d · $exerciseCount exercises';
   }
 
   @override
@@ -1010,11 +1464,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get programBuilderExercisePickerSearchHint =>
-      'Search by exercise, muscle, equipment, or cue';
+      'Name, muscle, gear, or cue';
 
   @override
-  String get programBuilderExercisePickerEmpty =>
-      'No exercises match this search.';
+  String get programBuilderExercisePickerEmpty => 'No exercises match.';
 
   @override
   String get programBuilderExerciseAlreadyAdded => 'Added';
@@ -1024,7 +1477,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get programBuilderEmptyDayMessage =>
-      'Add catalog exercises, then order them for this training day.';
+      'Add exercises, then order this day.';
 
   @override
   String get programBuilderMoveExerciseUp => 'Move up';
@@ -1058,7 +1511,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get programBuilderTargetRirDescription =>
-      'RIR is optional and independent from fixed or ranged repetitions.';
+      'RIR is optional and independent from reps.';
 
   @override
   String get programBuilderTargetRirLabel => 'Target RIR';
@@ -1111,50 +1564,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get programBuilderSaveDraft => 'Save draft';
 
   @override
-  String get programBuilderPublishVersion => 'Publish version';
+  String get programBuilderPublishVersion => 'Publish';
 
   @override
-  String get programBuilderCopyProgram => 'Copy program';
+  String get programBuilderCopyProgram => 'Copy';
 
   @override
-  String get programBuilderArchiveProgram => 'Archive program';
+  String get programBuilderArchiveProgram => 'Archive';
 
   @override
-  String get programBuilderLifecycleStatusLocal =>
-      'Local draft · not saved yet';
+  String get programBuilderLifecycleStatusLocal => 'Draft · unsaved';
 
   @override
   String programBuilderLifecycleStatusSaved(int versionNumber) {
-    return 'Saved draft · version $versionNumber';
+    return 'Draft v$versionNumber';
   }
 
   @override
   String programBuilderLifecycleStatusPublished(int versionNumber) {
-    return 'Published · active version $versionNumber';
+    return 'Active v$versionNumber';
   }
 
   @override
   String programBuilderLifecycleStatusArchived(int versionNumber) {
-    return 'Archived · last version $versionNumber';
+    return 'Archived v$versionNumber';
   }
 
   @override
   String get programBuilderDraftSaved => 'Program draft saved.';
 
   @override
-  String get programBuilderVersionPublished =>
-      'Immutable program version published.';
+  String get programBuilderVersionPublished => 'Program version published.';
 
   @override
-  String get programBuilderProgramCopied =>
-      'Program copied as a new local draft.';
+  String get programBuilderProgramCopied => 'Program copied to a new draft.';
 
   @override
   String get programBuilderProgramArchived => 'Program archived.';
 
   @override
   String get programBuilderPersistenceFailed =>
-      'Program could not be saved. Check the local draft and try again.';
+      'Program could not be saved. Check the draft and retry.';
 
   @override
   String programBuilderCopiedProgramName(String programName) {
@@ -1163,36 +1613,137 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get todayScreenSubtitle =>
-      'Start the next local workout from your active program.';
+      'Start the next workout from your active plan.';
 
   @override
-  String get todayNoActiveProgramTitle => 'No active program yet';
+  String get todayActiveWorkoutSubtitle => 'Log the current set first.';
+
+  @override
+  String get todayCoachDashboardSubtitle =>
+      'Next session, streak, and review queue.';
+
+  @override
+  String get todayCoachResumeTitle => 'Workout active';
+
+  @override
+  String todayCoachNextWorkoutTitle(String dayName) {
+    return 'Next: $dayName';
+  }
+
+  @override
+  String get todayCoachNextWorkoutDescription => 'Start now or change the day.';
+
+  @override
+  String get todayCoachNoProgramTrend => 'Plan needed';
+
+  @override
+  String get todayCoachReadyStatus => 'Ready';
+
+  @override
+  String get todayCoachSetupStatus => 'Setup first';
+
+  @override
+  String get todayResumeWorkout => 'Resume';
+
+  @override
+  String get todayQuickStartWorkout => 'Start';
+
+  @override
+  String get todayCreateProgram => 'Create plan';
+
+  @override
+  String get todayOpenWorkoutDetails => 'Details';
+
+  @override
+  String get todayStreakTitle => 'Streak';
+
+  @override
+  String todayStreakValue(int dayCount) {
+    return '$dayCount day streak';
+  }
+
+  @override
+  String get todayStreakEmptyDescription =>
+      'Complete a workout to start a streak.';
+
+  @override
+  String get todayStreakActiveDescription =>
+      'Built from completed workout days.';
+
+  @override
+  String get todayWeeklyConsistencyTitle => 'Weekly consistency';
+
+  @override
+  String todayWeeklyConsistencyPercent(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String todayWeeklyConsistencyValue(int completedCount, int targetCount) {
+    return '$completedCount of $targetCount sessions';
+  }
+
+  @override
+  String get todayWeeklyConsistencyNoTarget =>
+      'Create a plan to set the weekly target.';
+
+  @override
+  String get todayPendingRecommendationTitle => 'Review queue';
+
+  @override
+  String get todayPendingRecommendationActiveDescription =>
+      'Review this status before future load changes.';
+
+  @override
+  String get todayPendingRecommendationNoProgramDescription =>
+      'Create a plan before recommendations appear.';
+
+  @override
+  String get todayPendingRecommendationClearDescription =>
+      'No recommendation needs review.';
+
+  @override
+  String todayPendingRecommendationPendingCount(int pendingCount) {
+    return '$pendingCount pending';
+  }
+
+  @override
+  String get todayPendingRecommendationClearCount => '0 pending';
+
+  @override
+  String get todayPendingRecommendationClearStatus => 'Clear';
+
+  @override
+  String get todaySessionRestoredStatus => 'Restored';
+
+  @override
+  String get todayNoActiveProgramTitle => 'No active plan';
 
   @override
   String get todayNoActiveProgramMessage =>
-      'Publish a program version in the Program tab before starting a workout.';
+      'Publish a plan in Program before starting.';
 
   @override
   String get todayOpenProgramBuilder => 'Open Program';
 
   @override
   String todayActiveProgramSummary(int versionNumber, int dayCount) {
-    return 'Active version $versionNumber · $dayCount training days';
+    return 'Version $versionNumber · $dayCount days';
   }
 
   @override
-  String get todayChooseTrainingDay => 'Choose training day';
+  String get todayChooseTrainingDay => 'Pick day';
 
   @override
   String todayTrainingDaySummary(int exerciseCount, int setCount) {
-    return '$exerciseCount exercises · $setCount planned sets';
+    return '$exerciseCount exercises · $setCount sets';
   }
 
   @override
-  String get todayStartWorkout => 'Start workout';
+  String get todayStartWorkout => 'Start';
 
   @override
-  String get todaySessionStarted => 'Workout session started.';
+  String get todaySessionStarted => 'Workout started.';
 
   @override
   String get todaySessionStartFailed => 'Workout could not be started.';
@@ -1225,41 +1776,66 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get todayNoExercisesTitle => 'No exercises on this day';
+  String get todayNoExercisesTitle => 'No exercises yet';
 
   @override
-  String get todayNoExercisesMessage =>
-      'Add exercises to this training day before starting a session.';
+  String get todayNoExercisesMessage => 'Add exercises before starting.';
 
   @override
-  String get todaySessionInProgressTitle => 'Session in progress';
+  String get todaySessionInProgressTitle => 'Workout active';
 
   @override
   String todaySessionInProgressSummary(int exerciseCount, int setCount) {
-    return '$exerciseCount exercises · $setCount planned sets';
+    return '$exerciseCount exercises · $setCount sets';
   }
 
   @override
-  String get todaySessionInProgressMessage =>
-      'Record each set as you finish it. Completed sets are saved locally with their actual result.';
+  String get todaySessionInProgressMessage => 'Log each set as you finish.';
+
+  @override
+  String get todayCurrentSetTitle => 'Current set';
+
+  @override
+  String todayCurrentSetSubtitle(String exerciseName, int setNumber) {
+    return '$exerciseName · set $setNumber';
+  }
+
+  @override
+  String get todayWorkoutQueueTitle => 'Up next';
+
+  @override
+  String todayWorkoutQueueSetLabel(
+    String exerciseName,
+    int setNumber,
+    String status,
+  ) {
+    return '$exerciseName · set $setNumber · $status';
+  }
+
+  @override
+  String get todayWorkoutCompleteTitle => 'Workout logged';
+
+  @override
+  String get todayWorkoutCompleteMessage =>
+      'All planned sets have results. Review before leaving.';
 
   @override
   String get todaySessionRestoredMessage =>
-      'This in-progress workout was restored from local storage.';
+      'Workout restored from local storage.';
 
   @override
   String todaySessionStatusLabel(String status) {
-    return 'Session status: $status';
+    return 'Session: $status';
   }
 
   @override
   String todayExerciseStatusLabel(String status) {
-    return 'Exercise status: $status';
+    return 'Exercise: $status';
   }
 
   @override
   String todaySetStatusLabel(String status) {
-    return 'Set status: $status';
+    return 'Set: $status';
   }
 
   @override
@@ -1272,16 +1848,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayStatusInProgress => 'In progress';
 
   @override
-  String get todayStatusSuccessful => 'Successful';
+  String get todayStatusSuccessful => 'Done';
 
   @override
-  String get todayStatusTargetMet => 'Target met';
+  String get todayStatusTargetMet => 'Hit target';
 
   @override
   String get todayStatusNeedsReview => 'Needs review';
 
   @override
-  String get todayStatusPerformanceMiss => 'Performance miss';
+  String get todayStatusPerformanceMiss => 'Missed target';
 
   @override
   String get todayStatusInterrupted => 'Interrupted';
@@ -1290,11 +1866,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayStatusPainReported => 'Pain reported';
 
   @override
-  String get todayStatusNotComparable => 'Logged, not comparable';
+  String get todayStatusNotComparable => 'Logged only';
 
   @override
   String todaySetProgressSummary(int completedSetCount, int setCount) {
-    return '$completedSetCount of $setCount sets completed';
+    return '$completedSetCount/$setCount sets';
   }
 
   @override
@@ -1308,37 +1884,37 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get todayActualRepetitionsLabel => 'Actual reps';
+  String get todayActualRepetitionsLabel => 'Reps';
 
   @override
-  String get todayActualLoadLabel => 'Actual load';
+  String get todayActualLoadLabel => 'Load';
 
   @override
-  String get todayActualRirLabel => 'Actual RIR';
+  String get todayActualRirLabel => 'RIR';
 
   @override
   String get todayOutcomeLabel => 'Outcome';
 
   @override
-  String get todayOutcomeNone => 'No limitation';
+  String get todayOutcomeNone => 'No limit';
 
   @override
-  String get todayOutcomeStrengthLimitation => 'Strength limitation';
+  String get todayOutcomeStrengthLimitation => 'Strength';
 
   @override
-  String get todayOutcomeTechniqueLimitation => 'Technique limitation';
+  String get todayOutcomeTechniqueLimitation => 'Technique';
 
   @override
   String get todayOutcomePain => 'Pain';
 
   @override
-  String get todayOutcomeTimeLimitation => 'Time limitation';
+  String get todayOutcomeTimeLimitation => 'Time';
 
   @override
-  String get todayOutcomeEquipmentLimitation => 'Equipment limitation';
+  String get todayOutcomeEquipmentLimitation => 'Equipment';
 
   @override
-  String get todayOutcomeExternalInterruption => 'External interruption';
+  String get todayOutcomeExternalInterruption => 'Interrupted';
 
   @override
   String get todayCompleteSet => 'Complete set';
@@ -1353,7 +1929,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get todaySetPrescriptionUnavailable => 'Target unavailable';
+  String get todaySetPrescriptionUnavailable => 'No target';
 
   @override
   String todayPreviousPerformanceSummary(
@@ -1366,8 +1942,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get todayPreviousPerformanceUnavailable =>
-      'Previous: no logged set yet';
+  String get todayPreviousPerformanceUnavailable => 'Previous: none yet';
 
   @override
   String get todayRepetitionsNotRecorded => 'reps not recorded';
@@ -1386,19 +1961,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todaySetLogSaved => 'Set logged.';
 
   @override
-  String get todaySetLogFailed => 'Set could not be logged.';
+  String get todaySetLogFailed => 'Set could not save.';
 
   @override
   String get todaySetLogInvalid => 'Enter valid reps, load, and RIR values.';
 
   @override
-  String get todayQuickLoadDecrease => 'Decrease load';
+  String get todayQuickLoadDecrease => 'Load down';
 
   @override
-  String get todayQuickLoadIncrease => 'Increase load';
+  String get todayQuickLoadIncrease => 'Load up';
 
   @override
-  String get todayRestTimerTitle => 'Rest timer';
+  String get todayRestTimerTitle => 'Rest';
 
   @override
   String todayRestTimerRunning(
@@ -1410,17 +1985,16 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get todayRestTimerComplete =>
-      'Rest complete. Start the next set when ready.';
+  String get todayRestTimerComplete => 'Rest complete. Start the next set.';
 
   @override
-  String get todayRestTimerDismiss => 'Dismiss';
+  String get todayRestTimerDismiss => 'Close';
 
   @override
   String get todayRestTimerNotificationTitle => 'Rest complete';
 
   @override
-  String get todayRestTimerNotificationBody => 'Time for your next set.';
+  String get todayRestTimerNotificationBody => 'Start the next set.';
 
   @override
   String get todayRestTimerNotificationScheduled =>

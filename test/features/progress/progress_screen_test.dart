@@ -37,15 +37,11 @@ void main() {
   ) async {
     await _pumpProgressApp(tester, catalog: testCatalog);
 
-    await tester.tap(_navigationLabel('Progress'));
-    await tester.pump();
+    await _openProgressHistory(tester);
     await _pumpUntilFound(tester, find.byKey(ProgressScreen.emptyStateKey));
 
-    expect(find.text('No workout history yet'), findsOneWidget);
-    expect(
-      find.textContaining('Complete sets from the Today tab'),
-      findsOneWidget,
-    );
+    expect(find.text('No history yet'), findsOneWidget);
+    expect(find.textContaining('Complete a set from Today'), findsWidgets);
   });
 
   testWidgets('shows workout history, set details, and personal records', (
@@ -55,19 +51,23 @@ void main() {
     addTearDown(database.close);
     await _seedProgramAndHistory(database, now);
 
-    await _pumpProgressApp(tester, catalog: testCatalog, database: database);
+    await _pumpProgressApp(
+      tester,
+      catalog: testCatalog,
+      database: database,
+      clock: () => now,
+    );
 
-    await tester.tap(_navigationLabel('Progress'));
-    await tester.pump();
+    await _openProgressHistory(tester);
     await _pumpUntilFound(tester, find.byKey(ProgressScreen.historySectionKey));
 
     expect(
       find.byKey(ProgressScreen.historySessionCardKey('recent-session')),
       findsOneWidget,
     );
-    expect(find.text('Workout history'), findsOneWidget);
+    expect(find.text('Workout history'), findsWidgets);
     expect(find.text('Upper A'), findsWidgets);
-    expect(find.textContaining('1 of 1 sets logged'), findsOneWidget);
+    expect(find.textContaining('1 of 1 sets logged'), findsWidgets);
 
     await tester.ensureVisible(find.byKey(ProgressScreen.setDetailsSectionKey));
     await tester.pumpAndSettle();
@@ -98,13 +98,17 @@ void main() {
     addTearDown(database.close);
     await _seedTrendData(database, now);
 
-    await _pumpProgressApp(tester, catalog: testCatalog, database: database);
+    await _pumpProgressApp(
+      tester,
+      catalog: testCatalog,
+      database: database,
+      clock: () => now,
+    );
 
-    await tester.tap(_navigationLabel('Progress'));
-    await tester.pump();
+    await _openProgressHistory(tester);
     await _pumpUntilFound(tester, find.byKey(ProgressScreen.trendsSectionKey));
 
-    expect(find.text('Trends'), findsOneWidget);
+    expect(find.text('Trends'), findsWidgets);
     expect(
       find.byKey(ProgressScreen.measurementTrendsSectionKey),
       findsOneWidget,
@@ -146,7 +150,7 @@ void main() {
       find.byKey(ProgressScreen.measurementHistorySectionKey),
       findsOneWidget,
     );
-    expect(find.text('Measurement history'), findsOneWidget);
+    expect(find.text('Measurements'), findsWidgets);
     expect(
       find.byKey(
         ProgressScreen.measurementHistoryComparisonRowKey(
@@ -188,6 +192,68 @@ void main() {
     expect(find.text('Measurement CSV copied.'), findsOneWidget);
   });
 
+  testWidgets('shows a compact progress path dashboard', (tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
+    await _seedTrendData(database, now);
+
+    await _pumpProgressApp(
+      tester,
+      catalog: testCatalog,
+      database: database,
+      clock: () => now,
+    );
+
+    await tester.tap(_navigationLabel('Progress'));
+    await tester.pump();
+    await _pumpUntilFound(
+      tester,
+      find.byKey(ProgressScreen.progressPathCardKey),
+    );
+
+    expect(find.text('Progress path'), findsOneWidget);
+    expect(find.text('Streak 1d'), findsOneWidget);
+    expect(find.text('Week 1/7d'), findsOneWidget);
+    expect(find.text('Local momentum'), findsOneWidget);
+    expect(find.text('3/4 milestones'), findsOneWidget);
+    expect(find.byKey(ProgressScreen.milestonesCardKey), findsOneWidget);
+    expect(find.text('First workout'), findsOneWidget);
+    expect(find.text('Body comparison'), findsOneWidget);
+
+    expect(
+      find.byKey(ProgressScreen.personalRecordsPreviewCardKey),
+      findsOneWidget,
+    );
+    expect(find.text('Top records'), findsOneWidget);
+    expect(find.text('Best load: 55 kg'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.byKey(ProgressScreen.trendPreviewCardKey),
+      320,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(ProgressScreen.trendPreviewCardKey), findsOneWidget);
+    expect(
+      find.textContaining('Volume: 440 kg reps (+140 kg reps, 2 points)'),
+      findsOneWidget,
+    );
+
+    await tester.scrollUntilVisible(
+      find.byKey(ProgressScreen.measurementComparisonPreviewCardKey),
+      320,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.pumpAndSettle();
+
+    expect(
+      find.byKey(ProgressScreen.measurementComparisonPreviewCardKey),
+      findsOneWidget,
+    );
+    expect(find.text('Weight: 81 kg -> 79 kg (-2 kg)'), findsOneWidget);
+  });
+
   testWidgets('saves historical corrections as append-only revisions', (
     tester,
   ) async {
@@ -202,8 +268,7 @@ void main() {
       clock: () => now.add(const Duration(minutes: 30)),
     );
 
-    await tester.tap(_navigationLabel('Progress'));
-    await tester.pump();
+    await _openProgressHistory(tester);
     await _pumpUntilFound(
       tester,
       find.byKey(
@@ -521,6 +586,14 @@ Finder _navigationLabel(String label) {
     of: find.byKey(MainNavigationShell.navigationBarKey),
     matching: find.text(label),
   );
+}
+
+Future<void> _openProgressHistory(WidgetTester tester) async {
+  await tester.tap(_navigationLabel('Progress'));
+  await tester.pump();
+  await _pumpUntilFound(tester, find.byKey(ProgressScreen.historyRouteCardKey));
+  await tester.tap(find.byKey(ProgressScreen.historyRouteCardKey));
+  await tester.pump();
 }
 
 Future<void> _pumpUntilFound(WidgetTester tester, Finder finder) async {

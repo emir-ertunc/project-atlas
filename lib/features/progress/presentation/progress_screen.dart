@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:project_atlas/core/achievements/local_achievement_feedback.dart';
+import 'package:project_atlas/core/design_system/components/app_dashboard_card.dart';
+import 'package:project_atlas/core/design_system/components/app_progress_ring.dart';
+import 'package:project_atlas/core/design_system/components/app_status_chip.dart';
 import 'package:project_atlas/core/design_system/components/feature_root_scaffold.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/core/measurements/measurement_guidance.dart';
@@ -17,12 +22,24 @@ import 'package:project_atlas/features/progress/domain/progress_trends.dart';
 import 'package:project_atlas/features/today/application/workout_status_calculator.dart';
 import 'package:project_atlas/l10n/generated/app_localizations.dart';
 
-class ProgressScreen extends ConsumerStatefulWidget {
+class ProgressScreen extends ConsumerWidget {
   const ProgressScreen({super.key});
 
   static const path = '/progress';
   static const routeName = 'progress';
   static const screenKey = Key('progress-screen');
+  static const historyRouteCardKey = Key('progress-history-route-card');
+  static const trendsRouteCardKey = Key('progress-trends-route-card');
+  static const measurementRouteCardKey = Key('progress-measurement-route-card');
+  static const progressPathCardKey = Key('progress-path-card');
+  static const milestonesCardKey = Key('progress-milestones-card');
+  static const personalRecordsPreviewCardKey = Key(
+    'progress-personal-records-preview-card',
+  );
+  static const trendPreviewCardKey = Key('progress-trend-preview-card');
+  static const measurementComparisonPreviewCardKey = Key(
+    'progress-measurement-comparison-preview-card',
+  );
   static const emptyStateKey = Key('progress-empty-state');
   static const historySectionKey = Key('progress-history-section');
   static const trendsSectionKey = Key('progress-trends-section');
@@ -100,10 +117,39 @@ class ProgressScreen extends ConsumerStatefulWidget {
   static Key revisionRowKey(String logId) => Key('progress-revision-$logId');
 
   @override
-  ConsumerState<ProgressScreen> createState() => _ProgressScreenState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final historyState = ref.watch(workoutHistoryProvider);
+
+    return FeatureRootScaffold(
+      key: screenKey,
+      title: l10n.progressNavigationLabel,
+      icon: Icons.insights_outlined,
+      child: historyState.when(
+        data: (state) => _ProgressDashboard(state: state),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => _ProgressErrorState(
+          onRetry: () => ref.invalidate(workoutHistoryProvider),
+        ),
+      ),
+    );
+  }
 }
 
-class _ProgressScreenState extends ConsumerState<ProgressScreen> {
+class ProgressHistoryScreen extends ConsumerStatefulWidget {
+  const ProgressHistoryScreen({super.key});
+
+  static const pathSegment = 'history';
+  static const path = '${ProgressScreen.path}/$pathSegment';
+  static const routeName = 'progress-history';
+  static const screenKey = Key('progress-history-screen');
+
+  @override
+  ConsumerState<ProgressHistoryScreen> createState() =>
+      _ProgressHistoryScreenState();
+}
+
+class _ProgressHistoryScreenState extends ConsumerState<ProgressHistoryScreen> {
   String? _selectedSessionSetId;
 
   @override
@@ -112,7 +158,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
     final historyState = ref.watch(workoutHistoryProvider);
 
     return FeatureRootScaffold(
-      key: ProgressScreen.screenKey,
+      key: ProgressHistoryScreen.screenKey,
       title: l10n.progressNavigationLabel,
       icon: Icons.insights_outlined,
       child: historyState.when(
@@ -132,6 +178,507 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
       ),
     );
   }
+}
+
+class ProgressTrendsScreen extends StatelessWidget {
+  const ProgressTrendsScreen({super.key});
+
+  static const pathSegment = 'trends';
+  static const path = '${ProgressScreen.path}/$pathSegment';
+  static const routeName = 'progress-trends';
+  static const screenKey = Key('progress-trends-screen');
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return FeatureRootScaffold(
+      key: screenKey,
+      title: l10n.progressTrendsTitle,
+      icon: Icons.show_chart_outlined,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: AppDashboardCard(
+            title: l10n.progressTrendsTitle,
+            subtitle: l10n.progressTrendsDescription,
+            leadingIcon: Icons.show_chart_outlined,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProgressMeasurementReviewScreen extends StatelessWidget {
+  const ProgressMeasurementReviewScreen({super.key});
+
+  static const pathSegment = 'measurements';
+  static const path = '${ProgressScreen.path}/$pathSegment';
+  static const routeName = 'progress-measurements';
+  static const screenKey = Key('progress-measurements-screen');
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return FeatureRootScaffold(
+      key: screenKey,
+      title: l10n.progressMeasurementHistoryTitle,
+      icon: Icons.straighten_outlined,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: AppDashboardCard(
+            title: l10n.progressMeasurementHistoryTitle,
+            subtitle: l10n.progressMeasurementHistoryDescription,
+            leadingIcon: Icons.straighten_outlined,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProgressDashboard extends ConsumerWidget {
+  const _ProgressDashboard({required this.state});
+
+  final WorkoutHistoryState state;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final catalog = ref
+        .watch(exerciseCatalogProvider)
+        .maybeWhen(data: (catalog) => catalog, orElse: () => null);
+    final formatter = UnitFormatter(
+      locale: Localizations.localeOf(context),
+      unitSystem: ref.watch(unitSystemProvider),
+    );
+    final summary = _ProgressDashboardSummary.fromState(state, l10n);
+
+    return ListView(
+      restorationId: 'progress-dashboard-scroll',
+      padding: const EdgeInsets.all(AppSpacing.md),
+      children: [
+        Semantics(
+          header: true,
+          child: Text(
+            l10n.progressNavigationLabel,
+            key: FeatureRootScaffold.placeholderTitleKey,
+            style: theme.textTheme.headlineSmall,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          l10n.progressScreenSubtitle,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _ProgressPathCard(summary: summary),
+        const SizedBox(height: AppSpacing.sm),
+        _ProgressMilestonesCard(milestones: summary.milestones),
+        const SizedBox(height: AppSpacing.sm),
+        _ProgressRecordPreviewCard(
+          state: state,
+          catalog: catalog,
+          formatter: formatter,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _ProgressTrendPreviewCard(
+          trends: state.trends,
+          catalog: catalog,
+          formatter: formatter,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _ProgressMeasurementPreviewCard(
+          history: state.measurementHistory,
+          formatter: formatter,
+        ),
+      ],
+    );
+  }
+}
+
+class _ProgressPathCard extends StatelessWidget {
+  const _ProgressPathCard({required this.summary});
+
+  final _ProgressDashboardSummary summary;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return AppDashboardCard(
+      key: ProgressScreen.progressPathCardKey,
+      title: l10n.progressDashboardPathTitle,
+      subtitle: l10n.progressDashboardPathDescription,
+      leadingIcon: Icons.route_outlined,
+      metric: l10n.progressDashboardStreakValue(summary.currentStreakDays),
+      trend: l10n.progressDashboardMilestoneSummary(
+        summary.completedMilestoneCount,
+        summary.milestones.length,
+      ),
+      trailing: AppProgressRing(
+        progress: summary.milestoneProgress,
+        size: 64,
+        semanticLabel: l10n.progressDashboardPathTitle,
+        center: Text(
+          '${(summary.milestoneProgress * 100).round()}%',
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+      ),
+      child: Wrap(
+        spacing: AppSpacing.xs,
+        runSpacing: AppSpacing.xs,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          AppStatusChip(
+            label: summary.currentStreakDays == 0
+                ? l10n.progressDashboardStreakEmpty
+                : l10n.progressDashboardStreakStatus(
+                    l10n.progressDashboardStreakValue(
+                      summary.currentStreakDays,
+                    ),
+                  ),
+            tone: summary.currentStreakDays == 0
+                ? AppStatusTone.neutral
+                : AppStatusTone.success,
+            icon: Icons.local_fire_department_outlined,
+          ),
+          AppStatusChip(
+            label: l10n.progressDashboardWeekStatus(
+              summary.completedSessionsThisWeek,
+            ),
+            tone: summary.completedSessionsThisWeek == 0
+                ? AppStatusTone.neutral
+                : AppStatusTone.information,
+            icon: Icons.calendar_month_outlined,
+          ),
+          AppStatusChip(
+            label: summary.feedbackLabel,
+            tone: _localAchievementFeedbackTone(summary.feedback.feedbackKind),
+            icon: _localAchievementFeedbackIcon(summary.feedback.feedbackKind),
+          ),
+          FilledButton.tonalIcon(
+            key: ProgressScreen.historyRouteCardKey,
+            onPressed: () => context.go(ProgressHistoryScreen.path),
+            icon: const Icon(Icons.history_outlined),
+            label: Text(l10n.progressDashboardOpenRecords),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProgressMilestonesCard extends StatelessWidget {
+  const _ProgressMilestonesCard({required this.milestones});
+
+  final List<_DashboardMilestone> milestones;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return Card(
+      key: ProgressScreen.milestonesCardKey,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.progressDashboardMilestonesTitle,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Wrap(
+              spacing: AppSpacing.xs,
+              runSpacing: AppSpacing.xs,
+              children: [
+                for (final milestone in milestones)
+                  AppStatusChip(
+                    label: milestone.label,
+                    tone: milestone.isComplete
+                        ? AppStatusTone.success
+                        : AppStatusTone.neutral,
+                    icon: milestone.isComplete
+                        ? Icons.check_circle_outline
+                        : Icons.radio_button_unchecked,
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProgressRecordPreviewCard extends StatelessWidget {
+  const _ProgressRecordPreviewCard({
+    required this.state,
+    required this.catalog,
+    required this.formatter,
+  });
+
+  final WorkoutHistoryState state;
+  final ExerciseCatalog? catalog;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final record = _firstPersonalRecord(state.personalRecords);
+
+    return AppDashboardCard(
+      key: ProgressScreen.personalRecordsPreviewCardKey,
+      title: l10n.progressDashboardRecordBoardTitle,
+      subtitle: record == null
+          ? l10n.progressPersonalRecordsEmpty
+          : _exerciseName(context, catalog, record.exerciseId),
+      leadingIcon: Icons.emoji_events_outlined,
+      metric: record == null
+          ? null
+          : l10n.progressDashboardRecordBoardSummary(
+              state.personalRecords.length,
+            ),
+      trailing: TextButton.icon(
+        onPressed: () => context.go(ProgressHistoryScreen.path),
+        icon: const Icon(Icons.chevron_right),
+        label: Text(l10n.progressDashboardOpenRecords),
+      ),
+      child: record == null
+          ? Text(l10n.progressDashboardRecordBoardEmpty)
+          : Wrap(
+              spacing: AppSpacing.xs,
+              runSpacing: AppSpacing.xs,
+              children: [
+                if (record.bestLoad != null)
+                  AppStatusChip(
+                    label: l10n.progressBestLoad(
+                      _formatMassValue(formatter, record.bestLoad!.value),
+                    ),
+                    tone: AppStatusTone.success,
+                  ),
+                if (record.bestRepetitions != null)
+                  AppStatusChip(
+                    label: l10n.progressBestRepetitions(
+                      record.bestRepetitions!.value.round(),
+                    ),
+                    tone: AppStatusTone.success,
+                  ),
+                if (record.bestVolume != null)
+                  AppStatusChip(
+                    label: l10n.progressBestVolume(
+                      _formatVolumeValue(
+                        context,
+                        formatter,
+                        record.bestVolume!,
+                      ),
+                    ),
+                    tone: AppStatusTone.success,
+                  ),
+              ],
+            ),
+    );
+  }
+}
+
+class _ProgressTrendPreviewCard extends StatelessWidget {
+  const _ProgressTrendPreviewCard({
+    required this.trends,
+    required this.catalog,
+    required this.formatter,
+  });
+
+  final ProgressTrendSet trends;
+  final ExerciseCatalog? catalog;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final previewLine = _progressTrendPreviewLine(
+      context: context,
+      trends: trends,
+      catalog: catalog,
+      formatter: formatter,
+    );
+
+    return AppDashboardCard(
+      key: ProgressScreen.trendPreviewCardKey,
+      title: l10n.progressTrendsTitle,
+      subtitle: previewLine ?? l10n.progressDashboardTrendEmpty,
+      leadingIcon: Icons.show_chart_outlined,
+      trailing: TextButton.icon(
+        key: ProgressScreen.trendsRouteCardKey,
+        onPressed: () => context.go(ProgressTrendsScreen.path),
+        icon: const Icon(Icons.chevron_right),
+        label: Text(l10n.progressDashboardOpenTrends),
+      ),
+    );
+  }
+}
+
+class _ProgressMeasurementPreviewCard extends StatelessWidget {
+  const _ProgressMeasurementPreviewCard({
+    required this.history,
+    required this.formatter,
+  });
+
+  final MeasurementHistoryReadModel history;
+  final UnitFormatter formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final comparison = history.comparisons.isEmpty
+        ? null
+        : history.comparisons.first;
+
+    return AppDashboardCard(
+      key: ProgressScreen.measurementComparisonPreviewCardKey,
+      title: l10n.progressMeasurementHistoryTitle,
+      subtitle: comparison == null
+          ? l10n.progressDashboardMeasurementEmpty
+          : _measurementComparisonLine(
+              context: context,
+              comparison: comparison,
+              formatter: formatter,
+            ),
+      leadingIcon: Icons.straighten_outlined,
+      metric: history.records.isEmpty
+          ? null
+          : history.records.length.toString(),
+      trend: history.comparisons.isEmpty
+          ? null
+          : l10n.progressDashboardMeasurementComparisonCount(
+              history.comparisons.length,
+            ),
+      trailing: TextButton.icon(
+        key: ProgressScreen.measurementRouteCardKey,
+        onPressed: () => context.go(ProgressMeasurementReviewScreen.path),
+        icon: const Icon(Icons.chevron_right),
+        label: Text(l10n.progressDashboardOpenMeasurements),
+      ),
+    );
+  }
+}
+
+final class _ProgressDashboardSummary {
+  const _ProgressDashboardSummary({
+    required this.feedback,
+    required this.feedbackLabel,
+    required this.milestones,
+  });
+
+  final LocalAchievementFeedback feedback;
+  final String feedbackLabel;
+  final List<_DashboardMilestone> milestones;
+
+  int get currentStreakDays => feedback.currentStreakDays;
+
+  int get completedSessionsThisWeek => feedback.completedWorkoutDaysThisWeek;
+
+  int get completedMilestoneCount => feedback.completedMilestoneCount;
+
+  double get milestoneProgress => feedback.milestoneProgress;
+
+  static _ProgressDashboardSummary fromState(
+    WorkoutHistoryState state,
+    AppLocalizations l10n,
+  ) {
+    final feedback = buildLocalAchievementFeedback(
+      sessions: state.sessions.map((summary) => summary.session),
+      now: state.trends.generatedAt,
+      weeklyWorkoutTarget: 7,
+      hasPersonalRecord: state.personalRecords.any(
+        (record) => record.hasAnyRecord,
+      ),
+      hasMeasurementComparison: state.measurementHistory.hasComparisons,
+    );
+    return _ProgressDashboardSummary(
+      feedback: feedback,
+      feedbackLabel: _localAchievementFeedbackLabel(l10n, feedback),
+      milestones: [
+        for (final milestone in feedback.milestones)
+          _DashboardMilestone(
+            label: _localMilestoneLabel(l10n, milestone.kind),
+            isComplete: milestone.isComplete,
+          ),
+      ],
+    );
+  }
+}
+
+final class _DashboardMilestone {
+  const _DashboardMilestone({required this.label, required this.isComplete});
+
+  final String label;
+  final bool isComplete;
+}
+
+String _localAchievementFeedbackLabel(
+  AppLocalizations l10n,
+  LocalAchievementFeedback feedback,
+) {
+  final nextMilestone = feedback.nextMilestone;
+  if (nextMilestone != null &&
+      feedback.feedbackKind == LocalAchievementFeedbackKind.start) {
+    return l10n.progressDashboardLocalFeedbackNext(
+      _localMilestoneLabel(l10n, nextMilestone.kind),
+    );
+  }
+
+  return switch (feedback.feedbackKind) {
+    LocalAchievementFeedbackKind.start =>
+      l10n.progressDashboardLocalFeedbackStart,
+    LocalAchievementFeedbackKind.streakActive =>
+      l10n.progressDashboardLocalFeedbackStreak,
+    LocalAchievementFeedbackKind.weekOnTrack =>
+      l10n.progressDashboardLocalFeedbackWeek,
+    LocalAchievementFeedbackKind.milestonesComplete =>
+      l10n.progressDashboardLocalFeedbackComplete,
+  };
+}
+
+String _localMilestoneLabel(AppLocalizations l10n, LocalMilestoneKind kind) {
+  return switch (kind) {
+    LocalMilestoneKind.firstWorkout =>
+      l10n.progressDashboardMilestoneFirstWorkout,
+    LocalMilestoneKind.twoWorkoutDaysInWeek =>
+      l10n.progressDashboardMilestoneWeekRhythm,
+    LocalMilestoneKind.firstPersonalRecord =>
+      l10n.progressDashboardMilestoneFirstRecord,
+    LocalMilestoneKind.bodyComparison =>
+      l10n.progressDashboardMilestoneBodyComparison,
+  };
+}
+
+AppStatusTone _localAchievementFeedbackTone(LocalAchievementFeedbackKind kind) {
+  return switch (kind) {
+    LocalAchievementFeedbackKind.start => AppStatusTone.neutral,
+    LocalAchievementFeedbackKind.streakActive => AppStatusTone.success,
+    LocalAchievementFeedbackKind.weekOnTrack => AppStatusTone.information,
+    LocalAchievementFeedbackKind.milestonesComplete => AppStatusTone.success,
+  };
+}
+
+IconData _localAchievementFeedbackIcon(LocalAchievementFeedbackKind kind) {
+  return switch (kind) {
+    LocalAchievementFeedbackKind.start => Icons.flag_outlined,
+    LocalAchievementFeedbackKind.streakActive =>
+      Icons.local_fire_department_outlined,
+    LocalAchievementFeedbackKind.weekOnTrack => Icons.timeline_outlined,
+    LocalAchievementFeedbackKind.milestonesComplete =>
+      Icons.emoji_events_outlined,
+  };
 }
 
 class _ProgressContent extends ConsumerWidget {
@@ -1251,6 +1798,51 @@ class _PersonalRecordsSection extends StatelessWidget {
       ],
     );
   }
+}
+
+PersonalRecordSummary? _firstPersonalRecord(
+  List<PersonalRecordSummary> records,
+) {
+  for (final record in records) {
+    if (record.hasAnyRecord) {
+      return record;
+    }
+  }
+  return null;
+}
+
+String? _progressTrendPreviewLine({
+  required BuildContext context,
+  required ProgressTrendSet trends,
+  required ExerciseCatalog? catalog,
+  required UnitFormatter formatter,
+}) {
+  for (final exerciseTrend in trends.trainingTrends) {
+    if (exerciseTrend.metricTrends.isEmpty) {
+      continue;
+    }
+    final trend = exerciseTrend.metricTrends.first;
+    return '${_exerciseName(context, catalog, exerciseTrend.exerciseId)} · '
+        '${_trendLine(context: context, metricLabel: _trainingTrendLabel(AppLocalizations.of(context), trend.metric), unit: trend.unit, latestValue: trend.latestPoint.value, delta: trend.delta, pointCount: trend.points.length, formatter: formatter)}';
+  }
+
+  if (trends.measurementTrends.isEmpty) {
+    return null;
+  }
+
+  final trend = trends.measurementTrends.first;
+  return _trendLine(
+    context: context,
+    metricLabel: _measurementTrendLabel(
+      AppLocalizations.of(context),
+      trend.metric,
+    ),
+    unit: trend.unit,
+    latestValue: trend.latestPoint.value,
+    delta: trend.delta,
+    pointCount: trend.points.length,
+    formatter: formatter,
+  );
 }
 
 String _measurementComparisonLine({

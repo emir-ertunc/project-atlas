@@ -6,12 +6,9 @@ import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
 import 'package:project_atlas/core/database/tables/availability_windows.dart';
 import 'package:project_atlas/core/database/tables/onboarding_preferences.dart';
+import 'package:project_atlas/core/design_system/app_theme.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 import 'package:project_atlas/features/adaptive_programming/application/availability_controller.dart';
-import 'package:project_atlas/features/adaptive_programming/presentation/availability_window_editor.dart';
-import 'package:project_atlas/features/adaptive_programming/presentation/calibration_block_card.dart';
-import 'package:project_atlas/features/adaptive_programming/presentation/generated_program_card.dart';
-import 'package:project_atlas/features/adaptive_programming/presentation/missed_session_replacement_card.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
 import 'package:project_atlas/features/onboarding/application/onboarding_controller.dart';
@@ -38,7 +35,7 @@ void main() {
     await database.close();
   });
 
-  testWidgets('saves goal, experience, equipment, length, and day choices', (
+  testWidgets('guided setup saves preferences and weekly availability', (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -49,20 +46,27 @@ void main() {
           availabilityClockProvider.overrideWithValue(() => now),
           exerciseCatalogProvider.overrideWith((ref) => testCatalog),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: SettingsScreen(),
+          home: SettingsSetupScreen(),
         ),
       ),
     );
     await tester.pumpAndSettle();
 
+    expect(find.byKey(SettingsScreen.setupWizardKey), findsOneWidget);
     expect(find.byKey(SettingsScreen.onboardingSectionKey), findsOneWidget);
+    expect(find.byKey(SettingsScreen.goalDropdownKey), findsOneWidget);
 
     await tester.tap(find.byKey(SettingsScreen.goalDropdownKey));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Hypertrophy').last);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(SettingsScreen.setupStepNextButtonKey));
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(SettingsScreen.experienceDropdownKey));
@@ -70,9 +74,15 @@ void main() {
     await tester.tap(find.text('Advanced').last);
     await tester.pumpAndSettle();
 
+    await tester.tap(find.byKey(SettingsScreen.setupStepNextButtonKey));
+    await tester.pumpAndSettle();
+
     await tester.tap(
       find.byKey(SettingsScreen.equipmentChipKey(EquipmentPreference.barbell)),
     );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(SettingsScreen.setupStepNextButtonKey));
     await tester.pumpAndSettle();
 
     await tester.ensureVisible(
@@ -92,6 +102,27 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.ensureVisible(
+      find.byKey(SettingsScreen.availabilityFixedPeriodKey(0)),
+    );
+    await tester.tap(find.byKey(SettingsScreen.availabilityFixedPeriodKey(0)));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(
+      find.byKey(SettingsScreen.setupStepNextButtonKey),
+    );
+    await tester.tap(find.byKey(SettingsScreen.setupStepNextButtonKey));
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byKey(SettingsScreen.measurementPreferenceChipKey('essentials')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Essentials first'), findsOneWidget);
+
+    await tester.tap(find.byKey(SettingsScreen.setupStepReviewButtonKey));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(
       find.byKey(SettingsScreen.saveOnboardingButtonKey),
     );
     await tester.tap(find.byKey(SettingsScreen.saveOnboardingButtonKey));
@@ -106,32 +137,8 @@ void main() {
     expect(preferences.equipmentIds, 'bodyweight,dumbbells,barbell');
     expect(preferences.preferredSessionLengthMinutes, 90);
     expect(preferences.preferredWeekdays, 'monday,wednesday,friday,sunday');
-    expect(find.text('Onboarding preferences saved.'), findsOneWidget);
+    expect(find.text('Setup saved.'), findsOneWidget);
     expect(find.byKey(SettingsScreen.savedSummaryKey), findsOneWidget);
-    expect(find.byKey(CalibrationBlockCard.cardKey), findsOneWidget);
-    expect(
-      find.text('2 weeks - 4 sessions/week - keep at least RIR 2'),
-      findsOneWidget,
-    );
-    expect(
-      find.text(
-        'No load increases during calibration; collect clean set evidence first.',
-      ),
-      findsOneWidget,
-    );
-    expect(find.byKey(WeeklyAvailabilityEditor.cardKey), findsOneWidget);
-
-    await tester.ensureVisible(
-      find.byKey(WeeklyAvailabilityEditor.fixedPeriodKey(0)),
-    );
-    await tester.tap(find.byKey(WeeklyAvailabilityEditor.fixedPeriodKey(0)));
-    await tester.pumpAndSettle();
-
-    await tester.ensureVisible(
-      find.byKey(WeeklyAvailabilityEditor.saveButtonKey),
-    );
-    await tester.tap(find.byKey(WeeklyAvailabilityEditor.saveButtonKey));
-    await tester.pumpAndSettle();
 
     final availabilityWindows = await database
         .select(database.availabilityWindows)
@@ -161,13 +168,11 @@ void main() {
       ),
       isTrue,
     );
-    expect(find.byKey(GeneratedProgramCard.cardKey), findsOneWidget);
-    expect(find.byKey(GeneratedProgramCard.summaryKey), findsOneWidget);
-    expect(find.byKey(GeneratedProgramCard.applyButtonKey), findsOneWidget);
-    expect(find.byKey(MissedSessionReplacementCard.cardKey), findsOneWidget);
+    expect(find.byKey(const Key('weekly-availability-card')), findsNothing);
+    expect(find.byKey(const Key('generated-program-card')), findsNothing);
     expect(
-      find.byKey(MissedSessionReplacementCard.missedDayDropdownKey),
-      findsOneWidget,
+      find.byKey(const Key('missed-session-replacement-card')),
+      findsNothing,
     );
   });
 }

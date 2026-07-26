@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_atlas/core/achievements/local_achievement_feedback.dart';
 import 'package:project_atlas/core/repositories/repository_contracts.dart';
 import 'package:project_atlas/core/repositories/repository_providers.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
@@ -14,11 +15,13 @@ final todayWorkoutControllerProvider =
 
 final class TodayWorkoutState {
   const TodayWorkoutState({
+    this.coachSummary = TodayCoachSummary.empty,
     this.activeProgramPlan,
     this.activeSession,
     this.selectedTrainingDayOrder,
   });
 
+  final TodayCoachSummary coachSummary;
   final TodayProgramPlan? activeProgramPlan;
   final TodaySessionSummary? activeSession;
   final int? selectedTrainingDayOrder;
@@ -33,17 +36,50 @@ final class TodayWorkoutState {
   }
 
   TodayWorkoutState copyWith({
+    TodayCoachSummary? coachSummary,
     TodayProgramPlan? activeProgramPlan,
     TodaySessionSummary? activeSession,
     int? selectedTrainingDayOrder,
   }) {
     return TodayWorkoutState(
+      coachSummary: coachSummary ?? this.coachSummary,
       activeProgramPlan: activeProgramPlan ?? this.activeProgramPlan,
       activeSession: activeSession ?? this.activeSession,
       selectedTrainingDayOrder:
           selectedTrainingDayOrder ?? this.selectedTrainingDayOrder,
     );
   }
+}
+
+final class TodayCoachSummary {
+  const TodayCoachSummary({
+    required this.currentStreakDays,
+    required this.completedWorkoutsThisWeek,
+    required this.weeklyWorkoutTarget,
+  });
+
+  static const empty = TodayCoachSummary(
+    currentStreakDays: 0,
+    completedWorkoutsThisWeek: 0,
+    weeklyWorkoutTarget: 0,
+  );
+
+  final int currentStreakDays;
+  final int completedWorkoutsThisWeek;
+  final int weeklyWorkoutTarget;
+
+  bool get hasWeeklyTarget => weeklyWorkoutTarget > 0;
+
+  double get weeklyConsistencyRatio {
+    if (!hasWeeklyTarget) {
+      return 0;
+    }
+    return (completedWorkoutsThisWeek / weeklyWorkoutTarget)
+        .clamp(0.0, 1.0)
+        .toDouble();
+  }
+
+  int get weeklyConsistencyPercent => (weeklyConsistencyRatio * 100).round();
 }
 
 final class TodayProgramPlan {
@@ -364,6 +400,7 @@ class TodayWorkoutController extends AsyncNotifier<TodayWorkoutState> {
     final profileId = ref.read(localProgramProfileIdProvider);
     final programRepository = ref.read(programRepositoryProvider);
     final workoutRepository = ref.read(workoutRepositoryProvider);
+    final now = ref.read(todayClockProvider)().toUtc();
 
     final sessions = await workoutRepository.getSessions(profileId);
     final activeSession = _firstWhereOrNull(
@@ -392,7 +429,14 @@ class TodayWorkoutController extends AsyncNotifier<TodayWorkoutState> {
     );
     if (activeProgram == null) {
       _selectedTrainingDayOrder = null;
-      return TodayWorkoutState(activeSession: sessionSummary);
+      return TodayWorkoutState(
+        activeSession: sessionSummary,
+        coachSummary: _buildCoachSummary(
+          sessions: sessions,
+          activeProgramPlan: null,
+          now: now,
+        ),
+      );
     }
 
     final versions = await programRepository.getVersions(activeProgram.id);
@@ -402,7 +446,14 @@ class TodayWorkoutController extends AsyncNotifier<TodayWorkoutState> {
     );
     if (activeVersion == null) {
       _selectedTrainingDayOrder = null;
-      return TodayWorkoutState(activeSession: sessionSummary);
+      return TodayWorkoutState(
+        activeSession: sessionSummary,
+        coachSummary: _buildCoachSummary(
+          sessions: sessions,
+          activeProgramPlan: null,
+          now: now,
+        ),
+      );
     }
 
     final trainingDays = await programRepository.getTrainingDays(
@@ -425,6 +476,11 @@ class TodayWorkoutController extends AsyncNotifier<TodayWorkoutState> {
     _selectedTrainingDayOrder = selectedOrder;
 
     return TodayWorkoutState(
+      coachSummary: _buildCoachSummary(
+        sessions: sessions,
+        activeProgramPlan: plan,
+        now: now,
+      ),
       activeProgramPlan: plan,
       activeSession: sessionSummary,
       selectedTrainingDayOrder: selectedOrder,
@@ -598,6 +654,27 @@ int? _resolveSelectedTrainingDayOrder(
     }
   }
   return plan.trainingDays.first.trainingDayOrder;
+}
+
+TodayCoachSummary _buildCoachSummary({
+  required List<WorkoutSessionRecord> sessions,
+  required TodayProgramPlan? activeProgramPlan,
+  required DateTime now,
+}) {
+  final target =
+      activeProgramPlan?.trainingDays.where((day) => day.hasExercises).length ??
+      0;
+  final achievementFeedback = buildLocalAchievementFeedback(
+    sessions: sessions,
+    now: now,
+    weeklyWorkoutTarget: target,
+  );
+
+  return TodayCoachSummary(
+    currentStreakDays: achievementFeedback.currentStreakDays,
+    completedWorkoutsThisWeek: achievementFeedback.completedWorkoutDaysThisWeek,
+    weeklyWorkoutTarget: target,
+  );
 }
 
 ActualSetLogRecord? _latestLog(List<ActualSetLogRecord> logs) {

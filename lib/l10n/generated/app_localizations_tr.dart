@@ -25,20 +25,118 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get progressScreenSubtitle =>
-      'Antrenman gecmisini incele, set sonuclarina bak ve kisisel rekorlari takip et.';
+      'Seri, rekor, trend ve ölçüm değişimini takip et.';
 
   @override
-  String get progressHistoryTitle => 'Antrenman gecmisi';
+  String get progressDashboardPathTitle => 'İlerleme yolu';
 
   @override
-  String get progressHistoryEmptyTitle => 'Henuz antrenman gecmisi yok';
+  String get progressDashboardPathDescription =>
+      'Antrenman yap, kaydet, karşılaştır, tekrarla.';
+
+  @override
+  String progressDashboardStreakValue(int dayCount) {
+    return '${dayCount}g';
+  }
+
+  @override
+  String get progressDashboardStreakEmpty => 'Seriyi başlat';
+
+  @override
+  String progressDashboardStreakStatus(String streakValue) {
+    return 'Seri $streakValue';
+  }
+
+  @override
+  String progressDashboardWeekStatus(int completedCount) {
+    return 'Hafta $completedCount/7g';
+  }
+
+  @override
+  String get progressDashboardLocalFeedbackStart => 'Döngüyü başlat';
+
+  @override
+  String get progressDashboardLocalFeedbackStreak => 'Yerel ivme';
+
+  @override
+  String get progressDashboardLocalFeedbackWeek => 'Hafta yolunda';
+
+  @override
+  String get progressDashboardLocalFeedbackComplete =>
+      'Kilometre taşları tamam';
+
+  @override
+  String progressDashboardLocalFeedbackNext(String milestoneLabel) {
+    return 'Sıradaki: $milestoneLabel';
+  }
+
+  @override
+  String progressDashboardMilestoneSummary(int completedCount, int totalCount) {
+    return '$completedCount/$totalCount kilometre taşı';
+  }
+
+  @override
+  String get progressDashboardMilestonesTitle => 'Kilometre taşları';
+
+  @override
+  String get progressDashboardMilestoneFirstWorkout => 'İlk antrenman';
+
+  @override
+  String get progressDashboardMilestoneWeekRhythm => 'Bu hafta 2 gün';
+
+  @override
+  String get progressDashboardMilestoneFirstRecord => 'İlk rekor';
+
+  @override
+  String get progressDashboardMilestoneBodyComparison =>
+      'Vücut karşılaştırması';
+
+  @override
+  String get progressDashboardRecordBoardTitle => 'En iyi rekorlar';
+
+  @override
+  String progressDashboardRecordBoardSummary(int recordCount) {
+    return '$recordCount takipte';
+  }
+
+  @override
+  String get progressDashboardRecordBoardEmpty =>
+      'Rekor için temiz set kaydet.';
+
+  @override
+  String get progressDashboardTrendEmpty =>
+      'Trend için iki veri noktası kaydet.';
+
+  @override
+  String get progressDashboardMeasurementEmpty =>
+      'Karşılaştırmak için iki ölçüm kaydet.';
+
+  @override
+  String progressDashboardMeasurementComparisonCount(int comparisonCount) {
+    return '$comparisonCount karşılaştırma';
+  }
+
+  @override
+  String get progressDashboardOpenRecords => 'Rekorlar';
+
+  @override
+  String get progressDashboardOpenTrends => 'Trendler';
+
+  @override
+  String get progressDashboardOpenMeasurements => 'Karşılaştır';
+
+  @override
+  String get progressHistoryTitle => 'Geçmiş';
+
+  @override
+  String get progressHistoryEmptyTitle => 'Henüz geçmiş yok';
 
   @override
   String get progressHistoryEmptyMessage =>
-      'Yerel gecmisi olusturmak icin Bugun sekmesinden setleri tamamla.';
+      'Geçmişi başlatmak için Bugün’de bir set tamamla.';
 
   @override
-  String get progressHistoryLoadError => 'Antrenman gecmisi yuklenemedi.';
+  String get progressHistoryLoadError => 'Geçmiş yüklenemedi.';
 
   @override
   String get progressUnnamedSession => 'Antrenman oturumu';
@@ -49,7 +147,7 @@ class AppLocalizationsTr extends AppLocalizations {
     int completedSetCount,
     int setCount,
   ) {
-    return '$status - $completedSetCount/$setCount set kaydedildi';
+    return '$status · $completedSetCount/$setCount set';
   }
 
   @override
@@ -58,15 +156,14 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get progressSetDetailsTitle => 'Set detaylari';
+  String get progressSetDetailsTitle => 'Set detayı';
 
   @override
-  String get progressSetDetailsEmpty =>
-      'Sonucunu incelemek icin antrenman gecmisinden bir set sec.';
+  String get progressSetDetailsEmpty => 'Sonucu görmek için geçmişten set seç.';
 
   @override
   String progressSetDetailSession(String sessionName, String dateTime) {
-    return '$sessionName - $dateTime';
+    return '$sessionName · $dateTime';
   }
 
   @override
@@ -90,10 +187,10 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get progressNoActualLog => 'Gercek sonuc kaydedilmedi';
+  String get progressNoActualLog => 'Gerçek sonuç yok';
 
   @override
-  String get progressRevisionHistoryTitle => 'Revizyon gecmisi';
+  String get progressRevisionHistoryTitle => 'Revizyonlar';
 
   @override
   String progressRevisionRow(int revision, String result) {
@@ -102,75 +199,73 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String progressRevisionSupersedes(String logId) {
-    return '$logId kaydinin yerine gecer';
+    return '$logId kaydının yerine geçer';
   }
 
   @override
-  String get progressCorrectionTitle => 'Kayitli sonucu duzelt';
+  String get progressCorrectionTitle => 'Sonucu düzelt';
 
   @override
   String get progressCorrectionDescription =>
-      'Duzeltme kaydedilince yeni bir revizyon eklenir. Eski kayitlar korunur.';
+      'Düzeltme yeni revizyon olur; eski kayıtlar korunur.';
 
   @override
   String get progressCorrectionUnavailable =>
-      'Yalnizca tamamlanmis ve sonucu kaydedilmis setler duzeltilebilir.';
+      'Yalnızca tamamlanmış kayıtlı setler düzeltilebilir.';
 
   @override
-  String get progressCorrectionRepetitionsLabel => 'Duzeltilen tekrar';
+  String get progressCorrectionRepetitionsLabel => 'Tekrar';
 
   @override
-  String get progressCorrectionLoadLabel => 'Duzeltilen yuk';
+  String get progressCorrectionLoadLabel => 'Yük';
 
   @override
-  String get progressCorrectionRirLabel => 'Duzeltilen RIR';
+  String get progressCorrectionRirLabel => 'RIR';
 
   @override
-  String get progressCorrectionOutcomeLabel => 'Duzeltilen sonuc';
+  String get progressCorrectionOutcomeLabel => 'Sonuç';
 
   @override
-  String get progressCorrectionSave => 'Duzeltmeyi kaydet';
+  String get progressCorrectionSave => 'Kaydet';
 
   @override
-  String get progressCorrectionSaved =>
-      'Duzeltme yeni revizyon olarak kaydedildi.';
+  String get progressCorrectionSaved => 'Düzeltme kaydedildi.';
 
   @override
-  String get progressCorrectionFailed => 'Duzeltme kaydedilemedi.';
+  String get progressCorrectionFailed => 'Düzeltme kaydedilemedi.';
 
   @override
-  String get progressCorrectionInvalid =>
-      'Gecerli tekrar, yuk ve RIR degerleri gir.';
+  String get progressCorrectionInvalid => 'Geçerli tekrar, yük ve RIR gir.';
 
   @override
-  String get progressPersonalRecordsTitle => 'Kisisel rekorlar';
+  String get progressPersonalRecordsTitle => 'Kişisel rekorlar';
 
   @override
   String get progressPersonalRecordsEmpty =>
-      'Henuz kisisel rekor yok. Rekor takibi icin tekrar veya yuk iceren temiz setleri tamamla.';
+      'Rekor için tekrar veya yük içeren temiz set kaydet.';
 
   @override
   String get progressTrendsTitle => 'Trendler';
 
   @override
   String get progressTrendsDescription =>
-      'Kayitli olcumlerden ve en son temiz set kayitlarindan yerel olarak turetilir. Tahmini guc yalnizca goruntuleme amacli bir antrenman tahminidir.';
+      'Ölçüm ve temiz set kayıtlarından yerel hesaplanır. Güç tahmindir.';
 
   @override
-  String get progressMeasurementTrendsTitle => 'Olcumler';
+  String get progressMeasurementTrendsTitle => 'Ölçümler';
 
   @override
   String get progressTrainingTrendsTitle => 'Antrenman';
 
   @override
-  String get progressMeasurementHistoryTitle => 'Olcum gecmisi';
+  String get progressMeasurementHistoryTitle => 'Ölçümler';
 
   @override
   String get progressMeasurementHistoryDescription =>
-      'Kayitli vucut olcumlerini karsilastir ve yalnizca acikca gerektiginde yerel CSV veya JSON export metnini kopyala.';
+      'Kayıtlı ölçümleri karşılaştır veya gerekirse export kopyala.';
 
   @override
-  String get progressMeasurementComparisonTitle => 'Ilk ve son';
+  String get progressMeasurementComparisonTitle => 'İlk ve son';
 
   @override
   String progressMeasurementComparisonLine(
@@ -183,8 +278,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get progressMeasurementSideComparisonTitle =>
-      'Son sag/sol karsilastirma';
+  String get progressMeasurementSideComparisonTitle => 'Son sağ/sol farkı';
 
   @override
   String progressMeasurementSideComparisonLine(
@@ -194,31 +288,31 @@ class AppLocalizationsTr extends AppLocalizations {
     String difference,
     String percent,
   ) {
-    return '$pair: sol $left / sag $right ($difference, %$percent)';
+    return '$pair: sol $left / sağ $right ($difference, %$percent)';
   }
 
   @override
-  String get progressMeasurementPairUpperArm => 'Ust kol';
+  String get progressMeasurementPairUpperArm => 'Üst kol';
 
   @override
-  String get progressMeasurementPairForearm => 'On kol';
+  String get progressMeasurementPairForearm => 'Ön kol';
 
   @override
   String get progressMeasurementPairThigh => 'Uyluk';
 
   @override
-  String get progressMeasurementPairCalf => 'Baldir';
+  String get progressMeasurementPairCalf => 'Baldır';
 
   @override
-  String get progressMeasurementExportTitle => 'Olcum export';
+  String get progressMeasurementExportTitle => 'Ölçüm export';
 
   @override
   String get progressMeasurementExportDescription =>
-      'Kopyalanan metin kisisel olcum verisi icerir. Yalnizca guvendigin bir yerde sakla veya paylas.';
+      'Export kişisel ölçüm verisi içerir. Yalnızca güvendiğin yerde sakla.';
 
   @override
   String progressMeasurementExportCount(int recordCount) {
-    return '$recordCount olcum kaydi hazir';
+    return '$recordCount ölçüm kaydı hazır';
   }
 
   @override
@@ -228,10 +322,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressMeasurementExportCopyJson => 'JSON kopyala';
 
   @override
-  String get progressMeasurementExportCopiedCsv => 'Olcum CSV kopyalandi.';
+  String get progressMeasurementExportCopiedCsv => 'Ölçüm CSV kopyalandı.';
 
   @override
-  String get progressMeasurementExportCopiedJson => 'Olcum JSON kopyalandi.';
+  String get progressMeasurementExportCopiedJson => 'Ölçüm JSON kopyalandı.';
 
   @override
   String progressTrendLine(
@@ -244,7 +338,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get progressTrendNoChange => 'degisim yok';
+  String get progressTrendNoChange => 'değişim yok';
 
   @override
   String get progressTrendHeight => 'Boy';
@@ -253,28 +347,28 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressTrendWeight => 'Kilo';
 
   @override
-  String get progressTrendTorsoLength => 'Gövde uzunlugu';
+  String get progressTrendTorsoLength => 'Gövde uzunluğu';
 
   @override
-  String get progressTrendChest => 'Gogus';
+  String get progressTrendChest => 'Göğüs';
 
   @override
   String get progressTrendWaist => 'Bel';
 
   @override
-  String get progressTrendHips => 'Kalca';
+  String get progressTrendHips => 'Kalça';
 
   @override
-  String get progressTrendLeftUpperArm => 'Sol ust kol';
+  String get progressTrendLeftUpperArm => 'Sol üst kol';
 
   @override
-  String get progressTrendRightUpperArm => 'Sag ust kol';
+  String get progressTrendRightUpperArm => 'Sağ üst kol';
 
   @override
-  String get progressTrendLeftForearm => 'Sol on kol';
+  String get progressTrendLeftForearm => 'Sol ön kol';
 
   @override
-  String get progressTrendRightForearm => 'Sag on kol';
+  String get progressTrendRightForearm => 'Sağ ön kol';
 
   @override
   String get progressTrendLeftThigh => 'Sol uyluk';
@@ -283,29 +377,29 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressTrendRightThigh => 'Sag uyluk';
 
   @override
-  String get progressTrendLeftCalf => 'Sol baldir';
+  String get progressTrendLeftCalf => 'Sol baldır';
 
   @override
-  String get progressTrendRightCalf => 'Sag baldir';
+  String get progressTrendRightCalf => 'Sağ baldır';
 
   @override
-  String get progressTrendBodyFat => 'Vucut yagi';
+  String get progressTrendBodyFat => 'Vücut yağı';
 
   @override
   String get progressTrendVolume => 'Hacim';
 
   @override
-  String get progressTrendLoad => 'Yuk';
+  String get progressTrendLoad => 'Yük';
 
   @override
   String get progressTrendRepetitions => 'Tekrar';
 
   @override
-  String get progressTrendEstimatedStrength => 'Tahmini guc';
+  String get progressTrendEstimatedStrength => 'Tahmini güç';
 
   @override
   String progressBestLoad(String load) {
-    return 'En iyi yuk: $load';
+    return 'En iyi yük: $load';
   }
 
   @override
@@ -319,41 +413,41 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get settingsNavigationLabel => 'Ayarlar';
+  String get settingsNavigationLabel => 'Profil';
 
   @override
-  String get onboardingTitle => 'Uyarlanabilir başlangıç';
+  String get onboardingTitle => 'Planlayıcı kurulumu';
 
   @override
   String get onboardingDescription =>
-      'Öneriler oluşturulmadan önce planlayıcının kullanacağı girişleri belirle. Bu seçimler yalnızca bu cihazda kalır.';
+      'Program önerileri için yerel girdileri kaydet.';
 
   @override
-  String get onboardingGoalLabel => 'Ana hedef';
+  String get onboardingGoalLabel => 'Hedef';
 
   @override
-  String get onboardingExperienceLabel => 'Antrenman deneyimi';
+  String get onboardingExperienceLabel => 'Deneyim';
 
   @override
-  String get onboardingEquipmentLabel => 'Mevcut ekipman';
+  String get onboardingEquipmentLabel => 'Ekipman';
 
   @override
-  String get onboardingSessionLengthLabel => 'Tercih edilen seans süresi';
+  String get onboardingSessionLengthLabel => 'Seans süresi';
 
   @override
-  String get onboardingWeekdaysLabel => 'Tercih edilen antrenman günleri';
+  String get onboardingWeekdaysLabel => 'Antrenman günleri';
 
   @override
-  String get onboardingSaveButton => 'Başlangıcı kaydet';
+  String get onboardingSaveButton => 'Kaydet';
 
   @override
-  String get onboardingSavedMessage => 'Başlangıç tercihleri kaydedildi.';
+  String get onboardingSavedMessage => 'Kurulum kaydedildi.';
 
   @override
-  String get onboardingSaveFailed => 'Başlangıç tercihleri kaydedilemedi.';
+  String get onboardingSaveFailed => 'Kurulum kaydedilemedi.';
 
   @override
-  String get onboardingLoadError => 'Başlangıç tercihleri yüklenemedi.';
+  String get onboardingLoadError => 'Kurulum yüklenemedi.';
 
   @override
   String onboardingSessionLengthValue(int minutes) {
@@ -370,6 +464,137 @@ class AppLocalizationsTr extends AppLocalizations {
   ) {
     return 'Kaydedildi: $goal, $experience, $minutes dakika, $weekdays. Ekipman: $equipment.';
   }
+
+  @override
+  String get setupWizardTitle => 'Kurulum';
+
+  @override
+  String get setupWizardDescription =>
+      'Yerel planlama için beş hızlı adımı yanıtla.';
+
+  @override
+  String setupWizardStepCounter(int current, int total) {
+    return '$current / $total';
+  }
+
+  @override
+  String get setupWizardBackButton => 'Geri';
+
+  @override
+  String get setupWizardNextButton => 'Devam';
+
+  @override
+  String get setupWizardReviewButton => 'Kontrol et';
+
+  @override
+  String get setupWizardSaveButton => 'Kaydet';
+
+  @override
+  String get setupWizardSavedMessage => 'Kurulum kaydedildi.';
+
+  @override
+  String get setupWizardSavedStatus => 'Kaydedildi';
+
+  @override
+  String get setupWizardSavedDescription =>
+      'Hedef, ekipman, günler ve müsaitlik yerel kalır.';
+
+  @override
+  String get setupWizardSelectedStatus => 'Seçili';
+
+  @override
+  String get setupWizardGoalStepTitle => 'Hedef seç';
+
+  @override
+  String get setupWizardGoalStepShort => 'Hedef';
+
+  @override
+  String get setupWizardGoalStepDescription =>
+      'İlk planlama önceliğini belirle; sonra değiştir.';
+
+  @override
+  String get setupWizardExperienceStepTitle => 'Seviye seç';
+
+  @override
+  String get setupWizardExperienceStepShort => 'Seviye';
+
+  @override
+  String get setupWizardExperienceStepDescription =>
+      'Seviye, başlangıç hacmini kontrollü tutar.';
+
+  @override
+  String get setupWizardEquipmentStepTitle => 'Ekipman seç';
+
+  @override
+  String get setupWizardEquipmentStepShort => 'Ekipman';
+
+  @override
+  String get setupWizardEquipmentStepDescription =>
+      'Çoğu hafta kullanabileceğin ekipmanı seç.';
+
+  @override
+  String get setupWizardAvailabilityStepTitle => 'Gün seç';
+
+  @override
+  String get setupWizardAvailabilityStepShort => 'Günler';
+
+  @override
+  String get setupWizardAvailabilityStepDescription =>
+      'Gün seç, sonra pencereyi sabit veya esnek yap.';
+
+  @override
+  String get setupWizardAvailabilityWindowHint =>
+      'Esnek alan açar; sabit randevuyu korur.';
+
+  @override
+  String setupWizardAvailabilityReview(int dayCount, int minutes) {
+    return '$dayCount gün, varsayılan $minutes dk';
+  }
+
+  @override
+  String get setupWizardMeasurementsStepTitle => 'Ölçüm akışı';
+
+  @override
+  String get setupWizardMeasurementsStepShort => 'Ölçüm';
+
+  @override
+  String get setupWizardMeasurementsStepDescription =>
+      'Önce ne kadar rehberlik istediğini seç.';
+
+  @override
+  String get setupWizardMeasurementGuidedTitle => 'Rehberli giriş';
+
+  @override
+  String get setupWizardMeasurementGuidedDescription =>
+      'En iyi tahmin için bölge adımlarını kullan.';
+
+  @override
+  String get setupWizardMeasurementEssentialsTitle => 'Önce temel ölçümler';
+
+  @override
+  String get setupWizardMeasurementEssentialsDescription =>
+      'Boy, kilo ve ana çevrelerle başla.';
+
+  @override
+  String get setupWizardMeasurementLaterTitle => 'Sonra';
+
+  @override
+  String get setupWizardMeasurementLaterDescription =>
+      'Şimdilik atla ve tahmini genel tut.';
+
+  @override
+  String get setupWizardMeasurementPrivacyNote =>
+      'Bu adımda hiçbir ölçüm değeri kaydedilmez.';
+
+  @override
+  String get setupWizardReviewStepTitle => 'Kontrol et';
+
+  @override
+  String get setupWizardReviewStepShort => 'Kontrol';
+
+  @override
+  String get setupWizardReviewStepDescription =>
+      'Planlamadan önce girdileri onayla.';
 
   @override
   String get onboardingGoalGeneralFitness => 'Genel kondisyon';
@@ -559,23 +784,23 @@ class AppLocalizationsTr extends AppLocalizations {
   String get availabilityLoading => 'Haftalık müsaitlik yükleniyor...';
 
   @override
-  String get generatedProgramTitle => 'Program taslağı planlayıcı';
+  String get generatedProgramTitle => 'Taslak planlayıcı';
 
   @override
   String get generatedProgramDescription =>
-      'Başlangıç bilgileri, haftalık müsaitlik, ekipman, toparlanma aralığı ve konservatif hacim kurallarıyla düzenlenebilir yerel taslak oluştur.';
+      'Kurulum, müsaitlik, ekipman, toparlanma ve hacim kurallarıyla taslak oluştur.';
 
   @override
   String get generatedProgramAvailabilityRequired =>
-      'Program taslağı oluşturmadan önce haftalık müsaitliği kaydet.';
+      'Taslak oluşturmadan önce müsaitliği kaydet.';
 
   @override
   String get generatedProgramCatalogLoadError =>
-      'Egzersiz kataloğu yüklenemediği için program taslağı oluşturulamıyor.';
+      'Katalog yüklenemedi; taslak oluşturulamıyor.';
 
   @override
   String get generatedProgramNoPlan =>
-      'Kaydedilmiş ekipmana uygun program oluşturulamadı. Daha fazla ekipman ekle veya müsaitliği güncelle.';
+      'Kayıtlı ekipmana uygun plan yok. Ekipman ekle veya müsaitliği güncelle.';
 
   @override
   String generatedProgramSummary(
@@ -584,7 +809,7 @@ class AppLocalizationsTr extends AppLocalizations {
     int maxExercisesPerSession,
     int minimumRir,
   ) {
-    return 'Haftada $sessionsPerWeek seans - $weeklySetTarget çalışma seti - seans başına en fazla $maxExercisesPerSession egzersiz - RIR $minimumRir+';
+    return '$sessionsPerWeek/hafta · $weeklySetTarget set · maks $maxExercisesPerSession/seans · RIR $minimumRir+';
   }
 
   @override
@@ -596,7 +821,7 @@ class AppLocalizationsTr extends AppLocalizations {
     int exerciseCount,
     int setCount,
   ) {
-    return '$weekday - $windowType $startTime-$endTime - $exerciseCount egzersiz - $setCount set';
+    return '$weekday · $windowType $startTime-$endTime · $exerciseCount egzersiz · $setCount set';
   }
 
   @override
@@ -607,26 +832,25 @@ class AppLocalizationsTr extends AppLocalizations {
     int targetRir,
     int restSeconds,
   ) {
-    return '$setCount set - $minimumRepetitions-$maximumRepetitions tekrar - RIR $targetRir - $restSeconds sn dinlenme';
+    return '$setCount set · $minimumRepetitions-$maximumRepetitions tekrar · RIR $targetRir · $restSeconds sn';
   }
 
   @override
-  String get generatedProgramApplyDraft => 'Yerel taslak olarak uygula';
+  String get generatedProgramApplyDraft => 'Taslağı kullan';
 
   @override
   String get generatedProgramAppliedMessage =>
-      'Program taslağı yerel olarak uygulandı. Düzenlemek, kaydetmek veya yayınlamak için Program ekranını aç.';
+      'Taslak uygulandı. Düzenlemek, kaydetmek veya yayınlamak için Program’ı aç.';
 
   @override
-  String get generatedProgramReplaceDraftTitle =>
-      'Yerel taslak değiştirilsin mi?';
+  String get generatedProgramReplaceDraftTitle => 'Taslak değiştirilsin mi?';
 
   @override
   String get generatedProgramReplaceDraftMessage =>
-      'Bu plan uygulanırsa mevcut kaydedilmemiş Program taslağı değişir. Kaydedilmiş versiyonlar değişmez.';
+      'Bu plan kaydedilmemiş Program taslağını değiştirir. Kayıtlı versiyonlar değişmez.';
 
   @override
-  String get generatedProgramReplaceDraftCancel => 'Mevcut taslağı koru';
+  String get generatedProgramReplaceDraftCancel => 'Taslağı koru';
 
   @override
   String get generatedProgramReplaceDraftConfirm => 'Taslağı değiştir';
@@ -700,45 +924,60 @@ class AppLocalizationsTr extends AppLocalizations {
       'Seçilen planlı gün artık mevcut değil. Program önizlemesini yeniden oluşturup tekrar dene.';
 
   @override
-  String get anatomyRendererTitle => '3B anatomi görüntüleyici';
+  String get anatomyRendererTitle => 'Anatomi görünümü';
 
   @override
   String get anatomyRendererDescription =>
-      'Android derlemeleri yerel Filament yüzeyi kullanır. GLB anatomi varlıkları paketleme kontrol noktasına kadar harici kalır.';
+      'Android derlemeleri yerel görünümü kullanır; varlıklar paketleme kontrolünde gelir.';
 
   @override
   String get anatomyInteractionInstructions =>
-      'Döndürmek için sürükle, yakınlaştırmak için iki parmakla sıkıştır, seçmek için bir bölgeye dokun. Heatmap önizlemesi çalışma zamanı GLB pakete eklenene kadar semantik kas kimliklerini kullanır.';
+      'Sürükle, yakınlaştır veya bölgeye dokun. Heatmap, GLB gelene kadar kas kimliklerini kullanır.';
+
+  @override
+  String get anatomyOverlayVisualEstimate => 'Görsel tahmin';
+
+  @override
+  String get anatomyOverlayTapToInspect => 'Bölgeye dokun';
+
+  @override
+  String get anatomyMeasurementPromptTitle => 'Ölçüm ekle';
+
+  @override
+  String get anatomyMeasurementPromptDescription =>
+      'Şekil değişimine güvenmeden önce rehberli ölçüm ekle.';
+
+  @override
+  String get anatomyMeasurementPromptAction => 'Rehber';
 
   @override
   String get anatomyVisualEstimateLabel => 'Görsel tahmin, tıbbi tarama değil';
 
   @override
   String get anatomyVisualEstimateDescription =>
-      'Kişiselleştirilmiş anatomi çıktısı kayıtlı ölçümler ve antrenman verilerinden oluşturulur. Yaklaşıktır; sağlık, sakatlık, hastalık veya vücut kompozisyonu tanısı koyamaz.';
+      'Kayıtlı ölçüm ve antrenman verilerinden oluşur. Sağlık, sakatlık, hastalık veya vücut kompozisyonu tanısı koyamaz.';
 
   @override
   String get anatomyVisualEstimateInputNote =>
-      'Bunu antrenman ve ölçüm eğilimlerini incelemek için kullan; hatalı görünürse kayıtlı girişleri tekrar kontrol et.';
+      'Trendler için kullan; yanlış görünürse kayıtlı girdileri kontrol et.';
 
   @override
   String get anatomyVisualEstimateIconLabel => 'Görsel tahmin bilgisi';
 
   @override
   String get anatomyRendererContentDescription =>
-      'Etkileşimli anatomi görüntüleyici';
+      'Etkileşimli anatomi görünümü';
 
   @override
   String get anatomyRendererAndroidOnly =>
-      'Yerel Filament görüntüleyici Android derlemelerinde kullanılabilir. Bu ortam güvenli bir yedek görünüm gösterir.';
+      'Yerel görünüm Android derlemelerinde çalışır. Bu ortam güvenli yedek gösterir.';
 
   @override
   String get anatomyRendererPerformanceFallback =>
-      'Performans güvenli semantik önizleme etkin. Paketlenmiş varlıklar ve orta seviye cihaz ölçümleri eşiği karşılayana kadar yerel görüntüleyici kapalı kalır.';
+      'Varlıklar ve cihaz ölçümleri geçene kadar güvenli önizleme açık.';
 
   @override
-  String get anatomyRendererStatusLoading =>
-      'Görüntüleyici köprüsü kontrol ediliyor...';
+  String get anatomyRendererStatusLoading => 'Görünüm kontrol ediliyor...';
 
   @override
   String anatomyRendererStatus(
@@ -767,19 +1006,19 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get anatomyRendererModeStaticFallback => 'semantik yedek görünüm';
+  String get anatomyRendererModeStaticFallback => 'semantik yedek';
 
   @override
   String get anatomyRendererModeInteractiveLite => 'hafif etkileşimli';
 
   @override
-  String get anatomyRendererResetCamera => 'Kamerayı sıfırla';
+  String get anatomyRendererResetCamera => 'Görünümü sıfırla';
 
   @override
   String get anatomyRendererPreviewHeatmap => 'Heatmap önizle';
 
   @override
-  String get anatomyRendererNoRegionSelected => 'Seçili kas bölgesi yok';
+  String get anatomyRendererNoRegionSelected => 'Kas bölgesine dokun';
 
   @override
   String anatomyRendererSelectedRegion(String regionId) {
@@ -795,14 +1034,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String get anatomyRendererHeatmapLegend => 'Aktif heatmap bölgeleri';
 
   @override
-  String get anatomyRendererHeatmapEmpty => 'Uygulanmış heatmap yok';
+  String get anatomyRendererHeatmapEmpty => 'Heatmap yok';
 
   @override
-  String get anatomyTrainingHeatmapTitle => 'Antrenman heatmapleri';
+  String get anatomyTrainingHeatmapTitle => 'Kas heatmapleri';
 
   @override
   String get anatomyTrainingHeatmapDescription =>
-      'Son 7 gündeki tamamlanmış yerel setlerden çalışan kas, haftalık hacim veya yorgunluk görünümünü uygula.';
+      'Son 7 günden kas, hacim veya yorgunluk görünümünü aç.';
 
   @override
   String get anatomyTrainingHeatmapTrainedMuscle => 'Çalışan kaslar';
@@ -814,16 +1053,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String get anatomyTrainingHeatmapFatigue => 'Yorgunluk';
 
   @override
-  String get anatomyTrainingHeatmapLoading =>
-      'Antrenman heatmapleri yükleniyor...';
+  String get anatomyTrainingHeatmapLoading => 'Heatmap yükleniyor...';
 
   @override
-  String get anatomyTrainingHeatmapLoadError =>
-      'Antrenman heatmapleri yüklenemedi.';
+  String get anatomyTrainingHeatmapLoadError => 'Heatmap yüklenemedi.';
 
   @override
   String get anatomyTrainingHeatmapEmpty =>
-      'Son 7 günde tamamlanmış antrenman kanıtı yok.';
+      '7 günlük heatmap için antrenman tamamla.';
 
   @override
   String anatomyTrainingHeatmapSummary(int regionCount, String topRegionId) {
@@ -831,14 +1068,16 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get exerciseCatalogTitle => 'Egzersiz katalogu';
+  String get exerciseCatalogTitle => 'Egzersiz kataloğu';
+
+  @override
+  String get exerciseCatalogSubtitle => 'Ara, filtrele ve taslağına ekle.';
 
   @override
   String get exerciseCatalogSearchLabel => 'Egzersiz ara';
 
   @override
-  String get exerciseCatalogSearchHint =>
-      'Egzersiz, kas, ekipman veya ipucu ara';
+  String get exerciseCatalogSearchHint => 'Ad, kas, ekipman veya ipucu';
 
   @override
   String get exerciseCatalogFiltersTitle => 'Filtreler';
@@ -847,22 +1086,70 @@ class AppLocalizationsTr extends AppLocalizations {
   String get exerciseCatalogClearFilters => 'Temizle';
 
   @override
-  String exerciseCatalogResultsSummary(int visibleCount, int totalCount) {
-    return '$totalCount egzersizden $visibleCount tanesi gosteriliyor';
+  String get exerciseCatalogFilterButton => 'Filtreler';
+
+  @override
+  String get exerciseCatalogFilterSheetTitle => 'Egzersizleri filtrele';
+
+  @override
+  String get exerciseCatalogApplyFilters => 'Sonuçları göster';
+
+  @override
+  String get exerciseCatalogNoActiveFilters => 'Filtre yok';
+
+  @override
+  String exerciseCatalogActiveFilterCount(int filterCount) {
+    return '$filterCount filtre';
   }
 
   @override
-  String get exerciseCatalogLoading => 'Egzersiz katalogu yukleniyor...';
+  String exerciseCatalogResultsTrend(int totalCount) {
+    return '$totalCount içinden';
+  }
 
   @override
-  String get exerciseCatalogLoadError => 'Egzersiz katalogu yuklenemedi.';
+  String get exerciseCatalogAddToProgram => 'Programa ekle';
 
   @override
-  String get exerciseCatalogEmptyTitle => 'Eslesen egzersiz yok';
+  String exerciseCatalogAddedToProgram(String exerciseName, String dayName) {
+    return '$exerciseName, $dayName gününe eklendi.';
+  }
 
   @override
-  String get exerciseCatalogEmptyMessage =>
-      'Egzersizleri gormek icin aramayi veya filtreleri degistir.';
+  String exerciseCatalogCreatedDraftAndAdded(
+    String exerciseName,
+    String dayName,
+  ) {
+    return 'Taslak oluşturuldu. $exerciseName, $dayName gününe eklendi.';
+  }
+
+  @override
+  String exerciseCatalogAlreadyInProgram(String exerciseName, String dayName) {
+    return '$exerciseName, $dayName gününde zaten var.';
+  }
+
+  @override
+  String get exerciseCatalogAnimationAvailable => 'Animasyon hazır';
+
+  @override
+  String get exerciseCatalogThumbnailOnly => 'Görsel rehber';
+
+  @override
+  String exerciseCatalogResultsSummary(int visibleCount, int totalCount) {
+    return '$visibleCount/$totalCount egzersiz';
+  }
+
+  @override
+  String get exerciseCatalogLoading => 'Katalog yükleniyor...';
+
+  @override
+  String get exerciseCatalogLoadError => 'Katalog yüklenemedi.';
+
+  @override
+  String get exerciseCatalogEmptyTitle => 'Eşleşme yok';
+
+  @override
+  String get exerciseCatalogEmptyMessage => 'Aramayı veya filtreleri değiştir.';
 
   @override
   String get exerciseCatalogMovementFilter => 'Hareket';
@@ -877,40 +1164,40 @@ class AppLocalizationsTr extends AppLocalizations {
   String get exerciseCatalogLevelFilter => 'Seviye';
 
   @override
-  String get exerciseCatalogLateralityFilter => 'Taraf';
+  String get exerciseCatalogLateralityFilter => 'Yön';
 
   @override
   String get exerciseCatalogTypeFilter => 'Tip';
 
   @override
-  String get exerciseDetailTitle => 'Egzersiz detayi';
+  String get exerciseDetailTitle => 'Egzersiz detayı';
 
   @override
-  String get exerciseDetailSetup => 'Hazirlik';
+  String get exerciseDetailSetup => 'Hazırlık';
 
   @override
   String get exerciseDetailExecution => 'Uygulama';
 
   @override
-  String get exerciseDetailFormCues => 'Form ipuclari';
+  String get exerciseDetailFormCues => 'Form ipuçları';
 
   @override
-  String get exerciseDetailCommonErrors => 'Yaygin hatalar';
+  String get exerciseDetailCommonErrors => 'Kaçın';
 
   @override
   String get exerciseDetailSubstitutions => 'Alternatifler';
 
   @override
-  String get exerciseDetailRegressions => 'Kolaylastirmalar';
+  String get exerciseDetailRegressions => 'Kolaylaştır';
 
   @override
-  String get exerciseDetailPrimaryMuscles => 'Birincil kaslar';
+  String get exerciseDetailPrimaryMuscles => 'Birincil';
 
   @override
-  String get exerciseDetailSecondaryMuscles => 'Ikincil kaslar';
+  String get exerciseDetailSecondaryMuscles => 'İkincil';
 
   @override
-  String get exerciseDetailStabilizerMuscles => 'Stabilizatorler';
+  String get exerciseDetailStabilizerMuscles => 'Stabilizatörler';
 
   @override
   String get exerciseDetailEquipment => 'Ekipman';
@@ -925,81 +1212,244 @@ class AppLocalizationsTr extends AppLocalizations {
   String get exerciseDetailType => 'Tip';
 
   @override
-  String get exerciseDetailNotFoundTitle => 'Egzersiz bulunamadi';
+  String get exerciseDetailNotFoundTitle => 'Egzersiz bulunamadı';
 
   @override
   String get exerciseDetailNotFoundMessage =>
-      'Bu egzersiz yerel katalogda bulunmuyor.';
+      'Bu egzersiz yerel katalogda yok.';
 
   @override
-  String get programWorkspaceBuilderTab => 'Olusturucu';
+  String get programHubSubtitle =>
+      'Planı incele. Düzenlemek için odaklı rota aç.';
+
+  @override
+  String get programHubNoActiveProgramTitle => 'Aktif plan yok';
+
+  @override
+  String get programHubNoActiveProgramMessage =>
+      'Antrenmanlardan önce plan oluştur veya yayınla.';
+
+  @override
+  String get programHubCreateDraft => 'Taslak oluştur';
+
+  @override
+  String programHubActiveVersionSummary(int versionNumber, int dayCount) {
+    return 'Versiyon $versionNumber · $dayCount gün';
+  }
+
+  @override
+  String programHubPlanMetric(int dayCount, int setCount) {
+    return '${dayCount}g · $setCount set';
+  }
+
+  @override
+  String get programHubActiveStatus => 'Aktif';
+
+  @override
+  String get programHubBuilderDescription =>
+      'Günleri, sırayı, hedefleri ve yayını düzenle.';
+
+  @override
+  String get programHubCatalogDescription =>
+      'Egzersiz bul ve hub’ı kalabalıklaştırmadan ekle.';
+
+  @override
+  String get programHubRecommendationInboxTitle => 'İnceleme kuyruğu';
+
+  @override
+  String get programHubRecommendationClearDescription =>
+      'İnceleme isteyen öneri yok.';
+
+  @override
+  String get programHubRecommendationClearCount => '0 bekliyor';
+
+  @override
+  String get programHubRecommendationClearStatus => 'Temiz';
+
+  @override
+  String get programHubTrainingDaysTitle => 'Antrenman günleri';
+
+  @override
+  String get programHubTrainingDaysDescription =>
+      'Düzenlemek için günü Builder’da aç.';
+
+  @override
+  String programHubTrainingDaySummary(int exerciseCount, int setCount) {
+    return '$exerciseCount egzersiz · $setCount set';
+  }
+
+  @override
+  String programHubMoreExercises(int exerciseCount) {
+    return '+$exerciseCount daha';
+  }
+
+  @override
+  String get programHubLoadError => 'Program yüklenemedi.';
+
+  @override
+  String get programWorkspaceBuilderTab => 'Builder';
 
   @override
   String get programWorkspaceCatalogTab => 'Katalog';
 
   @override
-  String get programBuilderTitle => 'Program olusturucu';
+  String get programBuilderTitle => 'Builder';
 
   @override
-  String get programBuilderEmptyTitle => 'Program taslagi olustur';
+  String get programBuilderEmptyTitle => 'Taslak başlat';
 
   @override
   String get programBuilderEmptyMessage =>
-      'Bir isim ve bir antrenman gunu ile basla, sonra egzersizleri ve recete hedeflerini ekle.';
+      'Ad ver, gün ekle, sonra egzersiz seç.';
 
   @override
-  String get programBuilderCreateProgram => 'Program olustur';
+  String get programBuilderCreateProgram => 'Oluştur';
 
   @override
   String get programBuilderDefaultProgramName => 'Yeni program';
 
   @override
   String programBuilderDefaultDayName(int dayNumber) {
-    return 'Gun $dayNumber';
+    return 'Gün $dayNumber';
   }
 
   @override
-  String get programBuilderProgramNameLabel => 'Program adi';
+  String get programBuilderProgramNameLabel => 'Program adı';
+
+  @override
+  String get programBuilderGuidedSubtitle =>
+      'Ayar, günler, katalog, hedefler, kontrol.';
+
+  @override
+  String programBuilderStepProgress(int currentStep, int totalSteps) {
+    return 'Adım $currentStep/$totalSteps';
+  }
+
+  @override
+  String get programBuilderBackStep => 'Geri';
+
+  @override
+  String get programBuilderContinueStep => 'Devam';
+
+  @override
+  String get programBuilderStepComplete => 'Tamam';
+
+  @override
+  String get programBuilderStepOpen => 'Açık';
+
+  @override
+  String get programBuilderSetupStepTitle => 'Ayar';
+
+  @override
+  String get programBuilderSetupStepSubtitle => 'Önce taslağa ad ver.';
+
+  @override
+  String get programBuilderDaysStepTitle => 'Günler';
+
+  @override
+  String get programBuilderDaysStepSubtitle =>
+      'Gün ekle, seç, adlandır veya sil.';
+
+  @override
+  String get programBuilderExercisesStepTitle => 'Egzersizler';
+
+  @override
+  String get programBuilderExercisesStepSubtitle =>
+      'Ara, ekle ve bu günü sırala.';
+
+  @override
+  String get programBuilderPrescriptionStepTitle => 'Hedefler';
+
+  @override
+  String get programBuilderPrescriptionStepSubtitle =>
+      'Set, tekrar, RIR, yük ve dinlenmeyi düzenle.';
+
+  @override
+  String get programBuilderReviewStepTitle => 'Kontrol';
+
+  @override
+  String get programBuilderReviewStepSubtitle =>
+      'Kaydetmeden veya yayınlamadan önce kontrol et.';
+
+  @override
+  String get programBuilderPrescriptionEmpty =>
+      'Hedef düzenlemek için önce egzersiz ekle.';
+
+  @override
+  String get programBuilderPrescriptionInlineHint =>
+      'Hedefler egzersiz kartlarında kalır.';
+
+  @override
+  String programBuilderPrescriptionReady(int exerciseCount) {
+    return '$exerciseCount hedef';
+  }
+
+  @override
+  String get programBuilderPublishReviewMessage =>
+      'Yayınla: aktif antrenman versiyonu olur. Düzenleyeceksen taslak kaydet.';
+
+  @override
+  String get programBuilderReviewNameReady => 'Ad hazır';
+
+  @override
+  String get programBuilderReviewNameMissing => 'Ad eksik';
+
+  @override
+  String programBuilderReviewExercisesReady(int exerciseCount) {
+    return '$exerciseCount egzersiz hazır';
+  }
+
+  @override
+  String get programBuilderReviewExercisesMissing => 'Egzersiz ekle';
+
+  @override
+  String get programBuilderPublishConfirmTitle => 'Versiyon yayınlansın mı?';
+
+  @override
+  String get programBuilderPublishConfirmMessage =>
+      'Bu taslağı aktif antrenman versiyonu yap.';
+
+  @override
+  String get programBuilderPublishConfirmAction => 'Yayınla';
 
   @override
   String get programBuilderLocalDraftLabel => 'Yerel taslak';
 
   @override
   String get programBuilderScopeNote =>
-      'Bu taslak gunleri, egzersiz sirasini ve yerel recete hedeflerini tutar. Kalicilik ve versiyonlama sonraki checklist maddeleridir.';
+      'Kaydet taslağı korur. Yayınla aktif antrenman versiyonu oluşturur.';
 
   @override
   String programBuilderSummary(int dayCount, int exerciseCount) {
-    return '$dayCount gun · $exerciseCount egzersiz';
+    return '${dayCount}g · $exerciseCount egzersiz';
   }
 
   @override
-  String get programBuilderTrainingDays => 'Antrenman gunleri';
+  String get programBuilderTrainingDays => 'Antrenman günleri';
 
   @override
-  String get programBuilderAddTrainingDay => 'Gun ekle';
+  String get programBuilderAddTrainingDay => 'Gün ekle';
 
   @override
-  String get programBuilderSelectedDay => 'Secili gun';
+  String get programBuilderSelectedDay => 'Seçili gün';
 
   @override
-  String get programBuilderRenameDay => 'Gunu yeniden adlandir';
+  String get programBuilderRenameDay => 'Günü adlandır';
 
   @override
-  String get programBuilderDeleteDay => 'Gunu sil';
+  String get programBuilderDeleteDay => 'Günü sil';
 
   @override
-  String get programBuilderRenameDayTitle =>
-      'Antrenman gununu yeniden adlandir';
+  String get programBuilderRenameDayTitle => 'Antrenman gününü adlandır';
 
   @override
-  String get programBuilderDayNameLabel => 'Gun adi';
+  String get programBuilderDayNameLabel => 'Gün adı';
 
   @override
   String get programBuilderSave => 'Kaydet';
 
   @override
-  String get programBuilderCancel => 'Iptal';
+  String get programBuilderCancel => 'İptal';
 
   @override
   String get programBuilderAddExercise => 'Egzersiz ekle';
@@ -1012,30 +1462,29 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get programBuilderExercisePickerSearchHint =>
-      'Egzersiz, kas, ekipman veya ipucu ara';
+      'Ad, kas, ekipman veya ipucu';
 
   @override
-  String get programBuilderExercisePickerEmpty =>
-      'Bu aramayla eslesen egzersiz yok.';
+  String get programBuilderExercisePickerEmpty => 'Eşleşen egzersiz yok.';
 
   @override
   String get programBuilderExerciseAlreadyAdded => 'Eklendi';
 
   @override
-  String get programBuilderEmptyDayTitle => 'Henuz egzersiz yok';
+  String get programBuilderEmptyDayTitle => 'Henüz egzersiz yok';
 
   @override
   String get programBuilderEmptyDayMessage =>
-      'Katalog egzersizlerini ekle, sonra bu antrenman gunu icin sirala.';
+      'Egzersiz ekle, sonra bu günü sırala.';
 
   @override
-  String get programBuilderMoveExerciseUp => 'Yukari tasi';
+  String get programBuilderMoveExerciseUp => 'Yukarı taşı';
 
   @override
-  String get programBuilderMoveExerciseDown => 'Asagi tasi';
+  String get programBuilderMoveExerciseDown => 'Aşağı taşı';
 
   @override
-  String get programBuilderRemoveExercise => 'Kaldir';
+  String get programBuilderRemoveExercise => 'Kaldır';
 
   @override
   String get programBuilderSetCountLabel => 'Set';
@@ -1044,7 +1493,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get programBuilderFixedRepetitionMode => 'Sabit';
 
   @override
-  String get programBuilderRangeRepetitionMode => 'Aralik';
+  String get programBuilderRangeRepetitionMode => 'Aralık';
 
   @override
   String get programBuilderFixedRepsLabel => 'Tekrar';
@@ -1060,13 +1509,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get programBuilderTargetRirDescription =>
-      'RIR opsiyoneldir ve sabit/aralik tekrar modundan bagimsizdir.';
+      'RIR opsiyoneldir ve tekrardan bağımsızdır.';
 
   @override
   String get programBuilderTargetRirLabel => 'Hedef RIR';
 
   @override
-  String get programBuilderLoadLabel => 'Yuk';
+  String get programBuilderLoadLabel => 'Yük';
 
   @override
   String get programBuilderRestSecondsLabel => 'Dinlenme';
@@ -1093,10 +1542,10 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get programBuilderRirOff => 'RIR kapali';
+  String get programBuilderRirOff => 'RIR kapalı';
 
   @override
-  String get programBuilderLoadUnset => 'yuk yok';
+  String get programBuilderLoadUnset => 'yük yok';
 
   @override
   String programBuilderPrescriptionSummary(
@@ -1106,57 +1555,54 @@ class AppLocalizationsTr extends AppLocalizations {
     String loadTarget,
     int restSeconds,
   ) {
-    return '$setCount set Â· $repetitionTarget Â· $rirTarget Â· $loadTarget Â· $restSeconds sn';
+    return '$setCount set · $repetitionTarget · $rirTarget · $loadTarget · $restSeconds sn';
   }
 
   @override
-  String get programBuilderSaveDraft => 'Taslagi kaydet';
+  String get programBuilderSaveDraft => 'Taslak kaydet';
 
   @override
-  String get programBuilderPublishVersion => 'Versiyon yayinla';
+  String get programBuilderPublishVersion => 'Yayınla';
 
   @override
-  String get programBuilderCopyProgram => 'Programi kopyala';
+  String get programBuilderCopyProgram => 'Kopyala';
 
   @override
-  String get programBuilderArchiveProgram => 'Programi arsivle';
+  String get programBuilderArchiveProgram => 'Arşivle';
 
   @override
-  String get programBuilderLifecycleStatusLocal =>
-      'Yerel taslak Â· henuz kaydedilmedi';
+  String get programBuilderLifecycleStatusLocal => 'Taslak · kaydedilmedi';
 
   @override
   String programBuilderLifecycleStatusSaved(int versionNumber) {
-    return 'Kayitli taslak Â· versiyon $versionNumber';
+    return 'Taslak v$versionNumber';
   }
 
   @override
   String programBuilderLifecycleStatusPublished(int versionNumber) {
-    return 'Yayinda Â· aktif versiyon $versionNumber';
+    return 'Aktif v$versionNumber';
   }
 
   @override
   String programBuilderLifecycleStatusArchived(int versionNumber) {
-    return 'Arsivlendi Â· son versiyon $versionNumber';
+    return 'Arşiv v$versionNumber';
   }
 
   @override
-  String get programBuilderDraftSaved => 'Program taslagi kaydedildi.';
+  String get programBuilderDraftSaved => 'Program taslağı kaydedildi.';
 
   @override
-  String get programBuilderVersionPublished =>
-      'Degistirilemez program versiyonu yayinlandi.';
+  String get programBuilderVersionPublished => 'Program versiyonu yayınlandı.';
 
   @override
-  String get programBuilderProgramCopied =>
-      'Program yeni bir yerel taslak olarak kopyalandi.';
+  String get programBuilderProgramCopied => 'Program yeni taslağa kopyalandı.';
 
   @override
-  String get programBuilderProgramArchived => 'Program arsivlendi.';
+  String get programBuilderProgramArchived => 'Program arşivlendi.';
 
   @override
   String get programBuilderPersistenceFailed =>
-      'Program kaydedilemedi. Yerel taslagi kontrol edip tekrar dene.';
+      'Program kaydedilemedi. Taslağı kontrol edip tekrar dene.';
 
   @override
   String programBuilderCopiedProgramName(String programName) {
@@ -1165,42 +1611,144 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get todayScreenSubtitle =>
-      'Aktif programindan siradaki yerel antrenmani baslat.';
+      'Aktif planından sıradaki antrenmanı başlat.';
 
   @override
-  String get todayNoActiveProgramTitle => 'Aktif program yok';
+  String get todayActiveWorkoutSubtitle => 'Önce mevcut seti kaydet.';
+
+  @override
+  String get todayCoachDashboardSubtitle =>
+      'Sıradaki seans, seri ve inceleme kuyruğu.';
+
+  @override
+  String get todayCoachResumeTitle => 'Antrenman aktif';
+
+  @override
+  String todayCoachNextWorkoutTitle(String dayName) {
+    return 'Sıradaki: $dayName';
+  }
+
+  @override
+  String get todayCoachNextWorkoutDescription =>
+      'Şimdi başlat veya günü değiştir.';
+
+  @override
+  String get todayCoachNoProgramTrend => 'Plan gerekli';
+
+  @override
+  String get todayCoachReadyStatus => 'Hazır';
+
+  @override
+  String get todayCoachSetupStatus => 'Önce plan';
+
+  @override
+  String get todayResumeWorkout => 'Devam et';
+
+  @override
+  String get todayQuickStartWorkout => 'Başlat';
+
+  @override
+  String get todayCreateProgram => 'Plan oluştur';
+
+  @override
+  String get todayOpenWorkoutDetails => 'Detay';
+
+  @override
+  String get todayStreakTitle => 'Seri';
+
+  @override
+  String todayStreakValue(int dayCount) {
+    return '$dayCount günlük seri';
+  }
+
+  @override
+  String get todayStreakEmptyDescription =>
+      'Seri başlatmak için antrenman tamamla.';
+
+  @override
+  String get todayStreakActiveDescription =>
+      'Tamamlanan antrenman günlerinden hesaplanır.';
+
+  @override
+  String get todayWeeklyConsistencyTitle => 'Haftalık tutarlılık';
+
+  @override
+  String todayWeeklyConsistencyPercent(int percent) {
+    return '%$percent';
+  }
+
+  @override
+  String todayWeeklyConsistencyValue(int completedCount, int targetCount) {
+    return '$completedCount / $targetCount seans';
+  }
+
+  @override
+  String get todayWeeklyConsistencyNoTarget =>
+      'Haftalık hedef için plan oluştur.';
+
+  @override
+  String get todayPendingRecommendationTitle => 'İnceleme kuyruğu';
+
+  @override
+  String get todayPendingRecommendationActiveDescription =>
+      'Gelecek yük değişiminden önce bu durumu incele.';
+
+  @override
+  String get todayPendingRecommendationNoProgramDescription =>
+      'Öneriler için önce plan oluştur.';
+
+  @override
+  String get todayPendingRecommendationClearDescription =>
+      'İnceleme isteyen öneri yok.';
+
+  @override
+  String todayPendingRecommendationPendingCount(int pendingCount) {
+    return '$pendingCount bekliyor';
+  }
+
+  @override
+  String get todayPendingRecommendationClearCount => '0 bekliyor';
+
+  @override
+  String get todayPendingRecommendationClearStatus => 'Temiz';
+
+  @override
+  String get todaySessionRestoredStatus => 'Geri yüklendi';
+
+  @override
+  String get todayNoActiveProgramTitle => 'Aktif plan yok';
 
   @override
   String get todayNoActiveProgramMessage =>
-      'Antrenman baslatmadan once Program sekmesinde bir program versiyonu yayinla.';
+      'Başlamadan önce Program’da plan yayınla.';
 
   @override
-  String get todayOpenProgramBuilder => 'Programi ac';
+  String get todayOpenProgramBuilder => 'Programı aç';
 
   @override
   String todayActiveProgramSummary(int versionNumber, int dayCount) {
-    return 'Aktif versiyon $versionNumber - $dayCount antrenman gunu';
+    return 'Versiyon $versionNumber · $dayCount gün';
   }
 
   @override
-  String get todayChooseTrainingDay => 'Antrenman gunu sec';
+  String get todayChooseTrainingDay => 'Gün seç';
 
   @override
   String todayTrainingDaySummary(int exerciseCount, int setCount) {
-    return '$exerciseCount egzersiz - $setCount planli set';
+    return '$exerciseCount egzersiz · $setCount set';
   }
 
   @override
-  String get todayStartWorkout => 'Antrenmani baslat';
+  String get todayStartWorkout => 'Başlat';
 
   @override
-  String get todaySessionStarted => 'Antrenman oturumu baslatildi.';
+  String get todaySessionStarted => 'Antrenman başlatıldı.';
 
   @override
-  String get todaySessionStartFailed => 'Antrenman baslatilamadi.';
+  String get todaySessionStartFailed => 'Antrenman başlatılamadı.';
 
   @override
-  String get todayLoadError => 'Bugun ekrani yuklenemedi.';
+  String get todayLoadError => 'Bugün yüklenemedi.';
 
   @override
   String get todayRetry => 'Tekrar dene';
@@ -1223,80 +1771,105 @@ class AppLocalizationsTr extends AppLocalizations {
     String loadTarget,
     int restSeconds,
   ) {
-    return '$setCount set - $repetitionTarget - $rirTarget - $loadTarget - $restSeconds sn dinlenme';
+    return '$setCount set · $repetitionTarget · $rirTarget · $loadTarget · $restSeconds sn';
   }
 
   @override
-  String get todayNoExercisesTitle => 'Bu gunde egzersiz yok';
+  String get todayNoExercisesTitle => 'Henüz egzersiz yok';
 
   @override
-  String get todayNoExercisesMessage =>
-      'Oturum baslatmadan once bu antrenman gunune egzersiz ekle.';
+  String get todayNoExercisesMessage => 'Başlamadan önce egzersiz ekle.';
 
   @override
-  String get todaySessionInProgressTitle => 'Oturum devam ediyor';
+  String get todaySessionInProgressTitle => 'Antrenman aktif';
 
   @override
   String todaySessionInProgressSummary(int exerciseCount, int setCount) {
-    return '$exerciseCount egzersiz - $setCount planli set';
+    return '$exerciseCount egzersiz · $setCount set';
   }
 
   @override
-  String get todaySessionInProgressMessage =>
-      'Her seti bitirdikce kaydet. Tamamlanan setler gercek sonucuyla yerel olarak saklanir.';
+  String get todaySessionInProgressMessage => 'Her seti bitirdikçe kaydet.';
+
+  @override
+  String get todayCurrentSetTitle => 'Şu anki set';
+
+  @override
+  String todayCurrentSetSubtitle(String exerciseName, int setNumber) {
+    return '$exerciseName · set $setNumber';
+  }
+
+  @override
+  String get todayWorkoutQueueTitle => 'Sıradaki';
+
+  @override
+  String todayWorkoutQueueSetLabel(
+    String exerciseName,
+    int setNumber,
+    String status,
+  ) {
+    return '$exerciseName · set $setNumber · $status';
+  }
+
+  @override
+  String get todayWorkoutCompleteTitle => 'Antrenman kaydedildi';
+
+  @override
+  String get todayWorkoutCompleteMessage =>
+      'Planlı setler kaydedildi. Çıkmadan önce kontrol et.';
 
   @override
   String get todaySessionRestoredMessage =>
-      'Devam eden bu antrenman yerel kayittan geri yuklendi.';
+      'Antrenman yerel kayıttan geri yüklendi.';
 
   @override
   String todaySessionStatusLabel(String status) {
-    return 'Oturum durumu: $status';
+    return 'Oturum: $status';
   }
 
   @override
   String todayExerciseStatusLabel(String status) {
-    return 'Egzersiz durumu: $status';
+    return 'Egzersiz: $status';
   }
 
   @override
   String todaySetStatusLabel(String status) {
-    return 'Set durumu: $status';
+    return 'Set: $status';
   }
 
   @override
   String get todayStatusPending => 'Bekliyor';
 
   @override
-  String get todayStatusNotStarted => 'Baslamadi';
+  String get todayStatusNotStarted => 'Başlamadı';
 
   @override
   String get todayStatusInProgress => 'Devam ediyor';
 
   @override
-  String get todayStatusSuccessful => 'Basarili';
+  String get todayStatusSuccessful => 'Tamam';
 
   @override
-  String get todayStatusTargetMet => 'Hedef karsilandi';
+  String get todayStatusTargetMet => 'Hedef tamam';
 
   @override
-  String get todayStatusNeedsReview => 'Inceleme gerekli';
+  String get todayStatusNeedsReview => 'İnceleme gerekli';
 
   @override
-  String get todayStatusPerformanceMiss => 'Performans hedefi kacirildi';
+  String get todayStatusPerformanceMiss => 'Hedef kaçtı';
 
   @override
-  String get todayStatusInterrupted => 'Kesintiye ugradi';
+  String get todayStatusInterrupted => 'Kesildi';
 
   @override
-  String get todayStatusPainReported => 'Agri bildirildi';
+  String get todayStatusPainReported => 'Ağrı bildirildi';
 
   @override
-  String get todayStatusNotComparable => 'Kayit var, karsilastirilamaz';
+  String get todayStatusNotComparable => 'Yalnızca kayıt';
 
   @override
   String todaySetProgressSummary(int completedSetCount, int setCount) {
-    return '$completedSetCount/$setCount set tamamlandi';
+    return '$completedSetCount/$setCount set';
   }
 
   @override
@@ -1310,37 +1883,37 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get todayActualRepetitionsLabel => 'Gercek tekrar';
+  String get todayActualRepetitionsLabel => 'Tekrar';
 
   @override
-  String get todayActualLoadLabel => 'Gercek yuk';
+  String get todayActualLoadLabel => 'Yük';
 
   @override
-  String get todayActualRirLabel => 'Gercek RIR';
+  String get todayActualRirLabel => 'RIR';
 
   @override
-  String get todayOutcomeLabel => 'Sonuc';
+  String get todayOutcomeLabel => 'Sonuç';
 
   @override
-  String get todayOutcomeNone => 'Sinirlama yok';
+  String get todayOutcomeNone => 'Limit yok';
 
   @override
-  String get todayOutcomeStrengthLimitation => 'Guc limiti';
+  String get todayOutcomeStrengthLimitation => 'Güç';
 
   @override
-  String get todayOutcomeTechniqueLimitation => 'Teknik limiti';
+  String get todayOutcomeTechniqueLimitation => 'Teknik';
 
   @override
-  String get todayOutcomePain => 'Agri';
+  String get todayOutcomePain => 'Ağrı';
 
   @override
-  String get todayOutcomeTimeLimitation => 'Zaman limiti';
+  String get todayOutcomeTimeLimitation => 'Zaman';
 
   @override
-  String get todayOutcomeEquipmentLimitation => 'Ekipman limiti';
+  String get todayOutcomeEquipmentLimitation => 'Ekipman';
 
   @override
-  String get todayOutcomeExternalInterruption => 'Dis kesinti';
+  String get todayOutcomeExternalInterruption => 'Kesinti';
 
   @override
   String get todayCompleteSet => 'Seti tamamla';
@@ -1351,11 +1924,11 @@ class AppLocalizationsTr extends AppLocalizations {
     String rirTarget,
     String loadTarget,
   ) {
-    return 'Hedef: $repetitionTarget - $rirTarget - $loadTarget';
+    return 'Hedef: $repetitionTarget · $rirTarget · $loadTarget';
   }
 
   @override
-  String get todaySetPrescriptionUnavailable => 'Hedef bulunamadi';
+  String get todaySetPrescriptionUnavailable => 'Hedef yok';
 
   @override
   String todayPreviousPerformanceSummary(
@@ -1364,12 +1937,11 @@ class AppLocalizationsTr extends AppLocalizations {
     String rirTarget,
     String outcomeTarget,
   ) {
-    return 'Onceki: $repetitionTarget - $loadTarget - $rirTarget - $outcomeTarget';
+    return 'Önceki: $repetitionTarget · $loadTarget · $rirTarget · $outcomeTarget';
   }
 
   @override
-  String get todayPreviousPerformanceUnavailable =>
-      'Onceki: henuz kaydedilmis set yok';
+  String get todayPreviousPerformanceUnavailable => 'Önceki: yok';
 
   @override
   String get todayRepetitionsNotRecorded => 'tekrar kaydedilmedi';
@@ -1391,16 +1963,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get todaySetLogFailed => 'Set kaydedilemedi.';
 
   @override
-  String get todaySetLogInvalid => 'Gecerli tekrar, yuk ve RIR degerleri gir.';
+  String get todaySetLogInvalid => 'Geçerli tekrar, yük ve RIR gir.';
 
   @override
-  String get todayQuickLoadDecrease => 'Yuku azalt';
+  String get todayQuickLoadDecrease => 'Yük azalt';
 
   @override
-  String get todayQuickLoadIncrease => 'Yuku artir';
+  String get todayQuickLoadIncrease => 'Yük artır';
 
   @override
-  String get todayRestTimerTitle => 'Dinlenme zamanlayicisi';
+  String get todayRestTimerTitle => 'Dinlenme';
 
   @override
   String todayRestTimerRunning(
@@ -1408,39 +1980,39 @@ class AppLocalizationsTr extends AppLocalizations {
     int setNumber,
     String remainingTime,
   ) {
-    return '$exerciseName set $setNumber sonrasi dinlenme: $remainingTime';
+    return '$exerciseName set $setNumber sonrası: $remainingTime';
   }
 
   @override
   String get todayRestTimerComplete =>
-      'Dinlenme tamamlandi. Hazir olunca sonraki sete basla.';
+      'Dinlenme tamamlandı. Sonraki sete başla.';
 
   @override
   String get todayRestTimerDismiss => 'Kapat';
 
   @override
-  String get todayRestTimerNotificationTitle => 'Dinlenme tamamlandi';
+  String get todayRestTimerNotificationTitle => 'Dinlenme tamamlandı';
 
   @override
-  String get todayRestTimerNotificationBody => 'Sonraki set zamani.';
+  String get todayRestTimerNotificationBody => 'Sonraki sete başla.';
 
   @override
   String get todayRestTimerNotificationScheduled =>
-      'Arka plan uyarisi zamanlandi.';
+      'Arka plan uyarısı zamanlandı.';
 
   @override
   String get todayRestTimerNotificationPermissionDenied =>
-      'Arka planda dinlenme uyarisi almak icin bildirimleri etkinlestir.';
+      'Arka plan dinlenme uyarısı için bildirimleri aç.';
 
   @override
   String get todayRestTimerNotificationUnsupported =>
-      'Bu cihazda arka plan uyarisi kullanilamiyor.';
+      'Bu cihazda arka plan uyarısı yok.';
 
   @override
   String get todayRestTimerNotificationFailed =>
-      'Arka plan uyarisi zamanlanamadi.';
+      'Arka plan uyarısı zamanlanamadı.';
 
   @override
   String get todayRestTimerNotificationSkipped =>
-      'Dinlenme uyarisi gerekmiyor.';
+      'Dinlenme uyarısı gerekmiyor.';
 }

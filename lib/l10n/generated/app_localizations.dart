@@ -131,8 +131,164 @@ abstract class AppLocalizations {
   /// Subtitle for the Progress screen
   ///
   /// In en, this message translates to:
-  /// **'Review workout history, inspect set results, and track personal records.'**
+  /// **'Track streaks, records, trends, and body changes.'**
   String get progressScreenSubtitle;
+
+  /// Title for the compact Progress dashboard path card
+  ///
+  /// In en, this message translates to:
+  /// **'Progress path'**
+  String get progressDashboardPathTitle;
+
+  /// Description for the compact Progress dashboard path card
+  ///
+  /// In en, this message translates to:
+  /// **'Train, log, compare, repeat.'**
+  String get progressDashboardPathDescription;
+
+  /// Compact completed-workout streak value
+  ///
+  /// In en, this message translates to:
+  /// **'{dayCount}d'**
+  String progressDashboardStreakValue(int dayCount);
+
+  /// Status chip shown when there is no local workout streak
+  ///
+  /// In en, this message translates to:
+  /// **'Start streak'**
+  String get progressDashboardStreakEmpty;
+
+  /// Status chip for a current local workout streak
+  ///
+  /// In en, this message translates to:
+  /// **'Streak {streakValue}'**
+  String progressDashboardStreakStatus(String streakValue);
+
+  /// Status chip for completed workout days in the last seven days
+  ///
+  /// In en, this message translates to:
+  /// **'Week {completedCount}/7d'**
+  String progressDashboardWeekStatus(int completedCount);
+
+  /// Local non-social achievement feedback when no workout streak exists
+  ///
+  /// In en, this message translates to:
+  /// **'Start the loop'**
+  String get progressDashboardLocalFeedbackStart;
+
+  /// Local non-social achievement feedback when a workout streak is active
+  ///
+  /// In en, this message translates to:
+  /// **'Local momentum'**
+  String get progressDashboardLocalFeedbackStreak;
+
+  /// Local non-social achievement feedback when the current seven-day rhythm milestone is active
+  ///
+  /// In en, this message translates to:
+  /// **'Week on track'**
+  String get progressDashboardLocalFeedbackWeek;
+
+  /// Local non-social achievement feedback when every local milestone is complete
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones complete'**
+  String get progressDashboardLocalFeedbackComplete;
+
+  /// Local non-social achievement feedback pointing to the next incomplete milestone
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {milestoneLabel}'**
+  String progressDashboardLocalFeedbackNext(String milestoneLabel);
+
+  /// Compact completed milestone count for the Progress dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'{completedCount}/{totalCount} milestones'**
+  String progressDashboardMilestoneSummary(int completedCount, int totalCount);
+
+  /// Title for the compact Progress dashboard milestone card
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones'**
+  String get progressDashboardMilestonesTitle;
+
+  /// Milestone label for completing the first workout
+  ///
+  /// In en, this message translates to:
+  /// **'First workout'**
+  String get progressDashboardMilestoneFirstWorkout;
+
+  /// Milestone label for completing two workout days in the current seven-day window
+  ///
+  /// In en, this message translates to:
+  /// **'2 days this week'**
+  String get progressDashboardMilestoneWeekRhythm;
+
+  /// Milestone label for earning the first personal record
+  ///
+  /// In en, this message translates to:
+  /// **'First record'**
+  String get progressDashboardMilestoneFirstRecord;
+
+  /// Milestone label for having enough measurements to compare body changes
+  ///
+  /// In en, this message translates to:
+  /// **'Body comparison'**
+  String get progressDashboardMilestoneBodyComparison;
+
+  /// Title for the compact Progress dashboard personal-record preview
+  ///
+  /// In en, this message translates to:
+  /// **'Top records'**
+  String get progressDashboardRecordBoardTitle;
+
+  /// Compact personal-record count for the Progress dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'{recordCount} tracked'**
+  String progressDashboardRecordBoardSummary(int recordCount);
+
+  /// Empty helper text for the Progress dashboard record preview
+  ///
+  /// In en, this message translates to:
+  /// **'Log clean sets to build records.'**
+  String get progressDashboardRecordBoardEmpty;
+
+  /// Empty helper text for the Progress dashboard trend preview
+  ///
+  /// In en, this message translates to:
+  /// **'Log two data points to show a trend.'**
+  String get progressDashboardTrendEmpty;
+
+  /// Empty helper text for the Progress dashboard measurement comparison preview
+  ///
+  /// In en, this message translates to:
+  /// **'Save two measurements to compare.'**
+  String get progressDashboardMeasurementEmpty;
+
+  /// Compact measurement comparison count for the Progress dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'{comparisonCount} comparisons'**
+  String progressDashboardMeasurementComparisonCount(int comparisonCount);
+
+  /// Button label for opening Progress history and records
+  ///
+  /// In en, this message translates to:
+  /// **'Records'**
+  String get progressDashboardOpenRecords;
+
+  /// Button label for opening Progress trends
+  ///
+  /// In en, this message translates to:
+  /// **'Trends'**
+  String get progressDashboardOpenTrends;
+
+  /// Button label for opening Progress measurement comparison
+  ///
+  /// In en, this message translates to:
+  /// **'Compare'**
+  String get progressDashboardOpenMeasurements;
 
   /// Title for workout history section
   ///
@@ -143,13 +299,13 @@ abstract class AppLocalizations {
   /// Title shown when there are no workout sessions
   ///
   /// In en, this message translates to:
-  /// **'No workout history yet'**
+  /// **'No history yet'**
   String get progressHistoryEmptyTitle;
 
   /// Message shown when there are no workout sessions
   ///
   /// In en, this message translates to:
-  /// **'Complete sets from the Today tab to build your local history.'**
+  /// **'Complete a set from Today to start history.'**
   String get progressHistoryEmptyMessage;
 
   /// Error message shown when Progress cannot load workout history
@@ -189,7 +345,7 @@ abstract class AppLocalizations {
   /// Empty state for selected set details
   ///
   /// In en, this message translates to:
-  /// **'Select a set from workout history to inspect its result.'**
+  /// **'Select a history set to inspect results.'**
   String get progressSetDetailsEmpty;
 
   /// Session context for selected set details
@@ -255,13 +411,13 @@ abstract class AppLocalizations {
   /// Explanation that historical corrections are append-only
   ///
   /// In en, this message translates to:
-  /// **'Saving a correction adds a new revision. Earlier logs stay preserved.'**
+  /// **'Save a correction as a new revision; earlier logs stay preserved.'**
   String get progressCorrectionDescription;
 
   /// Message shown when a selected set cannot receive a correction
   ///
   /// In en, this message translates to:
-  /// **'Only completed sets with a logged result can be corrected.'**
+  /// **'Only completed logged sets can be corrected.'**
   String get progressCorrectionUnavailable;
 
   /// Input label for corrected actual repetitions
@@ -321,7 +477,7 @@ abstract class AppLocalizations {
   /// Empty state for personal records
   ///
   /// In en, this message translates to:
-  /// **'No personal records yet. Complete clean sets with reps or load to start tracking records.'**
+  /// **'Log clean sets with reps or load to start records.'**
   String get progressPersonalRecordsEmpty;
 
   /// Title for measurement and training trend section
@@ -333,7 +489,7 @@ abstract class AppLocalizations {
   /// Description for measurement and training trends
   ///
   /// In en, this message translates to:
-  /// **'Derived locally from saved measurements and latest clean set logs. Estimated strength is a display-only training estimate.'**
+  /// **'Built locally from measurements and clean set logs. Strength is an estimate.'**
   String get progressTrendsDescription;
 
   /// Title for measurement trends
@@ -351,13 +507,13 @@ abstract class AppLocalizations {
   /// Title for measurement history comparison and export section
   ///
   /// In en, this message translates to:
-  /// **'Measurement history'**
+  /// **'Measurements'**
   String get progressMeasurementHistoryTitle;
 
   /// Description for measurement history comparison and export section
   ///
   /// In en, this message translates to:
-  /// **'Compare saved body measurements and copy a local CSV or JSON export when you explicitly need it.'**
+  /// **'Compare saved measurements or copy an export when needed.'**
   String get progressMeasurementHistoryDescription;
 
   /// Title for first-to-latest measurement comparisons
@@ -428,7 +584,7 @@ abstract class AppLocalizations {
   /// Privacy warning for copying measurement export text
   ///
   /// In en, this message translates to:
-  /// **'The copied text contains personal measurement data. Store or share it only in a location you trust.'**
+  /// **'Exports contain personal measurement data. Store them only where you trust.'**
   String get progressMeasurementExportDescription;
 
   /// Number of measurement records included in export
@@ -613,73 +769,73 @@ abstract class AppLocalizations {
   /// Label for the Settings primary navigation destination
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
+  /// **'Profile'**
   String get settingsNavigationLabel;
 
   /// Title for the adaptive programming onboarding section
   ///
   /// In en, this message translates to:
-  /// **'Adaptive onboarding'**
+  /// **'Planner setup'**
   String get onboardingTitle;
 
   /// Description for the adaptive programming onboarding section
   ///
   /// In en, this message translates to:
-  /// **'Set the inputs the planner will use before generating recommendations. These choices stay local to this device.'**
+  /// **'Save local inputs before plan recommendations.'**
   String get onboardingDescription;
 
   /// Label for selecting the primary training goal
   ///
   /// In en, this message translates to:
-  /// **'Primary goal'**
+  /// **'Goal'**
   String get onboardingGoalLabel;
 
   /// Label for selecting training experience
   ///
   /// In en, this message translates to:
-  /// **'Training experience'**
+  /// **'Experience'**
   String get onboardingExperienceLabel;
 
   /// Label for selecting available equipment
   ///
   /// In en, this message translates to:
-  /// **'Available equipment'**
+  /// **'Equipment'**
   String get onboardingEquipmentLabel;
 
   /// Label for selecting preferred workout duration
   ///
   /// In en, this message translates to:
-  /// **'Preferred session length'**
+  /// **'Session length'**
   String get onboardingSessionLengthLabel;
 
   /// Label for selecting preferred training weekdays
   ///
   /// In en, this message translates to:
-  /// **'Preferred training days'**
+  /// **'Training days'**
   String get onboardingWeekdaysLabel;
 
   /// Button label for saving onboarding preferences
   ///
   /// In en, this message translates to:
-  /// **'Save onboarding'**
+  /// **'Save'**
   String get onboardingSaveButton;
 
   /// Snack bar shown after onboarding preferences are saved
   ///
   /// In en, this message translates to:
-  /// **'Onboarding preferences saved.'**
+  /// **'Setup saved.'**
   String get onboardingSavedMessage;
 
   /// Snack bar shown when onboarding preferences fail to save
   ///
   /// In en, this message translates to:
-  /// **'Onboarding preferences could not be saved.'**
+  /// **'Setup could not be saved.'**
   String get onboardingSaveFailed;
 
   /// Message shown when onboarding preferences fail to load
   ///
   /// In en, this message translates to:
-  /// **'Onboarding preferences could not load.'**
+  /// **'Setup could not load.'**
   String get onboardingLoadError;
 
   /// Dropdown value for a preferred session duration in minutes
@@ -699,6 +855,234 @@ abstract class AppLocalizations {
     String weekdays,
     String equipment,
   );
+
+  /// Title for the compact guided setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Setup'**
+  String get setupWizardTitle;
+
+  /// Description for the compact guided setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Answer five quick steps for local planning.'**
+  String get setupWizardDescription;
+
+  /// Current setup wizard step count
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String setupWizardStepCounter(int current, int total);
+
+  /// Button label for returning to the previous setup wizard step
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get setupWizardBackButton;
+
+  /// Button label for continuing to the next setup wizard step
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get setupWizardNextButton;
+
+  /// Button label for opening the setup wizard review step
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get setupWizardReviewButton;
+
+  /// Button label for saving the guided setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get setupWizardSaveButton;
+
+  /// Snack bar shown after the guided setup wizard is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Setup saved.'**
+  String get setupWizardSavedMessage;
+
+  /// Status title shown after setup is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get setupWizardSavedStatus;
+
+  /// Description shown after setup is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Goal, gear, days, and availability stay local.'**
+  String get setupWizardSavedDescription;
+
+  /// Status label for the selected setup wizard option
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get setupWizardSelectedStatus;
+
+  /// Title for the goal step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Pick goal'**
+  String get setupWizardGoalStepTitle;
+
+  /// Short label for the goal step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get setupWizardGoalStepShort;
+
+  /// Description for the goal step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Set the first planning bias; change it later.'**
+  String get setupWizardGoalStepDescription;
+
+  /// Title for the experience step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Pick level'**
+  String get setupWizardExperienceStepTitle;
+
+  /// Short label for the experience step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get setupWizardExperienceStepShort;
+
+  /// Description for the experience step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Level sets the conservative starting volume.'**
+  String get setupWizardExperienceStepDescription;
+
+  /// Title for the equipment step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Pick gear'**
+  String get setupWizardEquipmentStepTitle;
+
+  /// Short label for the equipment step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Gear'**
+  String get setupWizardEquipmentStepShort;
+
+  /// Description for the equipment step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Choose gear you can use most weeks.'**
+  String get setupWizardEquipmentStepDescription;
+
+  /// Title for the availability step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Pick training days'**
+  String get setupWizardAvailabilityStepTitle;
+
+  /// Short label for the availability step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get setupWizardAvailabilityStepShort;
+
+  /// Description for the availability step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Pick days, then mark each window fixed or flexible.'**
+  String get setupWizardAvailabilityStepDescription;
+
+  /// Helper text for availability window type selection
+  ///
+  /// In en, this message translates to:
+  /// **'Flexible gives room; fixed protects appointments.'**
+  String get setupWizardAvailabilityWindowHint;
+
+  /// Availability summary in setup wizard review
+  ///
+  /// In en, this message translates to:
+  /// **'{dayCount} days, {minutes} min default'**
+  String setupWizardAvailabilityReview(int dayCount, int minutes);
+
+  /// Title for the measurement preference step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Pick measurement flow'**
+  String get setupWizardMeasurementsStepTitle;
+
+  /// Short label for the measurement preference step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Measure'**
+  String get setupWizardMeasurementsStepShort;
+
+  /// Description for the measurement preference step in setup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how much guidance you want first.'**
+  String get setupWizardMeasurementsStepDescription;
+
+  /// Measurement preference option title
+  ///
+  /// In en, this message translates to:
+  /// **'Guided entry'**
+  String get setupWizardMeasurementGuidedTitle;
+
+  /// Measurement preference option description
+  ///
+  /// In en, this message translates to:
+  /// **'Use body-area steps for the best estimate.'**
+  String get setupWizardMeasurementGuidedDescription;
+
+  /// Measurement preference option title
+  ///
+  /// In en, this message translates to:
+  /// **'Essentials first'**
+  String get setupWizardMeasurementEssentialsTitle;
+
+  /// Measurement preference option description
+  ///
+  /// In en, this message translates to:
+  /// **'Start with height, weight, and key circumferences.'**
+  String get setupWizardMeasurementEssentialsDescription;
+
+  /// Measurement preference option title
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get setupWizardMeasurementLaterTitle;
+
+  /// Measurement preference option description
+  ///
+  /// In en, this message translates to:
+  /// **'Skip prompts for now and keep the estimate generic.'**
+  String get setupWizardMeasurementLaterDescription;
+
+  /// Privacy note for measurement preference setup step
+  ///
+  /// In en, this message translates to:
+  /// **'No measurement value is saved in this step.'**
+  String get setupWizardMeasurementPrivacyNote;
+
+  /// Title for setup wizard review step
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get setupWizardReviewStepTitle;
+
+  /// Short label for setup wizard review step
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get setupWizardReviewStepShort;
+
+  /// Description for setup wizard review step
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm inputs before planning.'**
+  String get setupWizardReviewStepDescription;
 
   /// Training goal label
   ///
@@ -1034,37 +1418,37 @@ abstract class AppLocalizations {
   /// Title for the generated editable program draft preview
   ///
   /// In en, this message translates to:
-  /// **'Program draft planner'**
+  /// **'Draft planner'**
   String get generatedProgramTitle;
 
   /// Description of the program draft planner
   ///
   /// In en, this message translates to:
-  /// **'Build an editable local draft from onboarding, weekly availability, equipment, recovery spacing, and conservative volume rules.'**
+  /// **'Build an editable draft from setup, availability, gear, recovery, and volume rules.'**
   String get generatedProgramDescription;
 
   /// Message shown when no saved availability windows exist
   ///
   /// In en, this message translates to:
-  /// **'Save weekly availability before building a program draft.'**
+  /// **'Save availability before building a draft.'**
   String get generatedProgramAvailabilityRequired;
 
   /// Message shown when the exercise catalog cannot be loaded for program planning
   ///
   /// In en, this message translates to:
-  /// **'The exercise catalog could not load, so the program draft cannot be built.'**
+  /// **'Catalog could not load, so the draft cannot build.'**
   String get generatedProgramCatalogLoadError;
 
   /// Message shown when no exercises can be selected for a generated program
   ///
   /// In en, this message translates to:
-  /// **'No matching program could be built from the saved equipment. Add more equipment or update availability.'**
+  /// **'No plan matches saved gear. Add equipment or update availability.'**
   String get generatedProgramNoPlan;
 
   /// Summary for a generated program plan
   ///
   /// In en, this message translates to:
-  /// **'{sessionsPerWeek} sessions/week - {weeklySetTarget} working sets - up to {maxExercisesPerSession} exercises/session - RIR {minimumRir}+'**
+  /// **'{sessionsPerWeek}/wk · {weeklySetTarget} sets · max {maxExercisesPerSession}/session · RIR {minimumRir}+'**
   String generatedProgramSummary(
     int sessionsPerWeek,
     int weeklySetTarget,
@@ -1075,7 +1459,7 @@ abstract class AppLocalizations {
   /// Summary for one generated program day
   ///
   /// In en, this message translates to:
-  /// **'{weekday} - {windowType} {startTime}-{endTime} - {exerciseCount} exercises - {setCount} sets'**
+  /// **'{weekday} · {windowType} {startTime}-{endTime} · {exerciseCount} exercises · {setCount} sets'**
   String generatedProgramDaySummary(
     String weekday,
     String windowType,
@@ -1088,7 +1472,7 @@ abstract class AppLocalizations {
   /// Prescription summary for one generated exercise
   ///
   /// In en, this message translates to:
-  /// **'{setCount} sets - {minimumRepetitions}-{maximumRepetitions} reps - RIR {targetRir} - {restSeconds} sec rest'**
+  /// **'{setCount} sets · {minimumRepetitions}-{maximumRepetitions} reps · RIR {targetRir} · {restSeconds} sec'**
   String generatedProgramExerciseSummary(
     int setCount,
     int minimumRepetitions,
@@ -1100,31 +1484,31 @@ abstract class AppLocalizations {
   /// Button label for applying the generated plan to the editable local program draft
   ///
   /// In en, this message translates to:
-  /// **'Apply as local draft'**
+  /// **'Use draft'**
   String get generatedProgramApplyDraft;
 
   /// Snack bar shown after applying a generated plan to the local draft
   ///
   /// In en, this message translates to:
-  /// **'Program draft applied locally. Open Program to edit, save, or publish it.'**
+  /// **'Draft applied. Open Program to edit, save, or publish.'**
   String get generatedProgramAppliedMessage;
 
   /// Confirmation dialog title before replacing an existing local program draft
   ///
   /// In en, this message translates to:
-  /// **'Replace local draft?'**
+  /// **'Replace draft?'**
   String get generatedProgramReplaceDraftTitle;
 
   /// Confirmation dialog body before replacing an existing local program draft
   ///
   /// In en, this message translates to:
-  /// **'Applying this plan replaces the current unsaved Program draft. Saved versions stay unchanged.'**
+  /// **'This replaces the unsaved Program draft. Saved versions stay unchanged.'**
   String get generatedProgramReplaceDraftMessage;
 
   /// Cancel button for generated program draft replacement
   ///
   /// In en, this message translates to:
-  /// **'Keep current draft'**
+  /// **'Keep draft'**
   String get generatedProgramReplaceDraftCancel;
 
   /// Confirm button for generated program draft replacement
@@ -1239,20 +1623,50 @@ abstract class AppLocalizations {
   /// Title for the anatomy renderer panel
   ///
   /// In en, this message translates to:
-  /// **'3D anatomy renderer'**
+  /// **'Anatomy viewer'**
   String get anatomyRendererTitle;
 
   /// Short explanation of the current anatomy renderer state
   ///
   /// In en, this message translates to:
-  /// **'Android builds use a native Filament surface. GLB anatomy assets remain external until the bundling checkpoint.'**
+  /// **'Android builds use the native viewer; assets ship at the bundling checkpoint.'**
   String get anatomyRendererDescription;
 
   /// Interaction help text shown above the anatomy renderer
   ///
   /// In en, this message translates to:
-  /// **'Drag to rotate, pinch to zoom, and tap a region to select it. Heatmap preview uses semantic muscle IDs until the runtime GLB is bundled.'**
+  /// **'Drag, pinch, or tap a region. Heatmaps use muscle IDs until GLB ships.'**
   String get anatomyInteractionInstructions;
+
+  /// Compact anatomy viewport overlay chip reminding that the body view is an estimate
+  ///
+  /// In en, this message translates to:
+  /// **'Visual estimate'**
+  String get anatomyOverlayVisualEstimate;
+
+  /// Compact anatomy viewport overlay chip explaining the tap-to-inspect interaction
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a region'**
+  String get anatomyOverlayTapToInspect;
+
+  /// Compact Anatomy prompt title shown when no body measurements are saved
+  ///
+  /// In en, this message translates to:
+  /// **'Add measurements'**
+  String get anatomyMeasurementPromptTitle;
+
+  /// Compact Anatomy prompt body shown when no body measurements are saved
+  ///
+  /// In en, this message translates to:
+  /// **'Add guided measurements before relying on shape changes.'**
+  String get anatomyMeasurementPromptDescription;
+
+  /// Button label for opening visual-estimate or measurement guidance from Anatomy
+  ///
+  /// In en, this message translates to:
+  /// **'Guide'**
+  String get anatomyMeasurementPromptAction;
 
   /// Disclosure title for personalized anatomy estimates
   ///
@@ -1263,13 +1677,13 @@ abstract class AppLocalizations {
   /// Disclosure body explaining that anatomy personalization is not diagnostic
   ///
   /// In en, this message translates to:
-  /// **'Personalized anatomy output is built from saved measurements and training data. It is approximate and cannot diagnose health, injury, disease, or body composition.'**
+  /// **'Built from saved measurements and training data. It cannot diagnose health, injury, disease, or body composition.'**
   String get anatomyVisualEstimateDescription;
 
   /// Disclosure note directing the user to review measurement inputs
   ///
   /// In en, this message translates to:
-  /// **'Use it to review training and measurement trends; if it looks wrong, re-check the saved inputs.'**
+  /// **'Use it for trends; re-check saved inputs if it looks wrong.'**
   String get anatomyVisualEstimateInputNote;
 
   /// Accessibility label for the visual estimate disclosure icon
@@ -1287,19 +1701,19 @@ abstract class AppLocalizations {
   /// Fallback message shown outside Android
   ///
   /// In en, this message translates to:
-  /// **'The native Filament renderer is available on Android builds. This environment shows a safe fallback.'**
+  /// **'The native viewer runs on Android builds. This environment shows a safe fallback.'**
   String get anatomyRendererAndroidOnly;
 
   /// Fallback message shown when the native anatomy renderer is disabled by the performance policy
   ///
   /// In en, this message translates to:
-  /// **'Performance-safe semantic preview is active. The native renderer stays off until bundled assets and mid-range device metrics meet the threshold.'**
+  /// **'Safe preview is active until assets and device metrics pass.'**
   String get anatomyRendererPerformanceFallback;
 
   /// Status shown while renderer capabilities are loading
   ///
   /// In en, this message translates to:
-  /// **'Checking renderer bridge...'**
+  /// **'Checking viewer...'**
   String get anatomyRendererStatusLoading;
 
   /// Renderer capability summary
@@ -1357,7 +1771,7 @@ abstract class AppLocalizations {
   /// Button label for resetting the anatomy renderer camera
   ///
   /// In en, this message translates to:
-  /// **'Reset camera'**
+  /// **'Reset view'**
   String get anatomyRendererResetCamera;
 
   /// Button label for applying a sample anatomy heatmap
@@ -1369,7 +1783,7 @@ abstract class AppLocalizations {
   /// Status text when no anatomy muscle region is selected
   ///
   /// In en, this message translates to:
-  /// **'No muscle region selected'**
+  /// **'Tap a muscle region'**
   String get anatomyRendererNoRegionSelected;
 
   /// Status text for the selected anatomy muscle region
@@ -1399,13 +1813,13 @@ abstract class AppLocalizations {
   /// Title for training-derived anatomy heatmaps
   ///
   /// In en, this message translates to:
-  /// **'Training heatmaps'**
+  /// **'Muscle heatmaps'**
   String get anatomyTrainingHeatmapTitle;
 
   /// Description for training-derived anatomy heatmaps
   ///
   /// In en, this message translates to:
-  /// **'Apply trained-muscle, weekly volume, or fatigue views from completed local sets in the last 7 days.'**
+  /// **'Review trained muscles, volume, or fatigue from the last 7 days.'**
   String get anatomyTrainingHeatmapDescription;
 
   /// Button label for the trained-muscle heatmap
@@ -1429,19 +1843,19 @@ abstract class AppLocalizations {
   /// Message shown while training heatmaps are loading
   ///
   /// In en, this message translates to:
-  /// **'Training heatmaps loading...'**
+  /// **'Loading heatmaps...'**
   String get anatomyTrainingHeatmapLoading;
 
   /// Message shown when training heatmaps fail to load
   ///
   /// In en, this message translates to:
-  /// **'Training heatmaps could not load.'**
+  /// **'Heatmaps could not load.'**
   String get anatomyTrainingHeatmapLoadError;
 
   /// Empty state for training heatmaps
   ///
   /// In en, this message translates to:
-  /// **'No completed workout evidence in the last 7 days.'**
+  /// **'Complete workouts to show 7-day heatmaps.'**
   String get anatomyTrainingHeatmapEmpty;
 
   /// Summary for the selected training heatmap
@@ -1456,6 +1870,12 @@ abstract class AppLocalizations {
   /// **'Exercise catalog'**
   String get exerciseCatalogTitle;
 
+  /// Subtitle for the redesigned exercise catalog search header
+  ///
+  /// In en, this message translates to:
+  /// **'Search, filter, and add to your draft.'**
+  String get exerciseCatalogSubtitle;
+
   /// Label for the exercise catalog search field
   ///
   /// In en, this message translates to:
@@ -1465,7 +1885,7 @@ abstract class AppLocalizations {
   /// Hint for the exercise catalog search field
   ///
   /// In en, this message translates to:
-  /// **'Search by exercise, muscle, equipment, or cue'**
+  /// **'Name, muscle, gear, or cue'**
   String get exerciseCatalogSearchHint;
 
   /// Heading shown above exercise catalog filters
@@ -1480,34 +1900,109 @@ abstract class AppLocalizations {
   /// **'Clear'**
   String get exerciseCatalogClearFilters;
 
+  /// Button label for opening compact exercise catalog filters
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get exerciseCatalogFilterButton;
+
+  /// Title for the exercise catalog filter bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Filter exercises'**
+  String get exerciseCatalogFilterSheetTitle;
+
+  /// Button label for closing the filter sheet after selecting filters
+  ///
+  /// In en, this message translates to:
+  /// **'Show results'**
+  String get exerciseCatalogApplyFilters;
+
+  /// Status chip label when no catalog filters are active
+  ///
+  /// In en, this message translates to:
+  /// **'No filters'**
+  String get exerciseCatalogNoActiveFilters;
+
+  /// Button label showing active exercise catalog filter count
+  ///
+  /// In en, this message translates to:
+  /// **'{filterCount} filters'**
+  String exerciseCatalogActiveFilterCount(int filterCount);
+
+  /// Small trend text below the visible exercise count
+  ///
+  /// In en, this message translates to:
+  /// **'of {totalCount}'**
+  String exerciseCatalogResultsTrend(int totalCount);
+
+  /// Button label for adding a catalog exercise to the current program draft
+  ///
+  /// In en, this message translates to:
+  /// **'Add to program'**
+  String get exerciseCatalogAddToProgram;
+
+  /// Snack bar shown after adding an exercise to an existing draft
+  ///
+  /// In en, this message translates to:
+  /// **'Added {exerciseName} to {dayName}.'**
+  String exerciseCatalogAddedToProgram(String exerciseName, String dayName);
+
+  /// Snack bar shown after creating a draft from the catalog add action
+  ///
+  /// In en, this message translates to:
+  /// **'Draft created. Added {exerciseName} to {dayName}.'**
+  String exerciseCatalogCreatedDraftAndAdded(
+    String exerciseName,
+    String dayName,
+  );
+
+  /// Snack bar shown when the selected exercise already exists in the selected day
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseName} is already on {dayName}.'**
+  String exerciseCatalogAlreadyInProgram(String exerciseName, String dayName);
+
+  /// Media status shown when an exercise has a local animation binding
+  ///
+  /// In en, this message translates to:
+  /// **'Animation ready'**
+  String get exerciseCatalogAnimationAvailable;
+
+  /// Media status shown when an exercise has only a procedural thumbnail
+  ///
+  /// In en, this message translates to:
+  /// **'Image guide'**
+  String get exerciseCatalogThumbnailOnly;
+
   /// Summary of visible exercise catalog results
   ///
   /// In en, this message translates to:
-  /// **'Showing {visibleCount} of {totalCount} exercises'**
+  /// **'{visibleCount}/{totalCount} exercises'**
   String exerciseCatalogResultsSummary(int visibleCount, int totalCount);
 
   /// Status shown while the exercise catalog is loading
   ///
   /// In en, this message translates to:
-  /// **'Loading exercise catalog...'**
+  /// **'Loading catalog...'**
   String get exerciseCatalogLoading;
 
   /// Error shown when the exercise catalog cannot load
   ///
   /// In en, this message translates to:
-  /// **'Exercise catalog could not be loaded.'**
+  /// **'Catalog could not load.'**
   String get exerciseCatalogLoadError;
 
   /// Title shown when catalog filters produce no results
   ///
   /// In en, this message translates to:
-  /// **'No exercises match'**
+  /// **'No matches'**
   String get exerciseCatalogEmptyTitle;
 
   /// Helper text shown when catalog filters produce no results
   ///
   /// In en, this message translates to:
-  /// **'Adjust search or filters to see exercises.'**
+  /// **'Change search or filters.'**
   String get exerciseCatalogEmptyMessage;
 
   /// Filter group label for movement patterns
@@ -1537,7 +2032,7 @@ abstract class AppLocalizations {
   /// Filter group label for unilateral or bilateral designation
   ///
   /// In en, this message translates to:
-  /// **'Laterality'**
+  /// **'Side'**
   String get exerciseCatalogLateralityFilter;
 
   /// Filter group label for exercise type
@@ -1573,7 +2068,7 @@ abstract class AppLocalizations {
   /// Exercise detail section label for common errors
   ///
   /// In en, this message translates to:
-  /// **'Common errors'**
+  /// **'Avoid'**
   String get exerciseDetailCommonErrors;
 
   /// Exercise detail section label for substitution exercises
@@ -1591,13 +2086,13 @@ abstract class AppLocalizations {
   /// Exercise detail section label for primary muscle regions
   ///
   /// In en, this message translates to:
-  /// **'Primary muscles'**
+  /// **'Primary'**
   String get exerciseDetailPrimaryMuscles;
 
   /// Exercise detail section label for secondary muscle regions
   ///
   /// In en, this message translates to:
-  /// **'Secondary muscles'**
+  /// **'Secondary'**
   String get exerciseDetailSecondaryMuscles;
 
   /// Exercise detail section label for stabilizer muscle regions
@@ -1639,8 +2134,116 @@ abstract class AppLocalizations {
   /// Body shown when an exercise detail route references an unknown exercise
   ///
   /// In en, this message translates to:
-  /// **'This exercise is not available in the local catalog.'**
+  /// **'This exercise is not in the local catalog.'**
   String get exerciseDetailNotFoundMessage;
+
+  /// Subtitle for the modern Program hub
+  ///
+  /// In en, this message translates to:
+  /// **'Review the plan. Open focused routes to edit.'**
+  String get programHubSubtitle;
+
+  /// Title for the Program hub empty state when no active program exists
+  ///
+  /// In en, this message translates to:
+  /// **'No active plan'**
+  String get programHubNoActiveProgramTitle;
+
+  /// Message for the Program hub empty state when no active program exists
+  ///
+  /// In en, this message translates to:
+  /// **'Create or publish a plan before workouts can use it.'**
+  String get programHubNoActiveProgramMessage;
+
+  /// Primary action in the Program hub empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Create draft'**
+  String get programHubCreateDraft;
+
+  /// Summary for the active program overview card
+  ///
+  /// In en, this message translates to:
+  /// **'Version {versionNumber} · {dayCount} days'**
+  String programHubActiveVersionSummary(int versionNumber, int dayCount);
+
+  /// Metric for the active program overview card
+  ///
+  /// In en, this message translates to:
+  /// **'{dayCount}d · {setCount} sets'**
+  String programHubPlanMetric(int dayCount, int setCount);
+
+  /// Status chip label for an active program
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get programHubActiveStatus;
+
+  /// Description for the Program hub builder route card
+  ///
+  /// In en, this message translates to:
+  /// **'Edit days, order, targets, and publish state.'**
+  String get programHubBuilderDescription;
+
+  /// Description for the Program hub catalog route card
+  ///
+  /// In en, this message translates to:
+  /// **'Find exercises and add them without crowding the hub.'**
+  String get programHubCatalogDescription;
+
+  /// Title for the Program recommendation inbox entry
+  ///
+  /// In en, this message translates to:
+  /// **'Review queue'**
+  String get programHubRecommendationInboxTitle;
+
+  /// Description when the Program recommendation inbox has no pending items
+  ///
+  /// In en, this message translates to:
+  /// **'No recommendations need review.'**
+  String get programHubRecommendationClearDescription;
+
+  /// Metric when the Program recommendation inbox has no pending items
+  ///
+  /// In en, this message translates to:
+  /// **'0 pending'**
+  String get programHubRecommendationClearCount;
+
+  /// Status when the Program recommendation inbox has no pending items
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get programHubRecommendationClearStatus;
+
+  /// Section title for active program training-day cards
+  ///
+  /// In en, this message translates to:
+  /// **'Training days'**
+  String get programHubTrainingDaysTitle;
+
+  /// Helper text for active program training-day cards
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a day to edit in Builder.'**
+  String get programHubTrainingDaysDescription;
+
+  /// Summary for one active program training day
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseCount} exercises · {setCount} sets'**
+  String programHubTrainingDaySummary(int exerciseCount, int setCount);
+
+  /// Overflow label when a Program hub training-day card has more exercises than the preview shows
+  ///
+  /// In en, this message translates to:
+  /// **'+{exerciseCount} more'**
+  String programHubMoreExercises(int exerciseCount);
+
+  /// Error message when the Program hub read model cannot load
+  ///
+  /// In en, this message translates to:
+  /// **'Program hub could not be loaded.'**
+  String get programHubLoadError;
 
   /// Tab label for the manual program builder
   ///
@@ -1657,25 +2260,25 @@ abstract class AppLocalizations {
   /// Title shown inside the manual program builder
   ///
   /// In en, this message translates to:
-  /// **'Program builder'**
+  /// **'Builder'**
   String get programBuilderTitle;
 
   /// Empty state title before a local program draft exists
   ///
   /// In en, this message translates to:
-  /// **'Create a program draft'**
+  /// **'Start a draft'**
   String get programBuilderEmptyTitle;
 
   /// Empty state body before a local program draft exists
   ///
   /// In en, this message translates to:
-  /// **'Start with a name and one training day, then add exercises and prescription targets.'**
+  /// **'Name it, add a day, then add exercises.'**
   String get programBuilderEmptyMessage;
 
   /// Button label for creating a local program draft
   ///
   /// In en, this message translates to:
-  /// **'Create program'**
+  /// **'Create'**
   String get programBuilderCreateProgram;
 
   /// Default local name for a newly created program draft
@@ -1696,6 +2299,168 @@ abstract class AppLocalizations {
   /// **'Program name'**
   String get programBuilderProgramNameLabel;
 
+  /// Subtitle for the guided program builder header
+  ///
+  /// In en, this message translates to:
+  /// **'Setup, days, catalog, targets, review.'**
+  String get programBuilderGuidedSubtitle;
+
+  /// Step progress label for the guided program builder
+  ///
+  /// In en, this message translates to:
+  /// **'Step {currentStep}/{totalSteps}'**
+  String programBuilderStepProgress(int currentStep, int totalSteps);
+
+  /// Back button label for guided program builder steps
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get programBuilderBackStep;
+
+  /// Continue button label for guided program builder steps
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get programBuilderContinueStep;
+
+  /// Status chip label for a completed guided builder step
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get programBuilderStepComplete;
+
+  /// Status chip label for an open guided builder step
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get programBuilderStepOpen;
+
+  /// Guided builder setup step title
+  ///
+  /// In en, this message translates to:
+  /// **'Setup'**
+  String get programBuilderSetupStepTitle;
+
+  /// Guided builder setup step subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Name the draft first.'**
+  String get programBuilderSetupStepSubtitle;
+
+  /// Guided builder training-day step title
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get programBuilderDaysStepTitle;
+
+  /// Guided builder training-day step subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add, select, rename, or remove days.'**
+  String get programBuilderDaysStepSubtitle;
+
+  /// Guided builder exercise catalog and ordering step title
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get programBuilderExercisesStepTitle;
+
+  /// Guided builder exercise catalog and ordering step subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Search, add, and order this day.'**
+  String get programBuilderExercisesStepSubtitle;
+
+  /// Guided builder prescription step title
+  ///
+  /// In en, this message translates to:
+  /// **'Targets'**
+  String get programBuilderPrescriptionStepTitle;
+
+  /// Guided builder prescription step subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Edit sets, reps, RIR, load, and rest.'**
+  String get programBuilderPrescriptionStepSubtitle;
+
+  /// Guided builder review step title
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get programBuilderReviewStepTitle;
+
+  /// Guided builder review step subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Check the draft before saving or publishing.'**
+  String get programBuilderReviewStepSubtitle;
+
+  /// Empty state for the guided builder prescription step
+  ///
+  /// In en, this message translates to:
+  /// **'Add an exercise before editing targets.'**
+  String get programBuilderPrescriptionEmpty;
+
+  /// Hint explaining where prescription fields are edited
+  ///
+  /// In en, this message translates to:
+  /// **'Targets stay on each exercise card.'**
+  String get programBuilderPrescriptionInlineHint;
+
+  /// Status chip for prescription target readiness
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseCount} targets'**
+  String programBuilderPrescriptionReady(int exerciseCount);
+
+  /// Review copy before saving or publishing a program
+  ///
+  /// In en, this message translates to:
+  /// **'Publish to make this the active workout version. Save draft to keep editing.'**
+  String get programBuilderPublishReviewMessage;
+
+  /// Review checklist item when the program name is present
+  ///
+  /// In en, this message translates to:
+  /// **'Name ready'**
+  String get programBuilderReviewNameReady;
+
+  /// Review checklist item when the program name is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Name missing'**
+  String get programBuilderReviewNameMissing;
+
+  /// Review checklist item when exercises exist
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseCount} exercises ready'**
+  String programBuilderReviewExercisesReady(int exerciseCount);
+
+  /// Review checklist item when no exercises exist
+  ///
+  /// In en, this message translates to:
+  /// **'Add exercises'**
+  String get programBuilderReviewExercisesMissing;
+
+  /// Confirmation dialog title before publishing a program version
+  ///
+  /// In en, this message translates to:
+  /// **'Publish version?'**
+  String get programBuilderPublishConfirmTitle;
+
+  /// Confirmation dialog body before publishing a program version
+  ///
+  /// In en, this message translates to:
+  /// **'Make this draft the active workout version.'**
+  String get programBuilderPublishConfirmMessage;
+
+  /// Confirmation dialog action for publishing a program version
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get programBuilderPublishConfirmAction;
+
   /// Label for the local-only program draft status
   ///
   /// In en, this message translates to:
@@ -1705,13 +2470,13 @@ abstract class AppLocalizations {
   /// Scope note shown in the P3-07 builder
   ///
   /// In en, this message translates to:
-  /// **'This draft keeps days, exercise order, and local prescription targets. Persistence and versioning are later checklist items.'**
+  /// **'Save keeps the draft. Publish creates the active workout version.'**
   String get programBuilderScopeNote;
 
   /// Program builder summary for days and exercises
   ///
   /// In en, this message translates to:
-  /// **'{dayCount} days · {exerciseCount} exercises'**
+  /// **'{dayCount}d · {exerciseCount} exercises'**
   String programBuilderSummary(int dayCount, int exerciseCount);
 
   /// Section title for training-day editing
@@ -1789,13 +2554,13 @@ abstract class AppLocalizations {
   /// Search hint inside the program-builder exercise picker
   ///
   /// In en, this message translates to:
-  /// **'Search by exercise, muscle, equipment, or cue'**
+  /// **'Name, muscle, gear, or cue'**
   String get programBuilderExercisePickerSearchHint;
 
   /// Empty state inside the exercise picker
   ///
   /// In en, this message translates to:
-  /// **'No exercises match this search.'**
+  /// **'No exercises match.'**
   String get programBuilderExercisePickerEmpty;
 
   /// Status text for an exercise already added to the selected day
@@ -1813,7 +2578,7 @@ abstract class AppLocalizations {
   /// Body shown when the selected training day has no exercises
   ///
   /// In en, this message translates to:
-  /// **'Add catalog exercises, then order them for this training day.'**
+  /// **'Add exercises, then order this day.'**
   String get programBuilderEmptyDayMessage;
 
   /// Tooltip for moving an exercise earlier in the selected day
@@ -1879,7 +2644,7 @@ abstract class AppLocalizations {
   /// Helper text explaining that RIR can be toggled separately from repetition mode
   ///
   /// In en, this message translates to:
-  /// **'RIR is optional and independent from fixed or ranged repetitions.'**
+  /// **'RIR is optional and independent from reps.'**
   String get programBuilderTargetRirDescription;
 
   /// Text field label for target repetitions in reserve
@@ -1960,43 +2725,43 @@ abstract class AppLocalizations {
   /// Button label for publishing an immutable active program version
   ///
   /// In en, this message translates to:
-  /// **'Publish version'**
+  /// **'Publish'**
   String get programBuilderPublishVersion;
 
   /// Button label for copying the current program into a new local draft
   ///
   /// In en, this message translates to:
-  /// **'Copy program'**
+  /// **'Copy'**
   String get programBuilderCopyProgram;
 
   /// Button label for archiving the current persisted program
   ///
   /// In en, this message translates to:
-  /// **'Archive program'**
+  /// **'Archive'**
   String get programBuilderArchiveProgram;
 
   /// Status text for an unsaved local program draft
   ///
   /// In en, this message translates to:
-  /// **'Local draft · not saved yet'**
+  /// **'Draft · unsaved'**
   String get programBuilderLifecycleStatusLocal;
 
   /// Status text for a saved draft snapshot
   ///
   /// In en, this message translates to:
-  /// **'Saved draft · version {versionNumber}'**
+  /// **'Draft v{versionNumber}'**
   String programBuilderLifecycleStatusSaved(int versionNumber);
 
   /// Status text for a published active program version
   ///
   /// In en, this message translates to:
-  /// **'Published · active version {versionNumber}'**
+  /// **'Active v{versionNumber}'**
   String programBuilderLifecycleStatusPublished(int versionNumber);
 
   /// Status text for an archived program
   ///
   /// In en, this message translates to:
-  /// **'Archived · last version {versionNumber}'**
+  /// **'Archived v{versionNumber}'**
   String programBuilderLifecycleStatusArchived(int versionNumber);
 
   /// Snack bar message after saving a draft snapshot
@@ -2008,13 +2773,13 @@ abstract class AppLocalizations {
   /// Snack bar message after publishing a program version
   ///
   /// In en, this message translates to:
-  /// **'Immutable program version published.'**
+  /// **'Program version published.'**
   String get programBuilderVersionPublished;
 
   /// Snack bar message after copying the current program
   ///
   /// In en, this message translates to:
-  /// **'Program copied as a new local draft.'**
+  /// **'Program copied to a new draft.'**
   String get programBuilderProgramCopied;
 
   /// Snack bar message after archiving a program
@@ -2026,7 +2791,7 @@ abstract class AppLocalizations {
   /// Generic persistence failure message in the program builder
   ///
   /// In en, this message translates to:
-  /// **'Program could not be saved. Check the local draft and try again.'**
+  /// **'Program could not be saved. Check the draft and retry.'**
   String get programBuilderPersistenceFailed;
 
   /// Default name for a copied program draft
@@ -2038,19 +2803,187 @@ abstract class AppLocalizations {
   /// Subtitle for the Today screen active workout entry point
   ///
   /// In en, this message translates to:
-  /// **'Start the next local workout from your active program.'**
+  /// **'Start the next workout from your active plan.'**
   String get todayScreenSubtitle;
+
+  /// Subtitle for the focused active workout route
+  ///
+  /// In en, this message translates to:
+  /// **'Log the current set first.'**
+  String get todayActiveWorkoutSubtitle;
+
+  /// Subtitle for the modern Today coach dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Next session, streak, and review queue.'**
+  String get todayCoachDashboardSubtitle;
+
+  /// Title for the Today dashboard hero when a workout is in progress
+  ///
+  /// In en, this message translates to:
+  /// **'Workout active'**
+  String get todayCoachResumeTitle;
+
+  /// Title for the next workout mission on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {dayName}'**
+  String todayCoachNextWorkoutTitle(String dayName);
+
+  /// Description for the next workout mission on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Start now or change the day.'**
+  String get todayCoachNextWorkoutDescription;
+
+  /// Trend text when Today has no active program
+  ///
+  /// In en, this message translates to:
+  /// **'Plan needed'**
+  String get todayCoachNoProgramTrend;
+
+  /// Status chip for a Today dashboard that can start a workout
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get todayCoachReadyStatus;
+
+  /// Status chip when Today needs a program first
+  ///
+  /// In en, this message translates to:
+  /// **'Setup first'**
+  String get todayCoachSetupStatus;
+
+  /// Primary action for resuming an active workout from Today
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get todayResumeWorkout;
+
+  /// Primary action for starting the selected workout from Today
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get todayQuickStartWorkout;
+
+  /// Primary action for opening Program when Today has no active plan
+  ///
+  /// In en, this message translates to:
+  /// **'Create plan'**
+  String get todayCreateProgram;
+
+  /// Secondary action for opening the focused Today workout route
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get todayOpenWorkoutDetails;
+
+  /// Title for the local workout streak card on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get todayStreakTitle;
+
+  /// Workout streak metric on Today
+  ///
+  /// In en, this message translates to:
+  /// **'{dayCount} day streak'**
+  String todayStreakValue(int dayCount);
+
+  /// Streak card helper when there is no current streak
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a workout to start a streak.'**
+  String get todayStreakEmptyDescription;
+
+  /// Streak card helper when a current streak exists
+  ///
+  /// In en, this message translates to:
+  /// **'Built from completed workout days.'**
+  String get todayStreakActiveDescription;
+
+  /// Title for weekly consistency on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly consistency'**
+  String get todayWeeklyConsistencyTitle;
+
+  /// Weekly consistency percentage on Today
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String todayWeeklyConsistencyPercent(int percent);
+
+  /// Completed workouts compared to weekly target
+  ///
+  /// In en, this message translates to:
+  /// **'{completedCount} of {targetCount} sessions'**
+  String todayWeeklyConsistencyValue(int completedCount, int targetCount);
+
+  /// Weekly consistency helper when no active program exists
+  ///
+  /// In en, this message translates to:
+  /// **'Create a plan to set the weekly target.'**
+  String get todayWeeklyConsistencyNoTarget;
+
+  /// Title for the pending recommendation card on Today
+  ///
+  /// In en, this message translates to:
+  /// **'Review queue'**
+  String get todayPendingRecommendationTitle;
+
+  /// Pending recommendation card text when a workout needs review
+  ///
+  /// In en, this message translates to:
+  /// **'Review this status before future load changes.'**
+  String get todayPendingRecommendationActiveDescription;
+
+  /// Pending recommendation card text when no active program exists
+  ///
+  /// In en, this message translates to:
+  /// **'Create a plan before recommendations appear.'**
+  String get todayPendingRecommendationNoProgramDescription;
+
+  /// Pending recommendation card text when there is no review
+  ///
+  /// In en, this message translates to:
+  /// **'No recommendation needs review.'**
+  String get todayPendingRecommendationClearDescription;
+
+  /// Count of pending recommendation reviews
+  ///
+  /// In en, this message translates to:
+  /// **'{pendingCount} pending'**
+  String todayPendingRecommendationPendingCount(int pendingCount);
+
+  /// Pending recommendation metric when queue is clear
+  ///
+  /// In en, this message translates to:
+  /// **'0 pending'**
+  String get todayPendingRecommendationClearCount;
+
+  /// Status chip when recommendation queue is clear
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get todayPendingRecommendationClearStatus;
+
+  /// Status chip when an active workout was restored locally
+  ///
+  /// In en, this message translates to:
+  /// **'Restored'**
+  String get todaySessionRestoredStatus;
 
   /// Title shown when Today has no active published program
   ///
   /// In en, this message translates to:
-  /// **'No active program yet'**
+  /// **'No active plan'**
   String get todayNoActiveProgramTitle;
 
   /// Message shown when Today has no active published program
   ///
   /// In en, this message translates to:
-  /// **'Publish a program version in the Program tab before starting a workout.'**
+  /// **'Publish a plan in Program before starting.'**
   String get todayNoActiveProgramMessage;
 
   /// Button that opens the Program branch from Today
@@ -2062,31 +2995,31 @@ abstract class AppLocalizations {
   /// Summary for the active program shown on Today
   ///
   /// In en, this message translates to:
-  /// **'Active version {versionNumber} · {dayCount} training days'**
+  /// **'Version {versionNumber} · {dayCount} days'**
   String todayActiveProgramSummary(int versionNumber, int dayCount);
 
   /// Section title for selecting a training day on Today
   ///
   /// In en, this message translates to:
-  /// **'Choose training day'**
+  /// **'Pick day'**
   String get todayChooseTrainingDay;
 
   /// Summary for a selected training day plan
   ///
   /// In en, this message translates to:
-  /// **'{exerciseCount} exercises · {setCount} planned sets'**
+  /// **'{exerciseCount} exercises · {setCount} sets'**
   String todayTrainingDaySummary(int exerciseCount, int setCount);
 
   /// Button label for starting the selected workout session
   ///
   /// In en, this message translates to:
-  /// **'Start workout'**
+  /// **'Start'**
   String get todayStartWorkout;
 
   /// Snack bar shown after creating a workout session plan
   ///
   /// In en, this message translates to:
-  /// **'Workout session started.'**
+  /// **'Workout started.'**
   String get todaySessionStarted;
 
   /// Snack bar shown when workout session creation fails
@@ -2134,55 +3067,95 @@ abstract class AppLocalizations {
   /// Title shown when the selected active training day has no exercises
   ///
   /// In en, this message translates to:
-  /// **'No exercises on this day'**
+  /// **'No exercises yet'**
   String get todayNoExercisesTitle;
 
   /// Message shown when the selected active training day has no exercises
   ///
   /// In en, this message translates to:
-  /// **'Add exercises to this training day before starting a session.'**
+  /// **'Add exercises before starting.'**
   String get todayNoExercisesMessage;
 
   /// Title for an already active workout session on Today
   ///
   /// In en, this message translates to:
-  /// **'Session in progress'**
+  /// **'Workout active'**
   String get todaySessionInProgressTitle;
 
   /// Summary for the active workout session on Today
   ///
   /// In en, this message translates to:
-  /// **'{exerciseCount} exercises · {setCount} planned sets'**
+  /// **'{exerciseCount} exercises · {setCount} sets'**
   String todaySessionInProgressSummary(int exerciseCount, int setCount);
 
   /// Instructional message for logging sets during an active workout
   ///
   /// In en, this message translates to:
-  /// **'Record each set as you finish it. Completed sets are saved locally with their actual result.'**
+  /// **'Log each set as you finish.'**
   String get todaySessionInProgressMessage;
+
+  /// Title for the focused current set card in the active workout route
+  ///
+  /// In en, this message translates to:
+  /// **'Current set'**
+  String get todayCurrentSetTitle;
+
+  /// Subtitle for the focused current set card
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseName} · set {setNumber}'**
+  String todayCurrentSetSubtitle(String exerciseName, int setNumber);
+
+  /// Title for the compact remaining and completed set queue in the active workout route
+  ///
+  /// In en, this message translates to:
+  /// **'Up next'**
+  String get todayWorkoutQueueTitle;
+
+  /// Compact label for a non-focused set in the active workout queue
+  ///
+  /// In en, this message translates to:
+  /// **'{exerciseName} · set {setNumber} · {status}'**
+  String todayWorkoutQueueSetLabel(
+    String exerciseName,
+    int setNumber,
+    String status,
+  );
+
+  /// Title shown when every set in the active workout has a logged result
+  ///
+  /// In en, this message translates to:
+  /// **'Workout logged'**
+  String get todayWorkoutCompleteTitle;
+
+  /// Message shown when every set in the active workout has a logged result
+  ///
+  /// In en, this message translates to:
+  /// **'All planned sets have results. Review before leaving.'**
+  String get todayWorkoutCompleteMessage;
 
   /// Message shown when an active workout is restored after the app process restarts
   ///
   /// In en, this message translates to:
-  /// **'This in-progress workout was restored from local storage.'**
+  /// **'Workout restored from local storage.'**
   String get todaySessionRestoredMessage;
 
   /// Session-level calculated status on Today
   ///
   /// In en, this message translates to:
-  /// **'Session status: {status}'**
+  /// **'Session: {status}'**
   String todaySessionStatusLabel(String status);
 
   /// Exercise-level calculated status on Today
   ///
   /// In en, this message translates to:
-  /// **'Exercise status: {status}'**
+  /// **'Exercise: {status}'**
   String todayExerciseStatusLabel(String status);
 
   /// Set-level calculated status on Today
   ///
   /// In en, this message translates to:
-  /// **'Set status: {status}'**
+  /// **'Set: {status}'**
   String todaySetStatusLabel(String status);
 
   /// Calculated status for a set that has not been logged
@@ -2206,13 +3179,13 @@ abstract class AppLocalizations {
   /// Calculated status when all comparable targets are met
   ///
   /// In en, this message translates to:
-  /// **'Successful'**
+  /// **'Done'**
   String get todayStatusSuccessful;
 
   /// Calculated status for a logged set that met its prescription
   ///
   /// In en, this message translates to:
-  /// **'Target met'**
+  /// **'Hit target'**
   String get todayStatusTargetMet;
 
   /// Calculated status when one or more performance misses exist
@@ -2224,7 +3197,7 @@ abstract class AppLocalizations {
   /// Calculated status for a set that missed reps, load, strength, or technique target
   ///
   /// In en, this message translates to:
-  /// **'Performance miss'**
+  /// **'Missed target'**
   String get todayStatusPerformanceMiss;
 
   /// Calculated status for time, equipment, external, or skipped interruptions
@@ -2242,13 +3215,13 @@ abstract class AppLocalizations {
   /// Calculated status when a log cannot be compared to a prescription
   ///
   /// In en, this message translates to:
-  /// **'Logged, not comparable'**
+  /// **'Logged only'**
   String get todayStatusNotComparable;
 
   /// Progress summary for completed sets during an active workout
   ///
   /// In en, this message translates to:
-  /// **'{completedSetCount} of {setCount} sets completed'**
+  /// **'{completedSetCount}/{setCount} sets'**
   String todaySetProgressSummary(int completedSetCount, int setCount);
 
   /// Exercise-level set count in the active workout logger
@@ -2266,19 +3239,19 @@ abstract class AppLocalizations {
   /// Input label for the completed repetition count
   ///
   /// In en, this message translates to:
-  /// **'Actual reps'**
+  /// **'Reps'**
   String get todayActualRepetitionsLabel;
 
   /// Input label for the completed load value
   ///
   /// In en, this message translates to:
-  /// **'Actual load'**
+  /// **'Load'**
   String get todayActualLoadLabel;
 
   /// Input label for the completed reps-in-reserve value
   ///
   /// In en, this message translates to:
-  /// **'Actual RIR'**
+  /// **'RIR'**
   String get todayActualRirLabel;
 
   /// Input label for the set outcome selector
@@ -2290,19 +3263,19 @@ abstract class AppLocalizations {
   /// Outcome selector option when no limitation or interruption occurred
   ///
   /// In en, this message translates to:
-  /// **'No limitation'**
+  /// **'No limit'**
   String get todayOutcomeNone;
 
   /// Outcome selector option for strength-limited sets
   ///
   /// In en, this message translates to:
-  /// **'Strength limitation'**
+  /// **'Strength'**
   String get todayOutcomeStrengthLimitation;
 
   /// Outcome selector option for technique-limited sets
   ///
   /// In en, this message translates to:
-  /// **'Technique limitation'**
+  /// **'Technique'**
   String get todayOutcomeTechniqueLimitation;
 
   /// Outcome selector option for pain reports
@@ -2314,19 +3287,19 @@ abstract class AppLocalizations {
   /// Outcome selector option for time-limited sets
   ///
   /// In en, this message translates to:
-  /// **'Time limitation'**
+  /// **'Time'**
   String get todayOutcomeTimeLimitation;
 
   /// Outcome selector option for equipment-limited sets
   ///
   /// In en, this message translates to:
-  /// **'Equipment limitation'**
+  /// **'Equipment'**
   String get todayOutcomeEquipmentLimitation;
 
   /// Outcome selector option for externally interrupted sets
   ///
   /// In en, this message translates to:
-  /// **'External interruption'**
+  /// **'Interrupted'**
   String get todayOutcomeExternalInterruption;
 
   /// Button label for logging and completing one set
@@ -2348,7 +3321,7 @@ abstract class AppLocalizations {
   /// Fallback text when a session set no longer has its original prescription
   ///
   /// In en, this message translates to:
-  /// **'Target unavailable'**
+  /// **'No target'**
   String get todaySetPrescriptionUnavailable;
 
   /// Previous set result shown beside the current prescription
@@ -2365,7 +3338,7 @@ abstract class AppLocalizations {
   /// Fallback text when there is no previous set result for the current set slot
   ///
   /// In en, this message translates to:
-  /// **'Previous: no logged set yet'**
+  /// **'Previous: none yet'**
   String get todayPreviousPerformanceUnavailable;
 
   /// Fallback text when an actual set log has no repetition value
@@ -2394,7 +3367,7 @@ abstract class AppLocalizations {
   /// Snack bar shown when set logging fails
   ///
   /// In en, this message translates to:
-  /// **'Set could not be logged.'**
+  /// **'Set could not save.'**
   String get todaySetLogFailed;
 
   /// Snack bar shown when set logging inputs are invalid
@@ -2406,19 +3379,19 @@ abstract class AppLocalizations {
   /// Tooltip for decreasing the active set load by one quick step
   ///
   /// In en, this message translates to:
-  /// **'Decrease load'**
+  /// **'Load down'**
   String get todayQuickLoadDecrease;
 
   /// Tooltip for increasing the active set load by one quick step
   ///
   /// In en, this message translates to:
-  /// **'Increase load'**
+  /// **'Load up'**
   String get todayQuickLoadIncrease;
 
   /// Title for the active workout rest timer panel
   ///
   /// In en, this message translates to:
-  /// **'Rest timer'**
+  /// **'Rest'**
   String get todayRestTimerTitle;
 
   /// Running rest timer message after a completed set
@@ -2434,13 +3407,13 @@ abstract class AppLocalizations {
   /// Message shown when the active rest timer reaches zero
   ///
   /// In en, this message translates to:
-  /// **'Rest complete. Start the next set when ready.'**
+  /// **'Rest complete. Start the next set.'**
   String get todayRestTimerComplete;
 
   /// Button label for dismissing or cancelling the active rest timer
   ///
   /// In en, this message translates to:
-  /// **'Dismiss'**
+  /// **'Close'**
   String get todayRestTimerDismiss;
 
   /// Android notification title for completed rest timers
@@ -2452,7 +3425,7 @@ abstract class AppLocalizations {
   /// Android notification body for completed rest timers
   ///
   /// In en, this message translates to:
-  /// **'Time for your next set.'**
+  /// **'Start the next set.'**
   String get todayRestTimerNotificationBody;
 
   /// Status shown when the rest timer background notification is scheduled

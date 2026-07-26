@@ -51,7 +51,7 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Date: 2026-07-06
 - Status: Accepted
 - Decision: Keep the personal release local-only with no paid services or required backend.
-- Consequence: Accounts and multi-device synchronization remain behind the Phase 8 cost gate.
+- Consequence: Accounts and multi-device synchronization remain behind the Phase 9 cost gate.
 
 ## D-008 — Repository Publication
 
@@ -521,7 +521,7 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Date: 2026-07-21
 - Status: Accepted
 - Decision: Derive Progress-screen measurement-history comparisons and copyable CSV/JSON report text in memory from local measurement records.
-- Consequence: Users can review first-to-latest body-measurement changes, latest left/right circumference differences, and copy a measurement report without adding schema, writing plaintext files, creating restore/import behavior, or exposing `profile_id`. The feature remains separate from the encrypted backup container planned for P7-10.
+- Consequence: Users can review first-to-latest body-measurement changes, latest left/right circumference differences, and copy a measurement report without adding schema, writing plaintext files, creating restore/import behavior, or exposing `profile_id`. The feature remains separate from the encrypted backup container planned for P8-10.
 
 ## D-075 — Morph Boundary and Visual Regression Coverage
 
@@ -536,3 +536,115 @@ Each decision records its identifier, date, status, context, choice, consequence
 - Status: Accepted
 - Decision: Produce Build C4 as a development-only Android debug APK that opens to the Anatomy branch and packages Phase 6 measurement storage, body-fat provenance, measurement guidance, bounded morph targets, visual range clamps, visual-estimate disclosure, training heatmaps, Progress trends, measurement-history comparison, report copy, and morph-boundary coverage.
 - Consequence: The personalized anatomy alpha can be installed and tested without release signing or external services. The APK artifact stays excluded from source control, while renderer mesh deformation, reviewed runtime GLB packaging, encrypted backup restore, branch publication, pull request creation, and CI verification remain separate work.
+
+## D-077 — Modern UX Simplicity Reset
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Insert Phase 7 as a modern UX redesign before personal release, keeping the completed local engine while rebuilding root tabs as compact dashboards and moving complex tasks into focused routes, sheets, or guided step flows.
+- Consequence: The next open checklist item remains P7-01, but P7 now starts with UX quality-bar and app-map work instead of exercise animation production. Content quality, notifications, encrypted export, signing, and release-candidate work move to Phase 8. Consumer expansion moves behind the Phase 9 cost gate.
+
+## D-078 — Phase 7 UX Acceptance Bar
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Define P7-01 as a documentation gate that establishes measurable UX thresholds, a focused app map, and screen-by-screen acceptance criteria before rebuilding Phase 7 screens.
+- Consequence: Later Phase 7 implementation work must prove compact root dashboards, short focused flows, one-handed workout logging, localized copy fit, accessibility, and offline behavior before each redesigned screen can be marked complete.
+
+## D-079 — Modern Component Foundation
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-02 as a reusable presentation component layer with compact dashboard cards, status chips, progress rings, dense form sections, dense text fields, and shared motion tokens.
+- Consequence: Later Phase 7 screens can rebuild around consistent compact cards, state chips, progress indicators, focused edit surfaces, and controlled motion without changing local data contracts, navigation structure, progression rules, measurement rules, or renderer behavior.
+
+## D-080 — Dashboard Root and Focused Route Split
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-03 by keeping the five primary destinations as dashboard roots and moving complex workout, Program, catalog, Progress, and Settings tasks into focused child routes.
+- Consequence: Root tabs are no longer long editing surfaces. Existing local behavior remains available under child routes, while later Phase 7 items can redesign each focused flow without changing repository contracts, schema, progression rules, measurement rules, or renderer behavior.
+
+## D-081 — Guided Setup Wizard
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-04 by replacing the long Settings setup page with a compact guided wizard for goal, experience, equipment, weekly availability, measurement preference, and final review.
+- Consequence: Setup now saves onboarding preferences and weekly availability through the existing local repositories while keeping measurement preference as non-persisted UI state for this flow. The change adds no database schema, progression-rule change, generated-program mutation, or measurement-value write.
+
+## D-082 — Today Daily Coach Dashboard
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-05 by rebuilding the Today root as a daily coach dashboard with a next-workout mission, root-level quick start or resume, local streak, weekly consistency, and a compact review queue card.
+- Consequence: Today now derives streak and weekly consistency from local completed workout sessions and the active program's training-day count without persisting analytics or changing training progression. The review queue card is a schema-free status surface until durable recommendation inbox storage exists, while the focused active-workout route remains the existing set-logging surface for P7-06.
+
+## D-083 — Focused Active Workout Route
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-06 by rebuilding `/today/workout` as a focused set-by-set route that shows one editable current set, compact previous performance, quick load/repetition/RIR edits, one complete-set action, visible rest state, and a compact status queue for non-focused sets.
+- Consequence: Active workout execution becomes one-handed and less cluttered without changing database schema, repository transactions, progression rules, rest-timer semantics, or outcome handling. Program selection and start controls stay outside the active-session state because Today root now owns daily workout entry.
+
+## D-084 — Program Active Plan Hub
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-07 by rebuilding the Program root as a read-only hub with active-plan overview, compact training-day cards, recommendation inbox entry, and separate route cards for builder and catalog work.
+- Consequence: Program navigation becomes easier to scan without changing program persistence, publication, prescription editing, catalog data, recommendation rules, or schema. Inline editing remains outside the root and continues through the existing focused child routes.
+
+## D-085 - Guided Program Builder
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-08 by rebuilding `/program/builder` as a guided five-step creation flow for setup, training days, catalog search and ordering, prescription targets, and publish review.
+- Consequence: Manual program creation becomes more compact and reviewable without changing the draft controller, persisted program schema, catalog contract, prescription model, or progression rules. Publishing now requires a presentation-layer confirmation before the existing immutable-version write is executed.
+
+## D-086 - Modern Exercise Catalog and Detail
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-09 by rebuilding `/program/catalog` and `/program/exercise/:exerciseId` with compact filter discovery, media-led cards, muscle chips, substitution chips, and direct add-to-program actions.
+- Consequence: Exercise discovery becomes faster and more program-oriented without changing the canonical catalog JSON contracts, exercise media contract, persisted program schema, or progression rules. Add-to-program writes only to the existing local builder draft state.
+
+## D-087 - Visual-First Anatomy Review
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-10 by rebuilding the Anatomy root around a large first-position anatomy viewport, overlay heatmap controls, tap-to-inspect selected-region feedback, compact missing-measurement guidance, and a visible visual-estimate disclosure.
+- Consequence: Anatomy becomes easier to scan without changing the native renderer bridge, semantic muscle IDs, measurement schema, morph-boundary rules, training heatmap derivation, or medical-safety disclosure contract. Missing-measurement prompting is presentation-only and depends on whether saved records contain usable positive measurement values.
+
+## D-088 - Compact Progress Path Dashboard
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-11 by rebuilding the Progress root as a compact path dashboard with local streak and seven-day consistency indicators, milestone chips, personal-record preview, trend preview, and measurement-comparison preview.
+- Consequence: Progress becomes easier to scan without changing workout history storage, append-only correction behavior, personal-record derivation, progress-trend rules, measurement-history export, or training progression. Streaks and milestones are presentation-only summaries derived from existing local read models; durable achievement feedback remains scoped to P7-12.
+
+## D-089 - Local Achievement Feedback Read Model
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-12 as a shared local achievement feedback read model for completed-workout streaks, seven-day consistency, local milestones, and compact non-social feedback labels.
+- Consequence: Today and Progress now use the same local derivation for streak and milestone feedback without adding achievement storage, points, social comparison, notification triggers, schema changes, or training-progression inputs.
+
+## D-090 - Concise Core Microcopy
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-13 by rewriting core Turkish and English labels, helper text, empty states, and coaching copy around short action-first language for Today, Program, Builder, Catalog, Anatomy, Progress, and Profile.
+- Consequence: The redesigned surfaces use shorter labels and clearer next actions while preserving conservative safety, pain, visual-estimate, export, and progression language. The Settings route remains technically compatible, but user-facing navigation now uses Profile.
+
+## D-091 - P7 UX Golden and Accessibility Review
+
+- Date: 2026-07-26
+- Status: Accepted
+- Decision: Implement P7-14 with deterministic golden baselines for stable primary redesigned states, route-level 2.0 text-scale checks, broader primary-action touch-target checks, and a documented screenshot review matrix.
+- Consequence: The modern UX preview can proceed with automated coverage for the main dashboards and active workout. Program builder and catalog child routes remain covered by focused widget tests until the later P8 accessibility and overflow pass hardens screenshot capture for input-heavy child routes.
+
+## D-092 - Modern UX Preview Build C4.5
+
+- Date: 2026-07-27
+- Status: Accepted
+- Decision: Produce P7-15 as a development-only Android debug APK that opens to the redesigned Today dashboard and packages the completed modern UX preview slice through P7-14.
+- Consequence: The APK can be installed for local review without release signing, external services, account synchronization, store-ready identifiers, or durable recommendation storage. Publication, pull request creation, and CI verification remain scoped to P7-16.

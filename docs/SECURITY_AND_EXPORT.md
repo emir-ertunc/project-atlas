@@ -4,7 +4,7 @@
 
 Uncontrolled operating-system backup is disabled for the local data used by the
 personal release. This document also defines the encrypted export contract that
-P7-10 will implement. No plaintext export or restore path is permitted.
+P8-10 will implement. No plaintext export or restore path is permitted.
 
 ## Threat Model
 
@@ -69,7 +69,7 @@ P6-09 adds a measurement-history CSV/JSON report copy on the Progress screen.
 This is not a backup or restore path and does not write a plaintext file. It is
 an explicit clipboard action with a personal-data warning, omits `profile_id`,
 and remains separate from the restore-capable encrypted container required for
-P7-10.
+P8-10.
 
 ## Container Version 1
 
@@ -120,7 +120,7 @@ The Argon2id baseline follows the memory-constrained recommendation in
 implementation must use maintained cryptographic libraries and must not
 implement either primitive directly.
 
-Devices must be benchmarked before P7-10 is accepted. A stronger configuration
+Devices must be benchmarked before P8-10 is accepted. A stronger configuration
 may be stored per export, but the implementation must not silently fall below
 the baseline. Restore applies documented upper bounds before running a KDF so a
 hostile header cannot request unbounded memory or CPU time.
@@ -163,7 +163,7 @@ one generic error and expose no partially decrypted data. Restore never merges
 records in container version 1; it replaces the local dataset only after
 validation and confirmation.
 
-## P7-10 Acceptance Requirements
+## P8-10 Acceptance Requirements
 
 - Independent known-answer tests for KDF and AEAD library integration
 - Round-trip tests across Android and iOS implementations

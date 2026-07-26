@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_atlas/core/design_system/components/app_dashboard_card.dart';
+import 'package:project_atlas/core/design_system/components/app_progress_ring.dart';
+import 'package:project_atlas/core/design_system/components/app_status_chip.dart';
 import 'package:project_atlas/core/design_system/components/feature_root_scaffold.dart';
 import 'package:project_atlas/core/design_system/tokens/app_spacing.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
@@ -52,6 +55,17 @@ class TodayScreen extends ConsumerWidget {
   static const sessionStatusKey = Key('today-session-status');
   static const startSessionButtonKey = Key('today-start-session-button');
   static const retryButtonKey = Key('today-retry-button');
+  static const workoutRouteCardKey = Key('today-workout-route-card');
+  static const coachHeroCardKey = Key('today-coach-hero-card');
+  static const quickStartButtonKey = Key('today-quick-start-button');
+  static const streakCardKey = Key('today-streak-card');
+  static const weeklyConsistencyCardKey = Key('today-weekly-consistency-card');
+  static const pendingRecommendationCardKey = Key(
+    'today-pending-recommendation-card',
+  );
+  static const activeWorkoutQueueCardKey = Key(
+    'today-active-workout-queue-card',
+  );
 
   static Key exerciseStatusKey(int exerciseOrder) =>
       Key('today-exercise-status-$exerciseOrder');
@@ -108,6 +122,34 @@ class TodayScreen extends ConsumerWidget {
       title: l10n.todayNavigationLabel,
       icon: Icons.today_outlined,
       child: todayState.when(
+        data: (state) => _TodayDashboard(state: state),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => _TodayErrorState(
+          onRetry: () => ref.invalidate(todayWorkoutControllerProvider),
+        ),
+      ),
+    );
+  }
+}
+
+class TodayWorkoutScreen extends ConsumerWidget {
+  const TodayWorkoutScreen({super.key});
+
+  static const pathSegment = 'workout';
+  static const path = '${TodayScreen.path}/$pathSegment';
+  static const routeName = 'today-workout';
+  static const screenKey = Key('today-workout-screen');
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final todayState = ref.watch(todayWorkoutControllerProvider);
+
+    return FeatureRootScaffold(
+      key: screenKey,
+      title: l10n.todayNavigationLabel,
+      icon: Icons.today_outlined,
+      child: todayState.when(
         data: (state) => _TodayContent(state: state),
         loading: () => Center(
           child: Semantics(
@@ -121,6 +163,487 @@ class TodayScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _TodayDashboard extends ConsumerWidget {
+  const _TodayDashboard({required this.state});
+
+  final TodayWorkoutState state;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final activeSession = state.activeSession;
+    final activeProgramPlan = state.activeProgramPlan;
+    final selectedDay = state.selectedTrainingDay;
+    final canStartSelectedDay =
+        activeSession == null &&
+        activeProgramPlan != null &&
+        selectedDay != null &&
+        selectedDay.hasExercises;
+
+    return ListView(
+      restorationId: 'today-dashboard-scroll',
+      padding: const EdgeInsets.all(AppSpacing.md),
+      children: [
+        Semantics(
+          header: true,
+          child: Text(
+            l10n.todayNavigationLabel,
+            key: FeatureRootScaffold.placeholderTitleKey,
+            style: theme.textTheme.headlineSmall,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          l10n.todayCoachDashboardSubtitle,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        AppDashboardCard(
+          key: TodayScreen.coachHeroCardKey,
+          title: _missionTitle(l10n, state),
+          subtitle: _missionSubtitle(l10n, state),
+          leadingIcon: activeSession == null
+              ? Icons.flag_outlined
+              : Icons.play_circle_outline,
+          metric: activeSession != null
+              ? l10n.todaySetProgressSummary(
+                  activeSession.completedSetCount,
+                  activeSession.totalSetCount,
+                )
+              : selectedDay != null
+              ? l10n.todayTrainingDaySummary(
+                  selectedDay.exerciseCount,
+                  selectedDay.totalSetCount,
+                )
+              : null,
+          trend: _missionTrend(l10n, state),
+          isProminent: true,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _MissionStatusChips(
+                state: state,
+                isEmptyState: activeProgramPlan == null,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              FilledButton.icon(
+                key: TodayScreen.quickStartButtonKey,
+                onPressed: () => _handlePrimaryAction(
+                  context,
+                  ref,
+                  canStartSelectedDay: canStartSelectedDay,
+                ),
+                icon: Icon(
+                  activeSession != null
+                      ? Icons.play_arrow
+                      : activeProgramPlan == null
+                      ? Icons.add
+                      : Icons.flash_on_outlined,
+                ),
+                label: Text(_primaryActionLabel(l10n, state)),
+              ),
+              if (activeProgramPlan != null || activeSession != null) ...[
+                const SizedBox(height: AppSpacing.xs),
+                TextButton.icon(
+                  key: TodayScreen.workoutRouteCardKey,
+                  onPressed: () => context.go(TodayWorkoutScreen.path),
+                  icon: const Icon(Icons.view_agenda_outlined),
+                  label: Text(l10n.todayOpenWorkoutDetails),
+                ),
+              ],
+            ],
+          ),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _CoachMetricGrid(summary: state.coachSummary),
+        const SizedBox(height: AppSpacing.sm),
+        _PendingRecommendationCard(state: state),
+      ],
+    );
+  }
+
+  Future<void> _handlePrimaryAction(
+    BuildContext context,
+    WidgetRef ref, {
+    required bool canStartSelectedDay,
+  }) async {
+    if (state.activeSession != null) {
+      context.go(TodayWorkoutScreen.path);
+      return;
+    }
+
+    if (state.activeProgramPlan == null) {
+      context.go(ProgramScreen.path);
+      return;
+    }
+
+    if (!canStartSelectedDay) {
+      context.go(TodayWorkoutScreen.path);
+      return;
+    }
+
+    final l10n = AppLocalizations.of(context);
+    try {
+      await ref
+          .read(todayWorkoutControllerProvider.notifier)
+          .startSelectedSession();
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.todaySessionStarted)));
+      context.go(TodayWorkoutScreen.path);
+    } catch (_) {
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.todaySessionStartFailed)));
+    }
+  }
+}
+
+class _MissionStatusChips extends StatelessWidget {
+  const _MissionStatusChips({required this.state, required this.isEmptyState});
+
+  final TodayWorkoutState state;
+  final bool isEmptyState;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final activeSession = state.activeSession;
+    final chips = Wrap(
+      spacing: AppSpacing.xs,
+      runSpacing: AppSpacing.xs,
+      children: [
+        AppStatusChip(
+          label: _missionStatusLabel(l10n, state),
+          tone: _missionStatusTone(state),
+        ),
+        if (activeSession?.restoredAfterProcessTermination ?? false)
+          AppStatusChip(
+            label: l10n.todaySessionRestoredStatus,
+            tone: AppStatusTone.warning,
+            icon: Icons.restore_outlined,
+          ),
+      ],
+    );
+
+    return isEmptyState
+        ? KeyedSubtree(key: TodayScreen.emptyStateKey, child: chips)
+        : chips;
+  }
+}
+
+class _CoachMetricGrid extends StatelessWidget {
+  const _CoachMetricGrid({required this.summary});
+
+  final TodayCoachSummary summary;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cards = [
+          Expanded(child: _StreakCard(summary: summary)),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(child: _WeeklyConsistencyCard(summary: summary)),
+        ];
+
+        if (constraints.maxWidth < 340) {
+          return Column(
+            children: [
+              _StreakCard(summary: summary),
+              const SizedBox(height: AppSpacing.sm),
+              _WeeklyConsistencyCard(summary: summary),
+            ],
+          );
+        }
+
+        return Row(children: cards);
+      },
+    );
+  }
+}
+
+class _StreakCard extends StatelessWidget {
+  const _StreakCard({required this.summary});
+
+  final TodayCoachSummary summary;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return AppDashboardCard(
+      key: TodayScreen.streakCardKey,
+      title: l10n.todayStreakTitle,
+      subtitle: summary.currentStreakDays == 0
+          ? l10n.todayStreakEmptyDescription
+          : l10n.todayStreakActiveDescription,
+      leadingIcon: Icons.local_fire_department_outlined,
+      metric: l10n.todayStreakValue(summary.currentStreakDays),
+    );
+  }
+}
+
+class _WeeklyConsistencyCard extends StatelessWidget {
+  const _WeeklyConsistencyCard({required this.summary});
+
+  final TodayCoachSummary summary;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final percent = summary.weeklyConsistencyPercent;
+
+    return AppDashboardCard(
+      key: TodayScreen.weeklyConsistencyCardKey,
+      title: l10n.todayWeeklyConsistencyTitle,
+      subtitle: summary.hasWeeklyTarget
+          ? l10n.todayWeeklyConsistencyValue(
+              summary.completedWorkoutsThisWeek,
+              summary.weeklyWorkoutTarget,
+            )
+          : l10n.todayWeeklyConsistencyNoTarget,
+      leadingIcon: Icons.insights_outlined,
+      metric: summary.hasWeeklyTarget
+          ? l10n.todayWeeklyConsistencyPercent(percent)
+          : null,
+      trailing: AppProgressRing(
+        progress: summary.weeklyConsistencyRatio,
+        size: 56,
+        semanticLabel: l10n.todayWeeklyConsistencyTitle,
+        center: Text(summary.hasWeeklyTarget ? '$percent%' : '0%'),
+      ),
+    );
+  }
+}
+
+class _PendingRecommendationCard extends StatelessWidget {
+  const _PendingRecommendationCard({required this.state});
+
+  final TodayWorkoutState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final review = _pendingReviewState(l10n, state);
+
+    return AppDashboardCard(
+      key: TodayScreen.pendingRecommendationCardKey,
+      title: review.title,
+      subtitle: review.subtitle,
+      leadingIcon: review.icon,
+      metric: review.metric,
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => context.go(review.destinationPath),
+      child: AppStatusChip(
+        label: review.statusLabel,
+        tone: review.tone,
+        icon: review.statusIcon,
+      ),
+    );
+  }
+}
+
+final class _PendingReviewState {
+  const _PendingReviewState({
+    required this.title,
+    required this.subtitle,
+    required this.metric,
+    required this.statusLabel,
+    required this.tone,
+    required this.icon,
+    required this.destinationPath,
+    this.statusIcon,
+  });
+
+  final String title;
+  final String subtitle;
+  final String metric;
+  final String statusLabel;
+  final AppStatusTone tone;
+  final IconData icon;
+  final String destinationPath;
+  final IconData? statusIcon;
+}
+
+String _missionTitle(AppLocalizations l10n, TodayWorkoutState state) {
+  if (state.activeSession != null) {
+    return l10n.todayCoachResumeTitle;
+  }
+  final selectedDay = state.selectedTrainingDay;
+  if (selectedDay != null) {
+    return l10n.todayCoachNextWorkoutTitle(selectedDay.day.name);
+  }
+  return l10n.todayNoActiveProgramTitle;
+}
+
+String _missionSubtitle(AppLocalizations l10n, TodayWorkoutState state) {
+  final activeSession = state.activeSession;
+  if (activeSession != null) {
+    return l10n.todaySessionInProgressSummary(
+      activeSession.exerciseCount,
+      activeSession.totalSetCount,
+    );
+  }
+
+  final selectedDay = state.selectedTrainingDay;
+  if (selectedDay != null && selectedDay.hasExercises) {
+    return l10n.todayCoachNextWorkoutDescription;
+  }
+  if (selectedDay != null) {
+    return l10n.todayNoExercisesMessage;
+  }
+  return l10n.todayNoActiveProgramMessage;
+}
+
+String? _missionTrend(AppLocalizations l10n, TodayWorkoutState state) {
+  final activeSession = state.activeSession;
+  if (activeSession != null) {
+    return _sessionStatusText(l10n, activeSession.status);
+  }
+  final plan = state.activeProgramPlan;
+  if (plan != null) {
+    return l10n.todayActiveProgramSummary(
+      plan.version.versionNumber,
+      plan.trainingDays.length,
+    );
+  }
+  return l10n.todayCoachNoProgramTrend;
+}
+
+String _missionStatusLabel(AppLocalizations l10n, TodayWorkoutState state) {
+  final activeSession = state.activeSession;
+  if (activeSession != null) {
+    return _sessionStatusText(l10n, activeSession.status);
+  }
+  if (state.activeProgramPlan != null) {
+    return l10n.todayCoachReadyStatus;
+  }
+  return l10n.todayCoachSetupStatus;
+}
+
+AppStatusTone _missionStatusTone(TodayWorkoutState state) {
+  final activeSession = state.activeSession;
+  if (activeSession != null) {
+    return _sessionStatusTone(activeSession.status);
+  }
+  if (state.activeProgramPlan != null) {
+    return AppStatusTone.success;
+  }
+  return AppStatusTone.warning;
+}
+
+String _primaryActionLabel(AppLocalizations l10n, TodayWorkoutState state) {
+  if (state.activeSession != null) {
+    return l10n.todayResumeWorkout;
+  }
+  if (state.activeProgramPlan == null) {
+    return l10n.todayCreateProgram;
+  }
+  if (state.selectedTrainingDay?.hasExercises ?? false) {
+    return l10n.todayQuickStartWorkout;
+  }
+  return l10n.todayOpenWorkoutDetails;
+}
+
+_PendingReviewState _pendingReviewState(
+  AppLocalizations l10n,
+  TodayWorkoutState state,
+) {
+  final activeSession = state.activeSession;
+  if (activeSession != null && _sessionNeedsReview(activeSession.status)) {
+    return _PendingReviewState(
+      title: l10n.todayPendingRecommendationTitle,
+      subtitle: l10n.todayPendingRecommendationActiveDescription,
+      metric: l10n.todayPendingRecommendationPendingCount(1),
+      statusLabel: _sessionStatusText(l10n, activeSession.status),
+      tone: _sessionStatusTone(activeSession.status),
+      icon: Icons.pending_actions_outlined,
+      statusIcon: Icons.priority_high_outlined,
+      destinationPath: ProgramRecommendationInboxScreen.path,
+    );
+  }
+
+  if (state.activeProgramPlan == null) {
+    return _PendingReviewState(
+      title: l10n.todayPendingRecommendationTitle,
+      subtitle: l10n.todayPendingRecommendationNoProgramDescription,
+      metric: l10n.todayPendingRecommendationClearCount,
+      statusLabel: l10n.todayCoachSetupStatus,
+      tone: AppStatusTone.neutral,
+      icon: Icons.rule_folder_outlined,
+      destinationPath: ProgramScreen.path,
+    );
+  }
+
+  return _PendingReviewState(
+    title: l10n.todayPendingRecommendationTitle,
+    subtitle: l10n.todayPendingRecommendationClearDescription,
+    metric: l10n.todayPendingRecommendationClearCount,
+    statusLabel: l10n.todayPendingRecommendationClearStatus,
+    tone: AppStatusTone.success,
+    icon: Icons.task_alt_outlined,
+    statusIcon: Icons.check,
+    destinationPath: ProgramRecommendationInboxScreen.path,
+  );
+}
+
+bool _sessionNeedsReview(TodaySessionStatus status) {
+  return switch (status) {
+    TodaySessionStatus.needsReview ||
+    TodaySessionStatus.interrupted ||
+    TodaySessionStatus.painReported ||
+    TodaySessionStatus.notComparable => true,
+    TodaySessionStatus.notStarted ||
+    TodaySessionStatus.inProgress ||
+    TodaySessionStatus.successful => false,
+  };
+}
+
+AppStatusTone _sessionStatusTone(TodaySessionStatus status) {
+  return switch (status) {
+    TodaySessionStatus.successful => AppStatusTone.success,
+    TodaySessionStatus.needsReview => AppStatusTone.warning,
+    TodaySessionStatus.interrupted => AppStatusTone.warning,
+    TodaySessionStatus.painReported => AppStatusTone.danger,
+    TodaySessionStatus.notComparable => AppStatusTone.information,
+    TodaySessionStatus.notStarted => AppStatusTone.neutral,
+    TodaySessionStatus.inProgress => AppStatusTone.information,
+  };
+}
+
+AppStatusTone _exerciseStatusTone(TodayExerciseStatus status) {
+  return switch (status) {
+    TodayExerciseStatus.successful => AppStatusTone.success,
+    TodayExerciseStatus.needsReview => AppStatusTone.warning,
+    TodayExerciseStatus.interrupted => AppStatusTone.warning,
+    TodayExerciseStatus.painReported => AppStatusTone.danger,
+    TodayExerciseStatus.notComparable => AppStatusTone.information,
+    TodayExerciseStatus.notStarted => AppStatusTone.neutral,
+    TodayExerciseStatus.inProgress => AppStatusTone.information,
+  };
+}
+
+AppStatusTone _setStatusTone(TodaySetStatus status) {
+  return switch (status) {
+    TodaySetStatus.targetMet => AppStatusTone.success,
+    TodaySetStatus.performanceMiss => AppStatusTone.warning,
+    TodaySetStatus.interrupted => AppStatusTone.warning,
+    TodaySetStatus.painReported => AppStatusTone.danger,
+    TodaySetStatus.notComparable => AppStatusTone.information,
+    TodaySetStatus.pending => AppStatusTone.neutral,
+  };
 }
 
 class _TodayContent extends ConsumerWidget {
@@ -158,7 +681,9 @@ class _TodayContent extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            l10n.todayScreenSubtitle,
+            state.activeSession == null
+                ? l10n.todayScreenSubtitle
+                : l10n.todayActiveWorkoutSubtitle,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -175,8 +700,7 @@ class _TodayContent extends ConsumerWidget {
                   .completeSessionSet,
             ),
             const SizedBox(height: AppSpacing.md),
-          ],
-          if (state.activeProgramPlan == null)
+          ] else if (state.activeProgramPlan == null)
             _NoProgramCard(onOpenProgram: () => context.go(ProgramScreen.path))
           else ...[
             _ActiveProgramCard(plan: state.activeProgramPlan!),
@@ -519,153 +1043,282 @@ class _ActiveSessionCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final restTimerState = ref.watch(restTimerControllerProvider);
+    final restState = ref.watch(restTimerControllerProvider);
+    final focusedSet = _focusedSetSummary(session, restState);
+    final focusedExercise = focusedSet == null
+        ? null
+        : _exerciseForSet(session, focusedSet.sessionSet.id);
+    final exerciseName = focusedExercise == null
+        ? null
+        : _exerciseName(context, catalog, focusedExercise.exerciseId);
     final lastSetId = session.setSummaries.isEmpty
         ? null
         : session.setSummaries.last.sessionSet.id;
 
-    return Card(
+    return AppDashboardCard(
       key: TodayScreen.activeSessionCardKey,
-      color: Theme.of(context).colorScheme.primaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: const Icon(Icons.fitness_center),
-              title: Text(l10n.todaySessionInProgressTitle),
-              subtitle: Text(
-                l10n.todaySessionInProgressSummary(
-                  session.exerciseCount,
-                  session.totalSetCount,
+      title: l10n.todaySessionInProgressTitle,
+      subtitle: l10n.todaySessionInProgressSummary(
+        session.exerciseCount,
+        session.totalSetCount,
+      ),
+      leadingIcon: Icons.fitness_center,
+      metric: l10n.todaySetProgressSummary(
+        session.completedSetCount,
+        session.totalSetCount,
+      ),
+      isProminent: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            spacing: AppSpacing.xs,
+            runSpacing: AppSpacing.xs,
+            children: [
+              AppStatusChip(
+                key: TodayScreen.sessionStatusKey,
+                label: l10n.todaySessionStatusLabel(
+                  _sessionStatusText(l10n, session.status),
                 ),
+                tone: _sessionStatusTone(session.status),
               ),
-            ),
-            Text(l10n.todaySessionInProgressMessage),
-            if (session.restoredAfterProcessTermination) ...[
-              const SizedBox(height: AppSpacing.xxs),
-              Text(
-                key: TodayScreen.restoredSessionMessageKey,
-                l10n.todaySessionRestoredMessage,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+              if (focusedExercise != null)
+                AppStatusChip(
+                  key: TodayScreen.exerciseStatusKey(
+                    focusedExercise.exerciseOrder,
+                  ),
+                  label: l10n.todayExerciseStatusLabel(
+                    _exerciseStatusText(l10n, focusedExercise.status),
+                  ),
+                  tone: _exerciseStatusTone(focusedExercise.status),
                 ),
-              ),
             ],
-            const SizedBox(height: AppSpacing.xs),
+          ),
+          if (session.restoredAfterProcessTermination) ...[
+            const SizedBox(height: AppSpacing.sm),
             Text(
-              l10n.todaySetProgressSummary(
-                session.completedSetCount,
-                session.totalSetCount,
-              ),
+              key: TodayScreen.restoredSessionMessageKey,
+              l10n.todaySessionRestoredMessage,
             ),
-            const SizedBox(height: AppSpacing.xxs),
-            Text(
-              key: TodayScreen.sessionStatusKey,
-              l10n.todaySessionStatusLabel(
-                _sessionStatusText(l10n, session.status),
-              ),
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
-            if (restTimerState.hasTimer) ...[
-              const SizedBox(height: AppSpacing.sm),
-              _RestTimerPanel(state: restTimerState),
-            ],
-            if (session.exerciseSummaries.isNotEmpty) ...[
-              const SizedBox(height: AppSpacing.md),
-              for (final exercise in session.exerciseSummaries)
-                _ActiveSessionExerciseSection(
-                  exercise: exercise,
-                  catalog: catalog,
-                  formatter: formatter,
-                  unitSystem: unitSystem,
-                  lastSessionSetId: lastSetId,
-                  onCompleteSet: onCompleteSet,
-                  onStartRestTimer: ref
-                      .read(restTimerControllerProvider.notifier)
-                      .startRestTimer,
-                ),
-            ],
           ],
-        ),
+          if (restState.hasTimer) ...[
+            const SizedBox(height: AppSpacing.md),
+            _RestTimerPanel(state: restState),
+          ],
+          const SizedBox(height: AppSpacing.md),
+          if (focusedSet == null || exerciseName == null)
+            _ActiveWorkoutCompleteCard(session: session)
+          else
+            _FocusedSessionSetCard(
+              summary: focusedSet,
+              exerciseName: exerciseName,
+              formatter: formatter,
+              unitSystem: unitSystem,
+              shouldStartRestTimer: focusedSet.sessionSet.id != lastSetId,
+              onCompleteSet: onCompleteSet,
+              onStartRestTimer: ref
+                  .read(restTimerControllerProvider.notifier)
+                  .startRestTimer,
+            ),
+          const SizedBox(height: AppSpacing.sm),
+          _ActiveWorkoutQueueCard(
+            session: session,
+            catalog: catalog,
+            focusedSessionSetId: focusedSet?.sessionSet.id,
+          ),
+        ],
       ),
     );
   }
 }
 
-class _ActiveSessionExerciseSection extends StatelessWidget {
-  const _ActiveSessionExerciseSection({
-    required this.exercise,
-    required this.catalog,
+class _FocusedSessionSetCard extends StatelessWidget {
+  const _FocusedSessionSetCard({
+    required this.summary,
+    required this.exerciseName,
     required this.formatter,
     required this.unitSystem,
-    required this.lastSessionSetId,
+    required this.shouldStartRestTimer,
     required this.onCompleteSet,
     required this.onStartRestTimer,
   });
 
-  final TodaySessionExerciseSummary exercise;
-  final ExerciseCatalog? catalog;
+  final TodaySessionSetSummary summary;
+  final String exerciseName;
   final UnitFormatter formatter;
   final UnitSystem unitSystem;
-  final String? lastSessionSetId;
+  final bool shouldStartRestTimer;
   final _CompleteSessionSet onCompleteSet;
   final _StartRestTimer onStartRestTimer;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
-    final exerciseName = _exerciseName(context, exercise.exerciseId);
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return AppDashboardCard(
+      title: l10n.todayCurrentSetTitle,
+      subtitle: l10n.todayCurrentSetSubtitle(exerciseName, summary.setNumber),
+      leadingIcon: summary.isCompleted
+          ? Icons.check_circle_outline
+          : Icons.radio_button_checked,
+      child: _SessionSetLogger(
+        summary: summary,
+        exerciseName: exerciseName,
+        formatter: formatter,
+        unitSystem: unitSystem,
+        shouldStartRestTimer: shouldStartRestTimer,
+        onCompleteSet: onCompleteSet,
+        onStartRestTimer: onStartRestTimer,
+      ),
+    );
+  }
+}
+
+class _ActiveWorkoutQueueCard extends StatelessWidget {
+  const _ActiveWorkoutQueueCard({
+    required this.session,
+    required this.catalog,
+    required this.focusedSessionSetId,
+  });
+
+  final TodaySessionSummary session;
+  final ExerciseCatalog? catalog;
+  final String? focusedSessionSetId;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final entries = _queueEntries(context);
+
+    if (entries.isEmpty) {
+      return _ActiveWorkoutCompleteCard(session: session);
+    }
+
+    return AppDashboardCard(
+      key: TodayScreen.activeWorkoutQueueCardKey,
+      title: l10n.todayWorkoutQueueTitle,
+      subtitle: l10n.todaySetProgressSummary(
+        session.completedSetCount,
+        session.totalSetCount,
+      ),
+      leadingIcon: Icons.format_list_bulleted,
+      child: Wrap(
+        spacing: AppSpacing.xs,
+        runSpacing: AppSpacing.xs,
         children: [
-          Text(exerciseName, style: theme.textTheme.titleMedium),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            l10n.todayExerciseActiveSetSummary(exercise.setCount),
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onPrimaryContainer,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.xxs),
-          Text(
-            key: TodayScreen.exerciseStatusKey(exercise.exerciseOrder),
-            l10n.todayExerciseStatusLabel(
-              _exerciseStatusText(l10n, exercise.status),
-            ),
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onPrimaryContainer,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          for (final set in exercise.setSummaries)
-            _SessionSetLogger(
-              summary: set,
-              exerciseName: exerciseName,
-              formatter: formatter,
-              unitSystem: unitSystem,
-              shouldStartRestTimer: set.sessionSet.id != lastSessionSetId,
-              onCompleteSet: onCompleteSet,
-              onStartRestTimer: onStartRestTimer,
+          for (final entry in entries)
+            AppStatusChip(
+              key: TodayScreen.setStatusKey(entry.set.sessionSet.id),
+              label: l10n.todayWorkoutQueueSetLabel(
+                entry.exerciseName,
+                entry.set.setNumber,
+                _setStatusText(l10n, entry.set.status),
+              ),
+              tone: _setStatusTone(entry.set.status),
             ),
         ],
       ),
     );
   }
 
-  String _exerciseName(BuildContext context, String exerciseId) {
-    final localeCode = Localizations.localeOf(context).languageCode;
-    return catalog?.exerciseById(exerciseId)?.name(localeCode) ??
-        humanizeCatalogIdentifier(exerciseId);
+  List<_WorkoutQueueEntry> _queueEntries(BuildContext context) {
+    final entries = <_WorkoutQueueEntry>[];
+    for (final exercise in session.exerciseSummaries) {
+      final exerciseName = _exerciseName(context, catalog, exercise.exerciseId);
+      for (final set in exercise.setSummaries) {
+        if (set.sessionSet.id == focusedSessionSetId) {
+          continue;
+        }
+        entries.add(_WorkoutQueueEntry(exerciseName: exerciseName, set: set));
+      }
+    }
+    return entries;
   }
+}
+
+class _ActiveWorkoutCompleteCard extends StatelessWidget {
+  const _ActiveWorkoutCompleteCard({required this.session});
+
+  final TodaySessionSummary session;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return AppDashboardCard(
+      title: l10n.todayWorkoutCompleteTitle,
+      subtitle: l10n.todayWorkoutCompleteMessage,
+      leadingIcon: Icons.done_all,
+      metric: l10n.todaySetProgressSummary(
+        session.completedSetCount,
+        session.totalSetCount,
+      ),
+    );
+  }
+}
+
+final class _WorkoutQueueEntry {
+  const _WorkoutQueueEntry({required this.exerciseName, required this.set});
+
+  final String exerciseName;
+  final TodaySessionSetSummary set;
+}
+
+TodaySessionSetSummary? _focusedSetSummary(
+  TodaySessionSummary session,
+  RestTimerState restState,
+) {
+  final restSourceSessionSetId = restState.timer?.sourceSessionSetId;
+  if (restState.hasTimer && restSourceSessionSetId != null) {
+    final restSourceSet = _setById(session, restSourceSessionSetId);
+    if (restSourceSet != null) {
+      return restSourceSet;
+    }
+  }
+
+  for (final set in session.setSummaries) {
+    if (!set.isCompleted) {
+      return set;
+    }
+  }
+
+  return session.setSummaries.isEmpty ? null : session.setSummaries.last;
+}
+
+TodaySessionSetSummary? _setById(
+  TodaySessionSummary session,
+  String sessionSetId,
+) {
+  for (final set in session.setSummaries) {
+    if (set.sessionSet.id == sessionSetId) {
+      return set;
+    }
+  }
+  return null;
+}
+
+TodaySessionExerciseSummary? _exerciseForSet(
+  TodaySessionSummary session,
+  String sessionSetId,
+) {
+  for (final exercise in session.exerciseSummaries) {
+    for (final set in exercise.setSummaries) {
+      if (set.sessionSet.id == sessionSetId) {
+        return exercise;
+      }
+    }
+  }
+  return null;
+}
+
+String _exerciseName(
+  BuildContext context,
+  ExerciseCatalog? catalog,
+  String exerciseId,
+) {
+  final localeCode = Localizations.localeOf(context).languageCode;
+  return catalog?.exerciseById(exerciseId)?.name(localeCode) ??
+      humanizeCatalogIdentifier(exerciseId);
 }
 
 class _RestTimerPanel extends ConsumerStatefulWidget {

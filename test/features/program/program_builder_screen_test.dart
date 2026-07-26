@@ -8,6 +8,7 @@ import 'package:project_atlas/core/database/app_database.dart';
 import 'package:project_atlas/core/database/database_providers.dart';
 import 'package:project_atlas/core/localization/locale_provider.dart';
 import 'package:project_atlas/core/repositories/repository_contracts.dart';
+import 'package:project_atlas/core/repositories/repository_providers.dart';
 import 'package:project_atlas/core/repositories/repository_records.dart';
 import 'package:project_atlas/features/exercise_catalog/application/exercise_catalog_provider.dart';
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
@@ -24,9 +25,12 @@ void main() {
     testCatalog = loadTestExerciseCatalog();
   });
 
-  Future<void> pumpApp(WidgetTester tester) async {
-    final database = AppDatabase.forTesting(NativeDatabase.memory());
-    addTearDown(database.close);
+  Future<void> pumpApp(WidgetTester tester, {AppDatabase? database}) async {
+    final appDatabase =
+        database ?? AppDatabase.forTesting(NativeDatabase.memory());
+    if (database == null) {
+      addTearDown(appDatabase.close);
+    }
 
     tester.view.physicalSize = const Size(430, 932);
     tester.view.devicePixelRatio = 1;
@@ -36,7 +40,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          appDatabaseProvider.overrideWithValue(database),
+          appDatabaseProvider.overrideWithValue(appDatabase),
           appLocaleProvider.overrideWithValue(const Locale('en')),
           exerciseCatalogProvider.overrideWith((ref) => testCatalog),
         ],
@@ -75,11 +79,73 @@ void main() {
   Future<void> openProgramBuilder(WidgetTester tester) async {
     await tester.tap(_navigationLabel('Program'));
     await tester.pump();
+    await _pumpUntilFound(tester, find.byKey(ProgramScreen.builderTabKey));
+    await tester.tap(find.byKey(ProgramScreen.builderTabKey));
+    await tester.pump();
+    await _pumpUntilFound(
+      tester,
+      find.byKey(ProgramBuilderRouteScreen.screenKey),
+    );
     await _pumpUntilFound(
       tester,
       find.byKey(ProgramBuilderScreen.createProgramButtonKey),
     );
   }
+
+  testWidgets(
+    'shows active plan overview, training days, and inbox on Program hub',
+    (tester) async {
+      final database = AppDatabase.forTesting(NativeDatabase.memory());
+      addTearDown(database.close);
+      await _seedActiveProgram(database, DateTime.utc(2026, 7, 26, 9));
+
+      await pumpApp(tester, database: database);
+      await tester.tap(_navigationLabel('Program'));
+      await tester.pump();
+      await _pumpUntilFound(
+        tester,
+        find.byKey(ProgramScreen.activePlanOverviewKey),
+      );
+
+      expect(find.text('Strength Base'), findsWidgets);
+      expect(find.text('Version 1 · 2 days'), findsOneWidget);
+      expect(find.text('2d · 5 sets'), findsOneWidget);
+      expect(find.byKey(ProgramScreen.builderTabKey), findsOneWidget);
+      expect(find.byKey(ProgramScreen.catalogTabKey), findsOneWidget);
+      expect(
+        find.byKey(ProgramScreen.recommendationInboxRouteCardKey),
+        findsOneWidget,
+      );
+
+      await tester.scrollUntilVisible(
+        find.byKey(ProgramScreen.trainingDayCardKey(0)),
+        320,
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(ProgramScreen.trainingDayCardKey(0)), findsOneWidget);
+      expect(find.byKey(ProgramScreen.trainingDayCardKey(1)), findsOneWidget);
+      expect(find.text('Upper A'), findsOneWidget);
+      expect(find.text('Lower A'), findsOneWidget);
+      expect(find.text('Barbell bench press'), findsWidgets);
+      expect(find.text('Barbell back squat'), findsWidgets);
+
+      await tester.ensureVisible(
+        find.byKey(ProgramScreen.recommendationInboxRouteCardKey),
+      );
+      await tester.tap(
+        find.byKey(ProgramScreen.recommendationInboxRouteCardKey),
+      );
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byKey(ProgramRecommendationInboxScreen.screenKey),
+        findsOneWidget,
+      );
+      expect(find.text('Review queue'), findsWidgets);
+      expect(find.text('0 pending'), findsWidgets);
+    },
+  );
 
   testWidgets('creates a local program draft and edits training days', (
     tester,
@@ -88,17 +154,27 @@ void main() {
     await openProgramBuilder(tester);
 
     expect(find.byKey(ProgramScreen.screenKey), findsOneWidget);
-    expect(find.text('Builder'), findsOneWidget);
-    expect(find.text('Catalog'), findsOneWidget);
+    expect(find.text('Builder'), findsWidgets);
+    expect(find.text('Catalog'), findsWidgets);
 
     await tester.tap(find.byKey(ProgramBuilderScreen.createProgramButtonKey));
     await tester.pump();
 
+    expect(find.byKey(ProgramBuilderScreen.guidedProgressKey), findsOneWidget);
+    expect(find.byKey(ProgramBuilderScreen.setupStepKey), findsOneWidget);
+    expect(find.byKey(ProgramBuilderScreen.daysStepKey), findsOneWidget);
+    expect(find.byKey(ProgramBuilderScreen.exercisesStepKey), findsOneWidget);
+    expect(
+      find.byKey(ProgramBuilderScreen.prescriptionStepKey),
+      findsOneWidget,
+    );
+    expect(find.byKey(ProgramBuilderScreen.reviewStepKey), findsOneWidget);
+    expect(find.text('Step 1/5'), findsWidgets);
     expect(
       find.byKey(ProgramBuilderScreen.programNameFieldKey),
       findsOneWidget,
     );
-    expect(find.text('1 days · 0 exercises'), findsOneWidget);
+    expect(find.text('1d · 0 exercises'), findsOneWidget);
 
     await tester.enterText(
       find.byKey(ProgramBuilderScreen.programNameFieldKey),
@@ -114,7 +190,7 @@ void main() {
       find.byKey(ProgramBuilderScreen.trainingDayChipKey('day_2')),
       findsOneWidget,
     );
-    expect(find.text('2 days · 0 exercises'), findsOneWidget);
+    expect(find.text('2d · 0 exercises'), findsOneWidget);
 
     await _tapVisible(
       tester,
@@ -192,7 +268,7 @@ void main() {
       find.byKey(ProgramBuilderScreen.exerciseRowKey('barbell_bench_press')),
       findsNothing,
     );
-    expect(find.text('1 days · 1 exercises'), findsOneWidget);
+    expect(find.text('1d · 1 exercises'), findsOneWidget);
   });
   testWidgets('edits exercise prescription inputs independently', (
     tester,
@@ -311,52 +387,153 @@ void main() {
     await tester.tap(find.byKey(ProgramBuilderScreen.createProgramButtonKey));
     await tester.pump();
 
-    expect(_lifecycleStatusText(tester), contains('not saved yet'));
+    expect(_lifecycleStatusText(tester), contains('Draft · unsaved'));
 
     await _tapVisible(
       tester,
       find.byKey(ProgramBuilderScreen.saveDraftButtonKey),
     );
-    await _pumpUntilLifecycleContains(tester, 'Saved draft');
+    await _pumpUntilLifecycleContains(tester, 'Draft v1');
 
-    expect(_lifecycleStatusText(tester), contains('Saved draft'));
-    expect(_lifecycleStatusText(tester), contains('version 1'));
+    expect(_lifecycleStatusText(tester), contains('Draft v1'));
 
     await _tapVisible(
       tester,
       find.byKey(ProgramBuilderScreen.publishVersionButtonKey),
     );
-    await _pumpUntilLifecycleContains(tester, 'Published');
+    await tester.pumpAndSettle();
+    await _tapVisible(
+      tester,
+      find.byKey(ProgramBuilderScreen.publishConfirmButtonKey),
+    );
+    await _pumpUntilLifecycleContains(tester, 'Active v2');
 
-    expect(_lifecycleStatusText(tester), contains('Published'));
-    expect(_lifecycleStatusText(tester), contains('version 2'));
+    expect(_lifecycleStatusText(tester), contains('Active v2'));
 
     await _tapVisible(
       tester,
       find.byKey(ProgramBuilderScreen.copyProgramButtonKey),
     );
-    await _pumpUntilLifecycleContains(tester, 'not saved yet');
+    await _pumpUntilLifecycleContains(tester, 'Draft · unsaved');
 
-    expect(_lifecycleStatusText(tester), contains('not saved yet'));
+    expect(_lifecycleStatusText(tester), contains('Draft · unsaved'));
 
     await _tapVisible(
       tester,
       find.byKey(ProgramBuilderScreen.saveDraftButtonKey),
     );
-    await _pumpUntilLifecycleContains(tester, 'Saved draft');
+    await _pumpUntilLifecycleContains(tester, 'Draft v1');
 
-    expect(_lifecycleStatusText(tester), contains('Saved draft'));
-    expect(_lifecycleStatusText(tester), contains('version 1'));
+    expect(_lifecycleStatusText(tester), contains('Draft v1'));
 
     await _tapVisible(
       tester,
       find.byKey(ProgramBuilderScreen.archiveProgramButtonKey),
     );
-    await _pumpUntilLifecycleContains(tester, 'Archived');
+    await _pumpUntilLifecycleContains(tester, 'Archived v1');
 
-    expect(_lifecycleStatusText(tester), contains('Archived'));
-    expect(_lifecycleStatusText(tester), contains('version 1'));
+    expect(_lifecycleStatusText(tester), contains('Archived v1'));
   });
+}
+
+Future<void> _seedActiveProgram(AppDatabase database, DateTime now) async {
+  final container = ProviderContainer(
+    overrides: [appDatabaseProvider.overrideWithValue(database)],
+  );
+  addTearDown(container.dispose);
+
+  await container
+      .read(profileRepositoryProvider)
+      .saveProfile(
+        ProfileRecord(
+          id: localProgramProfileId,
+          unitPreference: UnitPreference.metric,
+          createdAt: now,
+          updatedAt: now,
+        ),
+      );
+  await container
+      .read(programRepositoryProvider)
+      .saveProgramSnapshot(
+        ProgramRecord(
+          id: 'program-1',
+          profileId: localProgramProfileId,
+          name: 'Strength Base',
+          lifecycle: ProgramLifecycle.active,
+          createdAt: now,
+          updatedAt: now,
+        ),
+        ProgramVersionRecord(
+          id: 'version-1',
+          programId: 'program-1',
+          versionNumber: 1,
+          lifecycle: ProgramVersionLifecycle.active,
+          createdAt: now,
+          activatedAt: now,
+        ),
+        [
+          ProgramTrainingDayRecord(
+            id: 'training-day-0',
+            programVersionId: 'version-1',
+            trainingDayOrder: 0,
+            name: 'Upper A',
+            createdAt: now,
+          ),
+          ProgramTrainingDayRecord(
+            id: 'training-day-1',
+            programVersionId: 'version-1',
+            trainingDayOrder: 1,
+            name: 'Lower A',
+            createdAt: now,
+          ),
+        ],
+        [
+          for (var index = 0; index < 3; index += 1)
+            _prescribedSet(
+              now,
+              id: 'upper-bench-$index',
+              trainingDayOrder: 0,
+              exerciseId: 'barbell_bench_press',
+              exerciseOrder: 0,
+              setOrder: index,
+            ),
+          for (var index = 0; index < 2; index += 1)
+            _prescribedSet(
+              now,
+              id: 'lower-squat-$index',
+              trainingDayOrder: 1,
+              exerciseId: 'barbell_back_squat',
+              exerciseOrder: 0,
+              setOrder: index,
+            ),
+        ],
+        retireActiveVersions: true,
+      );
+}
+
+PrescribedSetRecord _prescribedSet(
+  DateTime now, {
+  required String id,
+  required int trainingDayOrder,
+  required String exerciseId,
+  required int exerciseOrder,
+  required int setOrder,
+}) {
+  return PrescribedSetRecord(
+    id: id,
+    programVersionId: 'version-1',
+    trainingDayOrder: trainingDayOrder,
+    exerciseId: exerciseId,
+    exerciseOrder: exerciseOrder,
+    setOrder: setOrder,
+    minimumRepetitions: 6,
+    maximumRepetitions: 8,
+    targetRir: 2,
+    loadKilograms: 50,
+    restSeconds: 180,
+    progressionStrategy: ProgressionStrategy.doubleProgression,
+    createdAt: now,
+  );
 }
 
 Future<void> _addExercise(

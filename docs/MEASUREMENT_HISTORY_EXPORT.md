@@ -14,7 +14,7 @@ create restore/import behavior, mutate measurement records, create analytics
 tables, or change training prescriptions.
 
 This is separate from the full encrypted backup and restore flow planned for
-P7-10. P6-09 does not produce a restore-capable backup container.
+P8-10. P6-09 does not produce a restore-capable backup container.
 
 ## Comparison Rules
 

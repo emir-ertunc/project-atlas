@@ -4,6 +4,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_atlas/app/navigation/main_navigation_shell.dart';
 import 'package:project_atlas/app/project_atlas_app.dart';
 import 'package:project_atlas/core/database/app_database.dart';
@@ -100,6 +101,12 @@ void main() {
         expect(logs.single.repetitions, 8);
 
         await tester.tap(_navigationLabel('Progress'));
+        await tester.pump();
+        await _pumpUntilFound(
+          tester,
+          find.byKey(ProgressScreen.historyRouteCardKey),
+        );
+        await tester.tap(find.byKey(ProgressScreen.historyRouteCardKey));
         await tester.pump();
         await _pumpUntilFound(
           tester,
@@ -305,6 +312,10 @@ Future<AppDatabase> _pumpWorkoutApp(
       child: const ProjectAtlasApp(),
     ),
   );
+  await tester.pump();
+  GoRouter.of(
+    tester.element(find.byKey(TodayScreen.screenKey)),
+  ).go(TodayWorkoutScreen.path);
   await tester.pump();
 
   return database;

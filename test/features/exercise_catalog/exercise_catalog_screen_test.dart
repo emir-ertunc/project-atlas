@@ -11,6 +11,7 @@ import 'package:project_atlas/features/exercise_catalog/application/exercise_cat
 import 'package:project_atlas/features/exercise_catalog/domain/exercise_catalog.dart';
 import 'package:project_atlas/features/exercise_catalog/presentation/exercise_catalog_screen.dart';
 import 'package:project_atlas/features/exercise_catalog/presentation/exercise_detail_screen.dart';
+import 'package:project_atlas/features/program/presentation/program_builder_screen.dart';
 import 'package:project_atlas/features/program/presentation/program_screen.dart';
 
 import '../../support/test_exercise_catalog.dart';
@@ -64,8 +65,18 @@ void main() {
 
     expect(find.byKey(ProgramScreen.screenKey), findsOneWidget);
     expect(find.byKey(ExerciseCatalogScreen.searchFieldKey), findsOneWidget);
-    expect(find.text('Filters'), findsOneWidget);
-    expect(find.text('Showing 120 of 120 exercises'), findsOneWidget);
+    expect(
+      find.byKey(ExerciseCatalogScreen.filterSheetButtonKey),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(ExerciseCatalogScreen.compactFilterBarKey),
+      findsOneWidget,
+    );
+    expect(find.text('120/120 exercises'), findsOneWidget);
+
+    await tester.tap(find.byKey(ExerciseCatalogScreen.filterSheetButtonKey));
+    await tester.pumpAndSettle();
 
     final squatFilter = find.byKey(
       ExerciseCatalogScreen.filterChipKey(
@@ -80,7 +91,39 @@ void main() {
     await tester.pump(const Duration(milliseconds: 250));
 
     expect(tester.widget<FilterChip>(squatFilter).selected, isTrue);
-    expect(find.text('Showing 120 of 120 exercises'), findsNothing);
+    expect(find.text('120/120 exercises'), findsNothing);
+  });
+
+  testWidgets('adds a catalog exercise to a local program draft', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openCatalogTab(tester);
+
+    await tester.enterText(
+      find.byKey(ExerciseCatalogScreen.searchFieldKey),
+      'barbell bench press',
+    );
+    await tester.pump(const Duration(milliseconds: 250));
+
+    final addButton = find.byKey(
+      ExerciseCatalogScreen.addToProgramButtonKey('barbell_bench_press'),
+    );
+    await _dragUntilFound(tester, addButton);
+    await tester.tap(addButton);
+    await tester.pump();
+
+    expect(find.textContaining('Draft created'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await _pumpUntilFound(tester, find.byKey(ProgramScreen.builderTabKey));
+    await tester.tap(find.byKey(ProgramScreen.builderTabKey));
+    await tester.pump();
+    await _pumpUntilFound(
+      tester,
+      find.byKey(ProgramBuilderScreen.exerciseRowKey('barbell_bench_press')),
+    );
   });
 
   testWidgets('searches the local catalog and opens exercise detail', (
@@ -115,12 +158,42 @@ void main() {
 
     expect(find.byKey(ExerciseDetailScreen.screenKey), findsOneWidget);
     expect(find.text('Barbell bench press'), findsWidgets);
-    expect(find.text('Setup'), findsOneWidget);
-
+    expect(find.byKey(ExerciseDetailScreen.mediaHeroKey), findsOneWidget);
+    expect(
+      find.byKey(
+        ExerciseDetailScreen.addToProgramButtonKey('barbell_bench_press'),
+      ),
+      findsOneWidget,
+    );
+    final detailList = find.descendant(
+      of: find.byKey(ExerciseDetailScreen.screenKey),
+      matching: find.byType(ListView),
+    );
     final detailScrollable = find.descendant(
-      of: find.byType(ListView),
+      of: detailList,
       matching: find.byType(Scrollable),
     );
+    await tester.scrollUntilVisible(
+      find.byKey(
+        ExerciseDetailScreen.primaryMuscleChipKey('pectoralis_major_right'),
+      ),
+      160,
+      scrollable: detailScrollable,
+    );
+    expect(
+      find.byKey(
+        ExerciseDetailScreen.primaryMuscleChipKey('pectoralis_major_right'),
+      ),
+      findsOneWidget,
+    );
+
+    await tester.scrollUntilVisible(
+      find.text('Setup'),
+      160,
+      scrollable: detailScrollable,
+    );
+    expect(find.text('Setup'), findsOneWidget);
+
     await tester.scrollUntilVisible(
       find.text('Execution'),
       160,
@@ -129,13 +202,19 @@ void main() {
     expect(find.text('Execution'), findsOneWidget);
 
     await tester.scrollUntilVisible(
-      find.text('Primary muscles'),
+      find.byKey(
+        ExerciseDetailScreen.substitutionChipKey('dumbbell_bench_press'),
+      ),
       240,
       scrollable: detailScrollable,
     );
 
-    expect(find.text('Primary muscles'), findsOneWidget);
-    expect(find.text('Right pectoralis major'), findsOneWidget);
+    expect(
+      find.byKey(
+        ExerciseDetailScreen.substitutionChipKey('dumbbell_bench_press'),
+      ),
+      findsOneWidget,
+    );
   });
 }
 
